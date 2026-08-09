@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact & Book a Cleaning — FreClean</title>
+<meta name="description" content="Contact FreClean or book a cleaning service in Léogâne, Haiti.">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="nav">
+    <a class="brand" href="index.html"><img src="assets/img/logo.jpg" alt="FreClean logo"> FreClean</a>
+    <button class="menu-toggle" aria-label="Open menu" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+    <ul id="navlinks">
+      <li><a href="about.html">Company</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="entrepreneurship.html">Entrepreneurship</a></li>
+      <li><a href="web3-payments.html">Web3 Payments</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a class="cta" href="contact.html#book">Book a Cleaning</a></li>
+    </ul>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> / Contact</div>
+    <h1>Talk to FreClean</h1>
+    <p class="lead">Reach the team directly, or book a cleaning below.</p>
+  </div>
+</section>
+
+<div class="container"><div class="wipe"></div></div>
+
+<section>
+  <div class="container grid cols-2">
+    <div>
+      <img src="assets/img/contact-frontdesk.png" alt="FreClean front desk with a customer checking in" style="margin-bottom:20px;">
+      <div class="card">
+        <h3>Direct contact</h3>
+        <table>
+          <tr><th>Email</th><td><a href="mailto:freclean7@gmail.com">freclean7@gmail.com</a></td></tr>
+          <tr><th>Phone</th><td><a href="tel:+18493881969">+1 (849) 388-1969</a></td></tr>
+          <tr><th>Area</th><td>Léogâne, Ouest, Haiti</td></tr>
+        </table>
+      </div>
+    </div>
+    <div id="book" class="card">
+      <h3>Book a cleaning</h3>
+      <p>This form does not submit yet — connect it to the FreClean API's <span class="mono">/bookings</span> endpoint to go live.</p>
+      <form onsubmit="event.preventDefault();alert('Booking form is not yet connected to the FreClean API.');">
+        <p><label>Full name<br><input type="text" required style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;margin-top:4px;"></label></p>
+        <p><label>Phone<br><input type="tel" required style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;margin-top:4px;"></label></p>
+        <p><label>Service<br>
+          <select style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;margin-top:4px;">
+            <option>Airbnb turnover</option>
+            <option>Residential cleaning</option>
+            <option>Office cleaning</option>
+            <option>Hotel cleaning</option>
+            <option>Kitchen cleaning</option>
+          </select>
+        </label></p>
+        <p><label>Preferred date<br><input type="date" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;margin-top:4px;"></label></p>
+        <button class="btn btn-primary" type="submit" style="width:100%;border:none;cursor:pointer;">Request booking</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container grid">
+    <div>
+      <a class="brand" href="index.html" style="color:#fff;"><img src="assets/img/logo.jpg" alt="FreClean logo"> FreClean</a>
+      <p style="color:#9DBBB4;margin-top:12px;max-width:32ch;">Professional cleaning, cleaning products, entrepreneurship, and Web3 payments — Léogâne, Ouest, Haiti.</p>
+    </div>
+    <div><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="products.html">Products</a></li></ul></div>
+    <div><h4>Programs</h4><ul><li><a href="entrepreneurship.html">Entrepreneurship</a></li><li><a href="web3-payments.html">Web3 Payments</a></li></ul></div>
+    <div><h4>Contact</h4><ul><li><a href="mailto:freclean7@gmail.com">freclean7@gmail.com</a></li><li><a href="tel:+18493881969">+1 (849) 388-1969</a></li><li>Léogâne, Ouest, Haiti</li></ul></div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© 2026 FreClean. All rights reserved.</span>
+    <span><a href="policies.html">Privacy · Terms · Booking · Payment policies</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
