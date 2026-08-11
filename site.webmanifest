@@ -1,0 +1,9 @@
+{
+  "name": "FreClean",
+  "short_name": "FreClean",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F6FAF9",
+  "theme_color": "#0B72B9",
+  "icons": [{"src":"/favicon.svg","sizes":"any","type":"image/svg+xml"}]
+}

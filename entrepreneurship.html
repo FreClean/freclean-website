@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Entrepreneurship — FreClean Entrepreneur Program</title>
-<meta name="description" content="The FreClean Entrepreneur Program helps people build a small business selling and distributing FreClean cleaning and fragrance products.">
-<link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrepreneurship — FreClean Entrepreneur Program</title>
+  <meta name="description" content="The FreClean Entrepreneur Program helps people build a small business selling and distributing FreClean cleaning and fragrance products.">
+  <link rel="canonical" href="https://freclean.com/entrepreneurship.html">
+  <meta property="og:title" content="FreClean — Entrepreneurship Program">
+  <meta property="og:description" content="Training, starter packages, and product access for entrepreneurs.">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site">
   <div class="nav">
     <a class="brand" href="index.html"><img src="assets/img/logo.jpg" alt="FreClean logo"> FreClean</a>
-    <button class="menu-toggle" aria-label="Open menu" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+    <button class="menu-toggle" aria-label="Open menu" aria-controls="navlinks" aria-expanded="false">&#9776;</button>
     <ul id="navlinks">
       <li><a href="about.html">Company</a></li>
       <li><a href="services.html">Services</a></li>
@@ -24,6 +31,8 @@
     </ul>
   </div>
 </header>
+
+<main id="main">
 
 <section class="page-hero">
   <div class="container">
@@ -37,7 +46,10 @@
 
 <section>
   <div class="container">
-    <img src="assets/img/entrepreneurship-market.png" alt="FreClean entrepreneur selling products at a market stall in Léogâne" style="margin-bottom:36px;">
+    <picture>
+      <source type="image/webp" srcset="assets/img/entrepreneurship-market.webp">
+      <img src="assets/img/entrepreneurship-market.png" alt="FreClean entrepreneur selling products at a market stall in Léogâne" style="margin-bottom:36px;" loading="lazy">
+    </picture>
     <div class="section-head">
       <span class="eyebrow">Program status: Planned</span>
       <h2>How the program is designed to work</h2>
@@ -87,7 +99,24 @@
     <span>© 2026 FreClean. All rights reserved.</span>
     <span><a href="policies.html">Privacy · Terms · Booking · Payment policies</a></span>
   </div>
-</footer>
+  </footer>
+
+  <script>
+  (function(){
+    const btn = document.querySelector('.menu-toggle');
+    const nav = document.getElementById('navlinks');
+    if(btn && nav){
+      btn.setAttribute('aria-expanded','false');
+      btn.addEventListener('click', function(){
+        const open = nav.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ nav.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }});
+    }
+  })();
+  </script>
+
+</main>
 
 </body>
 </html>

@@ -1,18 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FreClean — Professional Cleaning, Products & Web3 Payments in Haiti</title>
-<meta name="description" content="FreClean provides professional cleaning services, cleaning & fragrance products, an entrepreneur program, and Celo-powered Web3 payments in Léogâne, Haiti.">
-<link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FreClean — Professional Cleaning, Products & Web3 Payments in Haiti</title>
+  <meta name="description" content="FreClean provides professional cleaning services, cleaning & fragrance products, an entrepreneur program, and Celo-powered Web3 payments in Léogâne, Haiti.">
+  <link rel="canonical" href="https://freclean.com/">
+  <meta property="og:title" content="FreClean — Professional cleaning & products">
+  <meta property="og:description" content="Professional cleaning services, products, entrepreneurship, and Celo-powered payments — Léogâne, Haiti.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+  <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "FreClean",
+    "url": "https://freclean.com/",
+    "email": "mailto:freclean7@gmail.com",
+    "telephone": "+18493881969",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Léogâne",
+      "addressRegion": "Ouest",
+      "addressCountry": "HT"
+    }
+  }
+  </script>
 </head>
 <body>
+
+<a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site">
   <div class="nav">
     <a class="brand" href="index.html"><img src="assets/img/logo.jpg" alt="FreClean logo"> FreClean</a>
-    <button class="menu-toggle" aria-label="Open menu" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+    <button class="menu-toggle" aria-label="Open menu" aria-controls="navlinks" aria-expanded="false">&#9776;</button>
     <ul id="navlinks">
       <li><a href="about.html">Company</a></li>
       <li><a href="services.html">Services</a></li>
@@ -25,22 +49,29 @@
   </div>
 </header>
 
-<section class="hero">
+<main id="main">
+
+<section class="hero" role="region" aria-labelledby="hero-title" aria-describedby="hero-desc">
   <div class="container hero-grid">
     <div>
       <span class="eyebrow">Léogâne · Ouest · Haiti</span>
-      <h1>A cleaner space, a fair payment, a real business.</h1>
-      <p class="lead">FreClean pairs professional cleaning services and cleaning products with an entrepreneur program and Celo-powered digital payments — built in Haiti, for Haiti.</p>
+      <h1 id="hero-title">A cleaner space, a fair payment, a real business.</h1>
+      <p id="hero-desc" class="lead">FreClean pairs professional cleaning services and cleaning products with an entrepreneur program and Celo-powered digital payments — built in Haiti, for Haiti.</p>
       <div class="btn-row">
-        <a class="btn btn-primary" href="contact.html#book">Book a cleaning</a>
-        <a class="btn btn-ghost" href="products.html">See products</a>
+        <a class="btn btn-primary" href="contact.html#book">Book a Cleaning</a>
+        <a class="btn btn-ghost" href="products.html">Explore FreClean</a>
       </div>
     </div>
-    <div class="hero-img"><img src="assets/img/hero-product.png" alt="FreClean multi-surface cleaner bottle in a kitchen"></div>
+    <div class="hero-img">
+      <picture>
+        <source type="image/webp" srcset="assets/img/hero-product.webp">
+        <img src="assets/img/hero-product.png" alt="FreClean multi-surface cleaner bottle in a kitchen" loading="eager" fetchpriority="high">
+      </picture>
+    </div>
   </div>
 </section>
 
-<div class="container"><div class="wipe"></div></div>
+  <div class="container"><div class="wipe"></div></div>
 
 <section>
   <div class="container">
@@ -85,7 +116,10 @@
         <p>FreClean's multi-surface cleaner is formulated for tropical households and businesses. Full ingredient, safety, and availability information is published on each product's page as it is verified.</p>
         <a class="btn btn-ghost" href="products.html">View product catalog</a>
       </div>
-      <img src="assets/img/product-detail.png" alt="FreClean multi-surface cleaning spray bottle">
+      <picture>
+        <source type="image/webp" srcset="assets/img/product-detail.webp">
+        <img src="assets/img/product-detail.png" alt="FreClean multi-surface cleaning spray bottle" loading="lazy">
+      </picture>
     </div>
   </div>
 </section>
@@ -147,7 +181,24 @@
     <span>© 2026 FreClean. All rights reserved.</span>
     <span><a href="policies.html">Privacy · Terms · Booking · Payment policies</a></span>
   </div>
-</footer>
+  </footer>
+
+  <script>
+  (function(){
+    const btn = document.querySelector('.menu-toggle');
+    const nav = document.getElementById('navlinks');
+    if(btn && nav){
+      btn.setAttribute('aria-expanded','false');
+      btn.addEventListener('click', function(){
+        const open = nav.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ nav.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }});
+    }
+  })();
+  </script>
+
+</main>
 
 </body>
 </html>

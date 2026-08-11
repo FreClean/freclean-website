@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Web3 Payments — Celo & CeloHT — FreClean</title>
-<meta name="description" content="How FreClean's Web3 payments work: Celo, the CeloHT partnership, Valora wallet, and supported stablecoins.">
-<link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web3 Payments — Celo & CeloHT — FreClean</title>
+  <meta name="description" content="How FreClean's Web3 payments work: Celo, the CeloHT partnership, Valora wallet, and supported stablecoins.">
+  <link rel="canonical" href="https://freclean.com/web3-payments.html">
+  <meta property="og:title" content="FreClean — Web3 Payments">
+  <meta property="og:description" content="How FreClean accepts digital payments on Celo through CeloHT.">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site">
   <div class="nav">
     <a class="brand" href="index.html"><img src="assets/img/logo.jpg" alt="FreClean logo"> FreClean</a>
-    <button class="menu-toggle" aria-label="Open menu" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+    <button class="menu-toggle" aria-label="Open menu" aria-controls="navlinks" aria-expanded="false">&#9776;</button>
     <ul id="navlinks">
       <li><a href="about.html">Company</a></li>
       <li><a href="services.html">Services</a></li>
@@ -25,12 +32,17 @@
   </div>
 </header>
 
+<main id="main">
+
 <section class="page-hero">
   <div class="container">
     <div class="breadcrumb"><a href="index.html">Home</a> / Web3 Payments</div>
     <h1>Digital payments on Celo, through CeloHT</h1>
     <p class="lead">FreClean is not a crypto company. It's a cleaning company that also accepts a stablecoin payment, verified the same way any other payment is verified.</p>
-    <img src="assets/img/celoht-logo.png" alt="CeloHT partner mark" style="width:64px;height:64px;margin-top:18px;border-radius:14px;">
+    <picture>
+      <source type="image/webp" srcset="assets/img/celoht-logo.webp">
+      <img src="assets/img/celoht-logo.png" alt="CeloHT partner mark" style="width:64px;height:64px;margin-top:18px;border-radius:14px;" loading="lazy">
+    </picture>
   </div>
 </section>
 
@@ -39,7 +51,10 @@
 <section>
   <div class="container">
     <div class="grid cols-2" style="align-items:center;">
-      <img src="assets/img/web3-checkout.png" alt="Mobile payment confirmation screen at FreClean checkout">
+      <picture>
+        <source type="image/webp" srcset="assets/img/web3-checkout.webp">
+        <img src="assets/img/web3-checkout.png" alt="Mobile payment confirmation screen at FreClean checkout" loading="lazy">
+      </picture>
       <div>
         <span class="eyebrow">Explained simply</span>
         <h2>Four questions, answered</h2>
@@ -103,7 +118,24 @@
     <span>© 2026 FreClean. All rights reserved.</span>
     <span><a href="policies.html">Privacy · Terms · Booking · Payment policies</a></span>
   </div>
-</footer>
+  </footer>
+
+  <script>
+  (function(){
+    const btn = document.querySelector('.menu-toggle');
+    const nav = document.getElementById('navlinks');
+    if(btn && nav){
+      btn.setAttribute('aria-expanded','false');
+      btn.addEventListener('click', function(){
+        const open = nav.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ nav.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }});
+    }
+  })();
+  </script>
+
+</main>
 
 </body>
 </html>

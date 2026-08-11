@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact & Book a Cleaning — FreClean</title>
-<meta name="description" content="Contact FreClean or book a cleaning service in Léogâne, Haiti.">
-<link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact & Book a Cleaning — FreClean</title>
+  <meta name="description" content="Contact FreClean or book a cleaning service in Léogâne, Haiti.">
+  <link rel="canonical" href="https://freclean.com/contact.html">
+  <meta property="og:title" content="FreClean — Contact & Bookings">
+  <meta property="og:description" content="Contact FreClean or request a booking in Léogâne, Haiti.">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site">
   <div class="nav">
     <a class="brand" href="index.html"><img src="assets/img/logo.jpg" alt="FreClean logo"> FreClean</a>
-    <button class="menu-toggle" aria-label="Open menu" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+    <button class="menu-toggle" aria-label="Open menu" aria-controls="navlinks" aria-expanded="false">&#9776;</button>
     <ul id="navlinks">
       <li><a href="about.html">Company</a></li>
       <li><a href="services.html">Services</a></li>
@@ -24,6 +31,8 @@
     </ul>
   </div>
 </header>
+
+<main id="main">
 
 <section class="page-hero">
   <div class="container">
@@ -38,7 +47,10 @@
 <section>
   <div class="container grid cols-2">
     <div>
-      <img src="assets/img/contact-frontdesk.png" alt="FreClean front desk with a customer checking in" style="margin-bottom:20px;">
+      <picture>
+        <source type="image/webp" srcset="assets/img/contact-frontdesk.webp">
+        <img src="assets/img/contact-frontdesk.png" alt="FreClean front desk with a customer checking in" style="margin-bottom:20px;" loading="lazy">
+      </picture>
       <div class="card">
         <h3>Direct contact</h3>
         <table>
@@ -51,9 +63,9 @@
     <div id="book" class="card">
       <h3>Book a cleaning</h3>
       <p>This form does not submit yet — connect it to the FreClean API's <span class="mono">/bookings</span> endpoint to go live.</p>
-      <form onsubmit="event.preventDefault();alert('Booking form is not yet connected to the FreClean API.');">
-        <p><label>Full name<br><input type="text" required style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;margin-top:4px;"></label></p>
-        <p><label>Phone<br><input type="tel" required style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;margin-top:4px;"></label></p>
+      <form onsubmit="event.preventDefault();alert('Booking form is not yet connected to the FreClean API.');" aria-describedby="booking-note">
+        <p><label>Full name<br><input type="text" name="fullName" required aria-required="true" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;margin-top:4px;"></label></p>
+        <p><label>Phone<br><input type="tel" name="phone" required aria-required="true" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;margin-top:4px;"></label></p>
         <p><label>Service<br>
           <select style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;margin-top:4px;">
             <option>Airbnb turnover</option>
@@ -65,6 +77,7 @@
         </label></p>
         <p><label>Preferred date<br><input type="date" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;margin-top:4px;"></label></p>
         <button class="btn btn-primary" type="submit" style="width:100%;border:none;cursor:pointer;">Request booking</button>
+        <div id="booking-note" style="margin-top:10px;font-size:.9rem;color:var(--ink-soft);">This form is a front-end prototype. Connect to the FreClean API <span class="mono">/bookings</span> to enable submission.</div>
       </form>
     </div>
   </div>
@@ -84,7 +97,25 @@
     <span>© 2026 FreClean. All rights reserved.</span>
     <span><a href="policies.html">Privacy · Terms · Booking · Payment policies</a></span>
   </div>
-</footer>
+  </div>
+  </footer>
+
+  <script>
+  (function(){
+    const btn = document.querySelector('.menu-toggle');
+    const nav = document.getElementById('navlinks');
+    if(btn && nav){
+      btn.setAttribute('aria-expanded','false');
+      btn.addEventListener('click', function(){
+        const open = nav.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ nav.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }});
+    }
+  })();
+  </script>
+
+</main>
 
 </body>
 </html>

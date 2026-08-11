@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About FreClean — Company & Founder</title>
-<meta name="description" content="FreClean was founded April 16, 2025 in Léogâne, Haiti by Johnny Dubic. Learn about the company, its mission, and its governance model.">
-<link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About FreClean — Company & Founder</title>
+  <meta name="description" content="FreClean was founded April 16, 2025 in Léogâne, Haiti by Johnny Dubic. Learn about the company, its mission, and its governance model.">
+  <link rel="canonical" href="https://freclean.com/about.html">
+  <meta property="og:title" content="About FreClean — Company & Founder">
+  <meta property="og:description" content="Learn about FreClean's mission and governance.">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site">
   <div class="nav">
     <a class="brand" href="index.html"><img src="assets/img/logo.jpg" alt="FreClean logo"> FreClean</a>
-    <button class="menu-toggle" aria-label="Open menu" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+    <button class="menu-toggle" aria-label="Open menu" aria-controls="navlinks" aria-expanded="false">&#9776;</button>
     <ul id="navlinks">
       <li><a href="about.html">Company</a></li>
       <li><a href="services.html">Services</a></li>
@@ -24,6 +31,8 @@
     </ul>
   </div>
 </header>
+
+<main id="main">
 
 <section class="page-hero">
   <div class="container">
@@ -51,7 +60,10 @@
         <tr><th>Tax ID</th><td>Not provided</td></tr>
       </table>
     </div>
-    <img src="assets/img/about-boardroom.png" alt="FreClean team reviewing strategy in a meeting room">
+    <picture>
+      <source type="image/webp" srcset="assets/img/about-boardroom.webp">
+      <img src="assets/img/about-boardroom.png" alt="FreClean team reviewing strategy in a meeting room" loading="lazy">
+    </picture>
   </div>
 </section>
 
@@ -96,7 +108,24 @@
     <span>© 2026 FreClean. All rights reserved.</span>
     <span><a href="policies.html">Privacy · Terms · Booking · Payment policies</a></span>
   </div>
-</footer>
+  </footer>
+
+  <script>
+  (function(){
+    const btn = document.querySelector('.menu-toggle');
+    const nav = document.getElementById('navlinks');
+    if(btn && nav){
+      btn.setAttribute('aria-expanded','false');
+      btn.addEventListener('click', function(){
+        const open = nav.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ nav.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }});
+    }
+  })();
+  </script>
+
+</main>
 
 </body>
 </html>
