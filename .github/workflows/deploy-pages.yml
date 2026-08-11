@@ -18,15 +18,11 @@ jobs:
       - name: Validate asset paths
         run: |
           echo "Validating image path usage..."
-          # Warn if any HTML references root-image filenames instead of assets/img/
           if grep -R "src=\"[a-zA-Z0-9_-]*\.png\"" --exclude-dir=.git --line-number . | grep -v "assets/img"; then
             echo "Warning: some HTML files reference image files directly at the repository root. Ensure images are placed under assets/img/.";
           else
             echo "Image paths look consistent (using assets/img/).";
           fi
-
-      - name: Configure Pages
-        uses: actions/configure-pages@v3
 
       - name: Optimize images (CI)
         run: |
@@ -41,10 +37,9 @@ jobs:
             cwebp -q 80 "$img" -o "${img%.*}.webp" || true
           done
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+      - name: Deploy to branch `gh-pages`
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: .
-
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+          publish_dir: ./
+          publish_branch: gh-pages
+          allow_empty_commit: true
