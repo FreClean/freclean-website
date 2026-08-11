@@ -1,12 +1,14 @@
 # FreClean Website
 
-Public marketing website for **FreClean** — professional cleaning services, cleaning & fragrance products, entrepreneurship program, and Celo-powered Web3 payments, based in Léogâne, Ouest, Haiti.
+Public marketing website for **FreClean**, a Haiti-based business delivering cleaning services, cleaning & fragrance products, an entrepreneurship program, and Celo-powered digital payments.
+
+FreClean is positioned for strategic partnership and investor interest as the business model and product offerings mature.
 
 Part of the FreClean ecosystem (see `freclean-api`, `freclean-admin`, `freclean-dapp`, `freclean-payment`, `freclean-docs`, and other companion repositories).
 
 ## Status
 
-**In development.** Static front-end only — no backend is connected yet. The booking form on `contact.html` and the Supported Assets Registry on `web3-payments.html` are front-end prototypes that will connect to `freclean-api` and `freclean-payment` when available.
+This static website presents FreClean's business direction and digital product concept. Backend integrations are planned for future stages, and booking/payment systems will connect to `freclean-api` and `freclean-payment` as they become available.
 
 ## Pages
 
@@ -18,8 +20,8 @@ Part of the FreClean ecosystem (see `freclean-api`, `freclean-admin`, `freclean-
 | Products | `products.html` | Live |
 | Entrepreneurship | `entrepreneurship.html` | Live |
 | Web3 Payments | `web3-payments.html` | Live |
-| Contact / Book a Cleaning | `contact.html` | Live (form not yet connected) |
-| Policies | `policies.html` | Live (legal text is a working draft) |
+| Contact / Book a Cleaning | `contact.html` | Live (online booking integration planned) |
+| Policies | `policies.html` | Live (legal policy review in progress) |
 
 ## Tech
 
@@ -43,7 +45,7 @@ Note: GitHub Actions workflow includes a CI step that generates `.webp` versions
 
 ## Running locally
 
-No build tools required — open `index.html` in a browser, or serve the folder:
+No build tools required. Open `index.html` in a browser, or serve the folder:
 
 ```bash
 python3 -m http.server 8080
@@ -51,7 +53,7 @@ python3 -m http.server 8080
 
 ## Data integrity rule
 
-This repository follows FreClean's realism rule: **no invented business facts.** Anything not yet verified (pricing, SKUs, registration numbers, asset registry entries) is explicitly labeled `Not provided`, `In development`, or `Planned` rather than filled in with placeholder-looking real data.
+This repository follows FreClean's realism rule: **no invented business facts.** Verified details are presented clearly, while pricing, SKUs, registration numbers, and asset registry entries are published only after confirmation.
 
 ## Roadmap for this repo
 
@@ -75,4 +77,4 @@ Not provided.
 
 ## Contact
 
-FreClean — freclean7@gmail.com — +1 (849) 388-1969 — Léogâne, Ouest, Haiti
+FreClean | freclean7@gmail.com | +1 (849) 388-1969 | Léogâne, Ouest, Haiti
