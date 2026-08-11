@@ -186,6 +186,31 @@ th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);font
 th{font-family:'Space Grotesk';background:var(--surface-alt);font-weight:600;}
 tr:last-child td{border-bottom:none;}
 
+@media (max-width:760px){
+  table, thead, tbody, th, td, tr{display:block;}
+  thead tr{position:absolute;top:-9999px;left:-9999px;}
+  tr{margin-bottom:18px;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
+  td{border:none;border-bottom:1px solid var(--line);position:relative;padding-left:50%;}
+  td:before{
+    position:absolute;top:12px;left:14px;width:45%;padding-right:10px;white-space:normal;font-weight:700;color:var(--ink-soft);
+  }
+  td:nth-of-type(1):before{content:'Actif';}
+  td:nth-of-type(2):before{content:'Symbole';}
+  td:nth-of-type(3):before{content:'Réseau';}
+  td:nth-of-type(4):before{content:'Statut';}
+  td:nth-of-type(5):before{content:'Paiement';}
+  td:nth-of-type(6):before{content:'Vérification';}
+}
+
+.registry-empty{
+  background:rgba(11,114,185,.06);
+  border:1px dashed rgba(11,114,185,.35);
+  padding:24px;
+  color:var(--ink-soft);
+}
+.registry-empty h3{margin-top:0;color:var(--blue-deep);}
+.registry-empty p{margin-bottom:0;line-height:1.7;}
+
 /* ---- Callout / disclaimer ---- */
 .callout{
   border-left:4px solid var(--gold);background:#FFF8E9;padding:16px 20px;border-radius:8px;
