@@ -196,7 +196,23 @@ section{padding:56px 0;}
 }
 .pay-box .card-row{display:flex;justify-content:space-between;align-items:center;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.76rem;}
 .pay-box .card-row.small{margin-top:14px;font-size:.63rem;opacity:.82;letter-spacing:.2em;}
-@media (max-width:860px){.pay-shell{grid-template-columns:1fr;}}
+
+.payment-form{
+  display:flex;flex-direction:column;gap:12px;margin:20px 0 0;
+}
+.payment-form label{
+  display:flex;flex-direction:column;gap:7px;color:var(--ink);font-weight:600;font-size:.82rem;
+}
+.payment-form input{
+  border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff;
+  font:inherit;color:var(--ink);transition:border-color .18s ease, box-shadow .18s ease;
+}
+.payment-form input:focus{
+  outline:none;border-color:rgba(11,114,185,.52);box-shadow:0 0 0 4px rgba(11,114,185,.08);
+}
+.form-row{display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:12px;}
+.payment-form button{margin-top:6px;border:none;cursor:pointer;}
+@media (max-width:860px){.pay-shell{grid-template-columns:1fr;}.form-row{grid-template-columns:1fr;}}
 
 /* ---- Steps (used for Web3 status flow + program flow) ---- */
 .steps{display:flex;flex-wrap:wrap;gap:0;counter-reset:step;}
