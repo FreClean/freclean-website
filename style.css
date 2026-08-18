@@ -146,10 +146,19 @@ header.site{
 .hero h1{font-size:clamp(2.1rem,4vw,3.4rem);}
 .hero p.lead{font-size:1.15rem;max-width:46ch;}
 .btn-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px;}
+.btn-row-split{align-items:center;}
 .btn{
   display:inline-block;padding:13px 24px;border-radius:999px;font-weight:600;
   font-size:.95rem;border:2px solid transparent;box-shadow:0 14px 24px -18px rgba(15,42,46,.35);
 }
+.btn-logo{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:11px 18px 11px 16px;
+}
+.btn-logo img{
+  width:24px;height:24px;border-radius:8px;object-fit:cover;flex-shrink:0;
+}
+.btn-logo span{display:inline-block;line-height:1.2;}
 .btn-primary{background:var(--wipe);color:#fff;}
 .btn-primary:hover{filter:brightness(1.06);box-shadow:0 18px 28px -18px rgba(11,114,185,.7);}
 .btn-ghost{border-color:var(--blue);color:var(--blue-deep);background:rgba(255,255,255,.7);}
