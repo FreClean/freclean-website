@@ -72,6 +72,33 @@
           <span>Confirmation before service delivery</span>
           <span>Digital receipt included</span>
         </div>
+
+        <form class="payment-form" action="#" method="post">
+          <label>
+            Cardholder name
+            <input type="text" name="cardholder" placeholder="Full name on card" />
+          </label>
+          <label>
+            Card number
+            <input type="text" name="card-number" inputmode="numeric" placeholder="1234 5678 9012 3456" />
+          </label>
+          <div class="form-row">
+            <label>
+              Expiry date
+              <input type="text" name="expiry" placeholder="MM / YY" />
+            </label>
+            <label>
+              CVV
+              <input type="text" name="cvv" inputmode="numeric" placeholder="123" />
+            </label>
+          </div>
+          <label>
+            Billing ZIP / Postal code
+            <input type="text" name="zip" placeholder="ZIP / Postal code" />
+          </label>
+          <button type="submit" class="btn btn-primary">Submit payment</button>
+        </form>
+
         <div class="pay-box" aria-label="Debit card payment illustration">
           <div class="chip"></div>
           <div class="card-row"><span>FreClean</span><span>●●●●</span></div>
