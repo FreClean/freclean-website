@@ -3,8 +3,12 @@
 The public-facing marketing/informational site for FreClean. Static
 HTML/CSS/JS, deployable to any static host (GitHub Pages, Netlify, etc.).
 
-This site explains the business — it is **not** the internal app dashboard.
-For the customer/staff/admin application, see `freclean-app`.
+This site explains the business and starts customer requests — it is **not**
+the internal app dashboard. For the customer/staff/admin application, see
+`freclean-app`.
+
+The four-repository boundary and current integration status are documented in
+[`docs/architecture-2.0.md`](docs/architecture-2.0.md).
 
 ## Pages
 - `index.html` — editorial homepage
@@ -34,6 +38,7 @@ The site is intentionally static. The FreClean API currently exposes
 authenticated booking and payment routes, but no public catalog or inquiry
 route. This website therefore does not invent API data or claim to submit a
 booking. Forms explain when online submission is unavailable and provide the
-verified FreClean email address. When a supported public endpoint is released,
-the optional `FRECLEAN_API_URL` runtime hook can be connected without moving
-business logic into the website.
+verified FreClean email address. A public request endpoint can be enabled later
+with the runtime `FRECLEAN_PUBLIC_REQUEST_URL` hook without moving business
+logic into the website. The configured `FRECLEAN_CELOHT_DAPP_URL` points to the
+public CeloHT handoff; payment status still comes only from the API.

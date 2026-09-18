@@ -51,7 +51,6 @@ main, .site-footer { position: relative; z-index: 1; }
 .site-header nav a { padding-block: .45rem; text-decoration: none; white-space: nowrap; color: var(--ink); opacity: .88; }
 .site-header nav a:hover, .site-header nav a[aria-current="page"] { color: var(--blue); opacity: 1; }
 .nav-cta, .button { display: inline-flex; align-items: center; justify-content: center; gap: .6rem; min-height: 48px; padding: .75rem 1.1rem; border: 1px solid transparent; border-radius: var(--radius); font-weight: 800; text-decoration: none; cursor: pointer; transition: transform .2s ease, background-color .2s ease, box-shadow .2s ease; }
-.nav-cta, .button-primary { background: var(--ink); color: var(--white); }
 .nav-cta:hover, .button-primary:hover { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 10px 22px rgba(8, 121, 185, .2); }
 .button-outline { border-color: var(--ink); color: var(--ink); }
 .button-outline:hover { background: var(--ink); color: var(--white); }
@@ -199,6 +198,36 @@ textarea { min-height: 140px; resize: vertical; }
 .payment-preferences p { margin: 0; font-size: .8rem; }
 .payment-preferences a { color: var(--blue-dark); font-weight: 800; }
 .form-status { min-height: 1.5rem; margin: 0; color: var(--blue-dark); font-size: .9rem; }
+.booking-hero > p:last-child { max-width: 46ch; }
+.booking-content { padding-top: 1rem; }
+.booking-layout { display: grid; grid-template-columns: .75fr 1.25fr; gap: clamp(2.5rem, 8vw, 8rem); align-items: start; }
+.booking-aside { position: sticky; top: 7rem; }
+.booking-aside h2 { max-width: 10ch; margin-bottom: 1.25rem; }
+.booking-progress { display: grid; gap: .7rem; margin: 2.5rem 0 0; padding: 0; list-style: none; }
+.booking-progress li { display: flex; align-items: center; gap: .85rem; padding-block: .45rem; color: var(--ink-soft); font-size: .86rem; font-weight: 700; border-bottom: 1px solid var(--line); }
+.booking-progress li span { color: #8aa09d; font-size: .7rem; letter-spacing: .08em; }
+.booking-progress li.is-active { color: var(--ink); }
+.booking-progress li.is-active span, .booking-progress li.is-complete span { color: var(--blue); }
+.booking-step { display: grid; gap: 1rem; min-width: 0; margin: 0; padding: 0; border: 0; }
+.booking-step[hidden] { display: none; }
+.booking-step legend { padding: 0; color: var(--blue); font-size: .72rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.step-intro { margin-bottom: .5rem; font-size: 1.1rem; color: var(--ink); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.booking-actions { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.booking-actions .button:only-child { margin-left: auto; }
+.payment-choice-list { display: grid; gap: .7rem; }
+.payment-choice { display: flex; align-items: start; gap: .8rem; padding: 1rem; border: 1px solid var(--line); background: var(--paper); cursor: pointer; transition: border-color .2s ease, background-color .2s ease; }
+.payment-choice:hover, .payment-choice:has(input:checked) { border-color: var(--blue); background: #f8fbf7; }
+.payment-choice input { width: 1.1rem; min-height: 1.1rem; margin-top: .2rem; accent-color: var(--blue); }
+.payment-choice span { display: grid; gap: .2rem; }
+.payment-choice strong { color: var(--ink); }
+.payment-choice small { color: var(--ink-soft); font-weight: 400; }
+.payment-boundary, .submission-boundary { margin: .25rem 0 0; padding: .85rem 1rem; background: #f8fbf7; border-left: 3px solid var(--lime); font-size: .82rem; }
+.celo-handoff { width: fit-content; }
+.booking-review { display: grid; grid-template-columns: minmax(100px, .35fr) 1fr; margin: 0; border-top: 1px solid var(--line); }
+.booking-review dt, .booking-review dd { margin: 0; padding: .7rem 0; border-bottom: 1px solid var(--line); }
+.booking-review dt { color: var(--ink-soft); font-size: .8rem; font-weight: 800; }
+.booking-review dd { color: var(--ink); font-weight: 700; }
 .contact-list { display: grid; gap: .6rem; padding: 0; list-style: none; font-weight: 700; }
 .site-footer { padding-top: 4.5rem; background: var(--ink); color: var(--white); }
 .footer-main { display: grid; grid-template-columns: 1.5fr repeat(3, 1fr); gap: 2rem; padding-bottom: 4rem; }
@@ -254,7 +283,7 @@ textarea { min-height: 140px; resize: vertical; }
   .site-header { min-height: 70px; }
   .logo-link { width: 125px; }
   .site-header nav { inset: 70px 0 0; }
-  .hero, .intro-grid, .split-section, .business-section, .entrepreneurship-grid, .trust-section, .form-layout { grid-template-columns: 1fr; }
+  .hero, .intro-grid, .split-section, .business-section, .entrepreneurship-grid, .trust-section, .form-layout, .booking-layout { grid-template-columns: 1fr; }
   .hero { padding-block: 4rem 5rem; }
   .hero-media, .hero-media img { min-height: 360px; }
   .hero-note { right: .75rem; bottom: .75rem; }
@@ -268,6 +297,10 @@ textarea { min-height: 140px; resize: vertical; }
   .product-item { grid-template-columns: 1fr; }
   .product-item img { height: 260px; }
   .detail-layout { grid-template-columns: 1fr; }
+  .booking-aside { position: static; }
+  .booking-progress { grid-template-columns: repeat(5, 1fr); gap: .35rem; margin-top: 1.5rem; }
+  .booking-progress li { display: block; padding-block: .5rem; font-size: .7rem; }
+  .booking-progress li span { display: block; margin-bottom: .15rem; }
   .detail-image, .image-frame, .detail-image img, .image-frame img { min-height: 320px; height: 320px; }
   .product-image, .product-image img { min-height: 360px; height: 360px; }
   .footer-main { grid-template-columns: 1fr 1fr; }
@@ -279,6 +312,10 @@ textarea { min-height: 140px; resize: vertical; }
   .site-header { padding-inline: .75rem; }
   .button, .nav-cta { width: 100%; }
   .actions { display: grid; width: 100%; }
+  .form-row { grid-template-columns: 1fr; }
+  .booking-actions { align-items: stretch; }
+  .booking-actions .button { width: auto; }
+  .booking-actions .booking-next, .booking-actions .booking-submit { flex: 1; }
   .hero-note { position: static; max-width: 100%; margin-top: 1rem; }
   .footer-main { grid-template-columns: 1fr; }
   .logo-link { width: 128px; }

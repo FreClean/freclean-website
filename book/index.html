@@ -1,1 +1,88 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Book a Service | FreClean</title><meta name="description" content="Request a FreClean cleaning service in Leogane, Ouest, Haiti."><link rel="canonical" href="https://freclean.github.io/freclean-website/book/"><link rel="stylesheet" href="../style.css"></head><body><a class="skip-link" href="#main-content">Skip to main content</a><header class="site-header"><a class="brand" href="../index.html">FRECLEAN</a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button><nav id="primary-nav" aria-label="Primary navigation"><a href="../services/">Services</a><a href="../products/">Products</a><a href="../business/">Business</a><a href="../about/">About</a><a href="../contact/">Contact</a><a class="nav-cta" href="../book/">Book a service <span aria-hidden="true">↗</span></a></nav></header><main id="main-content"><section class="page-hero section-wrap"><p class="eyebrow">Book a service</p><h1>Tell us about<br><em>your request.</em></h1><p>Share a few details and FreClean will follow up to discuss availability and next steps.</p></section><section class="page-content section-wrap"><div class="form-layout"><div><p class="eyebrow">Service request</p><h2>A clear start.</h2><p>We will confirm the details of your request before any service is scheduled.</p></div><form data-request-form><label for="booking-name">Name<input id="booking-name" name="name" autocomplete="name" required></label><label for="booking-phone">Phone<input id="booking-phone" name="phone" type="tel" autocomplete="tel" required></label><label for="booking-email">Email<input id="booking-email" name="email" type="email" autocomplete="email" required></label><label for="booking-service">Service<select id="booking-service" name="service" required><option value="">Select a service</option><option>Residential</option><option>Hospitality</option><option>Commercial</option><option>Specialized</option></select></label><label for="booking-location">Location<input id="booking-location" name="location" autocomplete="street-address" required></label><label for="booking-date">Preferred date<input id="booking-date" name="date" type="date" required></label><label for="booking-time">Preferred time<input id="booking-time" name="time" type="time" required></label><label for="booking-notes">Additional information<textarea id="booking-notes" name="notes"></textarea></label><button class="button button-dark" type="submit">Send request <span aria-hidden="true">↗</span></button><p class="form-status" role="status" aria-live="polite"></p></form></div></section></main><footer class="site-footer"><div class="section-wrap footer-grid"><div><a class="brand footer-brand" href="../index.html">FRECLEAN</a><p>Professional cleaning services<br>and cleaning products.</p></div><div class="footer-links"><p class="eyebrow">Explore</p><a href="../services/">Services</a><a href="../products/">Products</a><a href="../business/">Business</a><a href="../about/">About</a><a href="../contact/">Contact</a></div><div><p class="eyebrow">Find us</p><p>Leogane, Ouest, Haiti</p><a href="mailto:freclean7@gmail.com">freclean7@gmail.com</a><a href="tel:+18493881969">+1 (849) 388-1969</a></div></div><div class="section-wrap footer-bottom"><span>© 2026 FreClean. All rights reserved.</span><span>Built around cleanliness. Built around people.</span></div></footer><script src="../script.js" defer></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book a Service | FreClean</title>
+<meta name="description" content="Request a FreClean cleaning service for your home, business or hospitality space.">
+<link rel="canonical" href="https://freclean.github.io/freclean-website/book/">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header class="site-header">
+  <a class="logo-link" href="../index.html" aria-label="FreClean home"><img src="../assets/logo-landscape-2.png" alt="FreClean" width="1672" height="941"></a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav"><span></span><span></span><span></span><b>Menu</b></button>
+  <nav id="primary-nav" aria-label="Primary navigation"><a href="../services/">Services</a><a href="../products/">Products</a><a href="../business/">Business</a><a href="../entrepreneurship/">Entrepreneurship</a><a href="../impact/">Impact</a><a href="../about/">About</a><a href="../resources/">Resources</a><a href="../contact/">Contact</a><a class="nav-cta" href="../book/" aria-current="page">Book a Service <span aria-hidden="true">&rarr;</span></a></nav>
+</header>
+<main id="main-content">
+  <section class="page-hero section-wrap booking-hero">
+    <p class="eyebrow">Book a service</p>
+    <h1>A considered start<br><em>to better care.</em></h1>
+    <p>Tell us about the space, your preferred time and how you would like to pay. FreClean confirms availability and next steps before any service is scheduled.</p>
+  </section>
+  <section class="page-content section-wrap booking-content" aria-labelledby="booking-form-title">
+    <div class="booking-layout">
+      <div class="booking-aside">
+        <p class="eyebrow">Service request</p>
+        <h2 id="booking-form-title">Built around<br><em>your space.</em></h2>
+        <p>This form prepares an enquiry. It does not reserve a slot, take payment or mark a booking confirmed.</p>
+        <ol class="booking-progress" aria-label="Booking stages">
+          <li class="is-active" data-progress-step="1"><span>01</span>Service</li>
+          <li data-progress-step="2"><span>02</span>Schedule</li>
+          <li data-progress-step="3"><span>03</span>Details</li>
+          <li data-progress-step="4"><span>04</span>Payment</li>
+          <li data-progress-step="5"><span>05</span>Review</li>
+        </ol>
+      </div>
+      <form data-request-form data-booking-form>
+        <fieldset class="booking-step is-active" data-booking-step="1">
+          <legend>01 / Service</legend>
+          <p class="step-intro">Which kind of space would you like FreClean to care for?</p>
+          <label for="booking-service">Service<select id="booking-service" name="service" required><option value="">Select a service</option><option>Residential</option><option>Commercial</option><option>Hospitality</option><option>Specialized</option></select></label>
+          <label for="booking-property">Property or space type<select id="booking-property" name="property_type" required><option value="">Select a property type</option><option>Home or apartment</option><option>Office or workspace</option><option>Hotel or guest property</option><option>Retail or business location</option><option>Other or specialized space</option></select></label>
+        </fieldset>
+        <fieldset class="booking-step" data-booking-step="2" hidden>
+          <legend>02 / Schedule</legend>
+          <p class="step-intro">Share a preferred time. FreClean will confirm the slot with you.</p>
+          <div class="form-row"><label for="booking-date">Preferred date<input id="booking-date" name="date" type="date" required></label><label for="booking-time">Preferred time<input id="booking-time" name="time" type="time" required></label></div>
+        </fieldset>
+        <fieldset class="booking-step" data-booking-step="3" hidden>
+          <legend>03 / Details</legend>
+          <p class="step-intro">A few practical details help us respond properly.</p>
+          <label for="booking-name">Name<input id="booking-name" name="name" autocomplete="name" required></label>
+          <div class="form-row"><label for="booking-phone">Phone<input id="booking-phone" name="phone" type="tel" autocomplete="tel" required></label><label for="booking-email">Email<input id="booking-email" name="email" type="email" autocomplete="email" required></label></div>
+          <label for="booking-location">Location<input id="booking-location" name="location" autocomplete="street-address" required></label>
+          <label for="booking-notes">Additional information<textarea id="booking-notes" name="notes" placeholder="Tell us anything useful about the space or request."></textarea></label>
+        </fieldset>
+        <fieldset class="booking-step" data-booking-step="4" hidden>
+          <legend>04 / Payment</legend>
+          <p class="step-intro">Choose a preference. Payment eligibility and status are confirmed by FreClean, not by this form.</p>
+          <div class="payment-choice-list">
+            <label class="payment-choice" for="payment-card"><input id="payment-card" type="radio" name="payment_method" value="CARD" required><span><strong>Card</strong><small>Secure hosted checkout when configured.</small></span></label>
+            <label class="payment-choice" for="payment-cash"><input id="payment-cash" type="radio" name="payment_method" value="CASH"><span><strong>Pay in person</strong><small>Arrange payment during the service process.</small></span></label>
+            <label class="payment-choice" for="payment-crypto"><input id="payment-crypto" type="radio" name="payment_method" value="CRYPTO"><span><strong>Celo</strong><small>Continue to CeloHT for digital payment when eligible.</small></span></label>
+          </div>
+          <p class="payment-boundary">No card details, wallet credentials or payment confirmation are collected here. The CeloHT handoff appears only when a real public DApp URL is configured.</p>
+          <a class="button button-outline celo-handoff" data-celo-link href="#" hidden>Continue to CeloHT <span aria-hidden="true">&rarr;</span></a>
+        </fieldset>
+        <fieldset class="booking-step" data-booking-step="5" hidden>
+          <legend>05 / Review</legend>
+          <p class="step-intro">Review your request before sending it to FreClean.</p>
+          <dl class="booking-review" data-booking-review></dl>
+          <p class="submission-boundary">This is an enquiry until a supported public request endpoint is configured. FreClean will confirm availability, pricing and payment next steps directly.</p>
+        </fieldset>
+        <div class="booking-actions">
+          <button class="button button-outline booking-back" type="button" data-booking-back hidden>Back</button>
+          <button class="button button-primary booking-next" type="button" data-booking-next>Continue <span aria-hidden="true">&rarr;</span></button>
+          <button class="button button-primary booking-submit" type="submit" hidden>Send request <span aria-hidden="true">&rarr;</span></button>
+        </div>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</main>
+<footer class="site-footer"><div class="section-wrap footer-main"><div class="footer-brand"><a class="logo-link" href="../index.html"><img src="../assets/logo-landscape-2.png" alt="FreClean" width="1672" height="941"></a><p>Professional cleaning services<br>and cleaning products from<br>Leogane, Haiti.</p></div><div><p class="footer-title">Explore</p><a href="../services/">Services</a><a href="../products/">Products</a><a href="../business/">Business</a><a href="../entrepreneurship/">Entrepreneurship</a></div><div><p class="footer-title">Company</p><a href="../impact/">Impact</a><a href="../about/">About</a><a href="../resources/">Resources</a><a href="../contact/">Contact</a></div><div><p class="footer-title">Contact</p><p>Leogane, Ouest, Haiti</p><a href="mailto:freclean7@gmail.com">freclean7@gmail.com</a><a href="tel:+18493881969">+1 (849) 388-1969</a></div></div><div class="section-wrap footer-bottom"><span>&copy; 2026 FreClean. All rights reserved.</span><span><a href="../privacy/">Privacy</a> &middot; <a href="../terms/">Terms</a></span></div></footer>
+<script src="../script.js" defer></script>
+</body>
+</html>

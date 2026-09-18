@@ -37,7 +37,9 @@ for page in services/airbnb/index.html services/hotel/index.html services/office
 done
 
 test -f .env.example
-grep -q '^VITE_API_URL=' .env.example
-grep -q 'FRECLEAN_API_URL' script.js
+grep -q '^FRECLEAN_PUBLIC_REQUEST_URL=' .env.example
+grep -q '^FRECLEAN_CELOHT_DAPP_URL=' .env.example
+grep -q 'FRECLEAN_PUBLIC_REQUEST_URL' script.js
+grep -q 'FRECLEAN_CELOHT_DAPP_URL' script.js
 
 echo 'FreClean website checks passed.'

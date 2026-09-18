@@ -95,27 +95,80 @@
       form.addEventListener('submit', async function (event) {
         event.preventDefault();
         if (!form.checkValidity()) { form.reportValidity(); return; }
-        var apiUrl = window.FRECLEAN_API_URL;
-        if (!apiUrl) { status.textContent = 'Online submission is not connected yet. Please email freclean7@gmail.com to confirm your request.'; return; }
-        submit.disabled = true; status.textContent = 'Sending your request...';
+        var requestUrl = window.FRECLEAN_PUBLIC_REQUEST_URL;
+        if (!requestUrl) { status.textContent = 'Online requests are not connected yet. Please email freclean7@gmail.com to confirm your request.'; return; }
+        if (submit) submit.disabled = true;
+        status.textContent = 'Sending your request...';
         try {
-          var response = await fetch(apiUrl.replace(/\/$/, '') + '/requests', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.fromEntries(new FormData(form))) });
-          if (!response.ok) throw new Error('Request failed');
-          form.reset(); status.textContent = 'Thank you. FreClean will be in touch soon.';
-        } catch (error) { status.textContent = 'We could not send your request. Please email freclean7@gmail.com.'; }
-        submit.disabled = false;
+          var response = await fetch(requestUrl, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(Object.fromEntries(new FormData(form))) });
+          var body = await response.json().catch(function () { return {}; });
+          if (!response.ok) {
+            var errorMessage = { 400: 'Some request details need attention.', 409: 'That preferred time is no longer available.', 429: 'We are receiving many requests. Please try again shortly.', 500: 'The request service is temporarily unavailable.' }[response.status] || body.error || 'The request could not be completed.';
+            throw new Error(errorMessage);
+          }
+          form.reset(); status.textContent = 'Your request was received. FreClean will confirm availability and next steps with you.';
+        } catch (error) { status.textContent = error.message || 'We could not send the request. Please email freclean7@gmail.com so we can help.'; }
+        if (submit) submit.disabled = false;
       });
     });
   }
 
-  function setupBookingOptions() {
-    var form = document.querySelector('[data-request-form]');
-    if (!form || form.querySelector('[data-booking-options]')) return;
-    var notes = form.querySelector('#booking-notes');
-    var submit = form.querySelector('button[type="submit"]');
-    if (!notes || !submit) return;
-    notes.closest('label').insertAdjacentHTML('beforebegin', '<label for="booking-property">Property or space type<select id="booking-property" name="property_type" required><option value="">Select a property type</option><option>Home or apartment</option><option>Office or workspace</option><option>Hotel or guest property</option><option>Retail or business location</option><option>Other or specialized space</option></select></label>');
-    submit.insertAdjacentHTML('beforebegin', '<fieldset class="payment-preferences" data-booking-options><legend>Payment preference</legend><label for="booking-payment">How would you prefer to pay?<select id="booking-payment" name="payment_method" required><option value="">Select a payment preference</option><option>Card, through a hosted processor when enabled</option><option>In-person payment, scheduled with FreClean</option><option>Crypto through the CeloHT DApp, if eligible</option></select></label><p>FreClean confirms availability, pricing and payment eligibility before any service is scheduled. Card and CeloHT handoffs are not connected on this public form yet. <a href="' + asset('payments.html') + '">Read payment information</a>.</p></fieldset>');
+  function setupBookingFlow() {
+    var form = document.querySelector('[data-booking-form]');
+    if (!form) return;
+    var steps = Array.from(form.querySelectorAll('[data-booking-step]'));
+    var progress = Array.from(document.querySelectorAll('[data-progress-step]'));
+    var next = form.querySelector('[data-booking-next]');
+    var back = form.querySelector('[data-booking-back]');
+    var submit = form.querySelector('.booking-submit');
+    var review = form.querySelector('[data-booking-review]');
+    var status = form.querySelector('.form-status');
+    var current = 0;
+    var fieldValue = function (id) {
+      var field = form.querySelector('#' + id);
+      if (!field) return '';
+      return field.tagName === 'SELECT' ? field.options[field.selectedIndex].text : field.value;
+    };
+    var renderReview = function () {
+      if (!review) return;
+      review.textContent = '';
+      [['Service', fieldValue('booking-service')], ['Property', fieldValue('booking-property')], ['Date', fieldValue('booking-date')], ['Time', fieldValue('booking-time')], ['Name', fieldValue('booking-name')], ['Email', fieldValue('booking-email')], ['Location', fieldValue('booking-location')], ['Payment', (form.querySelector('input[name="payment_method"]:checked') || {}).value || '']].forEach(function (entry) {
+        var term = document.createElement('dt');
+        var description = document.createElement('dd');
+        term.textContent = entry[0];
+        description.textContent = entry[1] || 'Not provided';
+        review.append(term, description);
+      });
+    };
+    var showStep = function (index) {
+      current = index;
+      steps.forEach(function (step, stepIndex) { step.hidden = stepIndex !== current; step.classList.toggle('is-active', stepIndex === current); });
+      progress.forEach(function (item, itemIndex) { item.classList.toggle('is-active', itemIndex === current); item.classList.toggle('is-complete', itemIndex < current); if (itemIndex === current) item.setAttribute('aria-current', 'step'); else item.removeAttribute('aria-current'); });
+      if (back) back.hidden = current === 0;
+      if (next) next.hidden = current === steps.length - 1;
+      if (submit) submit.hidden = current !== steps.length - 1;
+      if (current === steps.length - 1) renderReview();
+      if (status) status.textContent = '';
+      steps[current].querySelector('input, select, textarea, button')?.focus();
+    };
+    var currentIsValid = function () {
+      var valid = true;
+      steps[current].querySelectorAll('input, select, textarea').forEach(function (field) { if (!field.checkValidity()) valid = false; });
+      if (!valid) steps[current].querySelector(':invalid')?.reportValidity();
+      return valid;
+    };
+    next?.addEventListener('click', function () { if (currentIsValid()) showStep(Math.min(current + 1, steps.length - 1)); });
+    back?.addEventListener('click', function () { showStep(Math.max(current - 1, 0)); });
+    form.querySelectorAll('input[name="payment_method"]').forEach(function (choice) {
+      choice.addEventListener('change', function () {
+        var link = form.querySelector('[data-celo-link]');
+        if (!link) return;
+        var dappUrl = window.FRECLEAN_CELOHT_DAPP_URL || 'https://app.celoht.com';
+        link.hidden = choice.value !== 'CRYPTO' || !dappUrl;
+        if (dappUrl) link.href = dappUrl;
+      });
+    });
+    showStep(0);
   }
 
   function setupImages() {
@@ -124,5 +177,5 @@
     document.querySelectorAll('img[src*="catalog-portrait-2.png"]').forEach(function (image) { image.src = asset('assets/catalog-portrait-3.png'); });
   }
 
-  renderHeader(); renderFooter(); setupMenu(); setupForms(); setupBookingOptions(); setupImages();
+  renderHeader(); renderFooter(); setupMenu(); setupForms(); setupBookingFlow(); setupImages();
 }());
