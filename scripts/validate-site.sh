@@ -7,7 +7,7 @@ cd "$site_dir"
 pages='index.html services.html products.html payments.html entrepreneurship.html contact.html'
 for page in $pages; do
   test -f "$page"
-  grep -q 'href="style.css"' "$page"
+  grep -Eq 'href=".*style\.css([?].*)?"' "$page"
   grep -q '<main id="main-content">' "$page"
   grep -q 'class="skip-link"' "$page"
 done

@@ -73,19 +73,21 @@ p { max-width: 66ch; margin: 0 0 1.25rem; color: var(--ink-soft); }
 .intro-grid p:not(.eyebrow) { max-width: 38ch; font-size: 1.25rem; }
 .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 2rem; margin-bottom: 3rem; }
 .section-heading h2 { max-width: 11ch; }
-.service-grid, .content-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-.service-card, .content-card { display: flex; flex-direction: column; min-height: 310px; padding: 1.5rem; background: var(--white); border: 1px solid var(--line); text-decoration: none; transition: transform .2s ease, box-shadow .2s ease; }
-.service-card:hover, .content-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
-.service-card span, .content-card span { margin-bottom: 4rem; color: var(--blue); font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
-.service-card h3, .content-card h2 { margin-bottom: 1rem; }
-.service-card p, .content-card p { margin-bottom: auto; }
+.service-grid, .content-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+.service-card, .content-card { display: flex; flex-direction: column; min-height: 310px; padding: 1.5rem; background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(246,248,245,.96)); border: 1px solid rgba(16, 47, 61, .08); border-radius: 22px; text-decoration: none; box-shadow: 0 12px 28px rgba(16, 47, 61, .06); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.service-card:hover, .content-card:hover { transform: translateY(-6px); box-shadow: 0 18px 38px rgba(16, 47, 61, .12); border-color: rgba(8, 121, 185, .18); }
+.service-card span, .content-card span { margin-bottom: 4rem; color: var(--blue); font-size: .72rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+.service-card h3, .content-card h2 { margin-bottom: 1rem; line-height: 1.1; }
+.service-card p, .content-card p { margin-bottom: auto; color: var(--ink-soft); }
 .service-card b { margin-top: 1.5rem; color: var(--blue-dark); font-size: .8rem; }
-.service-card-image { position: relative; overflow: hidden; justify-content: end; color: var(--white); background: var(--ink); }
-.service-card-image img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .65; }
-.service-card-image > div { position: relative; z-index: 1; }
+.service-card-image { position: relative; overflow: hidden; justify-content: end; padding: 0; color: var(--white); background: var(--ink); border-color: transparent; }
+.service-card-image::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(16, 47, 61, .12), rgba(16, 47, 61, .8)); }
+.service-card-image img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .82; filter: saturate(1.15) contrast(1.08); }
+.service-card-image > div { position: relative; z-index: 1; padding: 1.5rem; }
 .service-card-image span, .service-card-image h3, .service-card-image b { color: var(--white); }
-.service-card-dark { background: var(--ink); color: var(--white); }
+.service-card-dark { background: linear-gradient(180deg, rgba(16,47,61,.98), rgba(9,31,41,.96)); color: var(--white); border-color: rgba(255,255,255,.04); }
 .service-card-dark h3, .service-card-dark p, .service-card-dark span, .service-card-dark b { color: var(--white); }
+.service-card-dark p { color: rgba(255,255,255,.8); }
 .product-section { background: var(--paper); }
 .split-section { align-items: center; }
 .product-image { min-height: 500px; background: var(--white); }
@@ -139,7 +141,8 @@ textarea { min-height: 140px; resize: vertical; }
 .contact-list { display: grid; gap: .6rem; padding: 0; list-style: none; font-weight: 700; }
 .site-footer { padding-top: 4.5rem; background: var(--ink); color: var(--white); }
 .footer-main { display: grid; grid-template-columns: 1.5fr repeat(3, 1fr); gap: 2rem; padding-bottom: 4rem; }
-.footer-brand .logo-link { margin-bottom: 1rem; background: var(--white); }
+.footer-brand .logo-link { width: 110px; margin-bottom: 1rem; background: transparent; }
+.footer-brand .logo-link img { width: 100%; height: auto; filter: none; }
 .footer-brand p, .site-footer p { color: #d5e3e2; }
 .site-footer a { display: block; width: fit-content; margin-bottom: .55rem; color: #f5fbfa; text-decoration: none; }
 .site-footer a:hover { color: var(--lime); }
