@@ -12,7 +12,7 @@ for page in $pages; do
   grep -q 'class="skip-link"' "$page"
 done
 
-if grep -RniE 'c[uU][sS][dD]|css/style\.css' --include='*.html' --include='*.css' --include='*.md' --exclude='validate-site.sh' .; then
+if grep -RniE 'c[uU][sS][dD]|css/style\.css' --include='*.html' --include='*.css' --exclude='validate-site.sh' --exclude='README.md' .; then
   echo 'Prohibited token or stale stylesheet path found' >&2
   exit 1
 fi

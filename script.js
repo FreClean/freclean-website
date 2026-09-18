@@ -66,6 +66,12 @@
       if (open) focusable()[0].focus();
       else toggle.focus();
     });
+    document.addEventListener('click', function (event) {
+      if (!navigation.classList.contains('is-open')) return;
+      if (!navigation.contains(event.target) && !toggle.contains(event.target)) {
+        closeMenu(toggle, navigation);
+      }
+    });
     navigation.addEventListener('click', function (event) {
       if (event.target.closest('a')) closeMenu(toggle, navigation);
     });
