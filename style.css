@@ -131,10 +131,10 @@ p { max-width: 66ch; margin: 0 0 1.25rem; color: var(--ink-soft); }
 .service-feature-copy b, .service-row b { margin-top: auto; color: var(--white); font-size: .82rem; }
 .service-feature-copy b span, .service-row b span { display: inline-block; margin-left: .35rem; transition: transform .2s ease; }
 .service-list { display: grid; grid-template-rows: repeat(3, 1fr); border-top: 1px solid var(--line); }
-.service-row { display: grid; grid-template-columns: minmax(112px, .29fr) 1fr; gap: clamp(1rem, 3vw, 2rem); align-items: center; padding-block: 1.25rem; border-bottom: 1px solid var(--line); transition: border-color .25s ease, padding .25s ease; }
+.service-row { display: grid; grid-template-columns: minmax(112px, .29fr) minmax(0, 1fr); gap: clamp(1rem, 3vw, 2rem); align-items: center; min-width: 0; padding-block: 1.25rem; border-bottom: 1px solid var(--line); transition: border-color .25s ease, padding .25s ease; }
 .service-row-image { aspect-ratio: 1.35; overflow: hidden; background: var(--lime); }
 .service-row-image img { filter: saturate(.82); }
-.service-row h3 { max-width: 22ch; margin-block: .55rem .5rem; font-size: clamp(1.15rem, 2vw, 1.55rem); }
+.service-row h3 { max-width: 22ch; margin-block: .55rem .5rem; font-size: clamp(1.15rem, 2vw, 1.55rem); overflow-wrap: anywhere; }
 .service-row p { max-width: 48ch; margin-bottom: .7rem; font-size: .9rem; }
 .service-row b { color: var(--blue-dark); }
 .service-feature:hover, .service-feature:focus-visible { transform: translateY(-4px); border-color: var(--warm); box-shadow: 0 18px 40px rgba(16,47,61,.16); }
@@ -200,7 +200,7 @@ textarea { min-height: 140px; resize: vertical; }
 .form-status { min-height: 1.5rem; margin: 0; color: var(--blue-dark); font-size: .9rem; }
 .booking-hero > p:last-child { max-width: 46ch; }
 .booking-content { padding-top: 1rem; }
-.booking-layout { display: grid; grid-template-columns: .75fr 1.25fr; gap: clamp(2.5rem, 8vw, 8rem); align-items: start; }
+.booking-layout { display: grid; grid-template-columns: .75fr 1.25fr; gap: clamp(2.5rem, 8vw, 8rem); align-items: start; min-width: 0; }
 .booking-aside { position: sticky; top: 7rem; }
 .booking-aside h2 { max-width: 10ch; margin-bottom: 1.25rem; }
 .booking-progress { display: grid; gap: .7rem; margin: 2.5rem 0 0; padding: 0; list-style: none; }
@@ -224,10 +224,10 @@ textarea { min-height: 140px; resize: vertical; }
 .payment-choice small { color: var(--ink-soft); font-weight: 400; }
 .payment-boundary, .submission-boundary { margin: .25rem 0 0; padding: .85rem 1rem; background: #f8fbf7; border-left: 3px solid var(--lime); font-size: .82rem; }
 .celo-handoff { width: fit-content; }
-.booking-review { display: grid; grid-template-columns: minmax(100px, .35fr) 1fr; margin: 0; border-top: 1px solid var(--line); }
+.booking-review { display: grid; grid-template-columns: minmax(100px, .35fr) minmax(0, 1fr); margin: 0; border-top: 1px solid var(--line); }
 .booking-review dt, .booking-review dd { margin: 0; padding: .7rem 0; border-bottom: 1px solid var(--line); }
 .booking-review dt { color: var(--ink-soft); font-size: .8rem; font-weight: 800; }
-.booking-review dd { color: var(--ink); font-weight: 700; }
+.booking-review dd { color: var(--ink); font-weight: 700; overflow-wrap: anywhere; }
 .contact-list { display: grid; gap: .6rem; padding: 0; list-style: none; font-weight: 700; }
 .site-footer { padding-top: 4.5rem; background: var(--ink); color: var(--white); }
 .footer-main { display: grid; grid-template-columns: 1.5fr repeat(3, 1fr); gap: 2rem; padding-bottom: 4rem; }
@@ -291,7 +291,7 @@ textarea { min-height: 140px; resize: vertical; }
   .service-card { min-height: 260px; }
   .services-editorial { padding-block: 4.5rem; }
   .service-feature-image { aspect-ratio: 1.25; }
-  .service-row { grid-template-columns: 92px 1fr; gap: .9rem; padding-block: 1rem; }
+  .service-row { grid-template-columns: 92px minmax(0, 1fr); gap: .9rem; padding-block: 1rem; }
   .service-row h3 { font-size: 1.08rem; }
   .service-row p { font-size: .86rem; }
   .product-item { grid-template-columns: 1fr; }
@@ -316,6 +316,12 @@ textarea { min-height: 140px; resize: vertical; }
   .booking-actions { align-items: stretch; }
   .booking-actions .button { width: auto; }
   .booking-actions .booking-next, .booking-actions .booking-submit { flex: 1; }
+  .service-row { grid-template-columns: 72px minmax(0, 1fr); gap: .7rem; }
+  .service-row h3 { font-size: 1rem; }
+  .service-row p { overflow-wrap: anywhere; }
+  .booking-progress { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .booking-progress li { min-width: 0; font-size: .62rem; overflow-wrap: anywhere; }
+  .booking-review { grid-template-columns: 88px minmax(0, 1fr); }
   .hero-note { position: static; max-width: 100%; margin-top: 1rem; }
   .footer-main { grid-template-columns: 1fr; }
   .logo-link { width: 128px; }
