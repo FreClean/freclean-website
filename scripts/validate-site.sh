@@ -12,17 +12,27 @@ for page in $pages; do
   grep -q 'class="skip-link"' "$page"
 done
 
-if grep -RniE 'cUSD|css/style\.css' --include='*.html' --include='*.css' --include='*.md' .; then
+if grep -RniE 'c[uU][sS][dD]|css/style\.css' --include='*.html' --include='*.css' --include='*.md' .; then
   echo 'Prohibited token or stale stylesheet path found' >&2
   exit 1
 fi
 
 grep -q 'https://www.freclean.com/</loc>' sitemap.xml
-for page in services.html products.html payments.html entrepreneurship.html contact.html; do
+for page in services/ products/ business/ about/ contact/ book/; do
   grep -q "https://www.freclean.com/$page" sitemap.xml || {
     echo "Missing sitemap entry: $page" >&2
     exit 1
   }
 done
+
+for page in services/index.html products/index.html business/index.html about/index.html contact/index.html book/index.html; do
+  test -f "$page"
+  grep -q 'id="main-content"' "$page"
+  grep -q 'class="skip-link"' "$page"
+done
+
+test -f .env.example
+grep -q '^VITE_API_URL=' .env.example
+grep -q 'FRECLEAN_API_URL' script.js
 
 echo 'FreClean website checks passed.'
