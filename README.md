@@ -30,7 +30,7 @@ Run the repository checks from the project root:
 sh scripts/validate-site.sh
 ```
 
-The site is intentionally static. The canonical Core API currently exposes
+The site is intentionally static. The FreClean API currently exposes
 authenticated booking and payment routes, but no public catalog or inquiry
 route. This website therefore does not invent API data or claim to submit a
 booking. Forms explain when online submission is unavailable and provide the
