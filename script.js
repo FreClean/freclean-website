@@ -25,7 +25,7 @@
     var header = document.createElement('header');
     header.className = 'site-header';
     header.innerHTML = '<a class="logo-link" href="' + link('index.html') + '" aria-label="FreClean home"><img src="' + asset('assets/logo-landscape-2.png') + '" alt="FreClean" width="1672" height="941"></a>' +
-      '<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open navigation"><span></span><span></span><span></span><b>Menu</b></button>' +
+      '<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open navigation"><b>Menu</b></button>' +
       '<nav id="primary-nav" aria-label="Primary navigation">' + navItems.map(function (item) {
         var href = link(item[1]);
         var active = route === item[1].split('/')[0] ? ' aria-current="page"' : '';

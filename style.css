@@ -43,11 +43,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .button-light { background: var(--white); color: var(--ink); }
 .button-dark { background: var(--ink); color: var(--white); }
 .menu-toggle { display: none; align-items: center; gap: .6rem; min-width: 48px; min-height: 48px; padding: .5rem; border: 1px solid var(--line); background: var(--white); color: var(--ink); cursor: pointer; }
-.menu-toggle span { display: block; width: 22px; height: 2px; margin: 4px auto; background: currentColor; transition: transform .2s ease, opacity .2s ease; }
+.menu-toggle span { display: none; }
 .menu-toggle b { font-size: .72rem; }
-.menu-toggle[aria-expanded="true"] span:first-child { transform: translateY(6px) rotate(45deg); }
-.menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
-.menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
 .eyebrow { margin: 0 0 1rem; color: var(--blue); font-size: .72rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
 h1, h2, h3 { margin: 0; color: var(--ink); font-weight: 800; line-height: 1.04; letter-spacing: -.04em; }
