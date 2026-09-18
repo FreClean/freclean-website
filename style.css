@@ -75,6 +75,11 @@ p { max-width: 66ch; margin: 0 0 1.25rem; color: var(--ink-soft); }
 .hero-note { position: absolute; right: 1.5rem; bottom: 1.5rem; display: flex; gap: 1rem; align-items: start; max-width: 230px; padding: 1rem; background: rgba(255,255,255,.96); box-shadow: var(--shadow); backdrop-filter: blur(6px); border: 1px solid rgba(16,47,61,.04); border-radius: 18px; animation: pulse 5s ease-in-out infinite; }
 .hero-note span { color: var(--green); font-weight: 800; }
 .hero-note p { margin: 0; color: var(--ink); font-weight: 700; font-size: .86rem; }
+.metrics-strip { padding-top: 1rem; }
+.metric-grid { display: grid; grid-template-columns: repeat(4, minmax(150px, 1fr)); gap: 1rem; }
+.metric-grid div { padding: 1.1rem 1.2rem; background: rgba(255,255,255,.7); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 10px 24px rgba(16,47,61,.04); }
+.metric-grid strong { display: block; margin-bottom: .35rem; color: var(--ink); font-size: clamp(1rem, 2vw, 1.35rem); }
+.metric-grid span { color: var(--ink-soft); font-size: .9rem; }
 .intro-band, .product-section, .final-cta { background: var(--lime); }
 .intro-band, .services-section, .product-section, .business-section, .trust-section { padding-block: clamp(4.5rem, 9vw, 8rem); }
 .intro-grid, .split-section, .business-section, .trust-section { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(2.5rem, 8vw, 8rem); }
