@@ -153,6 +153,9 @@ p { max-width: 66ch; margin: 0 0 1.25rem; color: var(--ink-soft); }
 .business-section h2, .business-section .eyebrow { color: var(--white); }
 .business-copy { position: relative; z-index: 1; padding-top: 2rem; }
 .business-copy p { max-width: 42ch; color: #d5e3e2; font-size: 1.2rem; }
+.business-services { display: grid; gap: .65rem; max-width: 42ch; margin: 1.75rem 0 2rem; padding: 1rem 0 0; border-top: 1px solid rgba(255,255,255,.22); list-style: none; }
+.business-services li { position: relative; padding-left: 1.25rem; color: #e7f1ef; font-size: .9rem; }
+.business-services li::before { content: ""; position: absolute; top: .7em; left: 0; width: .4rem; height: 1px; background: var(--lime); }
 .entrepreneurship-section { padding-block: clamp(4.5rem, 8vw, 7rem); background: var(--blue-dark); color: var(--white); }
 .entrepreneurship-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; }
 .entrepreneurship-section h2, .entrepreneurship-section .eyebrow { color: var(--white); }
