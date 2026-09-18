@@ -1,0 +1,15 @@
+{
+  "name": "FreClean",
+  "short_name": "FreClean",
+  "start_url": "/freclean-website/",
+  "display": "standalone",
+  "background_color": "#f6f8f5",
+  "theme_color": "#102f3d",
+  "icons": [
+    {
+      "src": "assets/brand-logo.jpg",
+      "sizes": "1536x1536",
+      "type": "image/jpeg"
+    }
+  ]
+}

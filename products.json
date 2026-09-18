@@ -1,0 +1,38 @@
+{
+  "source": "FreClean public website product information",
+  "products": [
+    {
+      "id": "cleaning-essentials",
+      "name": "Cleaning essentials",
+      "category": "Cleaning Products",
+      "description": "A collection of FreClean cleaning products for everyday home and workplace care.",
+      "image": "assets/catalog-landscape-2.png",
+      "status": "Enquire for current availability",
+      "availableSizes": null,
+      "intendedUse": "Everyday cleaning care; confirm the suitable product and use with FreClean.",
+      "safetyInformation": null
+    },
+    {
+      "id": "fragrance-collection",
+      "name": "Fragrance collection",
+      "category": "Fragrance Products",
+      "description": "FreClean fragrance products for fresher-feeling spaces.",
+      "image": "assets/catalog-portrait-1.png",
+      "status": "Enquire for current availability",
+      "availableSizes": null,
+      "intendedUse": "Home and workplace fragrance; confirm product-specific use with FreClean.",
+      "safetyInformation": null
+    },
+    {
+      "id": "household-care",
+      "name": "Household care",
+      "category": "Household Care",
+      "description": "Household care products represented in the current FreClean public collection.",
+      "image": "assets/catalog-portrait-2.png",
+      "status": "Enquire for current availability",
+      "availableSizes": null,
+      "intendedUse": "Household care; confirm the suitable product and use with FreClean.",
+      "safetyInformation": null
+    }
+  ]
+}

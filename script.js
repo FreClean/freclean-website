@@ -1,113 +1,110 @@
 (function () {
-  document.querySelectorAll('.brand:not(:has(img))').forEach(function (brand) {
-    var path = brand.getAttribute('href') || 'index.html';
-    var assetPath = path.indexOf('../') === 0 ? '../assets/brand-logo.jpg' : 'assets/brand-logo.jpg';
-    var image = document.createElement('img');
-    image.src = assetPath;
-    image.alt = 'FreClean';
-    image.width = 72;
-    image.height = 72;
-    brand.replaceChildren(image);
-    brand.classList.add('logo-link');
-  });
+  'use strict';
 
-  document.querySelectorAll('img[src*="catalog-landscape-1.png"]').forEach(function (image) {
-    image.addEventListener('error', function () {
-      image.src = image.src.replace('catalog-landscape-1.png', 'catalog-landscape-2.png');
-    }, {once: true});
-  });
+  var script = document.currentScript;
+  var scriptPath = script ? new URL(script.src).pathname : '/freclean-website/script.js';
+  var siteRoot = scriptPath.slice(0, scriptPath.lastIndexOf('/') + 1);
+  var pagePath = window.location.pathname;
+  var relativePath = pagePath.indexOf(siteRoot) === 0 ? pagePath.slice(siteRoot.length) : '';
+  var segments = relativePath.split('/').filter(Boolean);
+  if (segments.length && segments[segments.length - 1].indexOf('.html') !== -1) segments.pop();
+  var prefix = '../'.repeat(segments.length);
+  var route = segments[0] || 'home';
+  var navItems = [
+    ['Services', 'services/'], ['Products', 'products/'], ['Business', 'business/'],
+    ['Entrepreneurship', 'entrepreneurship/'], ['Impact', 'impact/'], ['About', 'about/'],
+    ['Resources', 'resources/'], ['Contact', 'contact/']
+  ];
 
-  var toggle = document.querySelector('.menu-toggle');
-  var navigation = document.querySelector('#primary-nav');
+  function asset(path) { return prefix + path; }
+  function link(path) { return asset(path); }
 
-  if (toggle && navigation) {
-    if (!toggle.querySelector('b')) {
-      toggle.replaceChildren(
-        document.createElement('span'),
-        document.createElement('span'),
-        document.createElement('span'),
-        document.createElement('b')
-      );
-      toggle.querySelector('b').textContent = 'Menu';
-    }
+  function renderHeader() {
+    var oldHeader = document.querySelector('.site-header, body > header');
+    if (!oldHeader) return;
+    var header = document.createElement('header');
+    header.className = 'site-header';
+    header.innerHTML = '<a class="logo-link" href="' + link('index.html') + '" aria-label="FreClean home"><img src="' + asset('assets/logo-landscape-1.png') + '" alt="FreClean" width="1672" height="941"></a>' +
+      '<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open navigation"><span></span><span></span><span></span><b>Menu</b></button>' +
+      '<nav id="primary-nav" aria-label="Primary navigation">' + navItems.map(function (item) {
+        var href = link(item[1]);
+        var active = route === item[1].split('/')[0] ? ' aria-current="page"' : '';
+        return '<a href="' + href + '"' + active + '>' + item[0] + '</a>';
+      }).join('') + '<a class="nav-cta" href="' + link('book/') + '">Book a Service <span aria-hidden="true">&rarr;</span></a></nav>';
+    oldHeader.replaceWith(header);
+  }
 
-    var logo = document.querySelector('.site-header .logo-link, .site-header .brand');
-    var homeUrl = logo ? new URL(logo.getAttribute('href'), document.baseURI) : new URL('index.html', document.baseURI);
-    var menuItems = [
-      ['Services', 'services/'],
-      ['Products', 'products/'],
-      ['Business', 'business/'],
-      ['Entrepreneurship', 'entrepreneurship/'],
-      ['Impact', 'impact/'],
-      ['About', 'about/'],
-      ['Resources', 'resources/'],
-      ['Contact', 'contact/']
-    ];
-    var existingHrefs = Array.from(navigation.querySelectorAll('a')).map(function (link) { return new URL(link.href).pathname; });
-    var callToAction = navigation.querySelector('.nav-cta');
-    menuItems.forEach(function (item) {
-      var itemUrl = new URL(item[1], homeUrl);
-      if (!existingHrefs.includes(itemUrl.pathname)) {
-        var link = document.createElement('a');
-        link.href = itemUrl.href;
-        link.textContent = item[0];
-        navigation.insertBefore(link, callToAction);
-      }
-    });
+  function renderFooter() {
+    var oldFooter = document.querySelector('footer');
+    if (oldFooter && oldFooter.classList.contains('site-footer')) return;
+    var footer = document.createElement('footer');
+    footer.className = 'site-footer';
+    footer.innerHTML = '<div class="section-wrap footer-main"><div class="footer-brand"><a class="logo-link" href="' + link('index.html') + '"><img src="' + asset('assets/logo-landscape-1.png') + '" alt="FreClean" width="1672" height="941"></a><p>Professional cleaning services<br>and cleaning products from<br>Leogane, Haiti.</p></div><div><p class="footer-title">Explore</p><a href="' + link('services/') + '">Services</a><a href="' + link('products/') + '">Products</a><a href="' + link('business/') + '">Business</a><a href="' + link('entrepreneurship/') + '">Entrepreneurship</a></div><div><p class="footer-title">Company</p><a href="' + link('impact/') + '">Impact</a><a href="' + link('about/') + '">About</a><a href="' + link('resources/') + '">Resources</a><a href="' + link('contact/') + '">Contact</a></div><div><p class="footer-title">Contact</p><p>Leogane, Ouest, Haiti</p><a href="mailto:freclean7@gmail.com">freclean7@gmail.com</a><a href="tel:+18493881969">+1 (849) 388-1969</a><a href="https://www.facebook.com/profile.php?id=61572058283204" rel="noopener">Facebook</a></div></div><div class="section-wrap footer-bottom"><span>&copy; 2026 FreClean. All rights reserved.</span><span><a href="' + link('privacy/') + '">Privacy</a> &middot; <a href="' + link('terms/') + '">Terms</a></span></div>';
+    if (oldFooter) oldFooter.replaceWith(footer);
+    else document.body.appendChild(footer);
+  }
 
+  function closeMenu(toggle, navigation) {
+    navigation.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Open navigation');
+    toggle.querySelector('b').textContent = 'Menu';
+    document.body.classList.remove('menu-open');
+  }
+
+  function setupMenu() {
+    var toggle = document.querySelector('.menu-toggle');
+    var navigation = document.querySelector('#primary-nav');
+    if (!toggle || !navigation) return;
+    var focusable = function () { return Array.from(navigation.querySelectorAll('a, button')).filter(function (element) { return !element.hasAttribute('disabled'); }); };
     toggle.addEventListener('click', function () {
-      var isOpen = navigation.classList.toggle('is-open');
-      toggle.setAttribute('aria-expanded', String(isOpen));
-      toggle.querySelector('b').textContent = isOpen ? 'Close' : 'Menu';
+      var open = navigation.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+      toggle.querySelector('b').textContent = open ? 'Close' : 'Menu';
+      document.body.classList.toggle('menu-open', open);
+      if (open) focusable()[0].focus();
+      else toggle.focus();
     });
-
-    navigation.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', function () {
-        navigation.classList.remove('is-open');
-        toggle.setAttribute('aria-expanded', 'false');
-        toggle.querySelector('b').textContent = 'Menu';
-      });
+    navigation.addEventListener('click', function (event) {
+      if (event.target.closest('a')) closeMenu(toggle, navigation);
     });
-
     document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape' && navigation.classList.contains('is-open')) {
-        navigation.classList.remove('is-open');
-        toggle.setAttribute('aria-expanded', 'false');
-        toggle.querySelector('b').textContent = 'Menu';
-        toggle.focus();
-      }
-    });
-
-    document.addEventListener('click', function (event) {
-      if (navigation.classList.contains('is-open') && !navigation.contains(event.target) && !toggle.contains(event.target)) {
-        navigation.classList.remove('is-open');
-        toggle.setAttribute('aria-expanded', 'false');
-        toggle.querySelector('b').textContent = 'Menu';
+      if (!navigation.classList.contains('is-open')) return;
+      if (event.key === 'Escape') { closeMenu(toggle, navigation); toggle.focus(); }
+      if (event.key === 'Tab') {
+        var items = focusable();
+        if (!items.length) return;
+        if (event.shiftKey && document.activeElement === items[0]) { event.preventDefault(); items[items.length - 1].focus(); }
+        if (!event.shiftKey && document.activeElement === items[items.length - 1]) { event.preventDefault(); items[0].focus(); }
       }
     });
   }
 
-  document.querySelectorAll('[data-request-form]').forEach(function (form) {
-    form.addEventListener('submit', async function (event) {
-      event.preventDefault();
+  function setupForms() {
+    document.querySelectorAll('[data-request-form]').forEach(function (form) {
       var status = form.querySelector('.form-status');
       var submit = form.querySelector('button[type="submit"]');
-      var apiUrl = window.FRECLEAN_API_URL;
-      if (!form.checkValidity()) { form.reportValidity(); return; }
-      if (!apiUrl) {
-        status.textContent = 'Online submission is not available yet. Please email freclean7@gmail.com to confirm your request.';
-        return;
-      }
-      submit.disabled = true;
-      status.textContent = 'Sending your request...';
-      try {
-        var response = await fetch(apiUrl.replace(/\/$/, '') + '/requests', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(Object.fromEntries(new FormData(form))) });
-        if (!response.ok) throw new Error('Request failed');
-        form.reset();
-        status.textContent = 'Thank you. FreClean will be in touch soon.';
-      } catch (error) {
-        status.textContent = 'We could not send your request. Please email freclean7@gmail.com.';
-      } finally { submit.disabled = false; }
+      if (!status) { status = document.createElement('p'); status.className = 'form-status'; status.setAttribute('role', 'status'); form.appendChild(status); }
+      form.addEventListener('submit', async function (event) {
+        event.preventDefault();
+        if (!form.checkValidity()) { form.reportValidity(); return; }
+        var apiUrl = window.FRECLEAN_API_URL;
+        if (!apiUrl) { status.textContent = 'Online submission is not connected yet. Please email freclean7@gmail.com to confirm your request.'; return; }
+        submit.disabled = true; status.textContent = 'Sending your request...';
+        try {
+          var response = await fetch(apiUrl.replace(/\/$/, '') + '/requests', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.fromEntries(new FormData(form))) });
+          if (!response.ok) throw new Error('Request failed');
+          form.reset(); status.textContent = 'Thank you. FreClean will be in touch soon.';
+        } catch (error) { status.textContent = 'We could not send your request. Please email freclean7@gmail.com.'; }
+        submit.disabled = false;
+      });
     });
-  });
+  }
+
+  function setupImages() {
+    document.querySelectorAll('img[src*="catalog-landscape-1.png"]').forEach(function (image) { image.src = asset('assets/catalog-landscape-2.png'); });
+  }
+
+  renderHeader(); renderFooter(); setupMenu(); setupForms(); setupImages();
 }());
