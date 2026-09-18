@@ -21,6 +21,40 @@
   var navigation = document.querySelector('#primary-nav');
 
   if (toggle && navigation) {
+    if (!toggle.querySelector('b')) {
+      toggle.replaceChildren(
+        document.createElement('span'),
+        document.createElement('span'),
+        document.createElement('span'),
+        document.createElement('b')
+      );
+      toggle.querySelector('b').textContent = 'Menu';
+    }
+
+    var logo = document.querySelector('.site-header .logo-link, .site-header .brand');
+    var homeUrl = logo ? new URL(logo.getAttribute('href'), document.baseURI) : new URL('index.html', document.baseURI);
+    var menuItems = [
+      ['Services', 'services/'],
+      ['Products', 'products/'],
+      ['Business', 'business/'],
+      ['Entrepreneurship', 'entrepreneurship/'],
+      ['Impact', 'impact/'],
+      ['About', 'about/'],
+      ['Resources', 'resources/'],
+      ['Contact', 'contact/']
+    ];
+    var existingHrefs = Array.from(navigation.querySelectorAll('a')).map(function (link) { return new URL(link.href).pathname; });
+    var callToAction = navigation.querySelector('.nav-cta');
+    menuItems.forEach(function (item) {
+      var itemUrl = new URL(item[1], homeUrl);
+      if (!existingHrefs.includes(itemUrl.pathname)) {
+        var link = document.createElement('a');
+        link.href = itemUrl.href;
+        link.textContent = item[0];
+        navigation.insertBefore(link, callToAction);
+      }
+    });
+
     toggle.addEventListener('click', function () {
       var isOpen = navigation.classList.toggle('is-open');
       toggle.setAttribute('aria-expanded', String(isOpen));
@@ -33,6 +67,23 @@
         toggle.setAttribute('aria-expanded', 'false');
         toggle.querySelector('b').textContent = 'Menu';
       });
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && navigation.classList.contains('is-open')) {
+        navigation.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.querySelector('b').textContent = 'Menu';
+        toggle.focus();
+      }
+    });
+
+    document.addEventListener('click', function (event) {
+      if (navigation.classList.contains('is-open') && !navigation.contains(event.target) && !toggle.contains(event.target)) {
+        navigation.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.querySelector('b').textContent = 'Menu';
+      }
     });
   }
 
