@@ -105,6 +105,7 @@
   function setupImages() {
     document.querySelectorAll('img[src*="brand-logo"], img[src*="logo-landscape-1"]').forEach(function (image) { image.src = asset('assets/logo-landscape-2.png'); image.width = 1672; image.height = 941; });
     document.querySelectorAll('img[src*="catalog-landscape-1.png"]').forEach(function (image) { image.src = asset('assets/catalog-landscape-2.png'); });
+    document.querySelectorAll('img[src*="catalog-portrait-2.png"]').forEach(function (image) { image.src = asset('assets/catalog-portrait-3.png'); });
   }
 
   renderHeader(); renderFooter(); setupMenu(); setupForms(); setupImages();
