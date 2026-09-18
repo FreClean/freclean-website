@@ -24,7 +24,7 @@
     if (!oldHeader) return;
     var header = document.createElement('header');
     header.className = 'site-header';
-    header.innerHTML = '<a class="logo-link" href="' + link('index.html') + '" aria-label="FreClean home"><img src="' + asset('assets/logo-landscape-1.png') + '" alt="FreClean" width="1672" height="941"></a>' +
+    header.innerHTML = '<a class="logo-link" href="' + link('index.html') + '" aria-label="FreClean home"><img src="' + asset('assets/logo-landscape-2.png') + '" alt="FreClean" width="1672" height="941"></a>' +
       '<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open navigation"><span></span><span></span><span></span><b>Menu</b></button>' +
       '<nav id="primary-nav" aria-label="Primary navigation">' + navItems.map(function (item) {
         var href = link(item[1]);
@@ -39,7 +39,7 @@
     if (oldFooter && oldFooter.classList.contains('site-footer')) return;
     var footer = document.createElement('footer');
     footer.className = 'site-footer';
-    footer.innerHTML = '<div class="section-wrap footer-main"><div class="footer-brand"><a class="logo-link" href="' + link('index.html') + '"><img src="' + asset('assets/logo-landscape-1.png') + '" alt="FreClean" width="1672" height="941"></a><p>Professional cleaning services<br>and cleaning products from<br>Leogane, Haiti.</p></div><div><p class="footer-title">Explore</p><a href="' + link('services/') + '">Services</a><a href="' + link('products/') + '">Products</a><a href="' + link('business/') + '">Business</a><a href="' + link('entrepreneurship/') + '">Entrepreneurship</a></div><div><p class="footer-title">Company</p><a href="' + link('impact/') + '">Impact</a><a href="' + link('about/') + '">About</a><a href="' + link('resources/') + '">Resources</a><a href="' + link('contact/') + '">Contact</a></div><div><p class="footer-title">Contact</p><p>Leogane, Ouest, Haiti</p><a href="mailto:freclean7@gmail.com">freclean7@gmail.com</a><a href="tel:+18493881969">+1 (849) 388-1969</a><a href="https://www.facebook.com/profile.php?id=61572058283204" rel="noopener">Facebook</a></div></div><div class="section-wrap footer-bottom"><span>&copy; 2026 FreClean. All rights reserved.</span><span><a href="' + link('privacy/') + '">Privacy</a> &middot; <a href="' + link('terms/') + '">Terms</a></span></div>';
+    footer.innerHTML = '<div class="section-wrap footer-main"><div class="footer-brand"><a class="logo-link" href="' + link('index.html') + '"><img src="' + asset('assets/logo-landscape-2.png') + '" alt="FreClean" width="1672" height="941"></a><p>Professional cleaning services<br>and cleaning products from<br>Leogane, Haiti.</p></div><div><p class="footer-title">Explore</p><a href="' + link('services/') + '">Services</a><a href="' + link('products/') + '">Products</a><a href="' + link('business/') + '">Business</a><a href="' + link('entrepreneurship/') + '">Entrepreneurship</a></div><div><p class="footer-title">Company</p><a href="' + link('impact/') + '">Impact</a><a href="' + link('about/') + '">About</a><a href="' + link('resources/') + '">Resources</a><a href="' + link('contact/') + '">Contact</a></div><div><p class="footer-title">Contact</p><p>Leogane, Ouest, Haiti</p><a href="mailto:freclean7@gmail.com">freclean7@gmail.com</a><a href="tel:+18493881969">+1 (849) 388-1969</a><a href="https://www.facebook.com/profile.php?id=61572058283204" rel="noopener">Facebook</a></div></div><div class="section-wrap footer-bottom"><span>&copy; 2026 FreClean. All rights reserved.</span><span><a href="' + link('privacy/') + '">Privacy</a> &middot; <a href="' + link('terms/') + '">Terms</a></span></div>';
     if (oldFooter) oldFooter.replaceWith(footer);
     else document.body.appendChild(footer);
   }
@@ -103,6 +103,7 @@
   }
 
   function setupImages() {
+    document.querySelectorAll('img[src*="brand-logo"], img[src*="logo-landscape-1"]').forEach(function (image) { image.src = asset('assets/logo-landscape-2.png'); image.width = 1672; image.height = 941; });
     document.querySelectorAll('img[src*="catalog-landscape-1.png"]').forEach(function (image) { image.src = asset('assets/catalog-landscape-2.png'); });
   }
 
