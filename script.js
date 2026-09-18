@@ -108,11 +108,21 @@
     });
   }
 
+  function setupBookingOptions() {
+    var form = document.querySelector('[data-request-form]');
+    if (!form || form.querySelector('[data-booking-options]')) return;
+    var notes = form.querySelector('#booking-notes');
+    var submit = form.querySelector('button[type="submit"]');
+    if (!notes || !submit) return;
+    notes.closest('label').insertAdjacentHTML('beforebegin', '<label for="booking-property">Property or space type<select id="booking-property" name="property_type" required><option value="">Select a property type</option><option>Home or apartment</option><option>Office or workspace</option><option>Hotel or guest property</option><option>Retail or business location</option><option>Other or specialized space</option></select></label>');
+    submit.insertAdjacentHTML('beforebegin', '<fieldset class="payment-preferences" data-booking-options><legend>Payment preference</legend><label for="booking-payment">How would you prefer to pay?<select id="booking-payment" name="payment_method" required><option value="">Select a payment preference</option><option>Card, through a hosted processor when enabled</option><option>In-person payment, scheduled with FreClean</option><option>Crypto through the CeloHT DApp, if eligible</option></select></label><p>FreClean confirms availability, pricing and payment eligibility before any service is scheduled. Card and CeloHT handoffs are not connected on this public form yet. <a href="' + asset('payments.html') + '">Read payment information</a>.</p></fieldset>');
+  }
+
   function setupImages() {
     document.querySelectorAll('img[src*="brand-logo"], img[src*="logo-landscape-1"]').forEach(function (image) { image.src = asset('assets/logo-landscape-2.png'); image.width = 1672; image.height = 941; });
     document.querySelectorAll('img[src*="catalog-landscape-1.png"]').forEach(function (image) { image.src = asset('assets/catalog-landscape-2.png'); });
     document.querySelectorAll('img[src*="catalog-portrait-2.png"]').forEach(function (image) { image.src = asset('assets/catalog-portrait-3.png'); });
   }
 
-  renderHeader(); renderFooter(); setupMenu(); setupForms(); setupImages();
+  renderHeader(); renderFooter(); setupMenu(); setupForms(); setupBookingOptions(); setupImages();
 }());
