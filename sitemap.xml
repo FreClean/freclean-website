@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.freclean.com/</loc></url>
-  <url><loc>https://www.freclean.com/services/</loc></url>
-  <url><loc>https://www.freclean.com/services/residential/</loc></url>
-  <url><loc>https://www.freclean.com/services/hospitality/</loc></url>
-  <url><loc>https://www.freclean.com/services/commercial/</loc></url>
-  <url><loc>https://www.freclean.com/services/specialized/</loc></url>
-  <url><loc>https://www.freclean.com/products/</loc></url>
-  <url><loc>https://www.freclean.com/products/cleaning-essentials/</loc></url>
-  <url><loc>https://www.freclean.com/business/</loc></url>
-  <url><loc>https://www.freclean.com/about/</loc></url>
-  <url><loc>https://www.freclean.com/contact/</loc></url>
-  <url><loc>https://www.freclean.com/book/</loc></url>
+  <url><loc>https://freclean.github.io/freclean-website/</loc></url>
+  <url><loc>https://freclean.github.io/freclean-website/services/</loc></url>
+  <url><loc>https://freclean.github.io/freclean-website/services/residential/</loc></url>
+  <url><loc>https://freclean.github.io/freclean-website/services/hospitality/</loc></url>
+  <url><loc>https://freclean.github.io/freclean-website/services/airbnb/</loc></url>
+  <url><loc>https://freclean.github.io/freclean-website/services/hotel/</loc></url>
+  <url><loc>https://freclean.github.io/freclean-website/services/office/</loc></url>
+  <url><loc>https://freclean.github.io/freclean-website/services/commercial/</loc></url>
+  <url><loc>https://freclean.github.io/freclean-website/services/specialized/</loc></url>
+  <url><loc>https://freclean.github.io/freclean-website/products/</loc></url>
+  <url><loc>https://freclean.github.io/freclean-website/products/cleaning-essentials/</loc></url>
+  <url><loc>https://freclean.github.io/freclean-website/products/fragrance-products/</loc></url>
+  <url><loc>https://freclean.github.io/freclean-website/business/</loc></url>
+  <url><loc>https://freclean.github.io/freclean-website/entrepreneurship/</loc></url>
+  <url><loc>https://freclean.github.io/freclean-website/impact/</loc></url>
+  <url><loc>https://freclean.github.io/freclean-website/about/</loc></url>
+  <url><loc>https://freclean.github.io/freclean-website/resources/</loc></url>
+  <url><loc>https://freclean.github.io/freclean-website/contact/</loc></url>
+  <url><loc>https://freclean.github.io/freclean-website/book/</loc></url>
+  <url><loc>https://freclean.github.io/freclean-website/privacy/</loc></url>
+  <url><loc>https://freclean.github.io/freclean-website/terms/</loc></url>
 </urlset>

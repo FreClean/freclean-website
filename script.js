@@ -1,4 +1,14 @@
 (function () {
+  document.querySelectorAll('.brand:not(:has(img))').forEach(function (brand) {
+    const image = document.createElement('img');
+    image.src = brand.closest('header') ? brand.getAttribute('href').replace(/index\.html$/, '') + 'assets/brand-logo.jpg' : 'assets/brand-logo.jpg';
+    image.alt = 'FreClean';
+    image.width = 72;
+    image.height = 72;
+    brand.replaceChildren(image);
+    brand.classList.add('logo-link');
+  });
+
   const toggle = document.querySelector('.menu-toggle');
   const navigation = document.querySelector('#primary-nav');
 
@@ -23,7 +33,7 @@
       }
 
       if (!apiUrl) {
-        status.textContent = 'Please contact freclean7@gmail.com to confirm your request.';
+        status.textContent = 'Online submission is not available yet. Please contact freclean7@gmail.com to confirm your request.';
         return;
       }
 

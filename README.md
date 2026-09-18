@@ -14,6 +14,7 @@ For the customer/staff/admin application, see `freclean-app`.
 - `about/` — company story and approach
 - `contact/` — verified contact details and enquiry form
 - `book/` — service request form
+- `entrepreneurship/`, `impact/`, `resources/`, `privacy/`, `terms/` — supporting pages
 
 The legacy `.html` pages remain in place for existing links and validation compatibility. New navigation uses the directory routes above.
 
@@ -29,8 +30,10 @@ Run the repository checks from the project root:
 sh scripts/validate-site.sh
 ```
 
-The site is intentionally static. Set `FRECLEAN_API_URL` at deploy time when
-the Core API is available; forms will then POST requests to its `/requests`
-endpoint. Without that variable, forms direct visitors to the verified email
-address instead of presenting a false success state. No payment processing,
-authentication, or authoritative business logic is implemented here.
+The site is intentionally static. The canonical Core API currently exposes
+authenticated booking and payment routes, but no public catalog or inquiry
+route. This website therefore does not invent API data or claim to submit a
+booking. Forms explain when online submission is unavailable and provide the
+verified FreClean email address. When a supported public endpoint is released,
+the optional `FRECLEAN_API_URL` runtime hook can be connected without moving
+business logic into the website.

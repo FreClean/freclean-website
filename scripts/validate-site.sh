@@ -17,18 +17,23 @@ if grep -RniE 'c[uU][sS][dD]|css/style\.css' --include='*.html' --include='*.css
   exit 1
 fi
 
-grep -q 'https://www.freclean.com/</loc>' sitemap.xml
+grep -q 'https://freclean.github.io/freclean-website/</loc>' sitemap.xml
 for page in services/ products/ business/ about/ contact/ book/; do
-  grep -q "https://www.freclean.com/$page" sitemap.xml || {
+  grep -q "https://freclean.github.io/freclean-website/$page" sitemap.xml || {
     echo "Missing sitemap entry: $page" >&2
     exit 1
   }
 done
 
-for page in services/index.html products/index.html business/index.html about/index.html contact/index.html book/index.html; do
+for page in services/index.html products/index.html business/index.html entrepreneurship/index.html impact/index.html about/index.html resources/index.html contact/index.html book/index.html privacy/index.html terms/index.html 404.html; do
   test -f "$page"
   grep -q 'id="main-content"' "$page"
   grep -q 'class="skip-link"' "$page"
+done
+
+for page in services/airbnb/index.html services/hotel/index.html services/office/index.html products/fragrance-products/index.html; do
+  test -f "$page"
+  grep -q 'class="logo-link"' "$page"
 done
 
 test -f .env.example
