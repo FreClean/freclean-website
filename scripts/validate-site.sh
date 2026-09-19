@@ -4,7 +4,7 @@ set -eu
 site_dir=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 cd "$site_dir"
 
-base_url='https://freclean.github.io/freclean-website'
+base_url='https://freclean.com'
 canonical_pages='index.html services/index.html services/residential/index.html services/hospitality/index.html services/commercial/index.html services/airbnb/index.html services/hotel/index.html services/office/index.html services/specialized/index.html products/index.html products/cleaning-essentials/index.html products/fragrance-products/index.html business/index.html entrepreneurship/index.html impact/index.html about/index.html resources/index.html contact/index.html book/index.html payments/index.html privacy/index.html terms/index.html 404.html'
 legacy_pages='services.html products.html contact.html entrepreneurship.html payments.html'
 
@@ -93,6 +93,6 @@ for page in $canonical_pages; do
   grep -q "<loc>$route</loc>" sitemap.xml || fail "Canonical page missing from sitemap: $page"
 done
 
-grep -q '^Sitemap: https://freclean.github.io/freclean-website/sitemap.xml$' robots.txt || fail 'Robots sitemap is incorrect'
+grep -q "^Sitemap: $base_url/sitemap.xml$" robots.txt || fail 'Robots sitemap is incorrect'
 
 echo 'FreClean production checks passed.'

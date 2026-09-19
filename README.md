@@ -1,6 +1,6 @@
 # FreClean Public Website
 
-The FreClean public website is a static HTML, CSS and JavaScript site for service discovery, product enquiries and customer requests. It is deployable to GitHub Pages or another static host.
+The FreClean public website is a static HTML, CSS and JavaScript site for service discovery, product enquiries and customer requests. `freclean.com` is the configured canonical domain and GitHub Pages is the deployment host.
 
 ## Architecture
 
@@ -69,7 +69,7 @@ No build step is required. Serve the repository with any static server, for exam
 python3 -m http.server 8000
 ```
 
-GitHub Pages deploys from `main` through `.github/workflows/pages.yml`. The workflow validates the site before publishing the artifact.
+GitHub Pages deploys from `main` through `.github/workflows/pages.yml`. The workflow validates the site before publishing the artifact. The repository `CNAME` file configures `freclean.com`; DNS and the GitHub Pages custom-domain setting must remain active for the canonical domain to resolve.
 
 ## Validation
 

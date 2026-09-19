@@ -1,7 +1,7 @@
 {
   "name": "FreClean",
   "short_name": "FreClean",
-  "start_url": "/freclean-website/",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#f6f8f5",
   "theme_color": "#102f3d",
@@ -9,7 +9,7 @@
     {
       "src": "assets/logo-landscape-2.png",
       "sizes": "1672x941",
-      "type": "image/jpeg"
+      "type": "image/png"
     }
   ]
 }
