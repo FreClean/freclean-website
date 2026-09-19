@@ -7,8 +7,8 @@
   "theme_color": "#102f3d",
   "icons": [
     {
-      "src": "assets/brand-logo.jpg",
-      "sizes": "1536x1536",
+      "src": "assets/logo-landscape-2.png",
+      "sizes": "1672x941",
       "type": "image/jpeg"
     }
   ]
