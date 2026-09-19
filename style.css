@@ -79,7 +79,7 @@ p { max-width: 66ch; margin: 0 0 1.25rem; color: var(--ink-soft); }
 .hero .actions { animation: rise 1.05s ease both; }
 .hero-media { position: relative; min-height: 560px; animation: rise 1s ease both; }
 .hero-media::before { content: ""; position: absolute; inset: -22px -14px auto auto; width: 160px; height: 160px; border-radius: 50%; background: rgba(215, 237, 189, .55); filter: blur(12px); z-index: 0; }
-.hero-media img { width: 100%; height: 100%; min-height: 560px; object-fit: cover; border-radius: 30px; box-shadow: 0 30px 60px rgba(16, 47, 61, .18); }
+.hero-media img, .hero-video { width: 100%; height: 100%; min-height: 560px; object-fit: cover; object-position: center center; border-radius: 30px; box-shadow: 0 30px 60px rgba(16, 47, 61, .18); }
 .hero-note { position: absolute; right: 1.5rem; bottom: 1.5rem; display: flex; gap: 1rem; align-items: start; max-width: 230px; padding: 1rem; background: rgba(255,255,255,.96); box-shadow: var(--shadow); backdrop-filter: blur(6px); border: 1px solid rgba(16,47,61,.04); border-radius: 18px; animation: pulse 5s ease-in-out infinite; }
 .hero-note span { color: var(--green); font-weight: 800; }
 .hero-note p { margin: 0; color: var(--ink); font-weight: 700; font-size: .86rem; }
@@ -399,7 +399,7 @@ p { color: var(--ink-soft); }
 .hero h1 { max-width: 10ch; margin-bottom: 1.35rem; }
 .hero-intro { max-width: 48ch; font-size: clamp(1rem, 1.4vw, 1.15rem); }
 .hero-media { min-height: clamp(380px, 43vw, 610px); }
-.hero-media img { min-height: inherit; border-radius: 12px; box-shadow: 0 26px 60px rgba(16, 47, 61, .16); }
+.hero-media img, .hero-video { min-height: inherit; border-radius: 12px; box-shadow: 0 26px 60px rgba(16, 47, 61, .16); }
 .hero-note { right: 1.25rem; bottom: 1.25rem; max-width: 245px; border-radius: 8px; box-shadow: var(--shadow); }
 .metrics-strip { padding-block: 1rem 0; }
 .metric-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .75rem; }
@@ -475,7 +475,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--blue); box-shado
   .section-wrap { width: min(calc(100% - 2rem), var(--max)); }
   .hero { padding-block: 3.75rem 4.5rem; }
   .hero-media { min-height: 340px; }
-  .hero-media img { min-height: 340px; }
+  .hero-media img, .hero-video { min-height: 340px; object-position: center center; }
   .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .intro-grid, .split-section, .business-section, .entrepreneurship-grid, .trust-section, .form-layout, .booking-layout { grid-template-columns: 1fr; }
   .services-intro { grid-template-columns: 1fr; }
