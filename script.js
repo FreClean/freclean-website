@@ -6,10 +6,11 @@
     var navigation = document.querySelector('#primary-nav');
     if (!toggle || !navigation) return;
     var desktopQuery = window.matchMedia('(min-width: 1101px)');
-    var focusable = function () { return Array.from(navigation.querySelectorAll('a, button')).filter(function (element) { return !element.hasAttribute('disabled'); }); };
+    var focusable = function () { return Array.from(navigation.querySelectorAll('a, button, summary')).filter(function (element) { return !element.hasAttribute('disabled'); }); };
 
     var close = function () {
       navigation.classList.remove('is-open');
+      toggle.classList.remove('is-open');
       navigation.inert = !desktopQuery.matches;
       navigation.setAttribute('aria-hidden', desktopQuery.matches ? 'false' : 'true');
       toggle.setAttribute('aria-expanded', 'false');
@@ -20,6 +21,7 @@
     };
     var open = function () {
       navigation.classList.add('is-open');
+      toggle.classList.add('is-open');
       navigation.inert = false;
       navigation.setAttribute('aria-hidden', 'false');
       toggle.setAttribute('aria-expanded', 'true');
