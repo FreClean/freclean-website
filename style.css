@@ -512,3 +512,19 @@ input:focus, select:focus, textarea:focus { border-color: var(--blue); box-shado
   .footer-brand { grid-column: auto; }
   .footer-bottom { align-items: flex-start; }
 }
+
+/* Hero media keeps the poster composition intact and leaves room for a future video layer. */
+.hero-media { min-height: 0; aspect-ratio: 1672 / 940; }
+.hero-media img, .hero-video { min-height: 0; }
+.hero-media .hero-poster { position: relative; z-index: 0; }
+.hero-media .hero-video { position: absolute; inset: 0; z-index: 1; }
+.hero-media .hero-note { z-index: 2; }
+
+@media (max-width: 760px) {
+  .hero-media { min-height: 0; }
+  .hero-media img, .hero-video { min-height: 0; object-position: center center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-video { display: none; }
+}
