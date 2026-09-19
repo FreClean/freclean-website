@@ -50,6 +50,19 @@
         status.textContent = message;
         status.dataset.state = state || '';
       };
+      var showEmailFallback = function (message) {
+        setStatus(message, 'fallback');
+        if (!status) return;
+        var details = [];
+        new FormData(form).forEach(function (value, key) {
+          if (value) details.push(key + ': ' + value);
+        });
+        var link = document.createElement('a');
+        link.className = 'text-link';
+        link.href = 'mailto:freclean7@gmail.com?subject=' + encodeURIComponent('FreClean service enquiry') + '&body=' + encodeURIComponent(details.join('\n'));
+        link.textContent = 'Open email draft';
+        status.append(document.createTextNode(' '), link);
+      };
 
       form.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -60,7 +73,7 @@
         }
         var requestUrl = window.FRECLEAN_PUBLIC_REQUEST_URL;
         if (!requestUrl) {
-          setStatus('Online submission is not connected yet. Please email freclean7@gmail.com with these details so FreClean can respond.', 'fallback');
+          showEmailFallback('Online submission is not connected yet. Email FreClean with these details so we can respond.');
           return;
         }
         if (submit) submit.disabled = true;
@@ -74,7 +87,7 @@
           form.reset();
           setStatus('Your enquiry was submitted. FreClean will confirm availability and next steps directly.', 'success');
         }).catch(function () {
-          setStatus('We could not submit this enquiry. Please email freclean7@gmail.com so your details are not lost.', 'error');
+          showEmailFallback('We could not submit this enquiry. Email FreClean so your details are not lost.');
         }).finally(function () {
           if (submit) submit.disabled = false;
         });

@@ -89,6 +89,6 @@ The validator checks canonical pages, legacy redirects, metadata, landmarks, loc
 - FreClean email fallback: `freclean7@gmail.com`
 - FreClean phone contact: `+1 (849) 388-1969`
 - CeloHT dApp: `https://app.celoht.com/` when crypto payment is available
-- An approved public request endpoint is still required for online form submission
+- An approved public request endpoint is optional for API submission; the working email-draft fallback remains available
 
-The website is **NOT READY for live online booking or payment confirmation** until that public request contract and any hosted card-payment flow are independently released and verified. The public informational site itself is designed to remain truthful while those integrations are unavailable.
+The website is **READY as a public service-enquiry website**. Online booking confirmation and hosted card checkout are intentionally not enabled: they require independently released external contracts and must not be represented as live until verified. The email-draft fallback, cash/card availability wording and CeloHT handoff are the current production boundaries.
