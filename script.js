@@ -13,7 +13,7 @@
       navigation.inert = !desktopQuery.matches;
       navigation.setAttribute('aria-hidden', desktopQuery.matches ? 'false' : 'true');
       toggle.setAttribute('aria-expanded', 'false');
-      toggle.setAttribute('aria-label', 'Open navigation');
+      toggle.setAttribute('aria-label', 'Open navigation menu');
       var label = toggle.querySelector('b');
       if (label) label.textContent = 'Menu';
       document.body.classList.remove('menu-open');
@@ -23,7 +23,7 @@
       navigation.inert = false;
       navigation.setAttribute('aria-hidden', 'false');
       toggle.setAttribute('aria-expanded', 'true');
-      toggle.setAttribute('aria-label', 'Close navigation');
+      toggle.setAttribute('aria-label', 'Close navigation menu');
       var label = toggle.querySelector('b');
       if (label) label.textContent = 'Close';
       document.body.classList.add('menu-open');
