@@ -24,6 +24,7 @@
   --header-height: 84px;
   --z-header: 30;
   --z-menu: 40;
+  --feature-section-height: clamp(390px, 35vw, 520px);
   --shadow: 0 18px 50px rgba(16, 47, 61, .12);
   --radius: 18px;
 }
@@ -434,9 +435,16 @@ p { color: var(--ink-soft); }
 .product-section { background: #edf4e9; }
 .product-image { min-height: clamp(340px, 42vw, 510px); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-soft); }
 .product-image img { height: clamp(340px, 42vw, 510px); }
-.business-section { background: var(--ink); }
-.business-section::before { opacity: .45; }
-.entrepreneurship-section { background: var(--blue-dark); }
+.business-section { position: relative; width: 100%; max-width: none; min-height: var(--feature-section-height); padding-inline: max(1.25rem, calc((100vw - var(--max)) / 2)); display: grid; align-items: center; isolation: isolate; background: var(--ink); background-image: radial-gradient(circle at 82% 22%, rgba(215, 237, 189, .18), transparent 25%), radial-gradient(circle at 12% 100%, rgba(8, 121, 185, .16), transparent 35%), linear-gradient(135deg, #123b35 0%, #0e5a4d 58%, #123b35 100%); border-radius: 0; }
+.business-section::before { z-index: 0; inset: auto -4% -38% auto; width: 420px; height: 420px; border-radius: 42% 58% 55% 45%; background: rgba(215, 237, 189, .08); filter: blur(1px); opacity: 1; transform: rotate(-14deg); }
+.business-section::after { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .11; background-image: linear-gradient(rgba(247, 247, 242, .6) 1px, transparent 1px), linear-gradient(90deg, rgba(247, 247, 242, .6) 1px, transparent 1px); background-size: 54px 54px; mask-image: linear-gradient(120deg, transparent 8%, #000 52%, transparent 100%); }
+.business-section > * { position: relative; z-index: 1; }
+.business-section .business-copy { padding-top: 0; }
+.business-section .business-services { margin-bottom: 1.5rem; }
+.business-section .button-primary { background: var(--lime); color: var(--ink); }
+.business-section .button-primary:hover, .business-section .button-primary:focus-visible { background: var(--white); color: var(--ink); }
+.entrepreneurship-section { min-height: var(--feature-section-height); display: grid; align-items: center; }
+.entrepreneurship-grid { align-items: center; width: 100%; }
 .trust-list > div { padding-bottom: 1.35rem; }
 .final-cta { background: var(--lime); }
 
@@ -521,6 +529,13 @@ input:focus, select:focus, textarea:focus { border-color: var(--blue); box-shado
   .footer-main { grid-template-columns: 1fr; }
   .footer-brand { grid-column: auto; }
   .footer-bottom { align-items: flex-start; }
+}
+
+@media (max-width: 760px) {
+  .business-section, .entrepreneurship-section { min-height: 0; }
+  .business-section { padding-inline: max(1rem, env(safe-area-inset-left)) max(1rem, env(safe-area-inset-right)); }
+  .business-section::before { width: 250px; height: 250px; right: -18%; bottom: -12%; }
+  .business-section::after { background-size: 38px 38px; opacity: .07; }
 }
 
 /* Hero media keeps the poster composition intact and leaves room for a future video layer. */
