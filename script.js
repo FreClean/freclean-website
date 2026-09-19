@@ -5,9 +5,13 @@
     var toggle = document.querySelector('.menu-toggle');
     var navigation = document.querySelector('#primary-nav');
     if (!toggle || !navigation) return;
+    var desktopQuery = window.matchMedia('(min-width: 1101px)');
+    var focusable = function () { return Array.from(navigation.querySelectorAll('a, button')).filter(function (element) { return !element.hasAttribute('disabled'); }); };
 
     var close = function () {
       navigation.classList.remove('is-open');
+      navigation.inert = !desktopQuery.matches;
+      navigation.setAttribute('aria-hidden', desktopQuery.matches ? 'false' : 'true');
       toggle.setAttribute('aria-expanded', 'false');
       toggle.setAttribute('aria-label', 'Open navigation');
       var label = toggle.querySelector('b');
@@ -16,11 +20,15 @@
     };
     var open = function () {
       navigation.classList.add('is-open');
+      navigation.inert = false;
+      navigation.setAttribute('aria-hidden', 'false');
       toggle.setAttribute('aria-expanded', 'true');
       toggle.setAttribute('aria-label', 'Close navigation');
       var label = toggle.querySelector('b');
       if (label) label.textContent = 'Close';
       document.body.classList.add('menu-open');
+      var first = focusable()[0];
+      if (first) first.focus();
     };
 
     toggle.addEventListener('click', function () {
@@ -38,7 +46,24 @@
         close();
         toggle.focus();
       }
+      if (event.key === 'Tab' && navigation.classList.contains('is-open')) {
+        var items = focusable();
+        if (!items.length) return;
+        if (event.shiftKey && document.activeElement === items[0]) {
+          event.preventDefault();
+          items[items.length - 1].focus();
+        } else if (!event.shiftKey && document.activeElement === items[items.length - 1]) {
+          event.preventDefault();
+          items[0].focus();
+        }
+      }
     });
+    close();
+    var closeOnDesktop = function (event) {
+      if (event.matches) close();
+    };
+    if (desktopQuery.addEventListener) desktopQuery.addEventListener('change', closeOnDesktop);
+    else desktopQuery.addListener(closeOnDesktop);
   }
 
   function setupForms() {
