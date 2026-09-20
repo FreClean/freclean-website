@@ -213,6 +213,7 @@
     showStep(0);
   }
 
+  setupMenu();
   setupForms();
   setupBookingFlow();
 }());
