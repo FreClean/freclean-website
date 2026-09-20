@@ -1,6 +1,97 @@
 (function () {
   'use strict';
 
+  function safeStorageGet() {
+    try {
+      return JSON.parse(window.localStorage.getItem('freclean_cookie_consent_v1') || 'null');
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function safeStorageSet(value) {
+    try {
+      window.localStorage.setItem('freclean_cookie_consent_v1', JSON.stringify(value));
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  function setupCookieConsent() {
+    var consent = safeStorageGet();
+    var effectiveConsent = consent || {
+      necessary: true,
+      preferences: false,
+      analytics: false,
+      marketing: false,
+      version: '2026-09-20'
+    };
+    window.FRECLEAN_COOKIE_CONSENT = effectiveConsent;
+
+    var banner = document.querySelector('[data-cookie-banner]');
+    if (!banner) {
+      banner = document.createElement('div');
+      banner.className = 'cookie-banner';
+      banner.setAttribute('data-cookie-banner', 'true');
+      banner.setAttribute('role', 'dialog');
+      banner.setAttribute('aria-live', 'polite');
+      banner.setAttribute('aria-label', 'Cookie preferences');
+      banner.innerHTML = '<div class="cookie-banner__inner"><div class="cookie-banner__copy"><p class="cookie-banner__title">Your cookie choices</p><p>FreClean uses necessary cookies for the site to work. Optional preferences, analytics, and marketing cookies remain off until you choose otherwise.</p></div><div class="cookie-banner__controls"><label class="cookie-option"><input type="checkbox" checked disabled> <span>Necessary</span></label><label class="cookie-option"><input type="checkbox" name="preferences" ' + (effectiveConsent.preferences ? 'checked' : '') + '> <span>Preferences</span></label><label class="cookie-option"><input type="checkbox" name="analytics" ' + (effectiveConsent.analytics ? 'checked' : '') + '> <span>Analytics</span></label><label class="cookie-option"><input type="checkbox" name="marketing" ' + (effectiveConsent.marketing ? 'checked' : '') + '> <span>Marketing</span></label></div><div class="cookie-banner__actions"><button type="button" class="button button-outline cookie-accept-necessary">Only necessary cookies</button><button type="button" class="button button-primary cookie-save">Save preferences</button><button type="button" class="button button-dark cookie-accept-all">Accept all</button></div><p class="cookie-banner__meta"><a href="/legal/cookie-policy/" class="text-link">Cookie policy</a></p></div>';
+      document.body.insertBefore(banner, document.body.firstChild);
+    }
+
+    var acceptAll = function () {
+      var chosen = { necessary: true, preferences: true, analytics: true, marketing: true, version: '2026-09-20' };
+      banner.querySelectorAll('input[name]').forEach(function (input) {
+        input.checked = chosen[input.name] || false;
+      });
+      safeStorageSet(chosen);
+      window.FRECLEAN_COOKIE_CONSENT = chosen;
+      banner.setAttribute('hidden', 'hidden');
+    };
+
+    var savePreferences = function () {
+      var chosen = {
+        necessary: true,
+        preferences: !!banner.querySelector('input[name="preferences"]').checked,
+        analytics: !!banner.querySelector('input[name="analytics"]').checked,
+        marketing: !!banner.querySelector('input[name="marketing"]').checked,
+        version: '2026-09-20'
+      };
+      safeStorageSet(chosen);
+      window.FRECLEAN_COOKIE_CONSENT = chosen;
+      banner.setAttribute('hidden', 'hidden');
+    };
+
+    var necessaryOnly = function () {
+      var chosen = { necessary: true, preferences: false, analytics: false, marketing: false, version: '2026-09-20' };
+      banner.querySelectorAll('input[name]').forEach(function (input) {
+        input.checked = false;
+      });
+      banner.querySelector('input[name="preferences"]').checked = false;
+      banner.querySelector('input[name="analytics"]').checked = false;
+      banner.querySelector('input[name="marketing"]').checked = false;
+      safeStorageSet(chosen);
+      window.FRECLEAN_COOKIE_CONSENT = chosen;
+      banner.setAttribute('hidden', 'hidden');
+    };
+
+    banner.querySelector('.cookie-save').addEventListener('click', savePreferences);
+    banner.querySelector('.cookie-accept-all').addEventListener('click', acceptAll);
+    banner.querySelector('.cookie-accept-necessary').addEventListener('click', necessaryOnly);
+
+    if (window.location.pathname.indexOf('/legal/') !== -1 || window.location.pathname.indexOf('/privacy/') !== -1 || window.location.pathname.indexOf('/terms/') !== -1) {
+      banner.querySelector('.cookie-banner__meta a').href = '../cookie-policy/';
+    }
+
+    if (!window.localStorage.getItem('freclean_cookie_consent_v1')) {
+      banner.removeAttribute('hidden');
+    } else {
+      banner.setAttribute('hidden', 'hidden');
+    }
+  }
+
   function setupMenu() {
     var toggle = document.querySelector('.menu-toggle');
     var navigation = document.querySelector('#primary-nav');
@@ -230,6 +321,7 @@
     showStep(0);
   }
 
+  setupCookieConsent();
   setupMenu();
   setupForms();
   setupBookingFlow();

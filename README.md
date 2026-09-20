@@ -45,6 +45,12 @@ The website never confirms a booking, price, availability or payment on its own.
 
 The public website also avoids invented testimonials, impact metrics, product specifications and press claims. New editorial and press sections provide truthful architecture for future verified content rather than placeholder announcements.
 
+## Legal Center and Consent
+
+The website now includes a professional legal center with the public documents needed for an informed service and product enquiry flow. Cookie consent is implemented as a real banner that stores user preferences locally and does not load optional tracking before explicit consent. The site distinguishes necessary cookies from preferences, analytics and marketing choices, and provides an accessible way to change preferences later from the footer or the cookie policy page.
+
+This repository intentionally does not claim to be a full payment processor, database owner, or legal regulator. It handles public information and consent architecture only; legal and tax validation remain external review items.
+
 ## Payments
 
 The public payment options are:

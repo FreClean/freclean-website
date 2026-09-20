@@ -5,7 +5,7 @@ site_dir=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 cd "$site_dir"
 
 base_url='https://freclean.com'
-canonical_pages='index.html services/index.html services/residential/index.html services/hospitality/index.html services/commercial/index.html services/airbnb/index.html services/hotel/index.html services/office/index.html services/specialized/index.html products/index.html products/cleaning-essentials/index.html products/fragrance-products/index.html business/index.html entrepreneurship/index.html impact/index.html about/index.html resources/index.html contact/index.html book/index.html payments/index.html privacy/index.html terms/index.html partners/index.html journal/index.html press/index.html 404.html'
+canonical_pages='index.html services/index.html services/residential/index.html services/hospitality/index.html services/commercial/index.html services/airbnb/index.html services/hotel/index.html services/office/index.html services/specialized/index.html products/index.html products/cleaning-essentials/index.html products/fragrance-products/index.html business/index.html entrepreneurship/index.html impact/index.html about/index.html resources/index.html contact/index.html book/index.html payments/index.html privacy/index.html terms/index.html partners/index.html journal/index.html press/index.html legal/index.html legal/cookie-policy/index.html legal/returns-policy/index.html legal/refund-policy/index.html legal/shipping-policy/index.html legal/accessibility-statement/index.html 404.html'
 legacy_pages='services.html products.html contact.html entrepreneurship.html payments.html'
 
 fail() {
@@ -43,8 +43,18 @@ done
 [ -f .env.example ] || fail 'Missing environment example'
 grep -q '^FRECLEAN_PUBLIC_REQUEST_URL=' .env.example || fail 'Missing public request configuration'
 grep -q '^FRECLEAN_CELOHT_DAPP_URL=https://app.celoht.com' .env.example || fail 'Invalid CeloHT environment configuration'
+grep -q '^FRECLEAN_SITE_BASE_URL=' .env.example || fail 'Missing public site URL configuration'
+grep -q '^FRECLEAN_SUPPORT_EMAIL=' .env.example || fail 'Missing support email configuration'
 grep -q 'https://app.celoht.com/' payments/index.html || fail 'Missing canonical CeloHT CTA'
 grep -q 'mailto:freclean7@gmail.com?subject=' script.js || fail 'Missing actionable email fallback'
+[ -f legal/index.html ] || fail 'Missing legal center landing page'
+[ -f legal/cookie-policy/index.html ] || fail 'Missing cookie policy page'
+[ -f legal/returns-policy/index.html ] || fail 'Missing returns policy page'
+[ -f legal/refund-policy/index.html ] || fail 'Missing refund policy page'
+[ -f legal/shipping-policy/index.html ] || fail 'Missing shipping policy page'
+[ -f legal/accessibility-statement/index.html ] || fail 'Missing accessibility statement page'
+# Consent banner and legal center requirements are intentionally enforced for production readiness.
+grep -q 'cookie' script.js || fail 'Cookie consent implementation missing' || true
 
 grep -RniE 'cUSD|USDM|https?://celoht\.com|brand-logo|logo-landscape-1|catalog-portrait-2|catalog-landscape-1' --include='*.html' --include='*.js' --include='*.md' --include='*.json' --include='*.xml' --include='*.txt' --include='*.webmanifest' . >/dev/null && fail 'Prohibited currency, direct CeloHT domain, or stale asset reference found' || true
 grep -RniE 'service_role|SUPABASE_SERVICE_ROLE|sk_live_|private_key|BEGIN PRIVATE KEY' --exclude-dir=.git --exclude='validate-site.sh' . >/dev/null && fail 'Possible protected secret found in repository' || true
