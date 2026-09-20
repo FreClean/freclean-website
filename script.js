@@ -16,7 +16,7 @@
     var closeButton = document.createElement('button');
     closeButton.className = 'nav-close';
     closeButton.type = 'button';
-    closeButton.setAttribute('aria-label', 'Close navigation menu');
+    closeButton.setAttribute('aria-label', 'Close navigation');
     closeButton.innerHTML = '<span aria-hidden="true">&times;</span>';
     navigation.insertBefore(closeButton, navigation.firstChild);
     var focusable = function () { return Array.from(navigation.querySelectorAll('a, button, summary')).filter(function (element) { return !element.hasAttribute('disabled'); }); };
