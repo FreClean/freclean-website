@@ -13,6 +13,12 @@
     backdrop.setAttribute('aria-hidden', 'true');
     backdrop.tabIndex = -1;
     navigation.parentNode.insertBefore(backdrop, navigation);
+    var closeButton = document.createElement('button');
+    closeButton.className = 'nav-close';
+    closeButton.type = 'button';
+    closeButton.setAttribute('aria-label', 'Close navigation menu');
+    closeButton.innerHTML = '<span aria-hidden="true">&times;</span>';
+    navigation.insertBefore(closeButton, navigation.firstChild);
     var focusable = function () { return Array.from(navigation.querySelectorAll('a, button, summary')).filter(function (element) { return !element.hasAttribute('disabled'); }); };
 
     var close = function (restoreFocus) {
@@ -53,6 +59,7 @@
       event.preventDefault();
       toggleMenu();
     });
+    closeButton.addEventListener('click', function () { close(true); });
     navigation.addEventListener('click', function (event) {
       if (event.target.closest('a')) close(false);
     });
