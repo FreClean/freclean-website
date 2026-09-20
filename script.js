@@ -5,6 +5,8 @@
     var toggle = document.querySelector('.menu-toggle');
     var navigation = document.querySelector('#primary-nav');
     if (!toggle || !navigation) return;
+    if (navigation.dataset.menuReady === 'true') return;
+    navigation.dataset.menuReady = 'true';
     var desktopQuery = window.matchMedia('(min-width: 1101px)');
     var backdrop = document.createElement('button');
     backdrop.className = 'nav-backdrop';
@@ -13,10 +15,12 @@
     backdrop.setAttribute('aria-hidden', 'true');
     backdrop.tabIndex = -1;
     navigation.parentNode.insertBefore(backdrop, navigation);
+    navigation.querySelectorAll('.nav-close').forEach(function (button) { button.remove(); });
     var closeButton = document.createElement('button');
     closeButton.className = 'nav-close';
     closeButton.type = 'button';
     closeButton.setAttribute('aria-label', 'Close navigation');
+    closeButton.dataset.navClose = 'true';
     closeButton.innerHTML = '<span aria-hidden="true">&times;</span>';
     navigation.insertBefore(closeButton, navigation.firstChild);
     var focusable = function () { return Array.from(navigation.querySelectorAll('a, button, summary')).filter(function (element) { return !element.hasAttribute('disabled'); }); };
