@@ -187,7 +187,7 @@ p { max-width: 66ch; margin: 0 0 1.25rem; color: var(--ink-soft); }
 .service-number { font-size: .82rem; }
 .product-list { display: grid; gap: 1rem; }
 .product-item { display: grid; grid-template-columns: minmax(260px, .7fr) 1fr; align-items: center; gap: 2rem; padding: 1.5rem; background: var(--white); border: 1px solid var(--line); }
-.product-item img { width: 100%; height: 300px; object-fit: contain; }
+.product-item img { width: 100%; height: 300px; aspect-ratio: 3 / 2; object-fit: contain; }
 .product-item-copy h2 { margin-bottom: .75rem; font-size: clamp(1.8rem, 3vw, 3rem); }
 .availability { display: inline-block; margin-bottom: 1rem; color: var(--green); font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .detail-layout { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 7vw, 7rem); align-items: center; }
@@ -487,7 +487,7 @@ p { color: var(--ink-soft); }
 .content-card span { margin-bottom: 2.25rem; }
 .product-list { gap: 1.25rem; }
 .product-item { gap: clamp(1.5rem, 4vw, 3.5rem); padding: clamp(1rem, 2vw, 1.5rem); border-radius: 9px; box-shadow: var(--shadow-soft); }
-.product-item img { height: clamp(240px, 28vw, 340px); }
+.product-item img { height: clamp(240px, 28vw, 340px); aspect-ratio: 3 / 2; }
 .detail-layout { gap: clamp(2rem, 6vw, 6rem); }
 .detail-image, .image-frame { min-height: clamp(340px, 36vw, 500px); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-soft); }
 .detail-image img, .image-frame img { min-height: clamp(340px, 36vw, 500px); }

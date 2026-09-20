@@ -10,6 +10,7 @@
     backdrop.className = 'nav-backdrop';
     backdrop.type = 'button';
     backdrop.setAttribute('aria-label', 'Close navigation menu');
+    backdrop.setAttribute('aria-hidden', 'true');
     backdrop.tabIndex = -1;
     navigation.parentNode.insertBefore(backdrop, navigation);
     var focusable = function () { return Array.from(navigation.querySelectorAll('a, button, summary')).filter(function (element) { return !element.hasAttribute('disabled'); }); };
@@ -19,6 +20,7 @@
       navigation.classList.remove('is-open');
       toggle.classList.remove('is-open');
       backdrop.classList.remove('is-visible');
+      backdrop.setAttribute('aria-hidden', 'true');
       navigation.inert = !desktopQuery.matches;
       navigation.setAttribute('aria-hidden', desktopQuery.matches ? 'false' : 'true');
       toggle.setAttribute('aria-expanded', 'false');
@@ -32,6 +34,7 @@
       navigation.classList.add('is-open');
       toggle.classList.add('is-open');
       backdrop.classList.add('is-visible');
+      backdrop.setAttribute('aria-hidden', 'false');
       navigation.inert = false;
       navigation.setAttribute('aria-hidden', 'false');
       toggle.setAttribute('aria-expanded', 'true');
@@ -92,6 +95,7 @@
     document.querySelectorAll('[data-request-form]').forEach(function (form) {
       var status = form.querySelector('.form-status');
       var submit = form.querySelector('button[type="submit"]');
+        var isSubmitting = false;
       var setStatus = function (message, state) {
         if (!status) return;
         status.textContent = message;
@@ -113,6 +117,7 @@
 
       form.addEventListener('submit', function (event) {
         event.preventDefault();
+          if (isSubmitting) return;
         if (!form.checkValidity()) {
           form.reportValidity();
           setStatus('Please check the required fields before sending your enquiry.', 'error');
@@ -123,7 +128,11 @@
           showEmailFallback('Online submission is not connected yet. Email FreClean with these details so we can respond.');
           return;
         }
-        if (submit) submit.disabled = true;
+          isSubmitting = true;
+          if (submit) {
+            submit.disabled = true;
+            submit.setAttribute('aria-busy', 'true');
+          }
         setStatus('Sending your enquiry...', 'pending');
         fetch(requestUrl, {
           method: 'POST',
@@ -136,7 +145,11 @@
         }).catch(function () {
           showEmailFallback('We could not submit this enquiry. Email FreClean so your details are not lost.');
         }).finally(function () {
-          if (submit) submit.disabled = false;
+            isSubmitting = false;
+            if (submit) {
+              submit.disabled = false;
+              submit.removeAttribute('aria-busy');
+            }
         });
       });
     });
