@@ -26,6 +26,9 @@ The static site never contains private API keys, service-role credentials, payme
 - `/products/` — product catalogue and enquiry pages
 - `/business/` — business enquiries
 - `/about/`, `/entrepreneurship/`, `/impact/`, `/resources/` — company and support pages
+- `/partners/` — partnership inquiry and collaboration pathways
+- `/journal/` — editorial architecture for verified company perspectives
+- `/press/` — press information and approved media asset requests
 - `/contact/` — contact enquiry
 - `/book/` — service request form, not a confirmed booking system
 - `/payments/` — cash, Visa, Mastercard and CeloHT payment information
@@ -39,6 +42,8 @@ The old root `.html` URLs are retained only as redirects to their canonical dire
 `/book/` and `/contact/` use the same request boundary. When `FRECLEAN_PUBLIC_REQUEST_URL` is empty, the form does not pretend to submit: it tells the visitor to email `freclean7@gmail.com`. When an approved HTTPS public endpoint is configured, the site sends the form data, handles loading/error/success states and only displays success after a successful HTTP response.
 
 The website never confirms a booking, price, availability or payment on its own. The backend or authorized FreClean staff remains authoritative.
+
+The public website also avoids invented testimonials, impact metrics, product specifications and press claims. New editorial and press sections provide truthful architecture for future verified content rather than placeholder announcements.
 
 ## Payments
 

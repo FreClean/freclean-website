@@ -448,6 +448,37 @@ p { color: var(--ink-soft); }
 .trust-list > div { padding-bottom: 1.35rem; }
 .final-cta { background: var(--lime); }
 
+.payments-section, .impact-section, .process-section, .journal-section { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(2rem, 7vw, 7rem); align-items: start; padding-block: clamp(4.5rem, 8vw, 7.5rem); }
+.payments-section { background: #edf4e9; }
+.payments-section h2, .impact-section h2, .process-section h2, .journal-section h2, .partnership-cta h2 { max-width: 12ch; }
+.payments-section > div:last-child, .impact-section > div:last-child { padding-top: .35rem; }
+.impact-section { background: var(--paper); }
+.process-section { display: block; }
+.process-section .section-heading, .journal-section .section-heading { margin-bottom: 2.5rem; }
+.process-grid, .journal-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.process-grid > div, .journal-grid article { min-height: 190px; padding: 1.5rem; border-top: 2px solid var(--ink); background: var(--white); box-shadow: var(--shadow-soft); }
+.process-grid span, .journal-grid span, .journal-filter span { color: var(--green); font-size: .72rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.process-grid h3, .journal-grid h3, .journal-grid h2 { margin-block: 1rem .65rem; }
+.process-grid p, .journal-grid p { font-size: .92rem; }
+.journal-section { display: block; }
+.journal-section .section-heading { display: flex; }
+.journal-grid article { min-height: 220px; }
+.journal-grid-page { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.journal-grid-page article { min-height: 260px; }
+.journal-filter { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 2rem; }
+.journal-filter span { padding: .55rem .75rem; border: 1px solid var(--line); border-radius: 999px; color: var(--ink-soft); letter-spacing: .04em; }
+.partnership-cta { padding-block: clamp(4.5rem, 8vw, 7rem); background: var(--ink); color: var(--white); }
+.partnership-cta-inner { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(2rem, 7vw, 7rem); align-items: center; }
+.partnership-cta h2, .partnership-cta .eyebrow { color: var(--white); }
+.partnership-cta p { color: #d5e3e2; }
+.partnership-cta .button-primary { background: var(--lime); color: var(--ink); }
+.partnership-cta .button-primary:hover { background: var(--white); }
+.partnership-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, .8fr); gap: clamp(2rem, 6vw, 6rem); align-items: start; }
+.partnership-types { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.partnership-types .content-card, .press-grid .content-card { min-height: 220px; }
+.press-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.press-grid .content-card h2 { margin-bottom: .8rem; }
+
 .page-hero { padding-block: clamp(4.5rem, 9vw, 7.5rem) 3.25rem; }
 .page-hero h1 { max-width: 12ch; }
 .page-content { padding-block: 2rem clamp(5rem, 9vw, 8rem); }
@@ -497,6 +528,11 @@ input:focus, select:focus, textarea:focus { border-color: var(--blue); box-shado
   .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .intro-grid, .split-section, .business-section, .entrepreneurship-grid, .trust-section, .form-layout, .booking-layout { grid-template-columns: 1fr; }
   .services-intro { grid-template-columns: 1fr; }
+  .payments-section, .impact-section, .partnership-cta-inner, .partnership-layout { grid-template-columns: 1fr; }
+  .process-grid, .journal-grid, .journal-grid-page, .press-grid { grid-template-columns: 1fr; }
+  .journal-section .section-heading { display: block; }
+  .journal-section .section-heading .text-link { display: inline-flex; margin-top: 1rem; }
+  .partnership-types { grid-template-columns: 1fr; }
   .services-editorial-grid { grid-template-columns: 1fr; }
   .service-list { grid-template-rows: none; }
   .product-image, .product-image img { min-height: 300px; height: 300px; }
