@@ -601,7 +601,7 @@ button, input, select, textarea { max-width: 100%; }
 .nav-backdrop { display: none; }
 
 @media (max-width: 1100px) {
-  .site-header nav { width: min(100%, 28rem); max-width: 100%; }
+  .site-header nav { left: 0; right: auto; width: min(100%, 28rem); max-width: 100%; }
   .nav-backdrop { position: fixed; inset: var(--header-height) 0 0; z-index: calc(var(--z-menu) - 1); display: block; width: 100%; padding: 0; border: 0; background: rgba(16, 47, 61, .32); opacity: 0; pointer-events: none; transition: opacity .25s ease; }
   .nav-backdrop.is-visible { opacity: 1; pointer-events: auto; }
   .site-header nav.is-open { box-shadow: 0 18px 40px rgba(16, 47, 61, .16); }
