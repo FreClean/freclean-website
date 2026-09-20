@@ -31,7 +31,7 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { position: relative; margin: 0; overflow-x: hidden; background: radial-gradient(circle at top left, rgba(215, 237, 189, .45), transparent 28%), linear-gradient(180deg, #f7faf8 0%, var(--paper) 100%); color: var(--ink); font: 400 16px/1.6 var(--sans); }
+body { position: relative; margin: 0; background: radial-gradient(circle at top left, rgba(215, 237, 189, .45), transparent 28%), linear-gradient(180deg, #f7faf8 0%, var(--paper) 100%); color: var(--ink); font: 400 16px/1.6 var(--sans); }
 body::before, body::after { content: ""; position: fixed; border-radius: 50%; filter: blur(60px); pointer-events: none; z-index: 0; opacity: .35; }
 body::before { width: 320px; height: 320px; top: 80px; right: -90px; background: rgba(8, 121, 185, .12); animation: float 18s ease-in-out infinite; }
 body::after { width: 280px; height: 280px; bottom: 140px; left: -60px; background: rgba(79, 155, 59, .12); animation: float 22s ease-in-out infinite reverse; }
@@ -370,7 +370,7 @@ textarea { min-height: 140px; resize: vertical; }
 html { background: var(--paper); }
 body { background: linear-gradient(180deg, #fbfcf8 0%, var(--paper) 48%, #eef4ed 100%); color: var(--ink); }
 body::before, body::after { display: none; }
-main { overflow: clip; }
+main { min-width: 0; }
 .section-wrap { width: min(calc(100% - 3rem), var(--max)); }
 
 .site-header { min-height: 82px; padding-inline: max(1.25rem, calc((100vw - var(--max)) / 2)); background: rgba(251, 252, 248, .94); border-bottom-color: rgba(16, 47, 61, .12); box-shadow: 0 4px 18px rgba(16, 47, 61, .04); }
@@ -588,4 +588,35 @@ input:focus, select:focus, textarea:focus { border-color: var(--blue); box-shado
 
 @media (prefers-reduced-motion: reduce) {
   .hero-video { display: none; }
+}
+
+/* Responsive layout guard: keep every child inside the viewport before styling details. */
+html, body { width: 100%; max-width: 100%; min-width: 0; margin: 0; padding: 0; }
+body { min-width: 0; }
+main, header, footer, section, article, form, fieldset, nav, .section-wrap, .hero, .hero-copy, .hero-media, .site-header nav, .nav-more, .nav-more-menu, .booking-layout, .form-layout, .detail-layout, .product-item, .service-feature, .service-row { min-width: 0; max-width: 100%; }
+img, picture, video, svg { max-width: 100%; }
+button, input, select, textarea { max-width: 100%; }
+.site-header { width: 100%; }
+.site-header nav { min-width: 0; }
+.nav-backdrop { display: none; }
+
+@media (max-width: 1100px) {
+  .site-header nav { width: min(100%, 28rem); max-width: 100%; }
+  .nav-backdrop { position: fixed; inset: var(--header-height) 0 0; z-index: calc(var(--z-menu) - 1); display: block; width: 100%; padding: 0; border: 0; background: rgba(16, 47, 61, .32); opacity: 0; pointer-events: none; transition: opacity .25s ease; }
+  .nav-backdrop.is-visible { opacity: 1; pointer-events: auto; }
+  .site-header nav.is-open { box-shadow: 0 18px 40px rgba(16, 47, 61, .16); }
+}
+
+@media (max-width: 767px) {
+  .section-wrap { width: 100%; padding-inline: 1rem; }
+  .site-header { padding-inline: 1rem; }
+  .hero, .intro-grid, .split-section, .business-section, .entrepreneurship-grid, .trust-section, .payments-section, .impact-section, .partnership-cta-inner, .partnership-layout, .form-layout, .booking-layout { width: 100%; max-width: 100%; }
+  .hero-media, .hero-media img { width: 100%; }
+  .hero h1, .page-hero h1, h2, h3, p, a, b, label, li, dt, dd { overflow-wrap: anywhere; }
+  .actions, .actions .button, .actions .text-link { min-width: 0; }
+  .metric-grid, .process-grid, .journal-grid, .journal-grid-page, .press-grid, .partnership-types { width: 100%; max-width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-backdrop { transition: none; }
 }

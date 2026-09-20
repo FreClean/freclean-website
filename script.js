@@ -6,11 +6,18 @@
     var navigation = document.querySelector('#primary-nav');
     if (!toggle || !navigation) return;
     var desktopQuery = window.matchMedia('(min-width: 1101px)');
+    var backdrop = document.createElement('button');
+    backdrop.className = 'nav-backdrop';
+    backdrop.type = 'button';
+    backdrop.setAttribute('aria-label', 'Close navigation menu');
+    backdrop.tabIndex = -1;
+    navigation.parentNode.insertBefore(backdrop, navigation);
     var focusable = function () { return Array.from(navigation.querySelectorAll('a, button, summary')).filter(function (element) { return !element.hasAttribute('disabled'); }); };
 
-    var close = function () {
+    var close = function (restoreFocus) {
       navigation.classList.remove('is-open');
       toggle.classList.remove('is-open');
+      backdrop.classList.remove('is-visible');
       navigation.inert = !desktopQuery.matches;
       navigation.setAttribute('aria-hidden', desktopQuery.matches ? 'false' : 'true');
       toggle.setAttribute('aria-expanded', 'false');
@@ -18,10 +25,12 @@
       var label = toggle.querySelector('b');
       if (label) label.textContent = 'Menu';
       document.body.classList.remove('menu-open');
+      if (restoreFocus) toggle.focus();
     };
     var open = function () {
       navigation.classList.add('is-open');
       toggle.classList.add('is-open');
+      backdrop.classList.add('is-visible');
       navigation.inert = false;
       navigation.setAttribute('aria-hidden', 'false');
       toggle.setAttribute('aria-expanded', 'true');
@@ -34,19 +43,19 @@
     };
 
     toggle.addEventListener('click', function () {
-      if (navigation.classList.contains('is-open')) close();
+      if (navigation.classList.contains('is-open')) close(true);
       else open();
     });
     navigation.addEventListener('click', function (event) {
-      if (event.target.closest('a')) close();
+      if (event.target.closest('a')) close(false);
     });
+    backdrop.addEventListener('click', function () { close(true); });
     document.addEventListener('click', function (event) {
-      if (navigation.classList.contains('is-open') && !navigation.contains(event.target) && !toggle.contains(event.target)) close();
+      if (navigation.classList.contains('is-open') && !navigation.contains(event.target) && !toggle.contains(event.target) && !backdrop.contains(event.target)) close(true);
     });
     document.addEventListener('keydown', function (event) {
       if (event.key === 'Escape' && navigation.classList.contains('is-open')) {
-        close();
-        toggle.focus();
+        close(true);
       }
       if (event.key === 'Tab' && navigation.classList.contains('is-open')) {
         var items = focusable();
@@ -60,7 +69,7 @@
         }
       }
     });
-    close();
+    close(false);
     var closeOnDesktop = function (event) {
       if (event.matches) close();
     };
