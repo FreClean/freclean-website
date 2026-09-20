@@ -14,7 +14,6 @@
     backdrop.tabIndex = -1;
     navigation.parentNode.insertBefore(backdrop, navigation);
     var focusable = function () { return Array.from(navigation.querySelectorAll('a, button, summary')).filter(function (element) { return !element.hasAttribute('disabled'); }); };
-    var lastTouchActivation = 0;
 
     var close = function (restoreFocus) {
       navigation.classList.remove('is-open');
@@ -50,14 +49,8 @@
       if (navigation.classList.contains('is-open')) close(true);
       else open();
     };
-    toggle.addEventListener('pointerup', function (event) {
-      if (event.pointerType === 'touch') {
-        lastTouchActivation = Date.now();
-        toggleMenu();
-      }
-    });
-    toggle.addEventListener('click', function () {
-      if (Date.now() - lastTouchActivation < 500) return;
+    toggle.addEventListener('click', function (event) {
+      event.preventDefault();
       toggleMenu();
     });
     navigation.addEventListener('click', function (event) {
