@@ -59,18 +59,18 @@
           <legend>04 / Payment</legend>
           <p class="step-intro">Choose a preference. Payment eligibility and status are confirmed by FreClean, not by this form.</p>
           <div class="payment-choice-list">
-            <label class="payment-choice" for="payment-card"><input id="payment-card" type="radio" name="payment_method" value="CARD" required><span><strong>Card</strong><small>Secure hosted checkout when configured.</small></span></label>
-            <label class="payment-choice" for="payment-cash"><input id="payment-cash" type="radio" name="payment_method" value="CASH"><span><strong>Pay in person</strong><small>Arrange payment during the service process.</small></span></label>
-            <label class="payment-choice" for="payment-crypto"><input id="payment-crypto" type="radio" name="payment_method" value="CRYPTO"><span><strong>Celo</strong><small>Continue to CeloHT for digital payment when eligible.</small></span></label>
+            <label class="payment-choice" for="payment-card"><input id="payment-card" type="radio" name="payment_method" value="CARD" required><span><strong>Card</strong><small>Subject to direct arrangement with FreClean; no online card checkout.</small></span></label>
+            <label class="payment-choice" for="payment-cash"><input id="payment-cash" type="radio" name="payment_method" value="CASH"><span><strong>Cash</strong><small>Available for supported local transactions arranged directly with FreClean.</small></span></label>
+            <label class="payment-choice" for="payment-crypto"><input id="payment-crypto" type="radio" name="payment_method" value="CRYPTO"><span><strong>CeloHT</strong><small>Use the separate CeloHT route only when arranged with FreClean.</small></span></label>
           </div>
-          <p class="payment-boundary">No card details, wallet credentials or payment confirmation are collected here. The CeloHT handoff appears only when a real public DApp URL is configured.</p>
-          <a class="button button-outline celo-handoff" data-celo-link href="#" hidden>Continue to CeloHT <span aria-hidden="true">&rarr;</span></a>
+          <p class="payment-boundary">This form never collects card details or wallet credentials and cannot confirm payment. CeloHT is a separate service; FreClean confirms any payment status directly.</p>
+          <a class="button button-outline celo-handoff" data-celo-link href="https://app.celoht.com/" target="_blank" rel="noopener noreferrer" hidden>Continue to CeloHT <span aria-hidden="true">&rarr;</span></a>
         </fieldset>
         <fieldset class="booking-step" data-booking-step="5" hidden>
           <legend>05 / Review</legend>
           <p class="step-intro">Review your request before sending it to FreClean.</p>
           <dl class="booking-review" data-booking-review></dl>
-          <p class="submission-boundary">This is an enquiry until a supported public request endpoint is configured. FreClean will confirm availability, pricing and payment next steps directly.</p>
+          <p class="submission-boundary">This is an enquiry, not an appointment. If online request submission is unavailable, you can draft an email to FreClean with the details. FreClean will confirm availability, pricing and payment next steps directly.</p>
         </fieldset>
         <div class="booking-actions">
           <button class="button button-outline booking-back" type="button" data-booking-back hidden>Back</button>
@@ -82,7 +82,7 @@
     </div>
   </section>
 </main>
-<footer class="site-footer"><div class="section-wrap footer-main"><div class="footer-brand"><a class="logo-link" href="../index.html" aria-label="FreClean home"><img src="../assets/logo-landscape-2.png" alt="FreClean" width="1672" height="941"></a><p>Professional cleaning services<br>and cleaning products from<br>Leogane, Haiti.</p></div><div><p class="footer-title">Explore</p><a href="../services/">Services</a><a href="../products/">Products</a><a href="../business/">Business</a></div><div><p class="footer-title">Company</p><a href="../about/">About</a><a href="../resources/">Resources</a><a href="../contact/">Contact</a></div><div><p class="footer-title">Contact</p><p>Leogane, Ouest, Haiti</p><a href="mailto:freclean7@gmail.com">freclean7@gmail.com</a><a href="tel:+18493881969">+1 (849) 388-1969</a></div></div><div class="section-wrap footer-bottom"><span>&copy; 2026 FreClean. All rights reserved.</span><span><a href="../privacy/">Privacy</a> &middot; <a href="../terms/">Terms</a></span></div></footer>
+<footer class="site-footer"><div class="section-wrap footer-main"><div class="footer-brand"><a class="logo-link" href="../index.html" aria-label="FreClean home"><img src="../assets/logo-landscape-2.png" alt="FreClean" width="1672" height="941"></a><p>Professional cleaning services<br>and cleaning products from<br>Leogane, Haiti.</p></div><div><p class="footer-title">Explore</p><a href="../services/">Services</a><a href="../products/">Products</a><a href="../business/">Business</a></div><div><p class="footer-title">Company</p><a href="../about/">About</a><a href="../resources/">Resources</a><a href="../contact/">Contact</a></div><div><p class="footer-title">Contact</p><p>Leogane, Ouest, Haiti</p><a href="mailto:freclean7@gmail.com">freclean7@gmail.com</a></div></div><div class="section-wrap footer-bottom"><span>&copy; 2026 FreClean. All rights reserved.</span><span><a href="../privacy/">Privacy</a> &middot; <a href="../terms/">Terms</a></span></div></footer>
 <script src="../script.js?v=nav-2026" defer></script>
 </body>
 </html>

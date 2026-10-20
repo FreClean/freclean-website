@@ -23,12 +23,15 @@ The core repository currently exposes `/api/auth`, `/api/bookings`, and
 issued `serviceId`, `businessLocationId`, `addressId`, and ISO schedule values.
 The website does not currently have an approved anonymous booking or public
 catalog endpoint. Therefore this static site must not post a public form to the
-protected booking route or claim that a request was created.
+protected booking route or claim that a request was created. The public request
+URL is currently unset; the form keeps its details and offers a visitor-sent
+email draft to `freclean7@gmail.com`.
 
 When a public request endpoint is released, it should be added as an explicit,
-versioned contract and enabled through runtime configuration. The website should
-then send a request and render only the API response, including conflict,
-validation, timeout, and unavailable states.
+versioned, approved HTTPS contract and enabled through runtime configuration.
+For this website to report receipt, the endpoint must return HTTP 204 or JSON
+with `received: true` or `accepted: true`. The website should render only that
+receipt, plus conflict, validation, timeout, and unavailable states.
 
 ## Customer journey
 
@@ -50,8 +53,9 @@ The core payment model is unified and currently uses `CRYPTO`, `CARD`, and
 `CASH`. The website labels `CASH` as “Pay in person” for customers. Payment
 status is read-only server data.
 
-- **Card:** a hosted processor must create the checkout. A signed webhook, not a
-  browser redirect, changes payment state to paid.
+- **Card:** online card checkout is not configured on the website. Card payment
+  may be arranged directly with FreClean. Any future hosted processor must use a
+  signed webhook, not a browser redirect, to change payment state to paid.
 - **Pay in person:** the booking remains pending payment until authorized staff
   records and reconciles the cash transaction.
 - **Celo:** the website links eligible customers to the configured public

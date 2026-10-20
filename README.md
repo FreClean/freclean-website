@@ -39,7 +39,7 @@ The old root `.html` URLs are retained only as redirects to their canonical dire
 
 ## Forms and Requests
 
-`/book/` and `/contact/` use the same request boundary. When `FRECLEAN_PUBLIC_REQUEST_URL` is empty, the form does not pretend to submit: it tells the visitor to email `freclean7@gmail.com`. When an approved HTTPS public endpoint is configured, the site sends the form data, handles loading/error/success states and only displays success after a successful HTTP response.
+`/book/` and `/contact/` use the same request boundary. `FRECLEAN_PUBLIC_REQUEST_URL` is currently empty, so submissions are not sent online. The form keeps the details and offers an email draft to `freclean7@gmail.com`; the visitor must send that email. When an authorized, public HTTPS endpoint is configured, it must return HTTP 204 or a JSON receipt with `received: true` or `accepted: true` before the site reports receipt. A failed or ambiguous response leaves the form data available for the email fallback.
 
 The website never confirms a booking, price, availability or payment on its own. The backend or authorized FreClean staff remains authoritative.
 
@@ -55,9 +55,9 @@ This repository intentionally does not claim to be a full payment processor, dat
 
 The public payment options are:
 
-1. Cash for supported local or face-to-face transactions.
-2. Visa and Mastercard where the configured service flow supports them.
-3. Crypto through the CeloHT dApp where available.
+1. Cash for supported local transactions arranged directly with FreClean.
+2. Visa or Mastercard only by direct arrangement and confirmation with FreClean. Online card checkout is not configured.
+3. The separate CeloHT route at the canonical link below, only when FreClean confirms it is appropriate.
 
 The CeloHT link is `https://app.celoht.com/`. CeloHT is a separate payment route and is not FreClean. The website does not collect raw card details or wallet credentials and does not fabricate payment confirmation.
 
@@ -97,9 +97,8 @@ The validator checks canonical pages, legacy redirects, metadata, landmarks, loc
 
 - GitHub Pages deployment
 - Google Fonts referenced by the public pages
-- FreClean email fallback: `freclean7@gmail.com`
-- FreClean phone contact: `+1 (849) 388-1969`
-- CeloHT dApp: `https://app.celoht.com/` when crypto payment is available
-- An approved public request endpoint is optional for API submission; the working email-draft fallback remains available
+- FreClean public contact and email-draft fallback: `freclean7@gmail.com`
+- CeloHT payment route: `https://app.celoht.com/`; CeloHT is separate from FreClean
+- No approved public request endpoint is configured; visitors must send the email draft themselves
 
-The website is **READY as a public service-enquiry website**. Online booking confirmation and hosted card checkout are intentionally not enabled: they require independently released external contracts and must not be represented as live until verified. The email-draft fallback, cash/card availability wording and CeloHT handoff are the current production boundaries.
+The website provides service enquiries, not online booking confirmation. Online request delivery requires an approved public HTTPS endpoint, and online card checkout is not configured. The email-draft fallback, locally arranged cash, card by direct arrangement, and the separate CeloHT route are the current public boundaries.

@@ -190,7 +190,7 @@
     document.querySelectorAll('[data-request-form]').forEach(function (form) {
       var status = form.querySelector('.form-status');
       var submit = form.querySelector('button[type="submit"]');
-        var isSubmitting = false;
+      var isSubmitting = false;
       var setStatus = function (message, state) {
         if (!status) return;
         status.textContent = message;
@@ -206,13 +206,13 @@
         var link = document.createElement('a');
         link.className = 'text-link';
         link.href = 'mailto:freclean7@gmail.com?subject=' + encodeURIComponent('FreClean service enquiry') + '&body=' + encodeURIComponent(details.join('\n'));
-        link.textContent = 'Open email draft';
+        link.textContent = 'Draft an email to FreClean';
         status.append(document.createTextNode(' '), link);
       };
 
       form.addEventListener('submit', function (event) {
         event.preventDefault();
-          if (isSubmitting) return;
+        if (isSubmitting) return;
         if (!form.checkValidity()) {
           form.reportValidity();
           setStatus('Please check the required fields before sending your enquiry.', 'error');
@@ -220,14 +220,24 @@
         }
         var requestUrl = window.FRECLEAN_PUBLIC_REQUEST_URL;
         if (!requestUrl) {
-          showEmailFallback('Online submission is not connected yet. Email FreClean with these details so we can respond.');
+          showEmailFallback('Your enquiry has not been sent online. Draft an email with these details and send it to FreClean.');
           return;
         }
-          isSubmitting = true;
-          if (submit) {
-            submit.disabled = true;
-            submit.setAttribute('aria-busy', 'true');
+        try {
+          var parsedRequestUrl = new URL(requestUrl);
+          if (parsedRequestUrl.protocol !== 'https:' || parsedRequestUrl.username || parsedRequestUrl.password || !parsedRequestUrl.hostname || parsedRequestUrl.hostname === 'localhost' || parsedRequestUrl.hostname.endsWith('.localhost') || parsedRequestUrl.hostname.endsWith('.local')) {
+            throw new Error('The public request URL is not an approved HTTPS destination.');
           }
+          requestUrl = parsedRequestUrl.href;
+        } catch (error) {
+          showEmailFallback('Online submission is unavailable. Your enquiry has not been sent; draft an email with these details and send it to FreClean.');
+          return;
+        }
+        isSubmitting = true;
+        if (submit) {
+          submit.disabled = true;
+          submit.setAttribute('aria-busy', 'true');
+        }
         setStatus('Sending your enquiry...', 'pending');
         fetch(requestUrl, {
           method: 'POST',
@@ -235,16 +245,23 @@
           body: JSON.stringify(Object.fromEntries(new FormData(form)))
         }).then(function (response) {
           if (!response.ok) throw new Error('The request service returned an error.');
-          form.reset();
-          setStatus('Your enquiry was submitted. FreClean will confirm availability and next steps directly.', 'success');
-        }).catch(function () {
-          showEmailFallback('We could not submit this enquiry. Email FreClean so your details are not lost.');
-        }).finally(function () {
-            isSubmitting = false;
-            if (submit) {
-              submit.disabled = false;
-              submit.removeAttribute('aria-busy');
+          if (response.status === 204) return;
+          return response.json().then(function (receipt) {
+            if (!receipt || (receipt.received !== true && receipt.accepted !== true)) {
+              throw new Error('The request service did not confirm receipt.');
             }
+          });
+        }).then(function () {
+          form.reset();
+          setStatus('Your enquiry was received. FreClean will confirm availability and next steps directly; this is not an appointment confirmation.', 'success');
+        }).catch(function () {
+          showEmailFallback('We could not confirm receipt of your enquiry. It has not been confirmed; draft an email with these details and send it to FreClean.');
+        }).finally(function () {
+          isSubmitting = false;
+          if (submit) {
+            submit.disabled = false;
+            submit.removeAttribute('aria-busy');
+          }
         });
       });
     });
@@ -315,7 +332,16 @@
         var link = form.querySelector('[data-celo-link]');
         if (!link) return;
         link.hidden = choice.value !== 'CRYPTO';
-        link.href = window.FRECLEAN_CELOHT_DAPP_URL || 'https://app.celoht.com/';
+        var celoUrl = 'https://app.celoht.com/';
+        try {
+          var configuredCeloUrl = new URL(window.FRECLEAN_CELOHT_DAPP_URL || celoUrl);
+          if (configuredCeloUrl.origin === 'https://app.celoht.com' && configuredCeloUrl.pathname === '/' && !configuredCeloUrl.search && !configuredCeloUrl.hash && !configuredCeloUrl.username && !configuredCeloUrl.password) {
+            celoUrl = configuredCeloUrl.href;
+          }
+        } catch (error) {
+          celoUrl = 'https://app.celoht.com/';
+        }
+        link.href = celoUrl;
       });
     });
     showStep(0);

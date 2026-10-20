@@ -47,6 +47,7 @@ grep -q '^FRECLEAN_SITE_BASE_URL=' .env.example || fail 'Missing public site URL
 grep -q '^FRECLEAN_SUPPORT_EMAIL=' .env.example || fail 'Missing support email configuration'
 grep -q 'https://app.celoht.com/' payments/index.html || fail 'Missing canonical CeloHT CTA'
 grep -q 'mailto:freclean7@gmail.com?subject=' script.js || fail 'Missing actionable email fallback'
+node --test scripts/request-workflow.test.js || fail 'Request workflow tests failed'
 [ -f legal/index.html ] || fail 'Missing legal center landing page'
 [ -f legal/complaints-dispute-resolution/index.html ] || fail 'Missing complaints and dispute resolution page'
 [ -f legal/cookie-policy/index.html ] || fail 'Missing cookie policy page'
