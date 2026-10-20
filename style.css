@@ -503,10 +503,10 @@ p { color: var(--ink-soft); }
 .celoht-partner-inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 7vw, 7rem); align-items: center; }
 .celoht-partner-inner h2 { max-width: 12ch; }
 .celoht-partner-inner p:not(.eyebrow) { max-width: 48ch; color: var(--ink-soft); }
-.celoht-partner-logo { display: block; width: min(100%, 184px); justify-self: end; padding: .6rem; border: 1px solid rgba(16, 47, 61, .1); border-radius: 8px; background: var(--white); box-shadow: 0 14px 36px rgba(16, 47, 61, .1); transition: transform .2s ease, box-shadow .2s ease; }
+.celoht-partner-logo { display: block; width: min(100%, 184px); justify-self: end; padding: .6rem; border: 1px solid rgba(16, 47, 61, .1); border-radius: 14px; background: var(--white); box-shadow: 0 14px 36px rgba(16, 47, 61, .1); transition: transform .2s ease, box-shadow .2s ease; }
 .celoht-partner-logo:hover, .celoht-payment-logo:hover { transform: translateY(-2px); box-shadow: 0 18px 42px rgba(16, 47, 61, .15); }
-.celoht-partner-logo img, .celoht-payment-logo img { display: block; width: 100%; height: auto; }
-.celoht-payment-logo { display: block; width: min(100%, 128px); margin-block: 1.25rem; padding: .45rem; border: 1px solid rgba(16, 47, 61, .1); border-radius: 7px; background: var(--white); box-shadow: 0 10px 26px rgba(16, 47, 61, .1); transition: transform .2s ease, box-shadow .2s ease; }
+.celoht-partner-logo img, .celoht-payment-logo img { display: block; width: 100%; height: auto; border-radius: 9px; }
+.celoht-payment-logo { display: block; width: min(100%, 128px); margin-block: 1.25rem; padding: .45rem; border: 1px solid rgba(16, 47, 61, .1); border-radius: 12px; background: var(--white); box-shadow: 0 10px 26px rgba(16, 47, 61, .1); transition: transform .2s ease, box-shadow .2s ease; }
 .impact-section { background: var(--paper); }
 .process-section { display: block; }
 .process-section .section-heading, .journal-section .section-heading { margin-bottom: 2.5rem; }
