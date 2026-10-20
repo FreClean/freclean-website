@@ -503,9 +503,9 @@ p { color: var(--ink-soft); }
 .celoht-partner-inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 7vw, 7rem); align-items: center; }
 .celoht-partner-inner h2 { max-width: 12ch; }
 .celoht-partner-inner p:not(.eyebrow) { max-width: 48ch; color: var(--ink-soft); }
-.celoht-partner-logo { display: block; width: min(100%, 560px); justify-self: end; }
+.celoht-partner-logo { display: block; width: min(100%, 260px); justify-self: end; }
 .celoht-partner-logo img, .celoht-payment-logo img { display: block; width: 100%; height: auto; }
-.celoht-payment-logo { display: block; width: min(100%, 280px); margin-block: 1.25rem; }
+.celoht-payment-logo { display: block; width: min(100%, 160px); margin-block: 1.25rem; }
 .impact-section { background: var(--paper); }
 .process-section { display: block; }
 .process-section .section-heading, .journal-section .section-heading { margin-bottom: 2.5rem; }
