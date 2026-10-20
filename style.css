@@ -499,6 +499,13 @@ p { color: var(--ink-soft); }
 .payments-section { background: #edf4e9; }
 .payments-section h2, .impact-section h2, .process-section h2, .journal-section h2, .partnership-cta h2 { max-width: 12ch; }
 .payments-section > div:last-child, .impact-section > div:last-child { padding-top: .35rem; }
+.celoht-partner-section { padding-block: clamp(4rem, 7vw, 6.5rem); background: var(--paper); }
+.celoht-partner-inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 7vw, 7rem); align-items: center; }
+.celoht-partner-inner h2 { max-width: 12ch; }
+.celoht-partner-inner p:not(.eyebrow) { max-width: 48ch; color: var(--ink-soft); }
+.celoht-partner-logo { display: block; width: min(100%, 560px); justify-self: end; }
+.celoht-partner-logo img, .celoht-payment-logo img { display: block; width: 100%; height: auto; }
+.celoht-payment-logo { display: block; width: min(100%, 280px); margin-block: 1.25rem; }
 .impact-section { background: var(--paper); }
 .process-section { display: block; }
 .process-section .section-heading, .journal-section .section-heading { margin-bottom: 2.5rem; }
@@ -575,7 +582,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--blue); box-shado
   .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .intro-grid, .split-section, .business-section, .entrepreneurship-grid, .trust-section, .form-layout, .booking-layout { grid-template-columns: 1fr; }
   .services-intro { grid-template-columns: 1fr; }
-  .payments-section, .impact-section, .partnership-cta-inner, .partnership-layout { grid-template-columns: 1fr; }
+  .payments-section, .impact-section, .partnership-cta-inner, .partnership-layout, .celoht-partner-inner { grid-template-columns: 1fr; }
   .process-grid, .journal-grid, .journal-grid-page, .press-grid { grid-template-columns: 1fr; }
   .journal-section .section-heading { display: block; }
   .journal-section .section-heading .text-link { display: inline-flex; margin-top: 1rem; }
@@ -595,6 +602,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--blue); box-shado
   .section-wrap { width: min(calc(100% - 1.25rem), var(--max)); }
   .site-header { padding-inline: .75rem; }
   .logo-link { width: 122px; }
+  .celoht-partner-logo { justify-self: start; }
   .hero { padding-block: 3.25rem 4rem; }
   .hero h1 { font-size: clamp(2.35rem, 11vw, 3.5rem); }
   .hero-note { position: static; max-width: 100%; margin-top: .9rem; }
