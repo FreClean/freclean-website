@@ -1,5 +1,6 @@
 {
   "source": "FreClean public website product information",
+  "pricingPolicy": "No displayed price is a confirmed offer. Current price, size, availability and eligible delivery terms must be confirmed directly by FreClean.",
   "products": [
     {
       "id": "cleaning-essentials",
@@ -7,7 +8,8 @@
       "category": "Cleaning Products",
       "description": "A collection of FreClean cleaning products for everyday home and workplace care.",
       "image": "assets/catalog-landscape-2.png",
-      "status": "Enquire for current availability",
+      "status": "Estimated $6.99–$7.99 US each; confirm current price and availability",
+      "price": { "kind": "estimated", "currency": "USD", "minimum": 6.99, "maximum": 7.99, "confirmedOffer": false },
       "availableSizes": null,
       "intendedUse": "Everyday cleaning care; confirm the suitable product and use with FreClean.",
       "safetyInformation": null
@@ -18,7 +20,8 @@
       "category": "Fragrance Products",
       "description": "FreClean fragrance products for fresher-feeling spaces.",
       "image": "assets/catalog-portrait-1.png",
-      "status": "Enquire for current availability",
+      "status": "Estimated $6.99–$7.99 US each; confirm current price and availability",
+      "price": { "kind": "estimated", "currency": "USD", "minimum": 6.99, "maximum": 7.99, "confirmedOffer": false },
       "availableSizes": null,
       "intendedUse": "Home and workplace fragrance; confirm product-specific use with FreClean.",
       "safetyInformation": null
@@ -29,7 +32,8 @@
       "category": "Household Care",
       "description": "Household care products represented in the current FreClean public collection.",
       "image": "assets/catalog-portrait-3.png",
-      "status": "Enquire for current availability",
+      "status": "Estimated $6.99–$7.99 US each; confirm current price and availability",
+      "price": { "kind": "estimated", "currency": "USD", "minimum": 6.99, "maximum": 7.99, "confirmedOffer": false },
       "availableSizes": null,
       "intendedUse": "Household care; confirm the suitable product and use with FreClean.",
       "safetyInformation": null

@@ -353,6 +353,63 @@
     });
   }
 
+  function setupVerifiedPublications() {
+    var container = document.querySelector('[data-verified-publications]');
+    if (!container) return;
+
+    fetch('../verified-publications.json')
+      .then(function (response) { if (!response.ok) throw new Error('Publication data unavailable'); return response.json(); })
+      .then(function (data) {
+        var approved = (data.publications || []).filter(function (item) {
+          return item && item.verifiedPublication === true && item.consent === true && item.quote && item.clientLabel;
+        });
+        if (!approved.length) return;
+
+        container.textContent = '';
+        approved.forEach(function (item) {
+          var article = document.createElement('article');
+          var quote = document.createElement('blockquote');
+          var attribution = document.createElement('small');
+          article.className = 'verified-publication';
+          quote.textContent = '“' + item.quote + '”';
+          attribution.textContent = item.clientLabel + (item.service ? ' · ' + item.service : '') + (item.date ? ' · ' + item.date : '') + ' · Verified publication';
+          article.append(quote, attribution);
+          container.appendChild(article);
+        });
+      })
+      .catch(function () {
+        // Keep the truthful empty-state copy when the source is unavailable.
+      });
+  }
+
+  function setupServiceEstimate() {
+    var form = document.querySelector('[data-booking-form]');
+    var output = document.querySelector('[data-service-estimate]');
+    if (!form || !output) return;
+
+    var update = function () {
+      var service = form.querySelector('#booking-service');
+      var property = form.querySelector('#booking-property');
+      var size = form.querySelector('#booking-size');
+      var serviceValue = service ? service.value : '';
+      var propertyValue = property ? property.value : '';
+      var sizeValue = size ? size.value : '';
+
+      if (!serviceValue || !propertyValue || !sizeValue) {
+        output.textContent = 'This estimate range helps FreClean prepare a quote. It is not a price, availability confirmation or booking.';
+        return;
+      }
+
+      output.textContent = 'Quote request prepared: ' + serviceValue + ' for a ' + propertyValue.toLowerCase() + ', approximately ' + sizeValue.toLowerCase() + '. FreClean will confirm the exact price, scope, availability and payment terms.';
+    };
+
+    ['booking-service', 'booking-property', 'booking-size'].forEach(function (id) {
+      var field = form.querySelector('#' + id);
+      if (field) field.addEventListener('change', update);
+    });
+    update();
+  }
+
   function setupBookingFlow() {
     var form = document.querySelector('[data-booking-form]');
     if (!form) return;
@@ -437,5 +494,7 @@
   setupMenu();
   setupForms();
   setupPageMotion();
+  setupVerifiedPublications();
+  setupServiceEstimate();
   setupBookingFlow();
 }());

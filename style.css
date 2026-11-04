@@ -880,6 +880,101 @@ body {
   }
 }
 
+.verified-publications {
+  padding-block: clamp(4rem, 8vw, 7rem);
+}
+
+.verified-publications-grid {
+  border-top: 1px solid var(--line);
+}
+
+.customer-review-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: stretch;
+}
+
+.review-invite {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 240px;
+  padding: clamp(1.4rem, 3vw, 2rem);
+  border-left: 3px solid var(--green);
+  background: var(--lime);
+}
+
+.review-invite > span {
+  color: var(--green);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.review-invite h3 {
+  margin: 1rem 0 .75rem;
+}
+
+.review-invite p {
+  margin-bottom: 1.5rem;
+}
+
+.review-invite .button {
+  margin-top: auto;
+}
+
+.price-note {
+  display: block;
+  margin-top: .65rem;
+  color: var(--ink-soft);
+  font-size: .78rem;
+  line-height: 1.45;
+}
+
+.product-item-copy .availability {
+  font-size: .72rem;
+  line-height: 1.45;
+}
+
+.verified-publications-empty {
+  margin: 0;
+  padding: 1.5rem 0;
+  max-width: 58ch;
+}
+
+.verified-publication {
+  display: grid;
+  grid-template-columns: minmax(140px, .3fr) minmax(0, 1fr);
+  gap: 2rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.verified-publication blockquote {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+}
+
+.verified-publication small {
+  color: var(--ink-soft);
+}
+
+@media (max-width: 760px) {
+  .verified-publication,
+  .customer-review-layout {
+    grid-template-columns: 1fr;
+    gap: .75rem;
+  }
+
+  .review-invite {
+    min-height: 220px;
+  }
+}
+
 @media (max-width: 760px) {
   .hero {
     grid-template-columns: 1fr;
