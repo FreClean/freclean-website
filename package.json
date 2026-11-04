@@ -1,0 +1,12 @@
+{
+  "name": "freclean-contact-api",
+  "private": true,
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test scripts/contact-api.test.js"
+  }
+}

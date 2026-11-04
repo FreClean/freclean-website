@@ -4,13 +4,14 @@ The FreClean public website is a static HTML, CSS and JavaScript site for servic
 
 ## Architecture
 
-The website is a public presentation and request boundary. It is not the FreClean admin application, protected API, database or payment processor.
+The website is a public presentation and request boundary. The contact API is a separate Render Node service in this repository; it is not the FreClean admin application, database or payment processor.
 
 ```text
 Public website
     -> service or product enquiry
-    -> FreClean public request endpoint (only when configured)
-    -> FreClean Core/API and staff confirmation
+    -> Render contact API
+    -> Resend
+    -> freclean7@gmail.com
 
 Public website
     -> crypto payment link
@@ -39,7 +40,7 @@ The old root `.html` URLs are retained only as redirects to their canonical dire
 
 ## Forms and Requests
 
-`/book/`, `/contact/`, and `/partners/` submit anonymous enquiries to the configured candidate endpoint `https://freclean.onrender.com/api/public/requests`. Booking forms use `type: "SERVICE"`; contact and partnership forms use `type: "CONTACT"`. The frontend preserves submitted fields and sends no authentication token, raw payment data, payment secrets, or booking IDs. This repository reports success only after HTTP 201 with `received: true`; a failed, ambiguous, validation, duplicate, rate-limit, or origin response leaves the form details available for the email fallback. Backend storage and retrieval remain unverified until the Core repository is connected and tested.
+`/book/`, `/contact/`, and `/partners/` submit anonymous enquiries to `https://freclean-contact-api.onrender.com/api/public/requests`. The API validates the name, email and message, rejects the honeypot field, applies an in-memory IP rate limit and duplicate fingerprint, and sends accepted enquiries through Resend to `freclean7@gmail.com`. The frontend reports success only after HTTP 201 with `received: true`; failed or ambiguous delivery leaves the details available for the email fallback.
 
 The website never confirms a booking, price, availability or payment on its own. The backend or authorized FreClean staff remains authoritative.
 
@@ -66,17 +67,19 @@ The CeloHT link is `https://app.celoht.com/`. CeloHT is a separate payment route
 Copy `.env.example` into the deployment configuration if the host supports runtime injection:
 
 ```text
-FRECLEAN_PUBLIC_REQUEST_URL=https://freclean.onrender.com/api/public/requests
-FRECLEAN_PUBLIC_API_BASE_URL=https://freclean.onrender.com
+FRECLEAN_PUBLIC_REQUEST_URL=https://freclean-contact-api.onrender.com/api/public/requests
+FRECLEAN_PUBLIC_API_BASE_URL=https://freclean-contact-api.onrender.com
 FRECLEAN_CELOHT_DAPP_URL=https://app.celoht.com
 CARD_PAYMENTS_ENABLED=false
 ```
+
+The Render service also requires `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, and `ALLOWED_ORIGINS` as Render environment variables. `RESEND_API_KEY` must never be added to this repository or exposed to the browser. Resend must have verified the sender domain before production delivery can succeed.
 
 The production request URL is public browser configuration and contains no secret. Do not point it at protected auth or booking APIs, and never add secrets or payment processor credentials to this repository.
 
 ## Development and Deployment
 
-No build step is required. Serve the repository with any static server, for example:
+The static site has no build step. The contact API runs with Node 20 on Render using `render.yaml`. Serve the static files locally with any static server, for example:
 
 ```sh
 python3 -m http.server 8000
@@ -109,6 +112,6 @@ The validator checks canonical pages, legacy redirects, metadata, landmarks, loc
 - Google Fonts referenced by the public pages
 - FreClean public contact and email-draft fallback: `freclean7@gmail.com`
 - CeloHT payment route: `https://app.celoht.com/`; CeloHT is separate from FreClean
-- The public request endpoint is not operationally verified. Read-only checks on 2026-11-04 returned `/health` 200, `/health/ready` 503, and unauthenticated `GET /api/public/requests` 401. Backend connectivity, database writes, readiness, CORS behavior for POST, and status retrieval require Core/Render/Supabase verification
+- The contact API implementation is covered by local mocked-provider tests. Production delivery remains unverified until the Render service is deployed with its Resend environment variables and a real enquiry is received at `freclean7@gmail.com`
 
 The website provides service and contact enquiries, not online booking confirmation. The supported anonymous public contract is `POST /api/public/requests`; `/api/bookings` remains authenticated and is not called by the frontend. Online card checkout is not configured, `CARD_PAYMENTS_ENABLED=false`, and the email-draft fallback, locally arranged cash, direct card arrangement, and separate CeloHT route remain the public boundaries.

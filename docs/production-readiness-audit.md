@@ -5,7 +5,7 @@ Repository: `FreClean/freclean-website`
 
 ## Repository Scope
 
-This workspace contains a static HTML, CSS, and JavaScript website deployed by GitHub Pages. It does not contain the Core API, authentication system, database migrations, Supabase integration, Render service, payment webhooks, or administrator application described by the platform architecture.
+This workspace contains a static HTML, CSS, and JavaScript website deployed by GitHub Pages plus a small Node contact API deployed separately on Render. It does not contain the Core API, authentication system, database migrations, Supabase integration, payment webhooks, or administrator application described by the platform architecture.
 
 ## Phase 1: Repository Audit
 
@@ -14,9 +14,9 @@ Files inspected include the public pages, `script.js`, `style.css`, `.github/wor
 Results:
 
 - Static deployment and validation baseline passes.
-- No backend runtime, package manifest, migration files, Supabase connection, or server startup configuration exists in this workspace.
+- The contact API runtime, package manifest, Render service configuration, and local delivery tests are present; database and admin infrastructure remain external.
 - The GitHub Pages workflow validates and deploys static content; it does not build or deploy a backend.
-- The public request endpoint is browser configuration only and is not proof that the Core service is live or can store data.
+- Local tests use a mocked email provider and do not prove that the deployed Render service can deliver production mail.
 - No secrets were found by the repository secret-pattern check.
 - `verified-publications.json` contains no publication records and is the only approved data source for verified customer feedback.
 
@@ -44,7 +44,7 @@ The following items require access to the separate Core repository or owner-oper
 - Render build/start commands, health checks, environment variables, deployment logs, and scaling configuration.
 - Database-backed request creation and retrieval tests using synthetic data.
 - Administrator authentication and request status workflows.
-- Rate limiting, duplicate protection, audit logging, notifications, and monitoring.
+- Audit logging and monitoring for the deployed service.
 - Product inventory, orders, carts, delivery, refund, and cancellation implementation.
 - Verified merchant credentials and signed payment provider sandbox integration before real payment activation.
 - Owner review of verified business information, legal registration claims, product data, delivery promises, and tax obligations.
@@ -52,9 +52,7 @@ The following items require access to the separate Core repository or owner-oper
 
 ## Live Read-Only External Findings
 
-- `https://freclean.onrender.com/health`: HTTP 200 observed.
-- `https://freclean.onrender.com/health/ready`: HTTP 503 observed.
-- `GET https://freclean.onrender.com/api/public/requests`: HTTP 401 observed; GET is not evidence of successful POST capability.
+- The new Render contact service has not yet been deployed from `render.yaml` in this workspace.
 - CORS preflight from `https://freclean.com` to `POST /api/public/requests`: HTTP 204 with `Access-Control-Allow-Origin: https://freclean.com` observed.
 - `https://app.celoht.com/`: HTTP 200 observed.
 
@@ -62,7 +60,7 @@ These checks did not submit customer data, mutate data, use credentials, or depl
 
 ## Production Blockers
 
-The platform cannot be declared production-ready until the Core repository and live infrastructure are made available for inspection and testing. Required evidence includes successful Core startup, Supabase connectivity, migration verification, HTTP `200` from `/health/ready`, HTTP `201` and database persistence from the public request contract, protected administrator retrieval/status updates, and Render health-check logs.
+The contact flow cannot be declared operational until the Render service is deployed with a verified Resend sender, its environment variables are set, and a real test enquiry is received at `freclean7@gmail.com`. The wider platform still requires the separate Core repository and infrastructure evidence described above.
 
 ## Validation Executed
 
