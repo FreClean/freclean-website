@@ -396,11 +396,11 @@
       var sizeValue = size ? size.value : '';
 
       if (!serviceValue || !propertyValue || !sizeValue) {
-        output.textContent = 'This estimate range helps FreClean prepare a quote. It is not a price, availability confirmation or booking.';
+        output.textContent = 'FreClean uses this size range to prepare the requested quote, availability and service details.';
         return;
       }
 
-      output.textContent = 'Quote request prepared: ' + serviceValue + ' for a ' + propertyValue.toLowerCase() + ', approximately ' + sizeValue.toLowerCase() + '. FreClean will confirm the exact price, scope, availability and payment terms.';
+      output.textContent = 'Quote request prepared: ' + serviceValue + ' for a ' + propertyValue.toLowerCase() + ', approximately ' + sizeValue.toLowerCase() + '. FreClean will confirm the exact scope, availability and payment terms.';
     };
 
     ['booking-service', 'booking-property', 'booking-size'].forEach(function (id) {
