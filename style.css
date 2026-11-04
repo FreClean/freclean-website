@@ -680,3 +680,255 @@ button, input, select, textarea { max-width: 100%; }
 @media (prefers-reduced-motion: reduce) {
   .nav-backdrop { transition: none; }
 }
+
+/* Homepage polish: restrained contrast, editorial spacing, and fewer decorative surfaces. */
+body {
+  background: #f7f8f4;
+}
+
+.site-header {
+  border-bottom-color: rgba(16, 47, 61, 0.14);
+}
+
+.hero {
+  grid-template-columns: minmax(0, 0.92fr) minmax(420px, 1.08fr);
+  gap: clamp(2rem, 5vw, 5.5rem);
+  padding-top: clamp(4rem, 7vw, 6.5rem);
+  padding-bottom: clamp(3rem, 5vw, 5rem);
+}
+
+.hero h1 {
+  max-width: 11ch;
+  font-size: clamp(2.9rem, 5.15vw, 5.75rem);
+  line-height: 0.98;
+}
+
+.hero h1 em {
+  color: var(--blue-dark);
+}
+
+.hero-media {
+  border-radius: 4px;
+  box-shadow: 0 24px 55px rgba(16, 47, 61, 0.14);
+}
+
+.hero-media img {
+  border-radius: 4px;
+}
+
+.hero-media::before {
+  display: none;
+}
+
+.hero-note {
+  border-radius: 5px;
+  animation: none;
+}
+
+.metrics-strip {
+  padding-top: 0;
+}
+
+.metric-grid {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  gap: 0;
+}
+
+.metric-grid div {
+  min-height: 112px;
+  padding: 1.35rem 1.25rem;
+  border-width: 0 1px 0 0;
+  border-style: solid;
+  border-color: var(--line);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.metric-grid div:last-child {
+  border-right: 0;
+}
+
+.metric-grid strong {
+  font-size: 1rem;
+}
+
+.metric-grid span {
+  font-size: 0.82rem;
+}
+
+.intro-band {
+  margin-top: clamp(3rem, 6vw, 5rem);
+}
+
+.services-editorial {
+  padding-top: clamp(5rem, 9vw, 8rem);
+}
+
+.service-feature {
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+.service-feature-image {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.service-row-image {
+  border-radius: 4px;
+}
+
+.service-row {
+  min-height: 164px;
+}
+
+.product-image {
+  border-radius: 4px;
+}
+
+.business-section {
+  min-height: 520px;
+  background: #123b35;
+  background-image: none;
+}
+
+.business-section::before,
+.business-section::after {
+  display: none;
+}
+
+.entrepreneurship-section {
+  background: #07547f;
+}
+
+.process-grid,
+.journal-grid {
+  gap: 0;
+  border-left: 1px solid var(--line);
+}
+
+.process-grid > div,
+.journal-grid article {
+  min-height: 220px;
+  border-top: 0;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.process-grid span,
+.journal-grid span {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.partnership-cta {
+  background: #102f3d;
+}
+
+.final-cta {
+  border-top: 1px solid rgba(16, 47, 61, 0.12);
+}
+
+.button,
+.nav-cta {
+  border-radius: 6px;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition-property: opacity, transform;
+  transition-duration: 700ms;
+  transition-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-media .hero-poster {
+  transform: translate3d(var(--hero-shift-x, 0), var(--hero-shift-y, 0), 0) scale(1.018);
+  transition: transform 350ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.service-feature-image img,
+.service-row-image img,
+.product-image img,
+.detail-image img,
+.image-frame img {
+  will-change: transform;
+}
+
+.service-feature:hover .service-feature-image img,
+.service-row:hover .service-row-image img,
+.product-section:hover .product-image img {
+  transform: scale(1.035);
+}
+
+@media (hover: hover) {
+  .button,
+  .text-link,
+  .service-feature,
+  .service-row,
+  .metric-grid div {
+    transition-duration: 220ms;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding-top: 3.25rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.45rem, 12vw, 3.75rem);
+  }
+
+  .hero-media {
+    aspect-ratio: 4 / 3;
+  }
+
+  .hero-media img {
+    object-position: center 42%;
+  }
+
+  .metric-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-bottom: 0;
+  }
+
+  .metric-grid div:nth-child(2) {
+    border-right: 0;
+  }
+
+  .metric-grid div:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .metric-grid div {
+    min-height: 106px;
+  }
+
+  .service-row {
+    min-height: 0;
+  }
+
+  .process-grid,
+  .journal-grid {
+    border-left: 0;
+  }
+
+  .process-grid > div,
+  .journal-grid article {
+    min-height: 180px;
+    border-left: 1px solid var(--line);
+  }
+}

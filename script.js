@@ -297,6 +297,62 @@
     });
   }
 
+  function setupPageMotion() {
+    var reducedMotionQuery = typeof window.matchMedia === 'function'
+      ? window.matchMedia('(prefers-reduced-motion: reduce)')
+      : null;
+    if (reducedMotionQuery && reducedMotionQuery.matches) return;
+
+    var selectors = '.hero-copy > *, .hero-media, .metric-grid > div, .intro-grid > *, .services-intro > *, .service-feature, .service-row, .split-section > *, .business-heading, .business-copy, .entrepreneurship-grid > *, .payments-section > *, .celoht-partner-inner > *, .impact-section > *, .process-grid > div, .journal-grid article, .partnership-cta-inner > *, .trust-section > *, .final-cta-inner > *';
+    var elements = Array.from(document.querySelectorAll(selectors));
+
+    if (!('IntersectionObserver' in window)) {
+      elements.forEach(function (element) { element.classList.add('is-visible'); });
+      return;
+    }
+
+    elements.forEach(function (element, index) {
+      element.classList.add('reveal');
+      element.style.setProperty('--reveal-delay', Math.min(index % 4, 3) * 70 + 'ms');
+    });
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+
+    elements.forEach(function (element) { observer.observe(element); });
+
+    var heroMedia = document.querySelector('.hero-media');
+    var hoverQuery = typeof window.matchMedia === 'function'
+      ? window.matchMedia('(hover: none)')
+      : null;
+    if (!heroMedia || (hoverQuery && hoverQuery.matches)) return;
+
+    var frameRequested = false;
+    var pointerX = 0;
+    var pointerY = 0;
+    heroMedia.addEventListener('pointermove', function (event) {
+      var bounds = heroMedia.getBoundingClientRect();
+      pointerX = ((event.clientX - bounds.left) / bounds.width - 0.5) * 10;
+      pointerY = ((event.clientY - bounds.top) / bounds.height - 0.5) * 10;
+      if (frameRequested) return;
+      frameRequested = true;
+      window.requestAnimationFrame(function () {
+        heroMedia.style.setProperty('--hero-shift-x', pointerX.toFixed(2) + 'px');
+        heroMedia.style.setProperty('--hero-shift-y', pointerY.toFixed(2) + 'px');
+        frameRequested = false;
+      });
+    });
+    heroMedia.addEventListener('pointerleave', function () {
+      heroMedia.style.setProperty('--hero-shift-x', '0px');
+      heroMedia.style.setProperty('--hero-shift-y', '0px');
+    });
+  }
+
   function setupBookingFlow() {
     var form = document.querySelector('[data-booking-form]');
     if (!form) return;
@@ -380,5 +436,6 @@
   setupCookieConsent();
   setupMenu();
   setupForms();
+  setupPageMotion();
   setupBookingFlow();
 }());
