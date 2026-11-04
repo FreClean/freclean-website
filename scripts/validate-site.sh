@@ -24,6 +24,7 @@ for page in $canonical_pages; do
   grep -q 'class="skip-link"' "$page" || fail "Missing skip link: $page"
   grep -q 'class="site-header"' "$page" || fail "Missing shared header: $page"
   grep -q 'class="site-footer"' "$page" || fail "Missing shared footer: $page"
+  [ "$(grep -o '<main[^>]*id="main-content"' "$page" | wc -l)" -eq 1 ] || fail "Expected exactly one main landmark: $page"
   case "$page" in
     index.html) expected_url="$base_url/" ;;
     404.html) expected_url="$base_url/404.html" ;;
@@ -47,7 +48,7 @@ grep -q '^FRECLEAN_SITE_BASE_URL=' .env.example || fail 'Missing public site URL
 grep -q '^FRECLEAN_SUPPORT_EMAIL=' .env.example || fail 'Missing support email configuration'
 [ -f verified-publications.json ] || fail 'Missing verified publications data file'
 grep -q 'verifiedPublication' verified-publications.json || fail 'Verified publication data policy missing'
-grep -q 'data-service-estimate' book/index.html || fail 'Service estimate status is missing'
+grep -q 'data-service-estimate' book/index.html || fail 'Service quote status is missing'
 grep -q '\$6\.99–\$7\.99 US each' products/index.html || fail 'Product price range is missing'
 grep -q 'Customer voices' index.html || fail 'Customer testimonials section heading is missing'
 grep -q 'Submit feedback' index.html || fail 'Customer feedback submission link is missing'
