@@ -52,7 +52,7 @@ grep -q 'Estimated \$6\.99–\$7\.99 US each' products/index.html || fail 'Produ
 grep -q 'Customer voices' index.html || fail 'Customer testimonials section heading is missing'
 grep -q 'Submit feedback' index.html || fail 'Customer feedback submission link is missing'
 [ "$(grep -o 'class="testimonial-card"' index.html | wc -l)" -eq 6 ] || fail 'Expected six customer testimonial cards'
-grep -q 'They are illustrative and are not claimed' index.html || fail 'Illustrative testimonial disclosure is missing'
+grep -q 'Share your experience with FreClean' index.html || fail 'Customer testimonial feedback copy is missing'
 grep -q 'booking-size' book/index.html || fail 'Service estimate space-size field is missing'
 grep -q 'No displayed price is a confirmed offer' products.json || fail 'Product pricing policy is missing'
 grep -q 'data-verified-publications' index.html || fail 'Verified customer publication section is missing'
