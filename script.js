@@ -250,6 +250,9 @@
         });
         isSubmitting = true;
         if (submit) {
+          submit.dataset = submit.dataset || {};
+          submit.dataset.originalLabel = submit.textContent;
+          submit.textContent = 'Sending...';
           submit.disabled = true;
           submit.setAttribute('aria-busy', 'true');
         }
@@ -291,6 +294,7 @@
         }).finally(function () {
           isSubmitting = false;
           if (submit) {
+            submit.textContent = submit.dataset.originalLabel || submit.textContent;
             submit.disabled = false;
             submit.removeAttribute('aria-busy');
           }
@@ -382,6 +386,90 @@
       .catch(function () {
         // Keep the truthful empty-state copy when the source is unavailable.
       });
+  }
+
+  function setupSiteSearch() {
+    var navigation = document.querySelector('#primary-nav');
+    if (!navigation || navigation.querySelector('[data-site-search-trigger]')) return;
+
+    var pages = [
+      ['Home', '/', 'FreClean cleaning services and products in Leogane, Haiti'],
+      ['Services', '/services/', 'Residential, commercial, hospitality and specialized cleaning'],
+      ['Residential cleaning', '/services/residential/', 'Cleaning for homes and apartments'],
+      ['Commercial cleaning', '/services/commercial/', 'Cleaning for offices, retail and businesses'],
+      ['Hospitality cleaning', '/services/hospitality/', 'Guest-ready hotels, Airbnb and hospitality spaces'],
+      ['Specialized cleaning', '/services/specialized/', 'Deep cleaning and tailored projects'],
+      ['Products', '/products/', 'Cleaning essentials and fragrance products'],
+      ['Business', '/business/', 'Cleaning plans for properties and working spaces'],
+      ['Book a service', '/book/', 'Request a service and share your requirements'],
+      ['Contact FreClean', '/contact/', 'Send an enquiry to the FreClean team'],
+      ['About FreClean', '/about/', 'Company information and local roots'],
+      ['Resources', '/resources/', 'Practical resources for cleaner spaces'],
+      ['Payments', '/payments/', 'Payment information and arrangements'],
+      ['Privacy', '/privacy/', 'Privacy and data practices'],
+      ['Terms', '/terms/', 'Terms and conditions']
+    ];
+    var trigger = document.createElement('button');
+    trigger.type = 'button';
+    trigger.className = 'nav-search';
+    trigger.dataset.siteSearchTrigger = 'true';
+    trigger.setAttribute('aria-label', 'Search FreClean');
+    trigger.innerHTML = '<span aria-hidden="true">⌕</span><span>Search</span>';
+    navigation.appendChild(trigger);
+
+    var dialog = document.createElement('dialog');
+    dialog.className = 'site-search';
+    dialog.setAttribute('aria-labelledby', 'site-search-title');
+    dialog.innerHTML = '<div class="site-search__inner"><div class="site-search__top"><div><p class="eyebrow">Find your next step</p><h2 id="site-search-title">Search FreClean</h2></div><button type="button" class="site-search__close" aria-label="Close search">&times;</button></div><form class="site-search__form"><label for="site-search-input">Search the site<input id="site-search-input" type="search" autocomplete="off" placeholder="Try services, products or booking"></label></form><div class="site-search__results" aria-live="polite"></div></div>';
+    document.body.appendChild(dialog);
+    var input = dialog.querySelector('#site-search-input');
+    var results = dialog.querySelector('.site-search__results');
+    var closeButton = dialog.querySelector('.site-search__close');
+    var render = function () {
+      var query = input.value.trim().toLowerCase();
+      var matches = pages.filter(function (page) { return !query || (page[0] + ' ' + page[2]).toLowerCase().indexOf(query) !== -1; }).slice(0, 8);
+      results.textContent = '';
+      if (!matches.length) {
+        results.innerHTML = '<p class="site-search__empty">No matching page found. Try a broader search.</p>';
+        return;
+      }
+      matches.forEach(function (page) {
+        var link = document.createElement('a');
+        link.href = page[1];
+        link.className = 'site-search__result';
+        link.innerHTML = '<strong></strong><span></span>';
+        link.querySelector('strong').textContent = page[0];
+        link.querySelector('span').textContent = page[2];
+        results.appendChild(link);
+      });
+    };
+    var close = function () {
+      if (dialog.open) dialog.close();
+      trigger.focus();
+    };
+    trigger.addEventListener('click', function () { dialog.showModal(); render(); input.focus(); });
+    closeButton.addEventListener('click', close);
+    dialog.addEventListener('click', function (event) { if (event.target === dialog) close(); });
+    dialog.addEventListener('keydown', function (event) { if (event.key === 'Escape') close(); });
+    input.addEventListener('input', render);
+    dialog.querySelector('form').addEventListener('submit', function (event) { event.preventDefault(); var first = results.querySelector('a'); if (first) first.click(); });
+  }
+
+  function setupPerformanceHints() {
+    document.querySelectorAll('img:not([fetchpriority="high"])').forEach(function (image) {
+      if (!image.hasAttribute('loading')) image.loading = 'lazy';
+      if (!image.hasAttribute('decoding')) image.decoding = 'async';
+    });
+    document.querySelectorAll('a[href^="/"]').forEach(function (link) {
+      link.addEventListener('mouseenter', function () {
+        if (link.dataset.prefetched === 'true') return;
+        var prefetch = document.createElement('link');
+        prefetch.rel = 'prefetch';
+        prefetch.href = link.href;
+        document.head.appendChild(prefetch);
+        link.dataset.prefetched = 'true';
+      }, { once: true });
+    });
   }
 
   function setupServiceEstimate() {
@@ -495,6 +583,8 @@
   setupCookieConsent();
   setupMenu();
   setupForms();
+  setupSiteSearch();
+  setupPerformanceHints();
   setupPageMotion();
   setupVerifiedPublications();
   setupServiceEstimate();
