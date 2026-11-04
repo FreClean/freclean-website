@@ -238,15 +238,16 @@
           setStatus('Please provide at least 10 characters in the message or additional information field.', 'error');
           return;
         }
-        var payload = {
+        var payload = Object.assign({}, values, {
           type: requestType,
+          name: (values.name || values.fullName || '').trim(),
           fullName: (values.fullName || values.name || '').trim(),
           email: (values.email || '').trim(),
           phone: (values.phone || '').trim(),
           service: (values.service || values.subject || '').trim(),
           message: message,
           website: ''
-        };
+        });
         isSubmitting = true;
         if (submit) {
           submit.disabled = true;
@@ -265,6 +266,7 @@
           if (response.status === 413) throw Object.assign(new Error('large'), { status: 413 });
           if (response.status === 429) throw Object.assign(new Error('rate-limit'), { status: 429 });
           if (response.status === 403) throw Object.assign(new Error('origin'), { status: 403 });
+          if (response.status !== 201) throw new Error('The request service did not explicitly accept the enquiry.');
           if (!response.ok) throw new Error('The request service returned an error.');
           return response.json().then(function (receipt) {
             if (!receipt || receipt.received !== true) {

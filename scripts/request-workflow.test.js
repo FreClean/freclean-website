@@ -33,6 +33,7 @@ function createForm(name, valid = true) {
   };
   return {
     name,
+    dataset: { requestType: name === 'booking' ? 'SERVICE' : 'CONTACT' },
     fields: [['name', 'Ada Customer'], ['email', 'ada@example.com'], ['message', 'Please contact me']],
     listeners,
     status,
@@ -210,6 +211,37 @@ test('HTTP 201 with a received receipt is an explicit successful submission', as
 
   assert.equal(form.status.dataset.state, 'success');
   assert.equal(form.resetCalled, true);
+});
+
+test('booking submission preserves every submitted business field', async () => {
+  const form = createForm('booking');
+  form.fields = [
+    ['service', 'Residential'],
+    ['property_type', 'Home or apartment'],
+    ['space_size', '501 to 1,000 sq ft'],
+    ['date', '2026-12-15'],
+    ['time', '09:30'],
+    ['name', 'Ada Customer'],
+    ['phone', '+50955501234'],
+    ['email', 'ada@example.com'],
+    ['location', 'Leogane, Haiti'],
+    ['notes', 'Please focus on the kitchen and living room.'],
+    ['payment_method', 'CASH']
+  ];
+  let submittedBody;
+  boot([form], 'https://freclean.onrender.com/api/public/requests', (url, options) => {
+    submittedBody = JSON.parse(options.body);
+    return Promise.resolve({ ok: true, status: 201, json: () => Promise.resolve({ received: true, requestId: 'test-request-id' }) });
+  });
+
+  submit(form);
+  await waitForRequest();
+
+  for (const [key, value] of form.fields) {
+    assert.equal(submittedBody[key], value);
+  }
+  assert.equal(submittedBody.type, 'SERVICE');
+  assert.equal(form.status.dataset.state, 'success');
 });
 
 test('payment copy keeps card checkout inactive and CeloHT clearly separate and safe', () => {

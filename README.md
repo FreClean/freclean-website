@@ -39,7 +39,7 @@ The old root `.html` URLs are retained only as redirects to their canonical dire
 
 ## Forms and Requests
 
-`/book/`, `/contact/`, and `/partners/` submit anonymous enquiries to the documented production endpoint `https://freclean.onrender.com/api/public/requests`. Booking forms use `type: "SERVICE"`; contact and partnership forms use `type: "CONTACT"`. The frontend maps only the approved contract fields and sends no authentication token, payment data, or booking IDs. The backend must return HTTP 201 with `received: true` before the site reports receipt. A failed, ambiguous, validation, duplicate, rate-limit, or origin response leaves the form details available for the email fallback.
+`/book/`, `/contact/`, and `/partners/` submit anonymous enquiries to the configured candidate endpoint `https://freclean.onrender.com/api/public/requests`. Booking forms use `type: "SERVICE"`; contact and partnership forms use `type: "CONTACT"`. The frontend preserves submitted fields and sends no authentication token, raw payment data, payment secrets, or booking IDs. This repository reports success only after HTTP 201 with `received: true`; a failed, ambiguous, validation, duplicate, rate-limit, or origin response leaves the form details available for the email fallback. Backend storage and retrieval remain unverified until the Core repository is connected and tested.
 
 The website never confirms a booking, price, availability or payment on its own. The backend or authorized FreClean staff remains authoritative.
 
@@ -84,6 +84,14 @@ python3 -m http.server 8000
 
 GitHub Pages deploys from `main` through `.github/workflows/pages.yml`. The workflow validates the site before publishing the artifact. The repository `CNAME` file configures `freclean.com`; DNS and the GitHub Pages custom-domain setting must remain active for the canonical domain to resolve.
 
+## Production Integration Documentation
+
+- [Integration map and external dependencies](docs/integration-map.md)
+- [Repository-side production readiness audit](docs/production-readiness-audit.md)
+- [Four-repository architecture record](docs/architecture-2.0.md)
+
+These documents distinguish implemented website behavior from external Core, database, authentication, administration, notification, and payment capabilities that have not been verified.
+
 ## Validation
 
 Run the production checks from the repository root:
@@ -101,6 +109,6 @@ The validator checks canonical pages, legacy redirects, metadata, landmarks, loc
 - Google Fonts referenced by the public pages
 - FreClean public contact and email-draft fallback: `freclean7@gmail.com`
 - CeloHT payment route: `https://app.celoht.com/`; CeloHT is separate from FreClean
-- No approved public request endpoint is configured; visitors must send the email draft themselves
+- The public request endpoint is not operationally verified. Read-only checks on 2026-11-04 returned `/health` 200, `/health/ready` 503, and unauthenticated `GET /api/public/requests` 401. Backend connectivity, database writes, readiness, CORS behavior for POST, and status retrieval require Core/Render/Supabase verification
 
 The website provides service and contact enquiries, not online booking confirmation. The supported anonymous public contract is `POST /api/public/requests`; `/api/bookings` remains authenticated and is not called by the frontend. Online card checkout is not configured, `CARD_PAYMENTS_ENABLED=false`, and the email-draft fallback, locally arranged cash, direct card arrangement, and separate CeloHT route remain the public boundaries.

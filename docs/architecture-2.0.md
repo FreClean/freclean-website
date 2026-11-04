@@ -43,7 +43,8 @@ The website presents the intended journey as five stages:
 4. Payment: choose card, pay in person, or Celo.
 5. Review: confirm the request before submission.
 
-The current form remains an inquiry until the public API contract exists. It
+The current form remains an inquiry until the public API contract is independently
+verified against a live Core implementation. It
 never invents availability, price, booking IDs, transaction hashes, or payment
 status. The existing email fallback is the honest failure path.
 
