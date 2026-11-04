@@ -40,7 +40,7 @@ The old root `.html` URLs are retained only as redirects to their canonical dire
 
 ## Forms and Requests
 
-`/book/`, `/contact/`, and `/partners/` submit anonymous enquiries to `https://freclean-contact-api.onrender.com/api/public/requests`. The API validates the name, email and message, rejects the honeypot field, applies an in-memory IP rate limit and duplicate fingerprint, and sends accepted enquiries through Resend to `freclean7@gmail.com`. The frontend reports success only after HTTP 201 with `received: true`; failed or ambiguous delivery leaves the details available for the email fallback.
+`/book/`, `/contact/`, and `/partners/` submit anonymous enquiries to `https://freclean.onrender.com/api/public/requests`. The Core API validates the name, email and message, rejects the honeypot field, applies rate limiting and duplicate protection, and sends accepted enquiries through Resend to `freclean7@gmail.com`. The frontend reports success only after HTTP 201 with `received: true`; failed or ambiguous delivery leaves the details available for the email fallback.
 
 The website never confirms a booking, price, availability or payment on its own. The backend or authorized FreClean staff remains authoritative.
 
@@ -67,8 +67,8 @@ The CeloHT link is `https://app.celoht.com/`. CeloHT is a separate payment route
 Copy `.env.example` into the deployment configuration if the host supports runtime injection:
 
 ```text
-FRECLEAN_PUBLIC_REQUEST_URL=https://freclean-contact-api.onrender.com/api/public/requests
-FRECLEAN_PUBLIC_API_BASE_URL=https://freclean-contact-api.onrender.com
+FRECLEAN_PUBLIC_REQUEST_URL=https://freclean.onrender.com/api/public/requests
+FRECLEAN_PUBLIC_API_BASE_URL=https://freclean.onrender.com
 FRECLEAN_CELOHT_DAPP_URL=https://app.celoht.com
 CARD_PAYMENTS_ENABLED=false
 ```

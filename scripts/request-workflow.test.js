@@ -137,7 +137,7 @@ test('booking and contact pages expose required email validation and a live stat
 test('blank configuration uses the production public enquiries endpoint', () => {
   const booking = createForm('booking');
   boot([booking], '', (url) => {
-    assert.equal(url, 'https://freclean-contact-api.onrender.com/api/public/requests');
+    assert.equal(url, 'https://freclean.onrender.com/api/public/requests');
     return Promise.resolve({ ok: true, status: 201, json: () => Promise.resolve({ received: true }) });
   });
 
@@ -204,7 +204,7 @@ test('successful server receipt is the only JSON response that reports receipt',
 
 test('HTTP 201 with a received receipt is an explicit successful submission', async () => {
   const form = createForm('contact');
-  boot([form], 'https://freclean-contact-api.onrender.com/api/public/requests', () => Promise.resolve({ ok: true, status: 201, json: () => Promise.resolve({ received: true, requestId: '9f1d3f6f-7ab8-44aa-b23f-0a8d0e0c9ad1' }) }));
+  boot([form], 'https://freclean.onrender.com/api/public/requests', () => Promise.resolve({ ok: true, status: 201, json: () => Promise.resolve({ received: true, requestId: '9f1d3f6f-7ab8-44aa-b23f-0a8d0e0c9ad1' }) }));
 
   submit(form);
   await waitForRequest();
@@ -229,7 +229,7 @@ test('booking submission preserves every submitted business field', async () => 
     ['payment_method', 'CASH']
   ];
   let submittedBody;
-  boot([form], 'https://freclean-contact-api.onrender.com/api/public/requests', (url, options) => {
+  boot([form], 'https://freclean.onrender.com/api/public/requests', (url, options) => {
     submittedBody = JSON.parse(options.body);
     return Promise.resolve({ ok: true, status: 201, json: () => Promise.resolve({ received: true, requestId: 'test-request-id' }) });
   });

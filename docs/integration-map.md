@@ -8,7 +8,7 @@ Scope: `FreClean/freclean-website` only
 | Component | Current repository | Required external repository/service | Required configuration | Credentials required | Safe verification | Current status |
 |---|---|---|---|---|---|---|
 | Public website | Implemented as static HTML/CSS/JS | GitHub Pages, GitHub repository settings, DNS | `CNAME=freclean.com`; Pages custom domain; HTTPS; canonical URLs | GitHub repository/pages permissions | Workflow validation, HTTPS request, redirect and sitemap checks | Implemented; live DNS/Pages state not automatically verified |
-| Public request client and email API | Implemented in `script.js`, `server.js`, and booking/contact/partner forms | Render service defined by `render.yaml`, plus Resend | `FRECLEAN_PUBLIC_REQUEST_URL=https://freclean-contact-api.onrender.com/api/public/requests`; HTTPS origin and approved CORS | `RESEND_API_KEY` and `RESEND_FROM_EMAIL` stored only in Render | Local mocked-provider tests, then CORS preflight and real test enquiry after deployment | Implemented locally; production deployment and delivery remain unverified |
+| Public request client and email API | Implemented in `script.js` and `FreClean/FreClean` Core API | Existing `freclean.onrender.com` Render service, plus Resend | `FRECLEAN_PUBLIC_REQUEST_URL=https://freclean.onrender.com/api/public/requests`; HTTPS origin and approved CORS | `RESEND_API_KEY` and `RESEND_FROM_EMAIL` stored only in Render | Local provider tests, then readiness, CORS, and real test enquiry after deployment | Backend fix prepared; production DB/provider configuration remains unverified |
 | API health | Not implemented in this repository | Core API on Render | `GET /health` and `GET /health/ready` | No secret for public health checks unless policy changes them | `/health` must return 200; `/health/ready` 200 only when dependencies are healthy; 503 otherwise | `/health` 200 observed; `/health/ready` 503 observed |
 | Database | No database code or migrations here | Supabase plus Core API | `DATABASE_URL` and Supabase Session Pooler settings, SSL enforcement, pool limits | Server-only database credential owned in Render/Core; never expose it here | Migration status, read/write synthetic data, pool health, `/health/ready` 200 | Unverified; no database code or credentials in this workspace |
 | Core API and migrations | No code here | `FreClean/FreClean` repository | Start command, build command, API routes, migration command, environment variables | Server secrets owned by the Core deployment | Startup logs, migration replay in isolated environment, contract tests, error/validation tests | Components are only referenced in documentation; inaccessible and unverified |
@@ -26,7 +26,7 @@ Scope: `FreClean/freclean-website` only
 | Name | Scope | Current status |
 |---|---|---|
 | `FRECLEAN_SITE_BASE_URL` | Public static-site base | Documented public URL; not consumed by server runtime |
-| `FRECLEAN_PUBLIC_REQUEST_URL` | Browser/public API URL | Render contact API URL; production delivery remains unverified |
+| `FRECLEAN_PUBLIC_REQUEST_URL` | Browser/public API URL | Existing Core API URL; production delivery remains unverified |
 | `FRECLEAN_CELOHT_DAPP_URL` | Browser public CeloHT URL | Public URL and separate route |
 | `FRECLEAN_SUPPORT_EMAIL` | Public support email | Public contact fallback value |
 | `FRECLEAN_PUBLIC_API_BASE_URL` | Documented server-side/API base | No server runtime consumes this variable in this repository |

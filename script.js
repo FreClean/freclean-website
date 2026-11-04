@@ -218,7 +218,7 @@
           setStatus('Please check the required fields before sending your enquiry.', 'error');
           return;
         }
-        var requestUrl = window.FRECLEAN_PUBLIC_REQUEST_URL || 'https://freclean-contact-api.onrender.com/api/public/requests';
+        var requestUrl = window.FRECLEAN_PUBLIC_REQUEST_URL || 'https://freclean.onrender.com/api/public/requests';
         try {
           var parsedRequestUrl = new URL(requestUrl);
           if (parsedRequestUrl.protocol !== 'https:' || parsedRequestUrl.username || parsedRequestUrl.password || !parsedRequestUrl.hostname || parsedRequestUrl.hostname === 'localhost' || parsedRequestUrl.hostname.endsWith('.localhost') || parsedRequestUrl.hostname.endsWith('.local')) {

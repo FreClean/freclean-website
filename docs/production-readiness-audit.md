@@ -52,7 +52,7 @@ The following items require access to the separate Core repository or owner-oper
 
 ## Live Read-Only External Findings
 
-- The new Render contact service has not yet been deployed from `render.yaml` in this workspace.
+- The existing Core Render service is reachable, but its `/health/ready` endpoint currently reports database unavailability.
 - CORS preflight from `https://freclean.com` to `POST /api/public/requests`: HTTP 204 with `Access-Control-Allow-Origin: https://freclean.com` observed.
 - `https://app.celoht.com/`: HTTP 200 observed.
 
