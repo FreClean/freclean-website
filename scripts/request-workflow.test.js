@@ -249,8 +249,10 @@ test('payment copy keeps card checkout inactive and CeloHT clearly separate and 
   const paymentPage = fs.readFileSync(path.join(root, 'payments/index.html'), 'utf8');
   const bookingPage = fs.readFileSync(path.join(root, 'book/index.html'), 'utf8');
 
-  assert.match(paymentPage, /Online card checkout is not available/);
+  assert.match(paymentPage, /Card payments can be arranged directly with our team/);
+  assert.match(paymentPage, /Flexible Payment Options/);
   assert.match(paymentPage, /href="https:\/\/app\.celoht\.com\/" target="_blank" rel="noopener noreferrer"/);
+  assert.match(bookingPage, /FreClean will provide payment instructions after reviewing your request/);
   assert.match(bookingPage, /href="https:\/\/app\.celoht\.com\/" target="_blank" rel="noopener noreferrer"/);
   assert.match(script, /configuredCeloUrl\.origin === 'https:\/\/app\.celoht\.com'/);
   assert.doesNotMatch(script, /payment (?:was |has been )?(?:received|confirmed|successful)/i);
