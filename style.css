@@ -18,8 +18,8 @@
   --white: #ffffff;
   --line: var(--color-border);
   --warm: #f2a94a;
-  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
-  --sans: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
+  --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --sans: "Plus Jakarta Sans", "Avenir Next", "Segoe UI", sans-serif;
   --max: 1240px;
   --header-height: 84px;
   --z-header: 30;

@@ -7,9 +7,10 @@
   "theme_color": "#102f3d",
   "icons": [
     {
-      "src": "assets/logo-landscape-2.png",
-      "sizes": "1672x941",
-      "type": "image/png"
+      "src": "assets/brand-logo-1.jpg",
+      "sizes": "1536x1536",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
     }
   ]
 }

@@ -56,6 +56,7 @@ grep -q 'Submit feedback' index.html || fail 'Customer feedback submission link 
 grep -q 'Share your experience with FreClean' index.html || fail 'Customer testimonial feedback copy is missing'
 grep -q 'booking-size' book/index.html || fail 'Service estimate space-size field is missing'
 grep -q 'Current price, size, availability and eligible delivery terms are confirmed by FreClean' products.json || fail 'Product pricing policy is missing'
+node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync('products.json','utf8')); if (!data.products || data.products.some(product => !product.availability || !product.price || !product.availableSizes)) process.exit(1)" || fail 'Product availability data is incomplete'
 grep -q 'data-verified-publications' index.html || fail 'Verified customer publication section is missing'
 grep -q 'https://app.celoht.com/' payments/index.html || fail 'Missing canonical CeloHT CTA'
 grep -q 'mailto:freclean7@gmail.com?subject=' script.js || fail 'Missing actionable email fallback'
@@ -70,7 +71,7 @@ node --test scripts/request-workflow.test.js || fail 'Request workflow tests fai
 # Consent banner and legal center requirements are intentionally enforced for production readiness.
 grep -q 'cookie' script.js || fail 'Cookie consent implementation missing' || true
 
-grep -RniE 'cUSD|USDM|https?://celoht\.com|brand-logo|logo-landscape-1|catalog-portrait-2|catalog-landscape-1' --include='*.html' --include='*.js' --include='*.md' --include='*.json' --include='*.xml' --include='*.txt' --include='*.webmanifest' . >/dev/null && fail 'Prohibited currency, direct CeloHT domain, or stale asset reference found' || true
+grep -RniE 'cUSD|USDM|https?://celoht\.com|logo-landscape-1|catalog-portrait-2|catalog-landscape-1' --include='*.html' --include='*.js' --include='*.md' --include='*.json' --include='*.xml' --include='*.txt' --include='*.webmanifest' . >/dev/null && fail 'Prohibited currency, direct CeloHT domain, or stale asset reference found' || true
 grep -RniE 'service_role|SUPABASE_SERVICE_ROLE|sk_live_|private_key|BEGIN PRIVATE KEY' --exclude-dir=.git --exclude='validate-site.sh' . >/dev/null && fail 'Possible protected secret found in repository' || true
 grep -q 'renderHeader\|renderFooter\|setupImages' script.js && fail 'Runtime UI or asset patch remains' || true
 grep -RnE 'Booking confirmed|Message sent|Your message was sent' --include='*.html' --include='*.js' --exclude='validate-site.sh' . >/dev/null && fail 'Fake confirmation state found' || true
