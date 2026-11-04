@@ -51,6 +51,8 @@ grep -q 'data-service-estimate' book/index.html || fail 'Service estimate status
 grep -q 'Estimated \$6\.99–\$7\.99 US each' products/index.html || fail 'Product estimate range is missing'
 grep -q 'Customer voices' index.html || fail 'Customer testimonials section heading is missing'
 grep -q 'Submit feedback' index.html || fail 'Customer feedback submission link is missing'
+[ "$(grep -o 'class="testimonial-card"' index.html | wc -l)" -eq 5 ] || fail 'Expected five customer testimonial cards'
+grep -q 'They are illustrative and are not claimed' index.html || fail 'Illustrative testimonial disclosure is missing'
 grep -q 'booking-size' book/index.html || fail 'Service estimate space-size field is missing'
 grep -q 'No displayed price is a confirmed offer' products.json || fail 'Product pricing policy is missing'
 grep -q 'data-verified-publications' index.html || fail 'Verified customer publication section is missing'
