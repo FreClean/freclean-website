@@ -61,6 +61,7 @@ grep -q 'class="testimonial-grid"' index.html || fail 'Verified feedback contain
 [ "$(grep -o 'class="testimonial-card"' index.html | wc -l)" -eq 0 ] || fail 'Unverified static testimonial cards found'
 grep -q '"publications": \[\]' verified-publications.json || fail 'Verified publication allowlist is not empty/explicitly enforced'
 grep -q 'booking-size' book/index.html || fail 'Service estimate space-size field is missing'
+grep -REn '<(span|legend)[^>]*>0[1-9]|Services[[:space:]]*·[[:space:]]*0[1-9]|>0[1-9][[:space:]]*/' --include='*.html' . >/dev/null && fail 'Decorative zero-padded site numbering found' || true
 grep -q 'Current price, size, availability and eligible delivery terms are confirmed by FreClean' products.json || fail 'Product pricing policy is missing'
 node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync('products.json','utf8')); if (!data.products || data.products.some(product => !product.availability || !product.price || !product.availableSizes)) process.exit(1)" || fail 'Product availability data is incomplete'
 grep -q 'data-verified-publications' index.html || fail 'Verified customer publication section is missing'
