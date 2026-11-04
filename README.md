@@ -39,7 +39,7 @@ The old root `.html` URLs are retained only as redirects to their canonical dire
 
 ## Forms and Requests
 
-`/book/` and `/contact/` use the same request boundary. `FRECLEAN_PUBLIC_REQUEST_URL` is currently empty, so submissions are not sent online. The form keeps the details and offers an email draft to `freclean7@gmail.com`; the visitor must send that email. When an authorized, public HTTPS endpoint is configured, it must return HTTP 204 or a JSON receipt with `received: true` or `accepted: true` before the site reports receipt. A failed or ambiguous response leaves the form data available for the email fallback.
+`/book/`, `/contact/`, and `/partners/` submit anonymous enquiries to the documented production endpoint `https://freclean.onrender.com/api/public/requests`. Booking forms use `type: "SERVICE"`; contact and partnership forms use `type: "CONTACT"`. The frontend maps only the approved contract fields and sends no authentication token, payment data, or booking IDs. The backend must return HTTP 201 with `received: true` before the site reports receipt. A failed, ambiguous, validation, duplicate, rate-limit, or origin response leaves the form details available for the email fallback.
 
 The website never confirms a booking, price, availability or payment on its own. The backend or authorized FreClean staff remains authoritative.
 
@@ -66,11 +66,13 @@ The CeloHT link is `https://app.celoht.com/`. CeloHT is a separate payment route
 Copy `.env.example` into the deployment configuration if the host supports runtime injection:
 
 ```text
-FRECLEAN_PUBLIC_REQUEST_URL=
+FRECLEAN_PUBLIC_REQUEST_URL=https://freclean.onrender.com/api/public/requests
+FRECLEAN_PUBLIC_API_BASE_URL=https://freclean.onrender.com
 FRECLEAN_CELOHT_DAPP_URL=https://app.celoht.com
+CARD_PAYMENTS_ENABLED=false
 ```
 
-An empty request URL is intentional until an approved anonymous public request contract exists. Do not point it at the protected booking API and do not place secrets in this repository.
+The production request URL is public browser configuration and contains no secret. Do not point it at protected auth or booking APIs, and never add secrets or payment processor credentials to this repository.
 
 ## Development and Deployment
 
@@ -101,4 +103,4 @@ The validator checks canonical pages, legacy redirects, metadata, landmarks, loc
 - CeloHT payment route: `https://app.celoht.com/`; CeloHT is separate from FreClean
 - No approved public request endpoint is configured; visitors must send the email draft themselves
 
-The website provides service enquiries, not online booking confirmation. Online request delivery requires an approved public HTTPS endpoint, and online card checkout is not configured. The email-draft fallback, locally arranged cash, card by direct arrangement, and the separate CeloHT route are the current public boundaries.
+The website provides service and contact enquiries, not online booking confirmation. The supported anonymous public contract is `POST /api/public/requests`; `/api/bookings` remains authenticated and is not called by the frontend. Online card checkout is not configured, `CARD_PAYMENTS_ENABLED=false`, and the email-draft fallback, locally arranged cash, direct card arrangement, and separate CeloHT route remain the public boundaries.

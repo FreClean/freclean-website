@@ -218,11 +218,7 @@
           setStatus('Please check the required fields before sending your enquiry.', 'error');
           return;
         }
-        var requestUrl = window.FRECLEAN_PUBLIC_REQUEST_URL;
-        if (!requestUrl) {
-          showEmailFallback('Your enquiry has not been sent online. Draft an email with these details and send it to FreClean.');
-          return;
-        }
+        var requestUrl = window.FRECLEAN_PUBLIC_REQUEST_URL || 'https://freclean.onrender.com/api/public/requests';
         try {
           var parsedRequestUrl = new URL(requestUrl);
           if (parsedRequestUrl.protocol !== 'https:' || parsedRequestUrl.username || parsedRequestUrl.password || !parsedRequestUrl.hostname || parsedRequestUrl.hostname === 'localhost' || parsedRequestUrl.hostname.endsWith('.localhost') || parsedRequestUrl.hostname.endsWith('.local')) {
@@ -233,6 +229,24 @@
           showEmailFallback('Online submission is unavailable. Your enquiry has not been sent; draft an email with these details and send it to FreClean.');
           return;
         }
+        var values = Object.fromEntries(new FormData(form));
+        var dataset = form.dataset || {};
+        var requestType = dataset.requestType === 'SERVICE' ? 'SERVICE' : 'CONTACT';
+        var bookingDetails = [values.service, values.property_type, values.date, values.time, values.location, values.notes].filter(Boolean);
+        var message = (values.message || values.notes || bookingDetails.join('; ')).trim();
+        if (!message || message.length < 10) {
+          setStatus('Please provide at least 10 characters in the message or additional information field.', 'error');
+          return;
+        }
+        var payload = {
+          type: requestType,
+          fullName: (values.fullName || values.name || '').trim(),
+          email: (values.email || '').trim(),
+          phone: (values.phone || '').trim(),
+          service: (values.service || values.subject || '').trim(),
+          message: message,
+          website: ''
+        };
         isSubmitting = true;
         if (submit) {
           submit.disabled = true;
@@ -241,21 +255,37 @@
         setStatus('Sending your enquiry...', 'pending');
         fetch(requestUrl, {
           method: 'POST',
+          mode: 'cors',
+          credentials: 'omit',
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify(Object.fromEntries(new FormData(form)))
+          body: JSON.stringify(payload)
         }).then(function (response) {
+          if (response.status === 400) throw Object.assign(new Error('validation'), { status: 400 });
+          if (response.status === 409) throw Object.assign(new Error('duplicate'), { status: 409 });
+          if (response.status === 413) throw Object.assign(new Error('large'), { status: 413 });
+          if (response.status === 429) throw Object.assign(new Error('rate-limit'), { status: 429 });
+          if (response.status === 403) throw Object.assign(new Error('origin'), { status: 403 });
           if (!response.ok) throw new Error('The request service returned an error.');
-          if (response.status === 204) return;
           return response.json().then(function (receipt) {
-            if (!receipt || (receipt.received !== true && receipt.accepted !== true)) {
+            if (!receipt || receipt.received !== true) {
               throw new Error('The request service did not confirm receipt.');
             }
           });
         }).then(function () {
           form.reset();
           setStatus('Your enquiry was received. FreClean will confirm availability and next steps directly; this is not an appointment confirmation.', 'success');
-        }).catch(function () {
-          showEmailFallback('We could not confirm receipt of your enquiry. It has not been confirmed; draft an email with these details and send it to FreClean.');
+        }).catch(function (error) {
+          if (error && error.status === 400) {
+            setStatus('Please check your name, email, phone and message details before sending again.', 'error');
+          } else if (error && error.status === 409) {
+            setStatus('This enquiry appears to have already been submitted. Please use the email option if you need to add information.', 'error');
+          } else if (error && error.status === 429) {
+            showEmailFallback('Too many submissions were received recently. Please wait before trying again or draft an email to FreClean.');
+          } else if (error && error.status === 403) {
+            showEmailFallback('This browser origin could not be verified. Your enquiry has not been sent; draft an email with these details and send it to FreClean.');
+          } else {
+            showEmailFallback('We could not confirm receipt of your enquiry. It has not been confirmed; draft an email with these details and send it to FreClean.');
+          }
         }).finally(function () {
           isSubmitting = false;
           if (submit) {

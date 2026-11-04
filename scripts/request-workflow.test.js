@@ -133,20 +133,15 @@ test('booking and contact pages expose required email validation and a live stat
   }
 });
 
-test('missing endpoint keeps details and offers an email draft for booking and contact', () => {
+test('blank configuration uses the production public enquiries endpoint', () => {
   const booking = createForm('booking');
-  const contact = createForm('contact');
-  boot([booking, contact], '', () => assert.fail('fetch must not run without an endpoint'));
+  boot([booking], '', (url) => {
+    assert.equal(url, 'https://freclean.onrender.com/api/public/requests');
+    return Promise.resolve({ ok: true, status: 201, json: () => Promise.resolve({ received: true }) });
+  });
 
   submit(booking);
-  submit(contact);
-
-  for (const form of [booking, contact]) {
-    assert.equal(form.status.dataset.state, 'fallback');
-    assert.match(form.status.message, /has not been sent/);
-    assert.match(decodeURIComponent(emailDraft(form.status).href), /Ada Customer/);
-    assert.equal(form.resetCalled, false);
-  }
+  assert.equal(booking.status.dataset.state, 'pending');
 });
 
 test('invalid fields stop submission and allow the user to correct the form', () => {
@@ -197,7 +192,7 @@ test('successful server receipt is the only JSON response that reports receipt',
   assert.equal(form.status.dataset.state, 'pending');
   assert.equal(form.button.disabled, true);
   assert.equal(form.button.attributes['aria-busy'], 'true');
-  resolveFetch({ ok: true, status: 200, json: () => Promise.resolve({ accepted: true }) });
+  resolveFetch({ ok: true, status: 201, json: () => Promise.resolve({ received: true }) });
   await waitForRequest();
 
   assert.equal(form.status.dataset.state, 'success');
@@ -206,9 +201,9 @@ test('successful server receipt is the only JSON response that reports receipt',
   assert.equal(form.button.disabled, false);
 });
 
-test('HTTP 204 is an explicit successful receipt', async () => {
+test('HTTP 201 with a received receipt is an explicit successful submission', async () => {
   const form = createForm('contact');
-  boot([form], 'https://requests.example.test/public', () => Promise.resolve({ ok: true, status: 204 }));
+  boot([form], 'https://freclean.onrender.com/api/public/requests', () => Promise.resolve({ ok: true, status: 201, json: () => Promise.resolve({ received: true, requestId: '9f1d3f6f-7ab8-44aa-b23f-0a8d0e0c9ad1' }) }));
 
   submit(form);
   await waitForRequest();
