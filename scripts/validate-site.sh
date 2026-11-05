@@ -68,6 +68,7 @@ node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync('products
 grep -q 'data-verified-publications' index.html || fail 'Verified customer publication section is missing'
 grep -q 'https://app.celoht.com/' payments/index.html || fail 'Missing canonical CeloHT CTA'
 grep -q 'mailto:freclean7@gmail.com?subject=' script.js || fail 'Missing actionable email fallback'
+python3 scripts/audit-translations.py || fail 'Bilingual translation audit failed'
 node --test scripts/request-workflow.test.js || fail 'Request workflow tests failed'
 [ -f legal/index.html ] || fail 'Missing legal center landing page'
 [ -f legal/complaints-dispute-resolution/index.html ] || fail 'Missing complaints and dispute resolution page'

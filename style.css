@@ -2334,6 +2334,16 @@ body {
   .service-feature:focus-visible { transform: none; }
 }
 
+.language-switcher { display: inline-flex; flex: 0 0 auto; align-items: center; gap: .2rem; margin-left: .35rem; padding: .2rem; border: 1px solid var(--line); border-radius: 999px; background: var(--white); }
+.language-switcher button { min-height: 38px; padding: .4rem .65rem; border: 0; border-radius: 999px; background: transparent; color: var(--ink); font-size: .72rem; font-weight: 800; line-height: 1.2; white-space: nowrap; cursor: pointer; }
+.language-switcher button[aria-pressed="true"] { background: var(--ink); color: var(--white); }
+.language-switcher button:focus-visible { outline: 3px solid var(--warm); outline-offset: 2px; }
+
+@media (max-width: 1100px) {
+  .language-switcher { align-self: flex-start; margin: .75rem 0 0; }
+  .language-switcher button { min-height: 44px; padding-inline: .8rem; }
+}
+
 .hero .hero-eyebrow { letter-spacing: .08em; }
 .hero .hero-eyebrow-primary { color: #123b35; }
 .hero .hero-eyebrow-secondary { color: #3d7935; }

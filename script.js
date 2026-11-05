@@ -18,6 +18,219 @@
     }
   }
 
+  function safeLanguageGet() {
+    try {
+      return window.localStorage.getItem('freclean_language') === 'ht' ? 'ht' : 'en';
+    } catch (error) {
+      return 'en';
+    }
+  }
+
+  function safeLanguageSet(language) {
+    try {
+      window.localStorage.setItem('freclean_language', language);
+    } catch (error) {
+      return false;
+    }
+    return true;
+  }
+
+  function setupLanguage() {
+    var navigation = document.querySelector('#primary-nav');
+    if (!navigation || navigation.querySelector('[data-language-switcher]')) return;
+
+    var language = safeLanguageGet();
+    var dictionaries = { en: {}, ht: {} };
+    var sourceIndexes = { en: Object.create(null), ht: Object.create(null) };
+    var textRecords = new WeakMap();
+    var attributeRecords = new WeakMap();
+    var validationFields = new Set();
+    var translationsReady = false;
+    var translatableAttributes = ['alt', 'aria-label', 'placeholder', 'title', 'content'];
+
+    function normalize(value) {
+      return String(value || '').trim().replace(/\s+/g, ' ');
+    }
+
+    function flatten(value, prefix, output) {
+      Object.keys(value || {}).forEach(function (key) {
+        var path = prefix ? prefix + '.' + key : key;
+        if (value[key] && typeof value[key] === 'object' && !Array.isArray(value[key])) flatten(value[key], path, output);
+        else if (typeof value[key] === 'string') output[path] = value[key];
+      });
+      return output;
+    }
+
+    function t(key, locale) {
+      if (!translationsReady) return '';
+      var selected = locale || language;
+      var value = dictionaries[selected][key] || dictionaries.en[key];
+      if (!value) console.error('Missing FreClean translation key:', key);
+      return value || '';
+    }
+
+    function indexDictionary(locale) {
+      Object.keys(dictionaries[locale]).forEach(function (key) {
+        var source = normalize(dictionaries[locale][key]);
+        if (source && !sourceIndexes[locale][source]) sourceIndexes[locale][source] = key;
+      });
+    }
+
+    function keyFor(value, locale) {
+      var source = normalize(value);
+      var localeKey = sourceIndexes[locale][source];
+      if (localeKey) return localeKey;
+      return sourceIndexes[locale === 'en' ? 'ht' : 'en'][source] || '';
+    }
+
+    function translateTextNode(node) {
+      var previous = textRecords.get(node);
+      var key = previous && node.nodeValue === previous.output ? previous.key : keyFor(node.nodeValue, language);
+      if (!key) return;
+      var value = node.nodeValue || '';
+      var leading = value.match(/^\s*/)[0];
+      var trailing = value.match(/\s*$/)[0];
+      var output = leading + t(key) + trailing;
+      textRecords.set(node, { key: key, output: output });
+      if (node.nodeValue !== output) node.nodeValue = output;
+    }
+
+    function translateAttribute(element, attribute) {
+      if (!element.hasAttribute(attribute)) return;
+      var previous = attributeRecords.get(element) || {};
+      var value = element.getAttribute(attribute) || '';
+      var record = previous[attribute];
+      var key = record && value === record.output ? record.key : keyFor(value, language);
+      if (!key) return;
+      var output = t(key);
+      previous[attribute] = { key: key, output: output };
+      attributeRecords.set(element, previous);
+      if (value !== output) element.setAttribute(attribute, output);
+    }
+
+    function translateTree(root) {
+      var options = [];
+      if (root.nodeType === Node.ELEMENT_NODE && root.matches('option')) options.push(root);
+      options.push.apply(options, root.querySelectorAll ? Array.from(root.querySelectorAll('option')) : []);
+      options.forEach(function (option) {
+        if (!option.hasAttribute('value')) option.setAttribute('value', option.textContent.trim().replace(/\s+/g, ' '));
+      });
+      var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+      var node;
+      while ((node = walker.nextNode())) {
+        if (node.parentElement && !node.parentElement.closest('script, style, noscript, [data-i18n-skip]')) translateTextNode(node);
+      }
+      var elements = [];
+      if (root.nodeType === Node.ELEMENT_NODE) elements.push(root);
+      elements.push.apply(elements, root.querySelectorAll ? Array.from(root.querySelectorAll('*')) : []);
+      elements.forEach(function (element) {
+        if (element.closest('[data-i18n-skip]')) return;
+        translatableAttributes.forEach(function (attribute) {
+          if (attribute !== 'content' || element.matches('meta[name="description"], meta[property^="og:"], meta[name^="twitter:"]')) translateAttribute(element, attribute);
+        });
+      });
+    }
+
+    function updateSwitcher() {
+      switcher.querySelectorAll('[data-language]').forEach(function (button) {
+        button.setAttribute('aria-pressed', String(button.dataset.language === language));
+      });
+    }
+
+    function translateStructuredData() {
+      var textFields = ['name', 'description', 'serviceType', 'alternateName'];
+      var translateValue = function (value, field) {
+        if (Array.isArray(value)) return value.map(function (item) { return translateValue(item, field); });
+        if (!value || typeof value !== 'object') {
+          var key = typeof value === 'string' && textFields.indexOf(field) !== -1 ? keyFor(value, language) : '';
+          return key ? t(key) : value;
+        }
+        Object.keys(value).forEach(function (key) {
+          value[key] = translateValue(value[key], key);
+        });
+        return value;
+      };
+
+      document.querySelectorAll('script[type="application/ld+json"]').forEach(function (element) {
+        try {
+          element.textContent = JSON.stringify(translateValue(JSON.parse(element.textContent), ''));
+        } catch (error) {
+          console.error('FreClean structured metadata could not be translated.', error);
+        }
+      });
+    }
+
+    function activate(nextLanguage) {
+      if (nextLanguage !== 'en' && nextLanguage !== 'ht') return;
+      language = nextLanguage;
+      safeLanguageSet(language);
+      document.documentElement.lang = language;
+      var socialLocale = document.querySelector('meta[property="og:locale"]');
+      if (socialLocale) socialLocale.content = language === 'ht' ? 'ht_HT' : 'en_HT';
+      if (translationsReady) translateStructuredData();
+      translateTree(document.documentElement);
+      validationFields.forEach(function (field) { field.setCustomValidity(t('common.forms.genericValidation')); });
+      updateSwitcher();
+      document.dispatchEvent(new CustomEvent('freclean:languagechange', { detail: { language: language } }));
+    }
+
+    var switcher = document.createElement('div');
+    switcher.className = 'language-switcher';
+    switcher.dataset.languageSwitcher = 'true';
+    switcher.setAttribute('role', 'group');
+    switcher.setAttribute('aria-label', 'Choose language');
+    switcher.innerHTML = '<button type="button" data-language="en" aria-label="Switch to English">🇺🇸 EN</button><button type="button" data-language="ht" aria-label="Switch to Haitian Creole">🇭🇹 Kreyòl</button>';
+    navigation.appendChild(switcher);
+    switcher.addEventListener('click', function (event) {
+      var button = event.target.closest('[data-language]');
+      if (button) activate(button.dataset.language);
+    });
+
+    window.FRECLEAN_I18N = { t: t, ready: function () { return translationsReady; }, setLanguage: activate, getLanguage: function () { return language; } };
+    Promise.all([
+      fetch('/locales/en.json').then(function (response) { if (!response.ok) throw new Error('English catalog unavailable'); return response.json(); }),
+      fetch('/locales/ht.json').then(function (response) { if (!response.ok) throw new Error('Haitian Creole catalog unavailable'); return response.json(); })
+    ]).then(function (catalogs) {
+      dictionaries.en = flatten(catalogs[0], '', {});
+      dictionaries.ht = flatten(catalogs[1], '', {});
+      indexDictionary('en');
+      indexDictionary('ht');
+      if (Object.keys(dictionaries.en).length !== Object.keys(dictionaries.ht).length || Object.keys(dictionaries.en).some(function (key) { return !Object.prototype.hasOwnProperty.call(dictionaries.ht, key); })) {
+        console.error('FreClean i18n catalogs have different keys.');
+      }
+      translationsReady = true;
+      document.addEventListener('invalid', function (event) {
+        var field = event.target;
+        if (!field || !field.matches('input, select, textarea')) return;
+        field.setCustomValidity(t('common.forms.genericValidation'));
+        validationFields.add(field);
+      }, true);
+      var clearValidation = function (event) {
+        var field = event.target;
+        if (!validationFields.has(field)) return;
+        field.setCustomValidity('');
+        validationFields.delete(field);
+      };
+      document.addEventListener('input', clearValidation, true);
+      document.addEventListener('change', clearValidation, true);
+      activate(language);
+      var observer = new MutationObserver(function (records) {
+        records.forEach(function (record) {
+          if (record.type === 'characterData') translateTextNode(record.target);
+          else if (record.type === 'attributes') translateAttribute(record.target, record.attributeName);
+          else record.addedNodes.forEach(function (node) { if (node.nodeType === Node.ELEMENT_NODE || node.nodeType === Node.DOCUMENT_FRAGMENT_NODE) translateTree(node); else if (node.nodeType === Node.TEXT_NODE) translateTextNode(node); });
+        });
+      });
+      observer.observe(document.documentElement, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: translatableAttributes });
+    }).catch(function (error) {
+      console.error('FreClean language catalogs could not be loaded.', error);
+      language = 'en';
+      safeLanguageSet(language);
+      document.documentElement.lang = language;
+      updateSwitcher();
+    });
+  }
+
   function setupCookieConsent() {
     var consent = safeStorageGet();
     var effectiveConsent = consent || {
@@ -196,6 +409,16 @@
         status.textContent = message;
         status.dataset.state = state || '';
       };
+      var submitLabel = function () {
+        if (!submit || !submit.childNodes) return null;
+        var label = Array.from(submit.childNodes).find(function (node) { return node.nodeType === Node.TEXT_NODE; });
+        if (!label) {
+          if (!submit.insertBefore) return null;
+          label = document.createTextNode('');
+          submit.insertBefore(label, submit.firstChild);
+        }
+        return label;
+      };
       var showEmailFallback = function (message) {
         setStatus(message, 'fallback');
         if (!status) return;
@@ -251,8 +474,9 @@
         isSubmitting = true;
         if (submit) {
           submit.dataset = submit.dataset || {};
-          submit.dataset.originalLabel = submit.textContent;
-          submit.textContent = 'Sending...';
+          var label = submitLabel();
+          submit.dataset.originalLabel = label ? label.nodeValue : '';
+          if (label) label.nodeValue = 'Sending...';
           submit.disabled = true;
           submit.setAttribute('aria-busy', 'true');
         }
@@ -294,7 +518,8 @@
         }).finally(function () {
           isSubmitting = false;
           if (submit) {
-            submit.textContent = submit.dataset.originalLabel || submit.textContent;
+            var label = submitLabel();
+            if (label) label.nodeValue = submit.dataset.originalLabel || label.nodeValue;
             submit.disabled = false;
             submit.removeAttribute('aria-busy');
           }
@@ -377,6 +602,7 @@
           var quote = document.createElement('blockquote');
           var attribution = document.createElement('small');
           article.className = 'verified-publication';
+          article.dataset.i18nSkip = 'true';
           quote.textContent = '“' + item.quote + '”';
           attribution.textContent = item.clientLabel + (item.service ? ' · ' + item.service : '') + (item.date ? ' · ' + item.date : '') + ' · Verified publication';
           article.append(quote, attribution);
@@ -393,22 +619,25 @@
     if (!navigation || navigation.querySelector('[data-site-search-trigger]')) return;
 
     var pages = [
-      ['Home', '/', 'FreClean cleaning services and products in Leogane, Haiti'],
-      ['Services', '/services/', 'Residential, commercial, hospitality and specialized cleaning'],
-      ['Residential cleaning', '/services/residential/', 'Cleaning for homes and apartments'],
-      ['Commercial cleaning', '/services/commercial/', 'Cleaning for offices, retail and businesses'],
-      ['Hospitality cleaning', '/services/hospitality/', 'Guest-ready hotels, Airbnb and hospitality spaces'],
-      ['Specialized cleaning', '/services/specialized/', 'Deep cleaning and tailored projects'],
-      ['Products', '/products/', 'Cleaning essentials and fragrance products'],
-      ['Business', '/business/', 'Cleaning plans for properties and working spaces'],
-      ['Book a service', '/book/', 'Request a service and share your requirements'],
-      ['Contact FreClean', '/contact/', 'Send an enquiry to the FreClean team'],
-      ['About FreClean', '/about/', 'Company information and local roots'],
-      ['Resources', '/resources/', 'Practical resources for cleaner spaces'],
-      ['Payments', '/payments/', 'Payment information and arrangements'],
-      ['Privacy', '/privacy/', 'Privacy and data practices'],
-      ['Terms', '/terms/', 'Terms and conditions']
+      ['common.nav.home', '/', 'common.search.homeDescription', 'Home', 'FreClean cleaning services and products in Leogane, Haiti'],
+      ['common.nav.services', '/services/', 'common.search.servicesDescription', 'Services', 'Residential, commercial, hospitality and specialized cleaning'],
+      ['common.search.residential', '/services/residential/', 'common.search.residentialDescription', 'Residential cleaning', 'Cleaning for homes and apartments'],
+      ['common.search.commercial', '/services/commercial/', 'common.search.commercialDescription', 'Commercial cleaning', 'Cleaning for offices, retail and businesses'],
+      ['common.search.hospitality', '/services/hospitality/', 'common.search.hospitalityDescription', 'Hospitality cleaning', 'Guest-ready hotels, Airbnb and hospitality spaces'],
+      ['common.search.specialized', '/services/specialized/', 'common.search.specializedDescription', 'Specialized cleaning', 'Deep cleaning and tailored projects'],
+      ['common.nav.products', '/products/', 'common.search.productsDescription', 'Products', 'Cleaning essentials and fragrance products'],
+      ['common.nav.business', '/business/', 'common.search.businessDescription', 'Business', 'Cleaning plans for properties and working spaces'],
+      ['common.search.bookService', '/book/', 'common.search.bookDescription', 'Book a service', 'Request a service and share your requirements'],
+      ['common.search.contactFreclean', '/contact/', 'common.search.contactDescription', 'Contact FreClean', 'Send an enquiry to the FreClean team'],
+      ['common.search.aboutFreclean', '/about/', 'common.search.aboutDescription', 'About FreClean', 'Company information and local roots'],
+      ['common.nav.resources', '/resources/', 'common.search.resourcesDescription', 'Resources', 'Practical resources for cleaner spaces'],
+      ['common.search.payments', '/payments/', 'common.search.paymentsDescription', 'Payments', 'Payment information and arrangements'],
+      ['common.search.privacy', '/privacy/', 'common.search.privacyDescription', 'Privacy', 'Privacy and data practices'],
+      ['common.search.terms', '/terms/', 'common.search.termsDescription', 'Terms', 'Terms and conditions']
     ];
+    var text = function (key, fallback) {
+      return window.FRECLEAN_I18N && window.FRECLEAN_I18N.ready() ? window.FRECLEAN_I18N.t(key) : fallback;
+    };
     var trigger = document.createElement('button');
     trigger.type = 'button';
     trigger.className = 'nav-search';
@@ -427,7 +656,7 @@
     var closeButton = dialog.querySelector('.site-search__close');
     var render = function () {
       var query = input.value.trim().toLowerCase();
-      var matches = pages.filter(function (page) { return !query || (page[0] + ' ' + page[2]).toLowerCase().indexOf(query) !== -1; }).slice(0, 8);
+      var matches = pages.filter(function (page) { return !query || (text(page[0], page[3]) + ' ' + text(page[2], page[4])).toLowerCase().indexOf(query) !== -1; }).slice(0, 8);
       results.textContent = '';
       if (!matches.length) {
         results.innerHTML = '<p class="site-search__empty">No matching page found. Try a broader search.</p>';
@@ -438,8 +667,8 @@
         link.href = page[1];
         link.className = 'site-search__result';
         link.innerHTML = '<strong></strong><span></span>';
-        link.querySelector('strong').textContent = page[0];
-        link.querySelector('span').textContent = page[2];
+        link.querySelector('strong').textContent = text(page[0], page[3]);
+        link.querySelector('span').textContent = text(page[2], page[4]);
         results.appendChild(link);
       });
     };
@@ -452,6 +681,7 @@
     dialog.addEventListener('click', function (event) { if (event.target === dialog) close(); });
     dialog.addEventListener('keydown', function (event) { if (event.key === 'Escape') close(); });
     input.addEventListener('input', render);
+    document.addEventListener('freclean:languagechange', function () { if (dialog.open) render(); });
     dialog.querySelector('form').addEventListener('submit', function (event) { event.preventDefault(); var first = results.querySelector('a'); if (first) first.click(); });
   }
 
@@ -481,22 +711,29 @@
       var service = form.querySelector('#booking-service');
       var property = form.querySelector('#booking-property');
       var size = form.querySelector('#booking-size');
-      var serviceValue = service ? service.value : '';
-      var propertyValue = property ? property.value : '';
-      var sizeValue = size ? size.value : '';
+      var translate = function (key, fallback) {
+        return window.FRECLEAN_I18N && window.FRECLEAN_I18N.ready() ? window.FRECLEAN_I18N.t(key) : fallback;
+      };
+      var selectedText = function (field) {
+        return field && field.value ? field.options[field.selectedIndex].text : '';
+      };
+      var serviceValue = selectedText(service);
+      var propertyValue = selectedText(property);
+      var sizeValue = selectedText(size);
 
       if (!serviceValue || !propertyValue || !sizeValue) {
-        output.textContent = 'FreClean uses this size range to prepare the requested quote, availability and service details.';
+        output.textContent = translate('common.booking.estimatePrompt', 'FreClean uses this size range to prepare the requested quote, availability and service details.');
         return;
       }
 
-      output.textContent = 'Quote request prepared: ' + serviceValue + ' for a ' + propertyValue.toLowerCase() + ', approximately ' + sizeValue.toLowerCase() + '. FreClean will confirm the exact scope, availability and payment terms.';
+      output.textContent = translate('common.booking.estimatePrefix', 'Quote request prepared:') + ' ' + serviceValue + ' ' + translate('common.booking.estimateFor', 'for a') + ' ' + propertyValue.toLowerCase() + ', ' + sizeValue.toLowerCase() + translate('common.booking.estimateSuffix', '. FreClean will confirm the exact scope, availability and payment terms.');
     };
 
     ['booking-service', 'booking-property', 'booking-size'].forEach(function (id) {
       var field = form.querySelector('#' + id);
       if (field) field.addEventListener('change', update);
     });
+    document.addEventListener('freclean:languagechange', update);
     update();
   }
 
@@ -522,6 +759,7 @@
       [['Service', value('booking-service')], ['Property', value('booking-property')], ['Date', value('booking-date')], ['Time', value('booking-time')], ['Name', value('booking-name')], ['Email', value('booking-email')], ['Location', value('booking-location')], ['Payment', (form.querySelector('input[name="payment_method"]:checked') || {}).value || '']].forEach(function (entry) {
         var term = document.createElement('dt');
         var description = document.createElement('dd');
+        description.dataset.i18nSkip = 'true';
         term.textContent = entry[0];
         description.textContent = entry[1] || 'Not provided';
         review.append(term, description);
@@ -581,6 +819,7 @@
   }
 
   setupCookieConsent();
+  setupLanguage();
   setupMenu();
   setupForms();
   setupSiteSearch();
