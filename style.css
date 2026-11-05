@@ -2333,3 +2333,7 @@ body {
   .service-feature:hover,
   .service-feature:focus-visible { transform: none; }
 }
+
+.hero .hero-eyebrow { letter-spacing: .08em; }
+.hero .hero-eyebrow-primary { color: #123b35; }
+.hero .hero-eyebrow-secondary { color: #3d7935; }
