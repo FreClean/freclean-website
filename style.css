@@ -2302,6 +2302,10 @@ body {
   .services-editorial-grid { grid-template-columns: 1fr; }
   .service-feature-image { aspect-ratio: 1.7; }
   .service-list { grid-template-rows: none; }
+  .hero { grid-template-columns: minmax(0, 1fr); gap: clamp(1.5rem, 3vw, 2rem); }
+  .hero-copy { max-width: 100%; }
+  .hero-media { min-height: 0; aspect-ratio: auto; }
+  .hero-media .hero-poster { width: 100%; height: auto; min-height: 0; aspect-ratio: 1672 / 941; object-fit: contain; }
 }
 
 @media (max-width: 760px) {
