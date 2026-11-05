@@ -1940,6 +1940,15 @@ main > section:not(.business-section):not(.entrepreneurship-section):not(.partne
   padding-block: clamp(5rem, 10vw, 8rem);
 }
 
+.hero::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(90deg, rgba(16, 47, 61, .88) 0%, rgba(16, 47, 61, .58) 48%, rgba(16, 47, 61, .28) 100%);
+  content: "";
+  pointer-events: none;
+}
+
 .hero h1,
 .hero h1 em,
 .hero .eyebrow,
@@ -1965,9 +1974,13 @@ main > section:not(.business-section):not(.entrepreneurship-section):not(.partne
 .hero-media img,
 .hero-media .hero-video {
   position: absolute;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  opacity: 1;
   pointer-events: none;
 }
 
