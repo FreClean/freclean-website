@@ -1698,6 +1698,95 @@ a[href^="tel:"]::before {
   color: #b7cecb;
 }
 
+.hero-media,
+.service-feature-image,
+.service-row-image,
+.product-image,
+.product-item > img,
+.detail-image,
+.image-frame,
+.celoht-partner-logo,
+.celoht-payment-logo {
+  isolation: isolate;
+  background: #edf4e9;
+}
+
+.hero-poster,
+.service-feature-image img,
+.service-row-image img,
+.product-image img,
+.product-item > img,
+.detail-image img,
+.image-frame img,
+.celoht-partner-logo img,
+.celoht-payment-logo img {
+  backface-visibility: hidden;
+  image-rendering: auto;
+}
+
+.hero-poster {
+  object-position: center 46%;
+}
+
+.service-feature-image img {
+  object-position: center 42%;
+}
+
+.service-row-image img {
+  object-position: center center;
+}
+
+.product-image img,
+.product-item > img,
+.detail-image img,
+.image-frame img {
+  object-position: center center;
+}
+
+.service-feature-image::after,
+.service-row-image::after,
+.product-image::after,
+.detail-image::after,
+.image-frame::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  opacity: .16;
+  background: linear-gradient(135deg, rgba(255, 255, 255, .24), transparent 42%, rgba(16, 47, 61, .08));
+  mix-blend-mode: soft-light;
+}
+
+.service-feature-image,
+.service-row-image,
+.product-image,
+.detail-image,
+.image-frame {
+  position: relative;
+}
+
+.logo-link img {
+  object-position: center;
+  transition: filter 220ms ease, transform 220ms ease;
+}
+
+.logo-link:hover img,
+.logo-link:focus-visible img {
+  filter: saturate(1.08) contrast(1.04);
+  transform: scale(1.015);
+}
+
+@media (max-width: 760px) {
+  .hero-poster {
+    object-position: center 44%;
+  }
+
+  .service-feature-image img,
+  .service-row-image img {
+    object-position: center center;
+  }
+}
+
 @media (max-width: 760px) {
   .page-hero {
     padding-block: 4rem 2.5rem;
