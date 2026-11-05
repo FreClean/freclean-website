@@ -1915,3 +1915,73 @@ main > section:not(.business-section):not(.entrepreneurship-section):not(.partne
   background-color: rgba(16, 47, 61, .86);
   background-image: none;
 }
+
+/* Hero uses the team photo as its full-width visual field. */
+.hero {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  min-height: min(760px, 78vh);
+  padding-inline: max(1.25rem, calc((100vw - var(--max)) / 2));
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  background-image: linear-gradient(90deg, rgba(16, 47, 61, .88) 0%, rgba(16, 47, 61, .64) 48%, rgba(16, 47, 61, .3) 100%), url("assets/freclean-professional-cleaning-team.png");
+  background-position: center;
+  background-size: cover;
+  color: var(--white);
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 650px;
+  padding-block: clamp(5rem, 10vw, 8rem);
+}
+
+.hero h1,
+.hero h1 em,
+.hero .eyebrow,
+.hero-intro,
+.hero .text-link {
+  color: var(--white);
+}
+
+.hero h1,
+.hero-intro,
+.hero .actions {
+  text-shadow: 0 2px 18px rgba(0, 0, 0, .28);
+}
+
+.hero .eyebrow { color: var(--lime); }
+
+.hero-media {
+  position: static;
+  min-height: 0;
+  animation: none;
+}
+
+.hero-media img,
+.hero-media .hero-video {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hero-note {
+  z-index: 2;
+  right: max(1.25rem, calc((100vw - var(--max)) / 2));
+  bottom: clamp(1.5rem, 4vw, 3rem);
+}
+
+@media (max-width: 760px) {
+  .hero {
+    min-height: 680px;
+    padding-inline: 1rem;
+    background-position: 58% center;
+  }
+
+  .hero-copy { padding-block: 4.5rem 8rem; }
+  .hero-note { right: 1rem; bottom: 1.25rem; }
+}
