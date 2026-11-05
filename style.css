@@ -1821,23 +1821,23 @@ body {
 }
 
 body::before {
-  display: block;
+  display: none;
   position: fixed;
   inset: -4%;
   z-index: 0;
   border-radius: 0;
   filter: saturate(.92) contrast(1.02);
   opacity: .62;
-  background-image: url("/assets/freclean-professional-cleaning-team.png");
+  background-image: none;
   background-position: center;
   background-size: cover;
   content: "";
   will-change: transform;
-  animation: team-background-ken-burns 34s cubic-bezier(.45, .05, .55, .95) infinite;
+  animation: none;
 }
 
 body::after {
-  display: block;
+  display: none;
   position: fixed;
   inset: 0;
   z-index: 0;
@@ -1918,67 +1918,57 @@ main > section:not(.business-section):not(.entrepreneurship-section):not(.partne
 
 /* Hero uses the team photo as its full-width visual field. */
 .hero {
-  width: 100%;
-  max-width: none;
-  margin: 0;
-  min-height: min(760px, 78vh);
-  padding-inline: max(1.25rem, calc((100vw - var(--max)) / 2));
-  grid-template-columns: minmax(0, 1fr);
+  width: min(calc(100% - 3rem), var(--max));
+  max-width: var(--max);
+  margin-inline: auto;
+  min-height: 0;
+  padding-inline: 0;
+  grid-template-columns: minmax(0, .92fr) minmax(420px, 1.08fr);
   align-items: center;
-  background-color: #102f3d;
-  background-image: linear-gradient(90deg, rgba(16, 47, 61, .88) 0%, rgba(16, 47, 61, .58) 48%, rgba(16, 47, 61, .28) 100%), url("/assets/freclean-professional-cleaning-team.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover, contain;
-  color: var(--white);
+  background-color: transparent;
+  background-image: none;
+  color: var(--ink);
 }
 
 .hero-copy {
   position: relative;
   z-index: 2;
-  max-width: 650px;
-  padding-block: clamp(5rem, 10vw, 8rem);
+  max-width: 590px;
+  padding-block: clamp(4.25rem, 8vw, 7.5rem);
 }
 
 .hero::after {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(90deg, rgba(16, 47, 61, .88) 0%, rgba(16, 47, 61, .58) 48%, rgba(16, 47, 61, .28) 100%);
-  content: "";
-  pointer-events: none;
+  display: none;
 }
 
 .hero h1,
-.hero h1 em,
-.hero .eyebrow,
-.hero-intro,
-.hero .text-link {
-  color: var(--white);
-}
+.hero h1 em { color: var(--blue-dark); }
 
 .hero h1,
 .hero-intro,
 .hero .actions {
-  text-shadow: 0 2px 18px rgba(0, 0, 0, .28);
+  text-shadow: none;
 }
 
-.hero .eyebrow { color: var(--lime); }
+.hero .eyebrow,
+.hero .text-link { color: var(--blue-dark); }
 
 .hero-media {
-  position: static;
-  min-height: 0;
-  animation: none;
+  position: relative;
+  min-height: clamp(380px, 43vw, 610px);
+  aspect-ratio: 1672 / 940;
+  animation: rise 1s ease both;
 }
 
 .hero-media img,
 .hero-media .hero-video {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  inset: auto;
   z-index: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  min-height: 0;
+  object-fit: cover;
   object-position: center;
   opacity: 1;
   pointer-events: none;
@@ -1992,12 +1982,13 @@ main > section:not(.business-section):not(.entrepreneurship-section):not(.partne
 
 @media (max-width: 760px) {
   .hero {
-    min-height: 680px;
+    min-height: 0;
+    width: 100%;
     padding-inline: 1rem;
-    background-position: 58% center;
-    background-size: cover, contain;
+    grid-template-columns: 1fr;
   }
 
-  .hero-copy { padding-block: 4.5rem 8rem; }
+  .hero-copy { padding-block: 3.25rem 3.5rem; }
+  .hero-media { min-height: 0; }
   .hero-note { right: 1rem; bottom: 1.25rem; }
 }
