@@ -110,6 +110,33 @@ p { max-width: 66ch; margin: 0 0 1.25rem; color: var(--ink-soft); }
 .hero-note span { color: var(--green); font-weight: 800; }
 .hero-note p { margin: 0; color: var(--ink); font-weight: 700; font-size: .86rem; }
 .metrics-strip { padding-top: 1rem; }
+.audience-section { padding-block: clamp(4.5rem, 9vw, 8rem); }
+.audience-heading { align-items: end; }
+.audience-heading > p { max-width: 38ch; margin-bottom: .35rem; font-size: 1.08rem; }
+.audience-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+.audience-card { display: flex; min-height: 290px; flex-direction: column; padding: 1.35rem; border: 1px solid var(--line); background: rgba(255,255,255,.82); color: var(--ink); text-decoration: none; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.audience-card:hover, .audience-card:focus-visible { transform: translateY(-5px); border-color: var(--blue); box-shadow: var(--shadow); }
+.audience-card-dark { border-color: var(--ink); background: var(--ink); color: var(--white); }
+.audience-card-accent { border-color: var(--blue); background: var(--blue); color: var(--white); }
+.audience-icon { display: inline-flex; align-items: center; justify-content: center; width: max-content; min-width: 2rem; height: 2rem; margin-bottom: 2.5rem; padding-inline: .4rem; border: 1px solid currentColor; border-radius: 999px; font-size: .62rem; font-weight: 800; }
+.audience-label { color: var(--blue); font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.audience-card-dark .audience-label, .audience-card-accent .audience-label { color: var(--lime); }
+.audience-card h3 { max-width: 14ch; margin: .65rem 0 .75rem; color: inherit; font-size: 1.45rem; }
+.audience-card p { margin-bottom: 1.5rem; color: var(--ink-soft); font-size: .9rem; }
+.audience-card-dark p, .audience-card-accent p { color: rgba(255,255,255,.78); }
+.audience-card b { margin-top: auto; font-size: .78rem; }
+.product-list { position: relative; }
+.catalog-toolbar { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 2rem; align-items: end; margin-bottom: 1rem; padding: 1.25rem 0 1.5rem; border-bottom: 1px solid var(--line); }
+.catalog-toolbar h2 { max-width: 10ch; font-size: clamp(1.8rem, 4vw, 3.2rem); }
+.catalog-controls { display: grid; gap: .9rem; }
+.catalog-controls label { display: grid; gap: .3rem; color: var(--ink-soft); font-size: .78rem; font-weight: 800; }
+.catalog-controls input { min-height: 50px; margin: 0; background: var(--white); }
+.catalog-filters { display: flex; flex-wrap: wrap; gap: .5rem; }
+.catalog-filter { min-height: 42px; padding: .55rem .85rem; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--ink); font-size: .78rem; font-weight: 800; cursor: pointer; }
+.catalog-filter:hover, .catalog-filter:focus-visible, .catalog-filter.is-active { border-color: var(--blue); background: var(--blue); color: var(--white); }
+.catalog-result { min-height: 1.5em; margin-bottom: 1rem; color: var(--ink-soft); font-size: .82rem; }
+.catalog-empty { grid-column: 1 / -1; margin: 0; padding: 2rem; border: 1px dashed var(--line); color: var(--ink-soft); text-align: center; }
+.product-item[hidden] { display: none; }
 .metric-grid { display: grid; grid-template-columns: repeat(4, minmax(150px, 1fr)); gap: 1rem; }
 .metric-grid div { padding: 1.1rem 1.2rem; background: rgba(255,255,255,.7); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 10px 24px rgba(16,47,61,.04); }
 .metric-grid strong { display: block; margin-bottom: .35rem; color: var(--ink); font-size: clamp(1rem, 2vw, 1.35rem); }
@@ -1116,5 +1143,39 @@ body {
   .journal-grid article {
     min-height: 180px;
     border-left: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 760px) {
+  .audience-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .catalog-toolbar {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .audience-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .audience-card {
+    min-height: 240px;
+  }
+
+  .audience-icon {
+    margin-bottom: 1.5rem;
+  }
+
+  .catalog-filters {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .catalog-filter {
+    width: 100%;
   }
 }

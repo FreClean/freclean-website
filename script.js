@@ -500,6 +500,64 @@
     update();
   }
 
+  function setupProductCatalog() {
+    var list = document.querySelector('.product-list');
+    if (!list || list.dataset.catalogReady === 'true') return;
+    list.dataset.catalogReady = 'true';
+    var cards = Array.from(list.querySelectorAll('.product-item'));
+    if (!cards.length) return;
+
+    var toolbar = document.createElement('div');
+    toolbar.className = 'catalog-toolbar';
+    toolbar.innerHTML = '<div><p class="eyebrow">Browse the collection</p><h2>Find the right<br><em>everyday care.</em></h2></div><div class="catalog-controls"><label for="product-search">Search products<input id="product-search" type="search" data-product-search placeholder="Try cleaning or fragrance" autocomplete="off"></label><div class="catalog-filters" role="group" aria-label="Filter products"><button class="catalog-filter is-active" type="button" data-product-filter="all" aria-pressed="true">All</button><button class="catalog-filter" type="button" data-product-filter="cleaning" aria-pressed="false">Cleaning</button><button class="catalog-filter" type="button" data-product-filter="fragrance" aria-pressed="false">Fragrance</button><button class="catalog-filter" type="button" data-product-filter="household" aria-pressed="false">Household</button></div></div>';
+    list.parentNode.insertBefore(toolbar, list);
+
+    var result = document.createElement('p');
+    result.className = 'catalog-result';
+    result.setAttribute('role', 'status');
+    result.setAttribute('aria-live', 'polite');
+    list.parentNode.insertBefore(result, list);
+    var search = toolbar.querySelector('[data-product-search]');
+    var filters = Array.from(toolbar.querySelectorAll('[data-product-filter]'));
+    var activeFilter = 'all';
+    var empty = document.createElement('p');
+    empty.className = 'catalog-empty';
+    empty.textContent = 'No products match that search. Try another term or choose All.';
+    empty.hidden = true;
+    list.appendChild(empty);
+
+    var matchesFilter = function (card) {
+      if (activeFilter === 'all') return true;
+      var text = card.textContent.toLowerCase();
+      return text.indexOf(activeFilter) !== -1;
+    };
+    var render = function () {
+      var query = (search.value || '').trim().toLowerCase();
+      var visible = 0;
+      cards.forEach(function (card) {
+        var matchesSearch = !query || card.textContent.toLowerCase().indexOf(query) !== -1;
+        var visibleCard = matchesSearch && matchesFilter(card);
+        card.hidden = !visibleCard;
+        if (visibleCard) visible += 1;
+      });
+      empty.hidden = visible !== 0;
+      result.textContent = visible + ' product' + (visible === 1 ? '' : 's') + ' shown. Product availability is confirmed directly before purchase.';
+    };
+    filters.forEach(function (filter) {
+      filter.addEventListener('click', function () {
+        activeFilter = filter.dataset.productFilter;
+        filters.forEach(function (item) {
+          var selected = item === filter;
+          item.classList.toggle('is-active', selected);
+          item.setAttribute('aria-pressed', selected ? 'true' : 'false');
+        });
+        render();
+      });
+    });
+    search.addEventListener('input', render);
+    render();
+  }
+
   function setupBookingFlow() {
     var form = document.querySelector('[data-booking-form]');
     if (!form) return;
@@ -588,5 +646,6 @@
   setupPageMotion();
   setupVerifiedPublications();
   setupServiceEstimate();
+  setupProductCatalog();
   setupBookingFlow();
 }());
