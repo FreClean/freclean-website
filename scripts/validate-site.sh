@@ -45,6 +45,7 @@ done
 [ -f docs/integration-map.md ] || fail 'Missing integration dependency map'
 [ -f docs/production-readiness-audit.md ] || fail 'Missing production readiness audit'
 grep -q 'Run request workflow tests' .github/workflows/pages.yml || fail 'Workflow is missing request workflow tests'
+grep -q 'Run contact API tests' .github/workflows/pages.yml || fail 'Workflow is missing contact API tests'
 grep -q 'Check JavaScript syntax' .github/workflows/pages.yml || fail 'Workflow is missing JavaScript syntax validation'
 grep -q '^FRECLEAN_PUBLIC_REQUEST_URL=' .env.example || fail 'Missing public request configuration'
 grep -q '^FRECLEAN_CELOHT_DAPP_URL=https://app.celoht.com' .env.example || fail 'Invalid CeloHT environment configuration'

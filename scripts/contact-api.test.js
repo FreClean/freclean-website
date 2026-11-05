@@ -70,6 +70,50 @@ test('invalid, automated, duplicate and disallowed-origin submissions are reject
   assert.equal((await request(server.address().port, { name: 'Ada', email: 'ada3@example.com', message: 'Please contact me about home cleaning.' }, { Origin: 'https://evil.example' })).status, 403);
 });
 
+test('rejects non-JSON bodies and does not echo a blocked origin', async () => {
+  const sendRaw = (headers, body) => new Promise((resolve, reject) => {
+    const request = http.request({
+      port: server.address().port,
+      path: '/api/public/requests',
+      method: 'POST',
+      headers,
+    }, (apiResponse) => {
+      apiResponse.resume();
+      apiResponse.on('end', () => resolve(apiResponse));
+    });
+    request.on('error', reject);
+    request.end(body);
+  });
+  const contentTypeResponse = await sendRaw({
+    'Content-Type': 'text/plain', Origin: 'https://freclean.com'
+  }, 'not json');
+  assert.equal(contentTypeResponse.statusCode, 415);
+  const originResponse = await sendRaw({
+    'Content-Type': 'application/json', Origin: 'https://evil.example'
+  }, '{}');
+  assert.equal(originResponse.statusCode, 403);
+  assert.equal(originResponse.headers['access-control-allow-origin'], undefined);
+});
+
+test('returns a successful receipt when the provider uses an empty 2xx response', async () => {
+  const originalRequest = process.env.RESEND_API_URL;
+  const provider = http.createServer((_request, response) => {
+    response.writeHead(202);
+    response.end();
+  });
+  await new Promise((resolve) => provider.listen(0, '127.0.0.1', resolve));
+  process.env.RESEND_API_URL = `http://127.0.0.1:${provider.address().port}/emails`;
+  try {
+    const response = await request(server.address().port, {
+      name: 'Empty Receipt', email: 'empty@example.com', message: 'Please contact me about a service.'
+    });
+    assert.equal(response.status, 201);
+  } finally {
+    process.env.RESEND_API_URL = originalRequest;
+    await new Promise((resolve) => provider.close(resolve));
+  }
+});
+
 test('responses include security headers and correlate the request', async () => {
   const response = await new Promise((resolve, reject) => {
     const request = http.request({

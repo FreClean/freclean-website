@@ -10,6 +10,7 @@ const OUTBOUND_TIMEOUT_MS = 10 * 1000;
 const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000;
 const RATE_LIMIT_MAX = 5;
 const DUPLICATE_WINDOW_MS = 10 * 60 * 1000;
+const MAX_TRACKED_CLIENTS = 10_000;
 const rateBuckets = new Map();
 const recentRequests = new Map();
 
@@ -36,6 +37,26 @@ function sendJson(response, status, body, origin, requestId) {
   }
   response.writeHead(status, headers);
   response.end(JSON.stringify(body));
+}
+
+function sendOptions(response, origin, requestId) {
+  const headers = {
+    'Cache-Control': 'no-store',
+    'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'DENY',
+    'Referrer-Policy': 'no-referrer',
+    'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Accept',
+    'Access-Control-Max-Age': '600',
+    'X-Request-ID': requestId,
+  };
+  if (origin) {
+    headers['Access-Control-Allow-Origin'] = origin;
+    headers.Vary = 'Origin';
+  }
+  response.writeHead(204, headers);
+  response.end();
 }
 
 function clientIp(request) {
@@ -87,6 +108,11 @@ function validateSubmission(payload) {
 }
 
 function checkRateLimit(ip, now) {
+  if (rateBuckets.size >= MAX_TRACKED_CLIENTS && !rateBuckets.has(ip)) {
+    for (const [key, bucket] of rateBuckets) {
+      if (now - bucket.started >= RATE_LIMIT_WINDOW_MS) rateBuckets.delete(key);
+    }
+  }
   const bucket = rateBuckets.get(ip) || { started: now, count: 0 };
   if (now - bucket.started >= RATE_LIMIT_WINDOW_MS) {
     bucket.started = now;
@@ -128,7 +154,7 @@ async function deliverEmail({ name, email, message, submittedAt }) {
     error.status = response.status >= 500 ? 503 : 502;
     throw error;
   }
-  return response.json();
+  return true;
 }
 
 async function handleRequest(request, response) {
@@ -136,23 +162,11 @@ async function handleRequest(request, response) {
   const origin = request.headers.origin;
   const origins = allowedOrigins();
   if (origin && !origins.includes(origin)) {
-    sendJson(response, 403, { error: 'Origin is not allowed.' }, origin, requestId);
+    sendJson(response, 403, { error: 'Origin is not allowed.' }, undefined, requestId);
     return;
   }
   if (request.method === 'OPTIONS') {
-    if (origin) {
-      response.writeHead(204, {
-        'Access-Control-Allow-Origin': origin,
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Accept',
-        'Access-Control-Max-Age': '600',
-        Vary: 'Origin',
-      });
-      response.end();
-    } else {
-      response.writeHead(204);
-      response.end();
-    }
+    sendOptions(response, origin, requestId);
     return;
   }
   if (request.method === 'GET' && request.url === '/health') {
@@ -165,6 +179,11 @@ async function handleRequest(request, response) {
   }
 
   try {
+    const contentType = request.headers['content-type'] || '';
+    if (!contentType.toLowerCase().startsWith('application/json')) {
+      sendJson(response, 415, { error: 'Content-Type must be application/json.' }, origin, requestId);
+      return;
+    }
     const payload = await readBody(request);
     if (!payload || typeof payload !== 'object' || Array.isArray(payload) || payload.website) {
       sendJson(response, 400, { error: 'Invalid submission.' }, origin, requestId);
@@ -191,6 +210,11 @@ async function handleRequest(request, response) {
     }
     const submittedAt = new Date(now).toISOString();
     await deliverEmail({ ...submission, submittedAt });
+    if (recentRequests.size >= MAX_TRACKED_CLIENTS) {
+      for (const [key, timestamp] of recentRequests) {
+        if (now - timestamp >= DUPLICATE_WINDOW_MS) recentRequests.delete(key);
+      }
+    }
     recentRequests.set(fingerprint, now);
     sendJson(response, 201, { received: true }, origin, requestId);
   } catch (error) {
@@ -200,6 +224,9 @@ async function handleRequest(request, response) {
 }
 
 const server = http.createServer(handleRequest);
+server.requestTimeout = 15 * 1000;
+server.headersTimeout = 10 * 1000;
+server.keepAliveTimeout = 5 * 1000;
 
 if (require.main === module) {
   server.listen(PORT, () => console.log(`FreClean contact API listening on port ${PORT}`));

@@ -38,6 +38,9 @@ jobs:
       - name: Run request workflow tests
         run: node --test scripts/request-workflow.test.js
 
+      - name: Run contact API tests
+        run: npm test
+
       - name: Check JavaScript syntax
         run: node --check script.js
 

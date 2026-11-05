@@ -40,7 +40,7 @@ The old root `.html` URLs are retained only as redirects to their canonical dire
 
 ## Forms and Requests
 
-`/book/`, `/contact/`, and `/partners/` submit anonymous enquiries to `https://freclean.onrender.com/api/public/requests`. The Core API validates the name, email and message, rejects the honeypot field, applies rate limiting and duplicate protection, and sends accepted enquiries through Resend to `freclean7@gmail.com`. The frontend reports success only after HTTP 201 with `received: true`; failed or ambiguous delivery leaves the details available for the email fallback.
+`/book/`, `/contact/`, and `/partners/` submit anonymous enquiries to `https://freclean.onrender.com/api/public/requests`. The contact API validates the name, email and message, rejects the honeypot field, applies rate limiting and duplicate protection, and sends accepted enquiries through Resend to the configured recipient, defaulting to `freclean7@gmail.com`. The frontend reports success only after HTTP 201 with `received: true`; failed or ambiguous delivery leaves the details available for the email fallback.
 
 The website never confirms a booking, price, availability or payment on its own. The backend or authorized FreClean staff remains authoritative.
 
