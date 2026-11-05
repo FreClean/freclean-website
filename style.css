@@ -705,7 +705,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--blue); box-shado
 }
 
 /* Responsive layout guard: keep every child inside the viewport before styling details. */
-html, body { width: 100%; max-width: 100%; min-width: 0; margin: 0; padding: 0; }
+html, body { width: 100%; max-width: 100%; min-width: 0; margin: 0; padding: 0; overflow-x: clip; }
 body { min-width: 0; }
 main, header, footer, section, article, form, fieldset, nav, .section-wrap, .hero, .hero-copy, .hero-media, .site-header nav, .nav-more, .nav-more-menu, .booking-layout, .form-layout, .detail-layout, .product-item, .service-feature, .service-row { min-width: 0; max-width: 100%; }
 img, picture, video, svg { max-width: 100%; }
@@ -1147,6 +1147,17 @@ body {
 }
 
 @media (max-width: 760px) {
+  .audience-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .catalog-toolbar {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 900px) {
   .audience-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
