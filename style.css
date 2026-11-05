@@ -1680,6 +1680,24 @@ textarea:focus {
   background: linear-gradient(145deg, #103c36 0%, #0c2e35 100%);
 }
 
+a[href^="tel:"]::before {
+  content: " / ";
+  color: var(--ink-soft);
+  font-weight: 400;
+}
+
+.site-footer a[href^="mailto:"],
+.site-footer a[href^="tel:"] {
+  display: inline-block;
+  width: auto;
+  margin-right: .25rem;
+  margin-bottom: .35rem;
+}
+
+.site-footer a[href^="tel:"]::before {
+  color: #b7cecb;
+}
+
 @media (max-width: 760px) {
   .page-hero {
     padding-block: 4rem 2.5rem;
