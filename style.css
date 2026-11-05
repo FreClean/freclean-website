@@ -2263,6 +2263,22 @@ body {
   50% { transform: scale(1.018); }
 }
 
+@media (max-width: 1100px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr) minmax(320px, .92fr);
+    gap: clamp(2rem, 4vw, 3rem);
+  }
+
+  .hero h1 { font-size: clamp(2.8rem, 5.8vw, 4.8rem); }
+  .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 900px) {
+  .services-editorial-grid { grid-template-columns: 1fr; }
+  .service-feature-image { aspect-ratio: 1.7; }
+  .service-list { grid-template-rows: none; }
+}
+
 @media (max-width: 760px) {
   .hero {
     gap: 2rem;
