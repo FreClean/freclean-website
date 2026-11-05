@@ -257,20 +257,3 @@ test('payment copy keeps card checkout inactive and CeloHT clearly separate and 
   assert.match(script, /configuredCeloUrl\.origin === 'https:\/\/app\.celoht\.com'/);
   assert.doesNotMatch(script, /payment (?:was |has been )?(?:received|confirmed|successful)/i);
 });
-
-test('homepage routes the main customer groups to truthful next steps', () => {
-  const homepage = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
-  assert.match(homepage, /id="audience-title"/);
-  assert.match(homepage, /href="services\/residential\/"/);
-  assert.match(homepage, /href="business\/"/);
-  assert.match(homepage, /href="services\/hospitality\/"/);
-  assert.match(homepage, /href="products\/"/);
-});
-
-test('product catalog enhancement is progressive and availability remains explicit', () => {
-  const products = fs.readFileSync(path.join(__dirname, '..', 'products/index.html'), 'utf8');
-  assert.match(products, /class="product-list"/);
-  assert.match(products, /Availability: confirmed directly before purchase/);
-  assert.match(script, /function setupProductCatalog/);
-  assert.match(script, /data-product-filter/);
-});
