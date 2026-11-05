@@ -1828,7 +1828,7 @@ body::before {
   border-radius: 0;
   filter: saturate(.92) contrast(1.02);
   opacity: .62;
-  background-image: url("assets/freclean-professional-cleaning-team.png");
+  background-image: url("/assets/freclean-professional-cleaning-team.png");
   background-position: center;
   background-size: cover;
   content: "";
@@ -1926,7 +1926,7 @@ main > section:not(.business-section):not(.entrepreneurship-section):not(.partne
   grid-template-columns: minmax(0, 1fr);
   align-items: center;
   background-color: #102f3d;
-  background-image: linear-gradient(90deg, rgba(16, 47, 61, .88) 0%, rgba(16, 47, 61, .58) 48%, rgba(16, 47, 61, .28) 100%), url("assets/freclean-professional-cleaning-team.png");
+  background-image: linear-gradient(90deg, rgba(16, 47, 61, .88) 0%, rgba(16, 47, 61, .58) 48%, rgba(16, 47, 61, .28) 100%), url("/assets/freclean-professional-cleaning-team.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover, contain;
