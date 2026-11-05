@@ -1813,3 +1813,64 @@ a[href^="tel:"]::before {
     transform: none;
   }
 }
+
+/* Animated site-wide team background with a readable content layer. */
+body {
+  background-color: #f7f8f4;
+  background-image: linear-gradient(rgba(247, 248, 244, .9), rgba(247, 248, 244, .9));
+}
+
+body::before {
+  display: block;
+  position: fixed;
+  inset: -4%;
+  z-index: 0;
+  border-radius: 0;
+  filter: saturate(.92) contrast(1.02);
+  opacity: .28;
+  background-image: url("assets/freclean-professional-cleaning-team.png");
+  background-position: center;
+  background-size: cover;
+  content: "";
+  animation: team-background-drift 28s ease-in-out infinite alternate;
+}
+
+body::after {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  border-radius: 0;
+  filter: none;
+  opacity: 1;
+  background: linear-gradient(110deg, rgba(247, 248, 244, .94) 0%, rgba(247, 248, 244, .82) 42%, rgba(247, 248, 244, .9) 100%);
+  content: "";
+  pointer-events: none;
+}
+
+.hero,
+.page-hero {
+  position: relative;
+  isolation: isolate;
+}
+
+.hero-copy,
+.page-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+h1,
+h2,
+h3 {
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .55);
+}
+
+@keyframes team-background-drift {
+  0% { transform: scale(1.02) translate3d(-1%, -1%, 0); }
+  100% { transform: scale(1.08) translate3d(1%, 1%, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before { animation: none; }
+}
