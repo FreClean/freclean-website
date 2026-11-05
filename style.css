@@ -1827,7 +1827,7 @@ body::before {
   z-index: 0;
   border-radius: 0;
   filter: saturate(.92) contrast(1.02);
-  opacity: .28;
+  opacity: .62;
   background-image: url("assets/freclean-professional-cleaning-team.png");
   background-position: center;
   background-size: cover;
@@ -1843,7 +1843,7 @@ body::after {
   border-radius: 0;
   filter: none;
   opacity: 1;
-  background: linear-gradient(110deg, rgba(247, 248, 244, .94) 0%, rgba(247, 248, 244, .82) 42%, rgba(247, 248, 244, .9) 100%);
+  background: linear-gradient(110deg, rgba(247, 248, 244, .58) 0%, rgba(247, 248, 244, .34) 42%, rgba(247, 248, 244, .5) 100%);
   content: "";
   pointer-events: none;
 }
