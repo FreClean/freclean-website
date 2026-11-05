@@ -51,4 +51,5 @@ jobs:
 
       - name: Deploy to GitHub Pages
         id: deployment
+        # Publish only after all static, browser, API, and syntax checks pass.
         uses: actions/deploy-pages@v4
