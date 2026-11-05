@@ -2,7 +2,7 @@ services:
   - type: web
     name: freclean-contact-api
     runtime: node
-    buildCommand: npm install --ignore-scripts
+    buildCommand: npm ci --ignore-scripts
     startCommand: npm start
     healthCheckPath: /health
     envVars:
