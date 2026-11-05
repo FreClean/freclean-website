@@ -1878,3 +1878,40 @@ h3 {
 @media (prefers-reduced-motion: reduce) {
   body::before { animation: none; }
 }
+
+/* Keep the team image visible behind the full page, not inside a small panel. */
+body::before {
+  inset: -2%;
+  opacity: .7;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+body::after {
+  background: linear-gradient(110deg, rgba(247, 248, 244, .54) 0%, rgba(247, 248, 244, .25) 46%, rgba(247, 248, 244, .46) 100%);
+}
+
+main > section:not(.business-section):not(.entrepreneurship-section):not(.partnership-cta),
+.intro-band,
+.services-editorial,
+.product-section,
+.payments-section,
+.impact-section,
+.celoht-partner-section,
+.process-section,
+.journal-section,
+.verified-publications,
+.trust-section,
+.final-cta {
+  background-color: rgba(247, 248, 244, .62);
+  background-image: none;
+  backdrop-filter: blur(1.5px);
+}
+
+.business-section,
+.entrepreneurship-section,
+.partnership-cta,
+.site-footer {
+  background-color: rgba(16, 47, 61, .86);
+  background-image: none;
+}
