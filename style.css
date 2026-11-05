@@ -1992,3 +1992,43 @@ main > section:not(.business-section):not(.entrepreneurship-section):not(.partne
   .hero-media { min-height: 0; }
   .hero-note { right: 1rem; bottom: 1.25rem; }
 }
+
+/* Services cards keep every label and heading readable against the imagery. */
+.services-editorial {
+  background: rgba(247, 248, 244, .96);
+}
+
+.services-intro h2,
+.service-row h3,
+.service-feature-copy h3 {
+  font-weight: 900;
+}
+
+.service-feature-copy h3 {
+  color: var(--white);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .22);
+}
+
+.service-row {
+  padding-inline: clamp(.85rem, 2vw, 1.25rem);
+  background: rgba(255, 255, 255, .98);
+  border: 1px solid rgba(16, 47, 61, .1);
+}
+
+.service-row h3 {
+  color: var(--ink);
+  text-shadow: none;
+}
+
+.service-row p {
+  color: var(--ink-soft);
+}
+
+.service-row b {
+  color: var(--blue-dark);
+  font-weight: 800;
+}
+
+.service-row span {
+  color: var(--green);
+}
