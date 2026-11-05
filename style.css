@@ -1925,9 +1925,11 @@ main > section:not(.business-section):not(.entrepreneurship-section):not(.partne
   padding-inline: max(1.25rem, calc((100vw - var(--max)) / 2));
   grid-template-columns: minmax(0, 1fr);
   align-items: center;
-  background-image: linear-gradient(90deg, rgba(16, 47, 61, .88) 0%, rgba(16, 47, 61, .64) 48%, rgba(16, 47, 61, .3) 100%), url("assets/freclean-professional-cleaning-team.png");
+  background-color: #102f3d;
+  background-image: linear-gradient(90deg, rgba(16, 47, 61, .88) 0%, rgba(16, 47, 61, .58) 48%, rgba(16, 47, 61, .28) 100%), url("assets/freclean-professional-cleaning-team.png");
   background-position: center;
-  background-size: cover;
+  background-repeat: no-repeat;
+  background-size: cover, contain;
   color: var(--white);
 }
 
@@ -1980,6 +1982,7 @@ main > section:not(.business-section):not(.entrepreneurship-section):not(.partne
     min-height: 680px;
     padding-inline: 1rem;
     background-position: 58% center;
+    background-size: cover, contain;
   }
 
   .hero-copy { padding-block: 4.5rem 8rem; }
