@@ -69,3 +69,28 @@ test('invalid, automated, duplicate and disallowed-origin submissions are reject
   assert.equal((await request(server.address().port, { name: 'Ada', email: 'ada@example.com', message: 'Please contact me about home cleaning.' })).status, 409);
   assert.equal((await request(server.address().port, { name: 'Ada', email: 'ada3@example.com', message: 'Please contact me about home cleaning.' }, { Origin: 'https://evil.example' })).status, 403);
 });
+
+test('responses include security headers and correlate the request', async () => {
+  const response = await new Promise((resolve, reject) => {
+    const request = http.request({
+      port: server.address().port,
+      path: '/health',
+      method: 'GET',
+      headers: { Origin: 'https://freclean.com' },
+    }, (healthResponse) => {
+      healthResponse.resume();
+      healthResponse.on('end', () => resolve(healthResponse));
+    });
+    request.on('error', reject);
+    request.end();
+  });
+  assert.equal(response.statusCode, 200);
+  assert.match(response.headers['x-request-id'], /^[0-9a-f-]{36}$/);
+  assert.equal(response.headers['x-frame-options'], 'DENY');
+  assert.equal(response.headers['x-content-type-options'], 'nosniff');
+});
+
+test('null and array JSON payloads are rejected as invalid submissions', async () => {
+  assert.equal((await request(server.address().port, null)).status, 400);
+  assert.equal((await request(server.address().port, [])).status, 400);
+});

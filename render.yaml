@@ -12,3 +12,5 @@ services:
         sync: false
       - key: ALLOWED_ORIGINS
         value: https://freclean.com
+      - key: FRECLEAN_REQUEST_RECIPIENT
+        value: freclean7@gmail.com

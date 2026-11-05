@@ -4,8 +4,9 @@ const http = require('node:http');
 const crypto = require('node:crypto');
 
 const PORT = Number(process.env.PORT || 10000);
-const RECIPIENT = 'freclean7@gmail.com';
+const RECIPIENT = process.env.FRECLEAN_REQUEST_RECIPIENT || 'freclean7@gmail.com';
 const MAX_BODY_BYTES = 32 * 1024;
+const OUTBOUND_TIMEOUT_MS = 10 * 1000;
 const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000;
 const RATE_LIMIT_MAX = 5;
 const DUPLICATE_WINDOW_MS = 10 * 60 * 1000;
@@ -19,12 +20,16 @@ function allowedOrigins() {
     .filter(Boolean);
 }
 
-function sendJson(response, status, body, origin) {
+function sendJson(response, status, body, origin, requestId) {
   const headers = {
     'Content-Type': 'application/json; charset=utf-8',
     'Cache-Control': 'no-store',
     'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'DENY',
+    'Referrer-Policy': 'no-referrer',
+    'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
   };
+  if (requestId) headers['X-Request-ID'] = requestId;
   if (origin) {
     headers['Access-Control-Allow-Origin'] = origin;
     headers.Vary = 'Origin';
@@ -104,6 +109,7 @@ async function deliverEmail({ name, email, message, submittedAt }) {
   }
   const response = await fetch(process.env.RESEND_API_URL || 'https://api.resend.com/emails', {
     method: 'POST',
+    signal: AbortSignal.timeout(OUTBOUND_TIMEOUT_MS),
     headers: {
       Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
       'Content-Type': 'application/json',
@@ -126,10 +132,11 @@ async function deliverEmail({ name, email, message, submittedAt }) {
 }
 
 async function handleRequest(request, response) {
+  const requestId = crypto.randomUUID();
   const origin = request.headers.origin;
   const origins = allowedOrigins();
   if (origin && !origins.includes(origin)) {
-    sendJson(response, 403, { error: 'Origin is not allowed.' });
+    sendJson(response, 403, { error: 'Origin is not allowed.' }, origin, requestId);
     return;
   }
   if (request.method === 'OPTIONS') {
@@ -149,29 +156,29 @@ async function handleRequest(request, response) {
     return;
   }
   if (request.method === 'GET' && request.url === '/health') {
-    sendJson(response, 200, { ok: true }, origin);
+    sendJson(response, 200, { ok: true }, origin, requestId);
     return;
   }
   if (request.method !== 'POST' || request.url !== '/api/public/requests') {
-    sendJson(response, 404, { error: 'Not found.' }, origin);
+    sendJson(response, 404, { error: 'Not found.' }, origin, requestId);
     return;
   }
 
   try {
     const payload = await readBody(request);
-    if (payload.website) {
-      sendJson(response, 400, { error: 'Invalid submission.' }, origin);
+    if (!payload || typeof payload !== 'object' || Array.isArray(payload) || payload.website) {
+      sendJson(response, 400, { error: 'Invalid submission.' }, origin, requestId);
       return;
     }
     const submission = validateSubmission(payload);
     if (submission.error) {
-      sendJson(response, 400, { error: submission.error }, origin);
+      sendJson(response, 400, { error: submission.error }, origin, requestId);
       return;
     }
     const now = Date.now();
     const ip = clientIp(request);
     if (!checkRateLimit(ip, now)) {
-      sendJson(response, 429, { error: 'Too many submissions. Please try again later.' }, origin);
+      sendJson(response, 429, { error: 'Too many submissions. Please try again later.' }, origin, requestId);
       return;
     }
     const fingerprint = crypto.createHash('sha256')
@@ -179,16 +186,16 @@ async function handleRequest(request, response) {
       .digest('hex');
     const previous = recentRequests.get(fingerprint);
     if (previous && now - previous < DUPLICATE_WINDOW_MS) {
-      sendJson(response, 409, { error: 'This enquiry was already submitted recently.' }, origin);
+      sendJson(response, 409, { error: 'This enquiry was already submitted recently.' }, origin, requestId);
       return;
     }
     const submittedAt = new Date(now).toISOString();
     await deliverEmail({ ...submission, submittedAt });
     recentRequests.set(fingerprint, now);
-    sendJson(response, 201, { received: true }, origin);
+    sendJson(response, 201, { received: true }, origin, requestId);
   } catch (error) {
     const status = error.status || 503;
-    sendJson(response, status, { error: status === 503 ? 'We could not deliver your enquiry. Please try again later.' : 'Invalid request.' }, origin);
+    sendJson(response, status, { error: status === 503 ? 'We could not deliver your enquiry. Please try again later.' : 'Invalid request.' }, origin, requestId);
   }
 }
 

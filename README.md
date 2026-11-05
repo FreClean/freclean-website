@@ -73,7 +73,7 @@ FRECLEAN_CELOHT_DAPP_URL=https://app.celoht.com
 CARD_PAYMENTS_ENABLED=false
 ```
 
-The Render service also requires `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, and `ALLOWED_ORIGINS` as Render environment variables. `RESEND_API_KEY` must never be added to this repository or exposed to the browser. Resend must have verified the sender domain before production delivery can succeed.
+The Render service also requires `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, and `ALLOWED_ORIGINS` as Render environment variables. `FRECLEAN_REQUEST_RECIPIENT` is optional and defaults to `freclean7@gmail.com`. `RESEND_API_KEY` must never be added to this repository or exposed to the browser. Resend must have verified the sender domain before production delivery can succeed.
 
 The production request URL is public browser configuration and contains no secret. Do not point it at protected auth or booking APIs, and never add secrets or payment processor credentials to this repository.
 
