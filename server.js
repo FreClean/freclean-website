@@ -1,5 +1,7 @@
 'use strict';
 
+const fs = require('node:fs');
+const path = require('node:path');
 const http = require('node:http');
 const crypto = require('node:crypto');
 
@@ -129,6 +131,73 @@ function escapeHtml(value) {
   }[character]));
 }
 
+function contentTypeFor(filePath) {
+  const extension = path.extname(filePath).toLowerCase();
+  const mimeTypes = {
+    '.html': 'text/html; charset=utf-8',
+    '.css': 'text/css; charset=utf-8',
+    '.js': 'application/javascript; charset=utf-8',
+    '.json': 'application/json; charset=utf-8',
+    '.png': 'image/png',
+    '.jpg': 'image/jpeg',
+    '.jpeg': 'image/jpeg',
+    '.svg': 'image/svg+xml',
+    '.webp': 'image/webp',
+    '.ico': 'image/x-icon',
+    '.xml': 'application/xml; charset=utf-8',
+    '.txt': 'text/plain; charset=utf-8',
+    '.webmanifest': 'application/manifest+json; charset=utf-8',
+    '.pdf': 'application/pdf',
+  };
+  return mimeTypes[extension] || 'application/octet-stream';
+}
+
+function resolveStaticFilePath(requestPath) {
+  const rootDir = __dirname;
+  const safePath = requestPath.split('?')[0].split('#')[0];
+  const normalized = decodeURIComponent(safePath || '/');
+  if (normalized === '/' || normalized === '/index.html') {
+    return path.join(rootDir, 'index.html');
+  }
+
+  const candidate = path.join(rootDir, normalized.replace(/^\//, ''));
+  const relative = path.relative(rootDir, candidate);
+  if (relative.startsWith('..') || path.isAbsolute(relative)) {
+    return null;
+  }
+
+  return candidate;
+}
+
+function serveStaticFile(response, requestPath) {
+  const filePath = resolveStaticFilePath(requestPath);
+  if (!filePath) {
+    response.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
+    response.end('Forbidden');
+    return;
+  }
+
+  let resolvedPath = filePath;
+  if (!fs.existsSync(resolvedPath) || fs.statSync(resolvedPath).isDirectory()) {
+    const candidate = `${resolvedPath}${path.sep}index.html`;
+    if (fs.existsSync(candidate) && !fs.statSync(candidate).isDirectory()) {
+      resolvedPath = candidate;
+    } else {
+      response.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+      response.end('Not found');
+      return;
+    }
+  }
+
+  const contentType = contentTypeFor(resolvedPath);
+  const body = fs.readFileSync(resolvedPath);
+  response.writeHead(200, {
+    'Content-Type': contentType,
+    'Cache-Control': 'public, max-age=3600',
+  });
+  response.end(body);
+}
+
 async function deliverEmail({ name, email, message, submittedAt }) {
   if (!process.env.RESEND_API_KEY || !process.env.RESEND_FROM_EMAIL) {
     throw Object.assign(new Error('email provider is not configured'), { status: 503 });
@@ -172,6 +241,14 @@ async function handleRequest(request, response) {
   if (request.method === 'GET' && request.url === '/health') {
     sendJson(response, 200, { ok: true }, origin, requestId);
     return;
+  }
+  if (request.method === 'GET' || request.method === 'HEAD') {
+    const requestPath = request.url || '/';
+    const pathname = requestPath.split('?')[0];
+    if (pathname === '/' || pathname === '/index.html' || !pathname.startsWith('/api/')) {
+      serveStaticFile(response, pathname);
+      return;
+    }
   }
   if (request.method !== 'POST' || request.url !== '/api/public/requests') {
     sendJson(response, 404, { error: 'Not found.' }, origin, requestId);

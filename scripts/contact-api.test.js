@@ -134,6 +134,45 @@ test('responses include security headers and correlate the request', async () =>
   assert.equal(response.headers['x-content-type-options'], 'nosniff');
 });
 
+test('homepage is served for both the site root and index.html', async () => {
+  const rootResponse = await new Promise((resolve, reject) => {
+    const request = http.request({
+      port: server.address().port,
+      path: '/',
+      method: 'GET',
+    }, (response) => {
+      let data = '';
+      response.setEncoding('utf8');
+      response.on('data', (chunk) => { data += chunk; });
+      response.on('end', () => resolve({ statusCode: response.statusCode, body: data, contentType: response.headers['content-type'] }));
+    });
+    request.on('error', reject);
+    request.end();
+  });
+
+  const indexResponse = await new Promise((resolve, reject) => {
+    const request = http.request({
+      port: server.address().port,
+      path: '/index.html',
+      method: 'GET',
+    }, (response) => {
+      let data = '';
+      response.setEncoding('utf8');
+      response.on('data', (chunk) => { data += chunk; });
+      response.on('end', () => resolve({ statusCode: response.statusCode, body: data, contentType: response.headers['content-type'] }));
+    });
+    request.on('error', reject);
+    request.end();
+  });
+
+  assert.equal(rootResponse.statusCode, 200);
+  assert.equal(indexResponse.statusCode, 200);
+  assert.match(rootResponse.contentType, /text\/html/);
+  assert.match(indexResponse.contentType, /text\/html/);
+  assert.match(rootResponse.body, /FreClean/);
+  assert.match(indexResponse.body, /FreClean/);
+});
+
 test('null and array JSON payloads are rejected as invalid submissions', async () => {
   assert.equal((await request(server.address().port, null)).status, 400);
   assert.equal((await request(server.address().port, [])).status, 400);
