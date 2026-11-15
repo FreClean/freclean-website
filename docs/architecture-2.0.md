@@ -24,11 +24,11 @@ issued `serviceId`, `businessLocationId`, `addressId`, and ISO schedule values.
 The website does not currently have an approved anonymous booking or public
 catalog endpoint. Therefore this static site must not post a public form to the
 protected booking route or claim that a request was created. The configured
-public request endpoint is the separate contact API at
-`https://freclean.onrender.com/api/public/requests`; it confirms only that an
-enquiry was accepted for email delivery. If that endpoint is unavailable, the
-form keeps its details and offers a visitor-sent email draft to
-`freclean7@gmail.com`.
+public request endpoint is the Core API at
+`https://api.freclean.com/api/public/requests`. The website sends only `SERVICE`
+or `CONTACT` request types, matching the API's public contract. If that endpoint
+is unavailable, the form keeps its details and offers a visitor-sent email
+draft; the contact page fallback is `contact@freclean.com`.
 
 When a public request endpoint is released, it should be added as an explicit,
 versioned, approved HTTPS contract and enabled through runtime configuration.

@@ -9,13 +9,12 @@ The website is a public presentation and request boundary. The contact API is a 
 ```text
 Public website
     -> service or product enquiry
-    -> Render contact API
-    -> Resend
-    -> freclean7@gmail.com
+    -> FreClean Core API
+    -> configured notification delivery
 
 Public /contact/ form
-    -> Render contact API
-    -> Resend
+    -> FreClean Core API
+    -> configured notification delivery
     -> contact@freclean.com
 
 Public website
@@ -45,7 +44,7 @@ The old root `.html` URLs are retained only as redirects to their canonical dire
 
 ## Forms and Requests
 
-`/book/`, `/contact/`, and `/partners/` submit anonymous enquiries to `https://freclean.onrender.com/api/public/requests`. The contact API validates the name, email and message, rejects the honeypot field, applies rate limiting and duplicate protection, and sends accepted enquiries through Resend. The `/contact/` form is always sent to `contact@freclean.com` with the visitor's address as Reply-To; service and partnership requests use the configured recipient, defaulting to `freclean7@gmail.com`. The frontend reports success only after HTTP 201 with `received: true`; failed or ambiguous delivery provides an email draft to the correct recipient.
+`/book/`, `/contact/`, and `/partners/` submit anonymous enquiries to `https://api.freclean.com/api/public/requests`. The client sends only the Core API's supported `SERVICE` or `CONTACT` request types. The Core API owns validation, persistence, recipient routing, and notification delivery; `/contact/` retains `contact@freclean.com` as its email fallback, and uses the visitor's address as Reply-To when supported by Core. The frontend reports success only after an explicit accepted response; failed or ambiguous delivery provides an email draft.
 
 The website never confirms a booking, price, availability or payment on its own. The backend or authorized FreClean staff remains authoritative.
 
@@ -68,8 +67,8 @@ The CeloHT link is `https://app.celoht.com/`. CeloHT is separate from FreClean; 
 Copy `.env.example` into the deployment configuration if the host supports runtime injection:
 
 ```text
-FRECLEAN_PUBLIC_REQUEST_URL=https://freclean.onrender.com/api/public/requests
-FRECLEAN_PUBLIC_API_BASE_URL=https://freclean.onrender.com
+FRECLEAN_PUBLIC_REQUEST_URL=https://api.freclean.com/api/public/requests
+FRECLEAN_PUBLIC_API_BASE_URL=https://api.freclean.com
 FRECLEAN_CELOHT_DAPP_URL=https://app.celoht.com
 ```
 

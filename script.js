@@ -442,7 +442,7 @@
           setStatus('Please check the required fields before sending your enquiry.', 'error');
           return;
         }
-        var requestUrl = window.FRECLEAN_PUBLIC_REQUEST_URL || 'https://freclean.onrender.com/api/public/requests';
+        var requestUrl = window.FRECLEAN_PUBLIC_REQUEST_URL || 'https://api.freclean.com/api/public/requests';
         try {
           var parsedRequestUrl = new URL(requestUrl);
           if (parsedRequestUrl.protocol !== 'https:' || parsedRequestUrl.username || parsedRequestUrl.password || !parsedRequestUrl.hostname || parsedRequestUrl.hostname === 'localhost' || parsedRequestUrl.hostname.endsWith('.localhost') || parsedRequestUrl.hostname.endsWith('.local')) {
@@ -455,7 +455,7 @@
         }
         var values = Object.fromEntries(new FormData(form));
         var dataset = form.dataset || {};
-        var requestType = dataset.requestType === 'SERVICE' ? 'SERVICE' : isDirectContactForm ? 'CONTACT_FORM' : 'CONTACT';
+        var requestType = dataset.requestType === 'SERVICE' ? 'SERVICE' : 'CONTACT';
         var bookingDetails = [values.service, values.property_type, values.date, values.time, values.location, values.notes].filter(Boolean);
         var message = (values.message || values.notes || bookingDetails.join('; ')).trim();
         var name = (values.name || values.fullName || '').trim();
@@ -507,7 +507,7 @@
           });
         }).then(function () {
           form.reset();
-          setStatus(requestType === 'CONTACT_FORM'
+          setStatus(isDirectContactForm
             ? 'FreClean has received your contact enquiry. The team will reply to the email address you provided.'
             : 'Your enquiry was received. FreClean will confirm availability and next steps directly; this is not an appointment confirmation.', 'success');
         }).catch(function (error) {

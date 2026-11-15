@@ -40,8 +40,8 @@ Core API, relational database, authentication/RBAC, admin application, Resend pr
 ## Exact public URLs
 
 - Site: `https://freclean.com/`
-- Request API: `https://freclean.onrender.com/api/public/requests`
-- API health: `https://freclean.onrender.com/health`
+- Request API: `https://api.freclean.com/api/public/requests`
+- API health: `https://api.freclean.com/health`
 - CeloHT handoff: `https://app.celoht.com/`
 
 No production API URLs, credentials, migration status, backup status, or payment confirmation beyond these public boundaries can be asserted from this repository.

@@ -89,7 +89,7 @@ function boot(forms, requestUrl, fetchImplementation) {
   };
   const window = {
     FRECLEAN_PUBLIC_REQUEST_URL: requestUrl,
-    location: { pathname: '/contact/' },
+    location: { pathname: forms[0] && forms[0].name === 'booking' ? '/book/' : '/contact/' },
     localStorage: { getItem: () => '{"necessary":true}', setItem() {} }
   };
   const context = {
@@ -143,7 +143,7 @@ test('booking and contact pages expose required email validation and a live stat
 test('blank configuration uses the production public enquiries endpoint', () => {
   const booking = createForm('booking');
   boot([booking], '', (url) => {
-    assert.equal(url, 'https://freclean.onrender.com/api/public/requests');
+    assert.equal(url, 'https://api.freclean.com/api/public/requests');
     return Promise.resolve({ ok: true, status: 201, json: () => Promise.resolve({ received: true }) });
   });
 
@@ -212,7 +212,7 @@ test('successful server receipt is the only JSON response that reports receipt',
 test('HTTP 201 with a received receipt is an explicit successful submission', async () => {
   const form = createForm('contact');
   let submittedBody;
-  boot([form], 'https://freclean.onrender.com/api/public/requests', (url, options) => {
+  boot([form], 'https://api.freclean.com/api/public/requests', (url, options) => {
     submittedBody = JSON.parse(options.body);
     return Promise.resolve({ ok: true, status: 201, json: () => Promise.resolve({ received: true, requestId: '9f1d3f6f-7ab8-44aa-b23f-0a8d0e0c9ad1' }) });
   });
@@ -220,7 +220,7 @@ test('HTTP 201 with a received receipt is an explicit successful submission', as
   submit(form);
   await waitForRequest();
 
-  assert.equal(submittedBody.type, 'CONTACT_FORM');
+  assert.equal(submittedBody.type, 'CONTACT');
   assert.equal(form.status.dataset.state, 'success');
   assert.match(form.status.message, /received your contact enquiry/i);
   assert.equal(form.resetCalled, true);
@@ -233,7 +233,7 @@ test('invalid contact email and overlong messages are rejected before submission
   ]) {
     const form = createForm('contact');
     form.fields = fields;
-    boot([form], 'https://freclean.onrender.com/api/public/requests', () => assert.fail('invalid input must not fetch'));
+    boot([form], 'https://api.freclean.com/api/public/requests', () => assert.fail('invalid input must not fetch'));
 
     submit(form);
 
@@ -258,7 +258,7 @@ test('booking submission preserves every submitted business field', async () => 
     ['payment_method', 'USDT TRC20']
   ];
   let submittedBody;
-  boot([form], 'https://freclean.onrender.com/api/public/requests', (url, options) => {
+  boot([form], 'https://api.freclean.com/api/public/requests', (url, options) => {
     submittedBody = JSON.parse(options.body);
     return Promise.resolve({ ok: true, status: 201, json: () => Promise.resolve({ received: true, requestId: 'test-request-id' }) });
   });

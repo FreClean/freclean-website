@@ -3,7 +3,7 @@
 Implemented endpoint:
 
 - `GET /health` returns service liveness.
-- `POST /api/public/requests` validates an anonymous enquiry and sends it through Resend. The `/contact/` form uses request type `CONTACT_FORM`, goes to `contact@freclean.com`, and sets the visitor email as Reply-To. Service and partnership submissions use the configured general recipient. Success is `201` with `{ "received": true }` only after Resend accepts the message.
+- `POST https://api.freclean.com/api/public/requests` accepts anonymous enquiries using `SERVICE` or `CONTACT` as the request type. The public website uses `CONTACT` for `/contact/`; Core owns notification routing, delivery, and Reply-To handling. Success is reported only after the API explicitly accepts the request.
 
 The endpoint applies HTTPS-origin allowlisting, payload limits, honeypot rejection, validation, rate limiting, duplicate protection, outbound timeout protection, correlation headers, and safe error responses.
 
