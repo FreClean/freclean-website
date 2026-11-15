@@ -404,6 +404,7 @@
       var status = form.querySelector('.form-status');
       var submit = form.querySelector('button[type="submit"]');
       var isSubmitting = false;
+      var isDirectContactForm = window.location.pathname.replace(/\/+$/, '') === '/contact';
       var setStatus = function (message, state) {
         if (!status) return;
         status.textContent = message;
@@ -428,7 +429,7 @@
         });
         var link = document.createElement('a');
         link.className = 'text-link';
-        link.href = 'mailto:freclean7@gmail.com?subject=' + encodeURIComponent('FreClean service enquiry') + '&body=' + encodeURIComponent(details.join('\n'));
+        link.href = 'mailto:' + (isDirectContactForm ? 'contact@freclean.com' : 'freclean7@gmail.com') + '?subject=' + encodeURIComponent(isDirectContactForm ? 'New FreClean Contact Enquiry' : 'FreClean service enquiry') + '&body=' + encodeURIComponent(details.join('\n'));
         link.textContent = 'Draft an email to FreClean';
         status.append(document.createTextNode(' '), link);
       };
@@ -454,18 +455,22 @@
         }
         var values = Object.fromEntries(new FormData(form));
         var dataset = form.dataset || {};
-        var requestType = dataset.requestType === 'SERVICE' ? 'SERVICE' : 'CONTACT';
+        var requestType = dataset.requestType === 'SERVICE' ? 'SERVICE' : isDirectContactForm ? 'CONTACT_FORM' : 'CONTACT';
         var bookingDetails = [values.service, values.property_type, values.date, values.time, values.location, values.notes].filter(Boolean);
         var message = (values.message || values.notes || bookingDetails.join('; ')).trim();
-        if (!message || message.length < 10) {
-          setStatus('Please provide at least 10 characters in the message or additional information field.', 'error');
+        var name = (values.name || values.fullName || '').trim();
+        var email = (values.email || '').trim();
+        var emailPattern = /^[A-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[A-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?$/i;
+        var emailParts = email.split('@');
+        if (name.length < 2 || name.length > 120 || email.length > 254 || emailParts.length !== 2 || emailParts[0].length > 64 || !emailPattern.test(email) || message.length < 10 || message.length > 5000) {
+          setStatus('Please check your name, email and message. Messages must be between 10 and 5,000 characters.', 'error');
           return;
         }
         var payload = Object.assign({}, values, {
           type: requestType,
-          name: (values.name || values.fullName || '').trim(),
+          name: name,
           fullName: (values.fullName || values.name || '').trim(),
-          email: (values.email || '').trim(),
+          email: email,
           phone: (values.phone || '').trim(),
           service: (values.service || values.subject || '').trim(),
           message: message,
@@ -502,10 +507,14 @@
           });
         }).then(function () {
           form.reset();
-          setStatus('Your enquiry was received. FreClean will confirm availability and next steps directly; this is not an appointment confirmation.', 'success');
+          setStatus(requestType === 'CONTACT_FORM'
+            ? 'FreClean has received your contact enquiry. The team will reply to the email address you provided.'
+            : 'Your enquiry was received. FreClean will confirm availability and next steps directly; this is not an appointment confirmation.', 'success');
         }).catch(function (error) {
           if (error && error.status === 400) {
             setStatus('Please check your name, email, phone and message details before sending again.', 'error');
+          } else if (error && error.status === 413) {
+            setStatus('Your enquiry is too large. Please shorten your message and try again.', 'error');
           } else if (error && error.status === 409) {
             setStatus('This enquiry appears to have already been submitted. Please use the email option if you need to add information.', 'error');
           } else if (error && error.status === 429) {

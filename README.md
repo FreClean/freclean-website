@@ -13,6 +13,11 @@ Public website
     -> Resend
     -> freclean7@gmail.com
 
+Public /contact/ form
+    -> Render contact API
+    -> Resend
+    -> contact@freclean.com
+
 Public website
     -> separate CeloHT DApp handoff
     -> https://app.celoht.com/
@@ -40,7 +45,7 @@ The old root `.html` URLs are retained only as redirects to their canonical dire
 
 ## Forms and Requests
 
-`/book/`, `/contact/`, and `/partners/` submit anonymous enquiries to `https://freclean.onrender.com/api/public/requests`. The contact API validates the name, email and message, rejects the honeypot field, applies rate limiting and duplicate protection, and sends accepted enquiries through Resend to the configured recipient, defaulting to `freclean7@gmail.com`. The frontend reports success only after HTTP 201 with `received: true`; failed or ambiguous delivery leaves the details available for the email fallback.
+`/book/`, `/contact/`, and `/partners/` submit anonymous enquiries to `https://freclean.onrender.com/api/public/requests`. The contact API validates the name, email and message, rejects the honeypot field, applies rate limiting and duplicate protection, and sends accepted enquiries through Resend. The `/contact/` form is always sent to `contact@freclean.com` with the visitor's address as Reply-To; service and partnership requests use the configured recipient, defaulting to `freclean7@gmail.com`. The frontend reports success only after HTTP 201 with `received: true`; failed or ambiguous delivery provides an email draft to the correct recipient.
 
 The website never confirms a booking, price, availability or payment on its own. The backend or authorized FreClean staff remains authoritative.
 
@@ -68,7 +73,7 @@ FRECLEAN_PUBLIC_API_BASE_URL=https://freclean.onrender.com
 FRECLEAN_CELOHT_DAPP_URL=https://app.celoht.com
 ```
 
-The Render service also requires `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, and `ALLOWED_ORIGINS` as Render environment variables. `FRECLEAN_REQUEST_RECIPIENT` is optional and defaults to `freclean7@gmail.com`. `RESEND_API_KEY` must never be added to this repository or exposed to the browser. Resend must have verified the sender domain before production delivery can succeed.
+The Render service requires `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, and `ALLOWED_ORIGINS` as Render environment variables. `FRECLEAN_REQUEST_RECIPIENT` optionally configures the recipient for service and partnership requests; `/contact/` always targets `contact@freclean.com`. `RESEND_API_KEY` must never be added to this repository or exposed to the browser. Set `RESEND_FROM_EMAIL` to a sender verified by Resend, such as `FreClean <noreply@freclean.com>`, before production delivery can succeed.
 
 The production request URL is public browser configuration and contains no secret. Do not point it at protected auth or booking APIs, and never add secrets or payment processor credentials to this repository.
 
@@ -112,8 +117,9 @@ The validator checks canonical pages, legacy redirects, metadata, landmarks, loc
 
 - GitHub Pages deployment
 - Google Fonts referenced by the public pages
-- FreClean public contact and email-draft fallback: `freclean7@gmail.com`
+- Public contact details and service/partnership email fallback: `freclean7@gmail.com`
+- `/contact/` enquiry destination and fallback: `contact@freclean.com`
 - CeloHT payment route: `https://app.celoht.com/`; CeloHT is separate from FreClean
-- The contact API implementation is covered by local mocked-provider tests. Production delivery remains unverified until the Render service is deployed with its Resend environment variables and a real enquiry is received at `freclean7@gmail.com`
+- The contact API implementation is covered by local mocked-provider tests. Production delivery remains unverified until the Render service is deployed with its Resend environment variables and a real `/contact/` enquiry is received at `contact@freclean.com`.
 
 The website provides service and contact enquiries, not online booking confirmation. The supported anonymous public contract is `POST /api/public/requests`; `/api/bookings` remains authenticated and is not called by the frontend. The public site does not initiate or confirm USDT or CeloHT payments; it collects a preferred method with an enquiry only.

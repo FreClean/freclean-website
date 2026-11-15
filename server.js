@@ -6,7 +6,11 @@ const http = require('node:http');
 const crypto = require('node:crypto');
 
 const PORT = Number(process.env.PORT || 10000);
-const RECIPIENT = process.env.FRECLEAN_REQUEST_RECIPIENT || 'freclean7@gmail.com';
+const DEFAULT_RECIPIENT = process.env.FRECLEAN_REQUEST_RECIPIENT || 'freclean7@gmail.com';
+const CONTACT_RECIPIENT = 'contact@freclean.com';
+const MAX_NAME_LENGTH = 120;
+const MAX_EMAIL_LENGTH = 254;
+const MAX_MESSAGE_LENGTH = 5000;
 const MAX_BODY_BYTES = 32 * 1024;
 const OUTBOUND_TIMEOUT_MS = 10 * 1000;
 const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000;
@@ -92,21 +96,29 @@ function readBody(request) {
   });
 }
 
-function clean(value, maxLength) {
-  return typeof value === 'string' ? value.trim().replace(/[\u0000-\u001f\u007f]/g, '').slice(0, maxLength) : '';
-}
-
 function validateSubmission(payload) {
-  const name = clean(payload.name || payload.fullName, 120);
-  const email = clean(payload.email, 254).toLowerCase();
-  const message = clean(payload.message || payload.notes, 5000);
-  if (!name || name.length < 2 || !email || !message || message.length < 10) {
-    return { error: 'Please provide a valid name, email address and message of at least 10 characters.' };
+  const rawName = payload.name || payload.fullName;
+  const rawMessage = payload.message || payload.notes;
+  const name = typeof rawName === 'string'
+    ? rawName.trim().replace(/[\u0000-\u001f\u007f]/g, '')
+    : '';
+  const email = typeof payload.email === 'string' ? payload.email.trim() : '';
+  const message = typeof rawMessage === 'string'
+    ? rawMessage.replace(/\r\n?/g, '\n').replace(/[\u0000-\u0008\u000b-\u001f\u007f]/g, '').trim()
+    : '';
+  const type = payload.type === undefined ? 'CONTACT' : payload.type;
+  if (!['CONTACT', 'CONTACT_FORM', 'SERVICE'].includes(type)) {
+    return { error: 'Please provide a valid enquiry type.' };
   }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  if (name.length < 2 || name.length > MAX_NAME_LENGTH || !message || message.length < 10 || message.length > MAX_MESSAGE_LENGTH) {
+    return { error: 'Please provide a valid name and a message between 10 and 5000 characters.' };
+  }
+  const emailParts = email.split('@');
+  const emailPattern = /^[A-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[A-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?$/i;
+  if (email.length > MAX_EMAIL_LENGTH || emailParts.length !== 2 || emailParts[0].length > 64 || !emailPattern.test(email)) {
     return { error: 'Please provide a valid email address.' };
   }
-  return { name, email, message };
+  return { name, email, message, type };
 }
 
 function checkRateLimit(ip, now) {
@@ -198,29 +210,36 @@ function serveStaticFile(response, requestPath) {
   response.end(body);
 }
 
-async function deliverEmail({ name, email, message, submittedAt }) {
+async function deliverEmail({ name, email, message, submittedAt, type }) {
   if (!process.env.RESEND_API_KEY || !process.env.RESEND_FROM_EMAIL) {
-    throw Object.assign(new Error('email provider is not configured'), { status: 503 });
+    throw Object.assign(new Error('email provider is not configured'), { status: 503, code: 'email_provider_not_configured' });
   }
-  const response = await fetch(process.env.RESEND_API_URL || 'https://api.resend.com/emails', {
-    method: 'POST',
-    signal: AbortSignal.timeout(OUTBOUND_TIMEOUT_MS),
-    headers: {
-      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      from: process.env.RESEND_FROM_EMAIL,
-      to: [RECIPIENT],
-      reply_to: email,
-      subject: `FreClean enquiry from ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\nSubmitted: ${submittedAt}\n\nMessage:\n${message}`,
-      html: `<p><strong>Name:</strong> ${escapeHtml(name)}</p><p><strong>Email:</strong> ${escapeHtml(email)}</p><p><strong>Submitted:</strong> ${escapeHtml(submittedAt)}</p><hr><p>${escapeHtml(message).replace(/\n/g, '<br>')}</p>`,
-    }),
-  });
+  let response;
+  try {
+    response = await fetch(process.env.RESEND_API_URL || 'https://api.resend.com/emails', {
+      method: 'POST',
+      signal: AbortSignal.timeout(OUTBOUND_TIMEOUT_MS),
+      headers: {
+        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: process.env.RESEND_FROM_EMAIL,
+        to: [type === 'CONTACT_FORM' ? CONTACT_RECIPIENT : DEFAULT_RECIPIENT],
+        reply_to: email,
+        subject: type === 'CONTACT_FORM' ? 'New FreClean Contact Enquiry' : 'FreClean enquiry',
+        text: `Name:\n${name}\n\nEmail:\n${email}\n\nMessage:\n${message}\n\nSubmitted:\n${submittedAt}`,
+        html: `<p><strong>Name:</strong> ${escapeHtml(name)}</p><p><strong>Email:</strong> ${escapeHtml(email)}</p><p><strong>Message:</strong><br>${escapeHtml(message).replace(/\n/g, '<br>')}</p><p><strong>Submitted:</strong> ${escapeHtml(submittedAt)}</p>`,
+      }),
+    });
+  } catch {
+    throw Object.assign(new Error('email provider request failed'), { status: 503, code: 'email_provider_unavailable' });
+  }
   if (!response.ok) {
     const error = new Error('email provider rejected the message');
     error.status = response.status >= 500 ? 503 : 502;
+    error.code = 'email_provider_rejected';
+    error.providerStatus = response.status;
     throw error;
   }
   return true;
@@ -296,7 +315,20 @@ async function handleRequest(request, response) {
     sendJson(response, 201, { received: true }, origin, requestId);
   } catch (error) {
     const status = error.status || 503;
-    sendJson(response, status, { error: status === 503 ? 'We could not deliver your enquiry. Please try again later.' : 'Invalid request.' }, origin, requestId);
+    if (status >= 500 || status === 502) {
+      console.error(JSON.stringify({
+        event: 'public_request_delivery_failed',
+        requestId,
+        code: error.code || 'internal_error',
+        providerStatus: error.providerStatus,
+      }));
+    }
+    const message = status === 413
+      ? 'Your enquiry is too large. Please shorten it and try again.'
+      : status >= 500 || status === 502
+        ? 'We could not deliver your enquiry. Please try again later.'
+        : 'Invalid request.';
+    sendJson(response, status, { error: message }, origin, requestId);
   }
 }
 

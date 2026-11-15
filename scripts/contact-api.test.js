@@ -6,6 +6,7 @@ const test = require('node:test');
 
 const originalEnv = { ...process.env };
 const { server } = require('../server');
+let ipSequence = 1;
 
 function request(port, body, headers = {}) {
   return new Promise((resolve, reject) => {
@@ -13,7 +14,12 @@ function request(port, body, headers = {}) {
       port,
       path: '/api/public/requests',
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Origin: 'https://freclean.com', ...headers },
+      headers: {
+        'Content-Type': 'application/json',
+        Origin: 'https://freclean.com',
+        'X-Forwarded-For': `198.51.100.${ipSequence++}`,
+        ...headers,
+      },
     }, (response) => {
       let data = '';
       response.setEncoding('utf8');
@@ -33,11 +39,15 @@ test.before(async () => {
       let body = '';
       request.on('data', (chunk) => { body += chunk; });
       request.on('end', () => {
+        provider.deliveryCount += 1;
         provider.lastBody = JSON.parse(body);
-        response.writeHead(200, { 'Content-Type': 'application/json' });
-        response.end(JSON.stringify({ id: 'test-email-id' }));
+        response.writeHead(provider.responseStatus, { 'Content-Type': 'application/json' });
+        response.end(provider.responseBody);
       });
     });
+    provider.deliveryCount = 0;
+    provider.responseStatus = 200;
+    provider.responseBody = JSON.stringify({ id: 'test-email-id' });
     provider.listen(0, '127.0.0.1', () => {
       global.provider = provider;
       resolve(provider.address().port);
@@ -54,20 +64,106 @@ test.after(async () => {
 
 test('valid contact is delivered and includes the required details', async () => {
   const response = await request(server.address().port, {
-    name: 'Ada Customer', email: 'ada@example.com', message: 'Please contact me about home cleaning.', website: ''
+    type: 'CONTACT_FORM',
+    name: 'Ada Customer',
+    email: 'ada@example.com',
+    message: 'Please contact me about home cleaning.',
+    website: ''
   });
   assert.equal(response.status, 201);
   assert.deepEqual(response.body, { received: true });
-  assert.match(global.provider.lastBody.text, /Ada Customer/);
-  assert.match(global.provider.lastBody.text, /ada@example.com/);
-  assert.match(global.provider.lastBody.text, /Submitted:/);
+  assert.deepEqual(global.provider.lastBody.to, ['contact@freclean.com']);
+  assert.equal(global.provider.lastBody.from, 'FreClean <noreply@example.test>');
+  assert.equal(global.provider.lastBody.reply_to, 'ada@example.com');
+  assert.equal(global.provider.lastBody.subject, 'New FreClean Contact Enquiry');
+  assert.match(global.provider.lastBody.text, /Name:\nAda Customer/);
+  assert.match(global.provider.lastBody.text, /Email:\nada@example\.com/);
+  assert.match(global.provider.lastBody.text, /Message:\nPlease contact me about home cleaning\./);
+  assert.match(global.provider.lastBody.text, /Submitted:\n\d{4}-\d\d-\d\dT/);
+});
+
+test('service and general contact enquiries keep the configured non-contact recipient', async () => {
+  for (const type of ['CONTACT', 'SERVICE']) {
+    const response = await request(server.address().port, {
+      type,
+      name: 'Ada Customer',
+      email: `ada-${type.toLowerCase()}@example.com`,
+      message: `Please contact me about a ${type.toLowerCase()} enquiry.`,
+    });
+    assert.equal(response.status, 201);
+    assert.deepEqual(global.provider.lastBody.to, [process.env.FRECLEAN_REQUEST_RECIPIENT || 'freclean7@gmail.com']);
+  }
 });
 
 test('invalid, automated, duplicate and disallowed-origin submissions are rejected', async () => {
   assert.equal((await request(server.address().port, { name: 'A', email: 'bad', message: 'short' })).status, 400);
   assert.equal((await request(server.address().port, { name: 'Ada', email: 'ada2@example.com', message: 'A valid message here', website: 'bot' })).status, 400);
-  assert.equal((await request(server.address().port, { name: 'Ada', email: 'ada@example.com', message: 'Please contact me about home cleaning.' })).status, 409);
+  const duplicateIp = '198.51.100.220';
+  assert.equal((await request(server.address().port, { name: 'Ada', email: 'ada@example.com', message: 'Please contact me about home cleaning.' }, { 'X-Forwarded-For': duplicateIp })).status, 201);
+  assert.equal((await request(server.address().port, { name: 'Ada', email: 'ada@example.com', message: 'Please contact me about home cleaning.' }, { 'X-Forwarded-For': duplicateIp })).status, 409);
   assert.equal((await request(server.address().port, { name: 'Ada', email: 'ada3@example.com', message: 'Please contact me about home cleaning.' }, { Origin: 'https://evil.example' })).status, 403);
+});
+
+test('rejects empty fields, malformed or injected email and overlong messages', async () => {
+  const beforeDeliveries = global.provider.deliveryCount;
+  assert.equal((await request(server.address().port, { type: 'CONTACT_FORM', name: '', email: 'ada@example.com', message: 'A valid message here' })).status, 400);
+  assert.equal((await request(server.address().port, { type: 'CONTACT_FORM', name: 'Ada', email: 'not-an-email', message: 'A valid message here' })).status, 400);
+  assert.equal((await request(server.address().port, { type: 'CONTACT_FORM', name: 'Ada', email: 'ada@example.com\r\nBcc: other@example.com', message: 'A valid message here' })).status, 400);
+  assert.equal((await request(server.address().port, { type: 'CONTACT_FORM', name: 'Ada', email: 'ada@example.com', message: 'x'.repeat(5001) })).status, 400);
+  assert.equal(global.provider.deliveryCount, beforeDeliveries);
+});
+
+test('sanitizes message markup before including it in provider HTML', async () => {
+  const response = await request(server.address().port, {
+    type: 'CONTACT_FORM',
+    name: 'Ada',
+    email: 'ada@example.com',
+    message: '<script>alert(1)</script>\nPlease contact me.',
+  });
+  assert.equal(response.status, 201);
+  assert.match(global.provider.lastBody.text, /<script>alert\(1\)<\/script>\nPlease contact me\./);
+  assert.match(global.provider.lastBody.html, /&lt;script&gt;alert\(1\)&lt;\/script&gt;<br>Please contact me\./);
+});
+
+test('rate limits repeated submissions from one client', async () => {
+  const ip = '198.51.100.221';
+  const statuses = [];
+  for (let index = 0; index < 6; index += 1) {
+    const response = await request(server.address().port, {
+      type: 'CONTACT_FORM',
+      name: 'Ada',
+      email: `rate-limit-${index}@example.com`,
+      message: `Please contact me about request number ${index}.`,
+    }, { 'X-Forwarded-For': ip });
+    statuses.push(response.status);
+  }
+  assert.deepEqual(statuses, [201, 201, 201, 201, 201, 429]);
+});
+
+test('provider failures return a generic error and log a correlated technical event', async () => {
+  const originalError = console.error;
+  const logs = [];
+  global.provider.responseStatus = 500;
+  global.provider.responseBody = JSON.stringify({ error: 'private-provider-detail' });
+  console.error = (message) => logs.push(message);
+  try {
+    const response = await request(server.address().port, {
+      type: 'CONTACT_FORM',
+      name: 'Ada',
+      email: 'ada-failure@example.com',
+      message: 'Please contact me about an unavailable service.',
+    });
+    assert.equal(response.status, 503);
+    assert.match(response.body.error, /could not deliver/i);
+    assert.doesNotMatch(JSON.stringify(response.body), /private-provider-detail|test-key/);
+    assert.match(logs[0], /"code":"email_provider_rejected"/);
+    assert.match(logs[0], /"providerStatus":500/);
+    assert.doesNotMatch(logs[0], /private-provider-detail|test-key/);
+  } finally {
+    console.error = originalError;
+    global.provider.responseStatus = 200;
+    global.provider.responseBody = JSON.stringify({ id: 'test-email-id' });
+  }
 });
 
 test('rejects non-JSON bodies and does not echo a blocked origin', async () => {

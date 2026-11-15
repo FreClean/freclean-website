@@ -67,7 +67,7 @@ grep -q 'Current price, size, availability and eligible delivery terms are confi
 node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync('products.json','utf8')); if (!data.products || data.products.some(product => !product.availability || !product.price || !product.availableSizes)) process.exit(1)" || fail 'Product availability data is incomplete'
 grep -q 'data-verified-publications' index.html || fail 'Verified customer publication section is missing'
 grep -q 'https://app.celoht.com/' payments/index.html || fail 'Missing canonical CeloHT CTA'
-grep -q 'mailto:freclean7@gmail.com?subject=' script.js || fail 'Missing actionable email fallback'
+grep -q "isDirectContactForm ? 'contact@freclean.com' : 'freclean7@gmail.com'" script.js || fail 'Missing correctly routed email fallback'
 python3 scripts/audit-translations.py || fail 'Bilingual translation audit failed'
 node --test scripts/request-workflow.test.js || fail 'Request workflow tests failed'
 [ -f legal/index.html ] || fail 'Missing legal center landing page'

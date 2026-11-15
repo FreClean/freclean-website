@@ -131,6 +131,12 @@ test('booking and contact pages expose required email validation and a live stat
     assert.match(html, /<form[^>]*data-request-form/);
     assert.match(html, /name="email" type="email"[^>]*required/);
     assert.match(html, /class="form-status"[^>]*aria-live="polite"/);
+    if (page === 'contact/index.html') {
+      assert.match(html, /Leogane, Ouest, Haiti/);
+      assert.match(html, /mailto:freclean7@gmail\.com/);
+      assert.match(html, /tel:\+50946128022/);
+      assert.match(html, /name="message" required/);
+    }
   }
 });
 
@@ -179,6 +185,7 @@ test('server errors and ambiguous receipts fall back without clearing details', 
 
     assert.equal(form.status.dataset.state, 'fallback');
     assert.ok(emailDraft(form.status));
+    assert.match(emailDraft(form.status).href, /mailto:contact@freclean\.com/);
     assert.equal(form.resetCalled, false);
     assert.equal(form.button.disabled, false);
   }
@@ -204,13 +211,35 @@ test('successful server receipt is the only JSON response that reports receipt',
 
 test('HTTP 201 with a received receipt is an explicit successful submission', async () => {
   const form = createForm('contact');
-  boot([form], 'https://freclean.onrender.com/api/public/requests', () => Promise.resolve({ ok: true, status: 201, json: () => Promise.resolve({ received: true, requestId: '9f1d3f6f-7ab8-44aa-b23f-0a8d0e0c9ad1' }) }));
+  let submittedBody;
+  boot([form], 'https://freclean.onrender.com/api/public/requests', (url, options) => {
+    submittedBody = JSON.parse(options.body);
+    return Promise.resolve({ ok: true, status: 201, json: () => Promise.resolve({ received: true, requestId: '9f1d3f6f-7ab8-44aa-b23f-0a8d0e0c9ad1' }) });
+  });
 
   submit(form);
   await waitForRequest();
 
+  assert.equal(submittedBody.type, 'CONTACT_FORM');
   assert.equal(form.status.dataset.state, 'success');
+  assert.match(form.status.message, /received your contact enquiry/i);
   assert.equal(form.resetCalled, true);
+});
+
+test('invalid contact email and overlong messages are rejected before submission', () => {
+  for (const fields of [
+    [['name', 'Ada Customer'], ['email', 'not-an-email'], ['message', 'Please contact me']],
+    [['name', 'Ada Customer'], ['email', 'ada@example.com'], ['message', 'x'.repeat(5001)]]
+  ]) {
+    const form = createForm('contact');
+    form.fields = fields;
+    boot([form], 'https://freclean.onrender.com/api/public/requests', () => assert.fail('invalid input must not fetch'));
+
+    submit(form);
+
+    assert.equal(form.status.dataset.state, 'error');
+    assert.equal(form.resetCalled, false);
+  }
 });
 
 test('booking submission preserves every submitted business field', async () => {
