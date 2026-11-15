@@ -262,6 +262,13 @@ button[aria-busy="true"]::after { width: 1em; height: 1em; border: 2px solid cur
 .payment-choice strong { color: var(--ink); }
 .payment-choice small { color: var(--ink-soft); font-weight: 400; }
 .payment-boundary, .submission-boundary { margin: .25rem 0 0; padding: .85rem 1rem; background: #f8fbf7; border-left: 3px solid var(--lime); font-size: .82rem; }
+.payment-address-grid { margin-top: 1.5rem; }
+.payment-address-card { gap: .75rem; }
+.payment-address-card h3 { margin: 0; }
+.payment-address-card .eyebrow { margin: 0; }
+.payment-address-card p { margin: 0; }
+.payment-address { overflow-wrap: anywhere; padding: .8rem; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .9rem; line-height: 1.6; user-select: all; }
+.payment-copy-status { min-height: 1.4em; color: var(--ink-soft); font-size: .85rem; }
 .celo-handoff { width: fit-content; }
 .booking-review { display: grid; grid-template-columns: minmax(100px, .35fr) minmax(0, 1fr); margin: 0; border-top: 1px solid var(--line); }
 .booking-review dt, .booking-review dd { margin: 0; padding: .7rem 0; border-bottom: 1px solid var(--line); }

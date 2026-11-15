@@ -54,15 +54,15 @@ status. The existing email fallback is the honest failure path.
 ## Payment boundary
 
 The Core payment contract accepts `USDT` and `CELOHT_DAPP`; USDT networks are
-`BEP20`, `TRC20`, `SOLANA`, and `CELO`. Core owns payment initiation and
-verification. This static website has no authenticated checkout or order
-creation flow, so its payment page and booking form are informational/enquiry
-surfaces only. They must not display a receiving address or claim that payment
-has started or completed.
+`BEP20`, `TRC20`, `SOLANA`, and `CELO`. The public
+`GET /api/payments/options` endpoint serves Core's centralized USDT receiving
+addresses for manual transfers. The website has no authenticated checkout or
+order-creation flow; FreClean confirms the quote, amount, and receipt directly.
+The website does not automatically verify or mark a transfer as paid.
 
-- **USDT:** Core selects the amount, network, token, and receiving address from
-  the confirmed order or booking. Only server-side network verification can
-  mark a payment as paid.
+- **USDT:** the website loads the network and receiving address from Core.
+  Automated payment creation and transaction verification remain separate
+  authenticated Core flows and are not enabled by the manual address display.
 - **CeloHT:** the website retains a separate public handoff to
   `https://app.celoht.com`. A DApp redirect or customer-submitted hash does not
   confirm settlement; no such confirmation is fabricated in this repo.

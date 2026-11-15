@@ -26,22 +26,26 @@
 <main id="main-content">
   <section class="page-hero section-wrap">
     <p class="eyebrow">Payment options</p>
-    <h1>Clear options.<br><em>Confirmed directly.</em></h1>
-    <p><strong>USDT and CeloHT</strong></p><p>FreClean accepts USDT on BNB Smart Chain (BEP20), TRON (TRC20), Solana, and Celo. CeloHT DApp is a separate payment option.</p><p>This website currently collects enquiries; it does not initiate checkout or display receiving addresses. Payment instructions must come from an authorized Core checkout linked to a confirmed order or booking.</p>
+    <h1>Simple ways<br><em>to pay FreClean.</em></h1>
+    <p><strong>USDT and CeloHT</strong></p><p>FreClean accepts USDT on BNB Smart Chain (BEP20), TRON (TRC20), Solana, and Celo. CeloHT DApp is a separate payment option.</p><p>FreClean confirms the quote and payment amount directly. USDT transfers are handled manually.</p>
   </section>
-  <section class="page-content section-wrap">
-    <div class="content-grid">
-      <article class="content-card"><span class="eyebrow">USDT</span><h2>BNB Smart Chain</h2><p>Network: BEP20. Send USDT only through the selected network.</p></article>
-      <article class="content-card"><span class="eyebrow">USDT</span><h2>TRON</h2><p>Network: TRC20. Send USDT only through the selected network.</p></article>
-      <article class="content-card"><span class="eyebrow">USDT</span><h2>Solana</h2><p>Network: Solana. Send USDT only through the selected network.</p></article>
-      <article class="content-card"><span class="eyebrow">USDT</span><h2>Celo</h2><p>Network: Celo. Send USDT only through the selected network.</p></article>
-      <article class="content-card celoht-payment-card"><span class="eyebrow">Separate payment option</span><h2>CeloHT DApp</h2><p>CeloHT is a separate service. A DApp handoff does not confirm settlement or update FreClean payment status.</p><a class="celoht-payment-logo" href="https://app.celoht.com/" target="_blank" rel="noopener noreferrer" aria-label="Explore CeloHT digital payments (opens in a new tab)"><img src="../assets/celoht-logo.png" alt="CeloHT official logo" width="260" height="260" loading="lazy" decoding="async"></a><a class="button button-outline" href="https://app.celoht.com/" target="_blank" rel="noopener noreferrer">Explore CeloHT DApp <span aria-hidden="true">&rarr;</span></a></article>
-      <article class="content-card"><span class="eyebrow">Network safety</span><h2>Verify before sending</h2><p>Send USDT only through the selected network. Sending funds through another network may result in permanent loss of funds. Do not send funds based on this information page.</p></article>
-      <article class="content-card"><span class="eyebrow">Payment status</span><h2>Verification required</h2><p>A transaction hash or DApp redirect does not confirm payment. Only an authorized backend verification can mark a payment as paid.</p></article>
+  <section class="page-content section-wrap" aria-labelledby="manual-payment-title">
+    <p class="eyebrow">Manual payment</p>
+    <h2 id="manual-payment-title">USDT receiving addresses</h2>
+    <p>FreClean confirms your quote and amount directly. After sending, share your transaction reference through the contact form so the team can confirm receipt.</p>
+    <p data-payment-status role="status" aria-live="polite">Loading payment addresses...</p>
+    <div class="content-grid payment-address-grid" data-payment-options aria-busy="true">
+      <article class="content-card payment-address-card" data-payment-network="BEP20"><span class="eyebrow">USDT</span><h3>BNB Smart Chain</h3><p>Network: BEP20</p><p class="payment-address" data-payment-address></p><button class="button button-outline" type="button" data-copy-address disabled>Copy address</button><span class="payment-copy-status" data-copy-status role="status" aria-live="polite"></span></article>
+      <article class="content-card payment-address-card" data-payment-network="TRC20"><span class="eyebrow">USDT</span><h3>TRON</h3><p>Network: TRC20</p><p class="payment-address" data-payment-address></p><button class="button button-outline" type="button" data-copy-address disabled>Copy address</button><span class="payment-copy-status" data-copy-status role="status" aria-live="polite"></span></article>
+      <article class="content-card payment-address-card" data-payment-network="SOLANA"><span class="eyebrow">USDT</span><h3>Solana</h3><p>Network: Solana</p><p class="payment-address" data-payment-address></p><button class="button button-outline" type="button" data-copy-address disabled>Copy address</button><span class="payment-copy-status" data-copy-status role="status" aria-live="polite"></span></article>
+      <article class="content-card payment-address-card" data-payment-network="CELO"><span class="eyebrow">USDT</span><h3>Celo</h3><p>Network: Celo</p><p class="payment-address" data-payment-address></p><button class="button button-outline" type="button" data-copy-address disabled>Copy address</button><span class="payment-copy-status" data-copy-status role="status" aria-live="polite"></span></article>
+      <article class="content-card celoht-payment-card"><span class="eyebrow">Separate payment option</span><h2>CeloHT DApp</h2><p>CeloHT is a separate payment option. Open the CeloHT DApp to continue.</p><a class="celoht-payment-logo" href="https://app.celoht.com/" target="_blank" rel="noopener noreferrer" aria-label="Open CeloHT digital payments (opens in a new tab)"><img src="../assets/celoht-logo.png" alt="CeloHT official logo" width="260" height="260" loading="lazy" decoding="async"></a><a class="button button-outline" href="https://app.celoht.com/" target="_blank" rel="noopener noreferrer">Open CeloHT DApp <span aria-hidden="true">&rarr;</span></a></article>
     </div>
+    <p><a class="button button-primary" href="../contact/">Send transaction reference <span aria-hidden="true">&rarr;</span></a></p>
   </section>
 </main>
 <footer class="site-footer"><div class="section-wrap footer-main"><div><p class="footer-title">Explore</p><a href="../services/">Services</a><a href="../products/">Products</a><a href="../business/">Business</a></div><div><p class="footer-title">Company</p><a href="../about/">About</a><a href="../resources/">Resources</a><a href="../contact/">Contact</a></div><div><p class="footer-title">Contact</p><p>Leogane, Ouest, Haiti</p><a href="mailto:freclean7@gmail.com">freclean7@gmail.com</a><a href="tel:+50946128022">+50946128022</a></div></div><div class="section-wrap footer-bottom"><span>&copy; 2026 FreClean. All rights reserved.</span><span><a href="../privacy/">Privacy</a> &middot; <a href="../terms/">Terms</a></span></div></footer>
 <script src="../script.js?v=site-20261105-i18n" defer></script>
+<script src="payment-options.js" defer></script>
 </body>
 </html>

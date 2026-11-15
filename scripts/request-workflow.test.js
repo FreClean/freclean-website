@@ -281,10 +281,15 @@ test('payment choices are restricted to the four USDT networks and separate Celo
 
   assert.deepEqual(methods, ['USDT BEP20', 'USDT TRC20', 'USDT Solana', 'USDT Celo', 'CELOHT_DAPP']);
   assert.match(paymentPage, /USDT on BNB Smart Chain \(BEP20\), TRON \(TRC20\), Solana, and Celo/);
-  assert.match(paymentPage, /Sending funds through another network may result in permanent loss of funds/);
-  assert.match(paymentPage, /does not initiate checkout or display receiving addresses/);
+  assert.match(paymentPage, /data-payment-network="BEP20"/);
+  assert.match(paymentPage, /data-payment-network="TRC20"/);
+  assert.match(paymentPage, /data-payment-network="SOLANA"/);
+  assert.match(paymentPage, /data-payment-network="CELO"/);
+  assert.match(paymentPage, /payment-options\.js/);
+  assert.doesNotMatch(paymentPage, /permanent loss of funds|does not initiate checkout or display receiving addresses/i);
   assert.match(paymentPage, /href="https:\/\/app\.celoht\.com\/" target="_blank" rel="noopener noreferrer"/);
-  assert.match(bookingPage, /This form is only an enquiry; payment starts through authorized checkout/);
+  assert.match(bookingPage, /href="\.\.\/payments\/">View payment options/);
+  assert.doesNotMatch(bookingPage, /permanent loss of funds/i);
   assert.match(bookingPage, /href="https:\/\/app\.celoht\.com\/" target="_blank" rel="noopener noreferrer"/);
   assert.match(script, /configuredCeloUrl\.origin === 'https:\/\/app\.celoht\.com'/);
   assert.match(script, /choice\.value !== 'CELOHT_DAPP'/);

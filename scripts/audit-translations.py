@@ -95,6 +95,11 @@ DYNAMIC_COPY = (
     "for a",
     ". FreClean will confirm the exact scope, availability and payment terms.",
     "FreClean uses this size range to prepare the requested quote, availability and service details.",
+    "Loading payment addresses...",
+    "USDT addresses are ready. FreClean confirms manual transfers directly.",
+    "Payment addresses are currently unavailable. Please contact FreClean.",
+    "Address copied.",
+    "Select the address above to copy it.",
 )
 DYNAMIC_KEYS = ("common.forms.genericValidation",)
 
@@ -190,13 +195,15 @@ def main():
         source_copy.update(parser.copy)
 
     script_source = (ROOT / "script.js").read_text(encoding="utf-8")
+    payment_script_source = (ROOT / "payments" / "payment-options.js").read_text(encoding="utf-8")
+    all_script_source = script_source + payment_script_source
     source_copy.update(DYNAMIC_COPY)
-    source_copy.update(value for value in english.values() if value in script_source)
-    source_copy.update(english[key] for key in DYNAMIC_KEYS if key in english and key in script_source)
+    source_copy.update(value for value in english.values() if value in all_script_source)
+    source_copy.update(english[key] for key in DYNAMIC_KEYS if key in english and key in all_script_source)
     sources = set(english.values())
     missing_copy = sorted(source_copy - sources)
     unused_keys = sorted(key for key, value in english.items() if value not in source_copy)
-    missing_dynamic_source = sorted(value for value in DYNAMIC_COPY if value not in script_source)
+    missing_dynamic_source = sorted(value for value in DYNAMIC_COPY if value not in all_script_source)
 
     print(f"Catalog keys: en={len(english_keys)}, ht={len(creole_keys)}")
     print(f"Static/dynamic source strings: {len(source_copy)}")

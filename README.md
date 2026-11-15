@@ -58,7 +58,7 @@ This repository intentionally does not claim to be a full payment processor, dat
 
 ## Payments
 
-The approved payment options are USDT on BNB Smart Chain (BEP20), TRON (TRC20), Solana, and Celo, plus CeloHT DApp as a separate option. The website currently collects enquiries and does not initiate payment, display receiving addresses, or confirm transactions. Payments must begin through an authorized Core checkout linked to a confirmed order or booking. See [PAYMENTS.md](PAYMENTS.md) for the current boundary and verification requirements.
+The approved payment options are USDT on BNB Smart Chain (BEP20), TRON (TRC20), Solana, and Celo, plus CeloHT DApp as a separate option. The payment page displays Core-served receiving addresses for manual transfers; FreClean confirms quotes and receipts directly. The website does not create orders or automatically verify or confirm payment. See [PAYMENTS.md](PAYMENTS.md) for the current boundary and verification requirements.
 
 The CeloHT link is `https://app.celoht.com/`. CeloHT is separate from FreClean; a DApp handoff does not confirm settlement or change payment status.
 
@@ -121,4 +121,4 @@ The validator checks canonical pages, legacy redirects, metadata, landmarks, loc
 - CeloHT payment route: `https://app.celoht.com/`; CeloHT is separate from FreClean
 - The contact API implementation is covered by local mocked-provider tests. Production delivery remains unverified until the Render service is deployed with its Resend environment variables and a real `/contact/` enquiry is received at `contact@freclean.com`.
 
-The website provides service and contact enquiries, not online booking confirmation. The supported anonymous public contract is `POST /api/public/requests`; `/api/bookings` remains authenticated and is not called by the frontend. The public site does not initiate or confirm USDT or CeloHT payments; it collects a preferred method with an enquiry only.
+The website provides service and contact enquiries, not online booking confirmation. The supported anonymous public contracts are `POST /api/public/requests` and `GET /api/payments/options`; `/api/bookings` remains authenticated and is not called by the frontend. USDT addresses are displayed for manual transfer, with amount and receipt confirmed directly by FreClean.
