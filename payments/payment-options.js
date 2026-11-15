@@ -38,7 +38,7 @@
     });
   });
 
-  fetch('https://api.freclean.com/api/payments/options', {
+  fetch('payment-addresses.json', {
     method: 'GET',
     mode: 'cors',
     credentials: 'omit',

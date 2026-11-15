@@ -7,11 +7,12 @@ const test = require('node:test');
 const vm = require('node:vm');
 
 const script = fs.readFileSync(path.join(__dirname, '..', 'payments/payment-options.js'), 'utf8');
+const paymentOptions = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'payments/payment-addresses.json'), 'utf8'));
 const networks = [
-  ['BEP20', 'example-address-bep20'],
-  ['TRC20', 'example-address-trc20'],
-  ['SOLANA', 'example-address-solana'],
-  ['CELO', 'example-address-celo']
+  ['BEP20', '0xcbe30a91dbc6a2423c30d8c8dd0547b8dcb0e044'],
+  ['TRC20', 'TSnbTib4DAEpGbesxUzjN2pgtcJigs8veR'],
+  ['SOLANA', '33FM1eKWBNWfA6qDf1EFZ8Ab6U6RiXhJkG6NyFL1wTYf'],
+  ['CELO', '0xcbe30a91dbc6a2423c30d8c8dd0547b8dcb0e044']
 ];
 
 function createCard(network) {
@@ -78,19 +79,12 @@ function response(options, ok = true) {
   return Promise.resolve({ ok, json: () => Promise.resolve(options) });
 }
 
-test('loads centrally configured addresses and enables address copying', async () => {
+test('loads public addresses and enables address copying', async () => {
   let request;
   const clipboardWrites = [];
   const page = boot((url, options) => {
     request = { url, options };
-    return response({
-      paymentMode: 'MANUAL',
-      usdtNetworks: networks.map(([network, receivingAddress]) => ({
-        asset: 'USDT',
-        network,
-        receivingAddress
-      }))
-    });
+    return response(paymentOptions);
   }, { writeText: (address) => {
     clipboardWrites.push(address);
     return Promise.resolve();
@@ -98,7 +92,7 @@ test('loads centrally configured addresses and enables address copying', async (
 
   await new Promise((resolve) => setImmediate(resolve));
 
-  assert.equal(request.url, 'https://api.freclean.com/api/payments/options');
+  assert.equal(request.url, 'payment-addresses.json');
   assert.equal(request.options.credentials, 'omit');
   assert.deepEqual(page.cards.map((card) => card.address.textContent), networks.map(([, address]) => address));
   assert.ok(page.cards.every((card) => card.button.disabled === false));
@@ -111,7 +105,7 @@ test('loads centrally configured addresses and enables address copying', async (
   assert.equal(page.cards[0].copyStatus.textContent, 'Address copied.');
 });
 
-test('does not show addresses when the API fails or returns an incomplete list', async () => {
+test('does not show addresses when the configuration is unavailable or incomplete', async () => {
   for (const fetchImplementation of [
     () => response({}, false),
     () => response({ paymentMode: 'MANUAL', usdtNetworks: [] })
@@ -126,14 +120,7 @@ test('does not show addresses when the API fails or returns an incomplete list',
 });
 
 test('offers manual copy guidance when browser clipboard access is unavailable', async () => {
-  const page = boot(() => response({
-    paymentMode: 'MANUAL',
-    usdtNetworks: networks.map(([network, receivingAddress]) => ({
-      asset: 'USDT',
-      network,
-      receivingAddress
-    }))
-  }));
+  const page = boot(() => response(paymentOptions));
   await new Promise((resolve) => setImmediate(resolve));
 
   page.cards[0].listeners.click();

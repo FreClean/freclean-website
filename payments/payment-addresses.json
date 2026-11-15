@@ -1,0 +1,25 @@
+{
+  "paymentMode": "MANUAL",
+  "usdtNetworks": [
+    {
+      "asset": "USDT",
+      "network": "BEP20",
+      "receivingAddress": "0xcbe30a91dbc6a2423c30d8c8dd0547b8dcb0e044"
+    },
+    {
+      "asset": "USDT",
+      "network": "TRC20",
+      "receivingAddress": "TSnbTib4DAEpGbesxUzjN2pgtcJigs8veR"
+    },
+    {
+      "asset": "USDT",
+      "network": "SOLANA",
+      "receivingAddress": "33FM1eKWBNWfA6qDf1EFZ8Ab6U6RiXhJkG6NyFL1wTYf"
+    },
+    {
+      "asset": "USDT",
+      "network": "CELO",
+      "receivingAddress": "0xcbe30a91dbc6a2423c30d8c8dd0547b8dcb0e044"
+    }
+  ]
+}

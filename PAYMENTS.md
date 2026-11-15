@@ -8,11 +8,11 @@ FreClean's approved payment options are:
 - USDT on Celo
 - CeloHT DApp as a separate payment option
 
-The payment page loads the receiving addresses from the public Core endpoint
-`GET https://api.freclean.com/api/payments/options`; wallet addresses are
-centralized in Core and are not duplicated in website code. Transfers are
-manual: FreClean confirms the quote and amount directly, and customers share
-their transaction reference through the contact form.
+The payment page loads the public receiving addresses from
+`payments/payment-addresses.json`. These addresses are public payment
+instructions, not wallet credentials. Transfers are manual: FreClean confirms
+the quote and amount directly, and customers share their transaction reference
+through the contact form.
 
 The Core API is responsible for independently verifying the selected network,
 official USDT token identifier, recipient, amount, transaction success,
