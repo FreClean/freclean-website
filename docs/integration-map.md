@@ -17,8 +17,7 @@ Scope: `FreClean/freclean-website` only
 | Products and inventory | Static catalog JSON only | Core API plus database and admin application | Product/SKU/category/pricing/inventory schemas and management endpoints | Server/database credentials | Synthetic CRUD, availability behavior, inventory update consistency | Static presentation exists; commercial inventory/order operations unverified |
 | Orders/bookings/returns | Website enquiry flow only | Core API, database, app/admin client | Booking/order/customer/status schemas; cancellation/refund rules | Server/database/admin credentials | Synthetic end-to-end create/read/status/refund tests | No live operations confirmed |
 | Notifications | Resend delivery in `server.js`, email fallback in browser | Resend and Render | `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, optional `FRECLEAN_REQUEST_RECIPIENT` (defaults to `freclean7@gmail.com`) | Resend API key owned by Render | Mocked-provider test, then real enquiry receipt check | Implemented locally; production delivery remains unverified |
-| Card payments | Explicitly disabled | Verified payment provider account plus Core API | Sandbox merchant credentials, hosted checkout mode, webhook signature secret, payment status mapping | Provider secret and webhook secret in Render/Core environment; never in GitHub Pages | Provider sandbox purchase and signed webhook only; duplicate/retry test | Not active |
-| CeloHT payments | Public link only | `FreClean` Core integration only if separately authorized; `https://app.celoht.com/` | `FRECLEAN_CELOHT_DAPP_URL`; server-side confirmation if payment state is used | No wallet recovery phrase or private key; integration credentials belong outside the website | Link HTTP/redirect check; signed/verified payment confirmation in Core | Link returned HTTP 200 in read-only check; no payment integration confirmed |
+| USDT and CeloHT payments | Informational/enquiry UI only | Core API and its payment database/verifiers; CeloHT remains a separate handoff | Authenticated Core payment contract; payment instructions must be server-returned | RPC/provider secrets stay in Core/Render; no wallet secret belongs in this repository | Core verifier tests, then authenticated website-to-Core checkout and production smoke tests | Core implementation exists separately; this website has no authenticated checkout and does not initiate or confirm payment |
 | Secrets and dependency supply chain | `.env.example` contains public values only | Repository/org secrets, Render, provider dashboards | Server-only secret variables; rotation and least privilege | Owner-managed | Secret scanner, dependency audit, access review, rotate exposed credentials | No secrets found in current repository; external security state unknown |
 
 ## Environment Variables Referenced Here
@@ -31,7 +30,6 @@ Scope: `FreClean/freclean-website` only
 | `FRECLEAN_SUPPORT_EMAIL` | Public support email | Public contact fallback value |
 | `FRECLEAN_PUBLIC_API_BASE_URL` | Documented server-side/API base | No server runtime consumes this variable in this repository |
 | `FRECLEAN_PUBLIC_API_TIMEOUT_MS` | Documented server API timeout | No server runtime consumes this variable in this repository |
-| `CARD_PAYMENTS_ENABLED` | Feature boundary | Must remain false until verified merchant/provider sandbox integration exists |
 | `RESEND_API_KEY` | Render-only server secret | Required in Render; never expose in frontend or repository |
 | `RESEND_FROM_EMAIL` | Render-only server configuration | Must be a sender verified by Resend |
 | `ALLOWED_ORIGINS` | Render server CORS policy | Set to `https://freclean.com` in production |
@@ -94,14 +92,14 @@ Do not place any secret value in `.env.example`, GitHub Pages JavaScript, HTML, 
 - **Verify:** Sandbox or synthetic address delivery; no real customer data.
 - **Separate owner:** Core repository/provider account.
 
-### Payment Provider and Webhooks
+### USDT Payment API and Verification
 
-- **Exact dependency:** Approved card processor account plus Core sandbox integration if card checkout is authorized.
-- **Why required:** Secure initiation, signed webhook confirmation, duplicate prevention, and payment status.
-- **Configure:** Core/Render sandbox API and webhook signing environment variables; webhooks published only after authorization.
-- **Credentials:** Provider secret and webhook secret; never browser/HTML/JavaScript values.
-- **Verify:** Sandbox payment, signed webhook, replay/duplicate behavior, refund/cancellation paths, and confirmed-only paid state.
-- **Separate owner:** Business owner, processor account, Core repository, Render.
+- **Exact dependency:** Authenticated Core payment API, production database, verified token identifiers, and reliable RPC providers.
+- **Why required:** Server-authoritative amounts and addresses, network verification, duplicate prevention, and payment status.
+- **Configure:** Core/Render server-only database and RPC settings; keep `USDT_PAYMENTS_ENABLED` disabled until verification and production readiness checks pass.
+- **Credentials:** RPC/provider credentials remain server-side in Core/Render; never expose them in browser code.
+- **Verify:** Wrong-network/token/recipient, underpayment, failed transaction, finality, replay, refund/cancellation, and confirmed-only paid-state tests.
+- **Separate owner:** Core repository and Render/database owner.
 
 ### Internationalization
 
@@ -153,7 +151,7 @@ Do not place any secret value in `.env.example`, GitHub Pages JavaScript, HTML, 
 
 1. Product/SKU/inventory/customer/order schemas and administration.
 2. Booking, delivery, cancellation, refund, and status workflows.
-3. Card-payment sandbox, signed webhook verification, and duplicate transaction protection before activation.
+3. USDT token-identifier verification, all-network provider tests, duplicate transaction protection, and an authenticated website checkout before activation.
 4. English, Spanish, French, and Haitian Creole catalogs and notification templates.
 
 ### P3: Website continuity
@@ -166,7 +164,7 @@ Do not place any secret value in `.env.example`, GitHub Pages JavaScript, HTML, 
 
 - Approve and provide access to Core, Supabase, Render, app/admin, and payment-provider resources outside this workspace.
 - Configure server-only credentials in Core/Render/provider dashboards. Do not send credentials in chat or source files.
-- Choose whether paid online card checkout is approved, then complete sandbox verification.
+- Approve production payment activation only after the website-to-Core authenticated checkout and all network verification checks pass.
 - Provide qualified translation review and verified business/product information.
 - Run coordinated Core/app/website testing using synthetic customer data and authorize production rollout separately.
 

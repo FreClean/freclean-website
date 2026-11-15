@@ -43,7 +43,7 @@ The website presents the intended journey as five stages:
 1. Service: choose a service and property type.
 2. Schedule: provide a preferred date and time.
 3. Details: provide name, phone, email, location, and notes.
-4. Payment: choose card, pay in person, or Celo.
+4. Payment: select USDT on BEP20, TRC20, Solana, or Celo, or choose the separate CeloHT DApp option.
 5. Review: confirm the request before submission.
 
 The current form remains an inquiry until the public API contract is independently
@@ -53,18 +53,19 @@ status. The existing email fallback is the honest failure path.
 
 ## Payment boundary
 
-The core payment model is unified and currently uses `CRYPTO`, `CARD`, and
-`CASH`. The website labels `CASH` as “Pay in person” for customers. Payment
-status is read-only server data.
+The Core payment contract accepts `USDT` and `CELOHT_DAPP`; USDT networks are
+`BEP20`, `TRC20`, `SOLANA`, and `CELO`. Core owns payment initiation and
+verification. This static website has no authenticated checkout or order
+creation flow, so its payment page and booking form are informational/enquiry
+surfaces only. They must not display a receiving address or claim that payment
+has started or completed.
 
-- **Card:** online card checkout is not configured on the website. Card payment
-  may be arranged directly with FreClean. Any future hosted processor must use a
-  signed webhook, not a browser redirect, to change payment state to paid.
-- **Pay in person:** the booking remains pending payment until authorized staff
-  records and reconciles the cash transaction.
-- **Celo:** the website links eligible customers to the configured public
-  CeloHT DApp at `https://app.celoht.com`. No wallet, contract, balance,
-  transaction, or confirmation is fabricated in this repo.
+- **USDT:** Core selects the amount, network, token, and receiving address from
+  the confirmed order or booking. Only server-side network verification can
+  mark a payment as paid.
+- **CeloHT:** the website retains a separate public handoff to
+  `https://app.celoht.com`. A DApp redirect or customer-submitted hash does not
+  confirm settlement; no such confirmation is fabricated in this repo.
 
 ## Required core follow-up before live public booking
 
@@ -72,7 +73,11 @@ status is read-only server data.
 - Publish an anonymous booking-request contract or an authenticated handoff
   from the website to the app.
 - Define customer/address creation and idempotency behavior for that flow.
-- Define payment initiation responses and CeloHT return references.
+- Publish a secure customer checkout handoff for authenticated orders/bookings
+  before the website can initiate payment or display server-returned payment
+  instructions.
+- Define verifiable CeloHT settlement callbacks before representing its
+  handoff as paid.
 - Add contract tests shared by core, app, and website releases.
 - Align the organization contract's `/api/v1` wording with the currently
   deployed `/api` paths before introducing a breaking route change.

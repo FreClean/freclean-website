@@ -802,7 +802,7 @@
       choice.addEventListener('change', function () {
         var link = form.querySelector('[data-celo-link]');
         if (!link) return;
-        link.hidden = choice.value !== 'CRYPTO';
+        link.hidden = choice.value !== 'CELOHT_DAPP';
         var celoUrl = 'https://app.celoht.com/';
         try {
           var configuredCeloUrl = new URL(window.FRECLEAN_CELOHT_DAPP_URL || celoUrl);

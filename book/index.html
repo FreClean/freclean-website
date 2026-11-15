@@ -13,7 +13,7 @@
 <header class="site-header">
   <a class="logo-link" href="../index.html" aria-label="FreClean home"><img src="../assets/logo-landscape-2.png" alt="FreClean" width="1672" height="941"></a>
   <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open navigation menu"><span></span><span></span><span></span><b>Menu</b></button>
-  <nav id="primary-nav" aria-label="Primary navigation"><a href="../index.html">Home</a><a href="../services/">Services</a><a href="../products/">Products</a><a href="../business/">Business</a><a class="nav-cta" href="../book/">Request a Service <span aria-hidden="true">&rarr;</span></a><details class="nav-more"><summary>More</summary><div class="nav-more-menu"><a href="../book/">Book an Appointment</a><a href="../payments/">Payment</a><a href="https://app.celoht.com/" target="_blank" rel="noopener noreferrer">CeloHT / Crypto Payment</a><a href="../about/">About FreClean</a><a href="../entrepreneurship/">Entrepreneurship</a><a href="../impact/">Impact</a><a href="../resources/">Resources</a></div></details><a href="../contact/">Contact</a></nav>
+  <nav id="primary-nav" aria-label="Primary navigation"><a href="../index.html">Home</a><a href="../services/">Services</a><a href="../products/">Products</a><a href="../business/">Business</a><a class="nav-cta" href="../book/">Request a Service <span aria-hidden="true">&rarr;</span></a><details class="nav-more"><summary>More</summary><div class="nav-more-menu"><a href="../book/">Book an Appointment</a><a href="../payments/">Payment</a><a href="https://app.celoht.com/" target="_blank" rel="noopener noreferrer">CeloHT DApp</a><a href="../about/">About FreClean</a><a href="../entrepreneurship/">Entrepreneurship</a><a href="../impact/">Impact</a><a href="../resources/">Resources</a></div></details><a href="../contact/">Contact</a></nav>
 </header>
 <main id="main-content">
   <section class="page-hero section-wrap booking-hero">
@@ -59,14 +59,16 @@
         </fieldset>
         <fieldset class="booking-step" data-booking-step="4" hidden>
           <legend>Payment</legend>
-          <p class="step-intro">Choose a preference. FreClean will provide payment instructions after reviewing your request and confirm eligibility directly.</p>
+          <p class="step-intro">Choose a preferred payment method. This form is only an enquiry; payment starts through authorized checkout after an order or booking is confirmed.</p>
           <div class="payment-choice-list">
-            <label class="payment-choice" for="payment-card"><input id="payment-card" type="radio" name="payment_method" value="CARD" required><span><strong>Card</strong><small>Subject to direct arrangement with FreClean; no online card checkout.</small></span></label>
-            <label class="payment-choice" for="payment-cash"><input id="payment-cash" type="radio" name="payment_method" value="CASH"><span><strong>Cash</strong><small>May be available for eligible local transactions after review and confirmation.</small></span></label>
-            <label class="payment-choice" for="payment-crypto"><input id="payment-crypto" type="radio" name="payment_method" value="CRYPTO"><span><strong>CeloHT</strong><small>Use an alternative payment route only when confirmed by FreClean.</small></span></label>
+            <label class="payment-choice" for="payment-usdt-bep20"><input id="payment-usdt-bep20" type="radio" name="payment_method" value="USDT BEP20" required><span><strong>USDT — BEP20 / BNB Smart Chain</strong><small>Use USDT on the selected network only.</small></span></label>
+            <label class="payment-choice" for="payment-usdt-trc20"><input id="payment-usdt-trc20" type="radio" name="payment_method" value="USDT TRC20"><span><strong>USDT — TRC20 / TRON</strong><small>Use USDT on the selected network only.</small></span></label>
+            <label class="payment-choice" for="payment-usdt-solana"><input id="payment-usdt-solana" type="radio" name="payment_method" value="USDT Solana"><span><strong>USDT — Solana</strong><small>Use USDT on the selected network only.</small></span></label>
+            <label class="payment-choice" for="payment-usdt-celo"><input id="payment-usdt-celo" type="radio" name="payment_method" value="USDT Celo"><span><strong>USDT — Celo</strong><small>Use USDT on the selected network only.</small></span></label>
+            <label class="payment-choice" for="payment-celoht"><input id="payment-celoht" type="radio" name="payment_method" value="CELOHT_DAPP"><span><strong>CeloHT DApp</strong><small>A separate payment option; a handoff does not confirm payment.</small></span></label>
           </div>
-          <p class="payment-boundary">This form never collects card details or wallet credentials and cannot confirm payment. CeloHT is a separate service; FreClean confirms any payment status directly.</p>
-          <a class="button button-outline celo-handoff" data-celo-link href="https://app.celoht.com/" target="_blank" rel="noopener noreferrer" hidden>Continue to CeloHT <span aria-hidden="true">&rarr;</span></a>
+          <p class="payment-boundary">Send USDT only through the selected network. Sending funds through another network may result in permanent loss of funds. This enquiry form does not display a receiving address, collect transaction hashes, or initiate or confirm payment.</p>
+          <a class="button button-outline celo-handoff" data-celo-link href="https://app.celoht.com/" target="_blank" rel="noopener noreferrer" hidden>Continue to CeloHT DApp <span aria-hidden="true">&rarr;</span></a>
         </fieldset>
         <fieldset class="booking-step" data-booking-step="5" hidden>
           <legend>Review</legend>

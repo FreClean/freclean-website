@@ -46,7 +46,7 @@ The following items require access to the separate Core repository or owner-oper
 - Administrator authentication and request status workflows.
 - Audit logging and monitoring for the deployed service.
 - Product inventory, orders, carts, delivery, refund, and cancellation implementation.
-- Verified merchant credentials and signed payment provider sandbox integration before real payment activation.
+- Verified USDT token identifiers, network providers, and a production-ready authenticated Core checkout before payment activation.
 - Owner review of verified business information, legal registration claims, product data, delivery promises, and tax obligations.
 - Credentialed dependency review, SAST/DAST, and penetration testing.
 

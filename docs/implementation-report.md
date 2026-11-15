@@ -26,7 +26,7 @@ Customer accounts, password reset, email verification, cart, checkout, orders, i
 | Service request intake | CONFIGURED | Enquiry form posts to the public request contract; no appointment is created |
 | Online booking | NOT IMPLEMENTED | No public booking API or database |
 | Ecommerce/cart/orders | NOT IMPLEMENTED | Static catalogue only |
-| Card payments | NOT IMPLEMENTED | Explicitly disabled |
+| Website payment checkout | NOT INTEGRATED | Core owns payment initiation and verification; the public website has no authenticated order/payment flow |
 | CeloHT verification | NOT IMPLEMENTED | Public handoff only; no authorized verification service |
 | Accounts/admin/RBAC | NOT IMPLEMENTED | External Core/app repositories are required |
 | Database/migrations | NOT IMPLEMENTED | No database code or credentials in this workspace |
@@ -35,7 +35,7 @@ Customer accounts, password reset, email verification, cart, checkout, orders, i
 
 ## Required external services
 
-Core API, relational database, authentication/RBAC, admin application, Resend production configuration, approved payment provider, CeloHT verification agreement if applicable, monitoring, backup service, and a staging environment.
+Core API, relational database, authentication/RBAC, admin application, Resend production configuration, verified USDT token identifiers and RPC configuration, CeloHT settlement agreement if applicable, monitoring, backup service, and a staging environment.
 
 ## Exact public URLs
 

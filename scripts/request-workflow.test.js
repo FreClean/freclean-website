@@ -226,7 +226,7 @@ test('booking submission preserves every submitted business field', async () => 
     ['email', 'ada@example.com'],
     ['location', 'Leogane, Haiti'],
     ['notes', 'Please focus on the kitchen and living room.'],
-    ['payment_method', 'CASH']
+    ['payment_method', 'USDT TRC20']
   ];
   let submittedBody;
   boot([form], 'https://freclean.onrender.com/api/public/requests', (url, options) => {
@@ -244,16 +244,20 @@ test('booking submission preserves every submitted business field', async () => 
   assert.equal(form.status.dataset.state, 'success');
 });
 
-test('payment copy keeps card checkout inactive and CeloHT clearly separate and safe', () => {
+test('payment choices are restricted to the four USDT networks and separate CeloHT handoff', () => {
   const root = path.join(__dirname, '..');
   const paymentPage = fs.readFileSync(path.join(root, 'payments/index.html'), 'utf8');
   const bookingPage = fs.readFileSync(path.join(root, 'book/index.html'), 'utf8');
+  const methods = Array.from(bookingPage.matchAll(/name="payment_method" value="([^"]+)"/g), (match) => match[1]);
 
-  assert.match(paymentPage, /Card payments can be arranged directly with our team/);
-  assert.match(paymentPage, /Flexible Payment Options/);
+  assert.deepEqual(methods, ['USDT BEP20', 'USDT TRC20', 'USDT Solana', 'USDT Celo', 'CELOHT_DAPP']);
+  assert.match(paymentPage, /USDT on BNB Smart Chain \(BEP20\), TRON \(TRC20\), Solana, and Celo/);
+  assert.match(paymentPage, /Sending funds through another network may result in permanent loss of funds/);
+  assert.match(paymentPage, /does not initiate checkout or display receiving addresses/);
   assert.match(paymentPage, /href="https:\/\/app\.celoht\.com\/" target="_blank" rel="noopener noreferrer"/);
-  assert.match(bookingPage, /FreClean will provide payment instructions after reviewing your request/);
+  assert.match(bookingPage, /This form is only an enquiry; payment starts through authorized checkout/);
   assert.match(bookingPage, /href="https:\/\/app\.celoht\.com\/" target="_blank" rel="noopener noreferrer"/);
   assert.match(script, /configuredCeloUrl\.origin === 'https:\/\/app\.celoht\.com'/);
+  assert.match(script, /choice\.value !== 'CELOHT_DAPP'/);
   assert.doesNotMatch(script, /payment (?:was |has been )?(?:received|confirmed|successful)/i);
 });

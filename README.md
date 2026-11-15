@@ -14,7 +14,7 @@ Public website
     -> freclean7@gmail.com
 
 Public website
-    -> crypto payment link
+    -> separate CeloHT DApp handoff
     -> https://app.celoht.com/
 ```
 
@@ -32,7 +32,7 @@ The static site never contains private API keys, service-role credentials, payme
 - `/press/` — press information and approved media asset requests
 - `/contact/` — contact enquiry
 - `/book/` — service request form, not a confirmed booking system
-- `/payments/` — cash, Visa, Mastercard and CeloHT payment information
+- `/payments/` — USDT on BEP20, TRC20, Solana or Celo, and the separate CeloHT DApp option
 - `/privacy/`, `/terms/` — public policy pages
 - `/404.html` — recovery page
 
@@ -54,13 +54,9 @@ This repository intentionally does not claim to be a full payment processor, dat
 
 ## Payments
 
-The public payment options are:
+The approved payment options are USDT on BNB Smart Chain (BEP20), TRON (TRC20), Solana, and Celo, plus CeloHT DApp as a separate option. The website currently collects enquiries and does not initiate payment, display receiving addresses, or confirm transactions. Payments must begin through an authorized Core checkout linked to a confirmed order or booking. See [PAYMENTS.md](PAYMENTS.md) for the current boundary and verification requirements.
 
-1. Cash for supported local transactions arranged directly with FreClean.
-2. Visa or Mastercard only by direct arrangement and confirmation with FreClean. Online card checkout is not configured.
-3. The separate CeloHT route at the canonical link below, only when FreClean confirms it is appropriate.
-
-The CeloHT link is `https://app.celoht.com/`. CeloHT is a separate payment route and is not FreClean. The website does not collect raw card details or wallet credentials and does not fabricate payment confirmation.
+The CeloHT link is `https://app.celoht.com/`. CeloHT is separate from FreClean; a DApp handoff does not confirm settlement or change payment status.
 
 ## Configuration
 
@@ -70,7 +66,6 @@ Copy `.env.example` into the deployment configuration if the host supports runti
 FRECLEAN_PUBLIC_REQUEST_URL=https://freclean.onrender.com/api/public/requests
 FRECLEAN_PUBLIC_API_BASE_URL=https://freclean.onrender.com
 FRECLEAN_CELOHT_DAPP_URL=https://app.celoht.com
-CARD_PAYMENTS_ENABLED=false
 ```
 
 The Render service also requires `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, and `ALLOWED_ORIGINS` as Render environment variables. `FRECLEAN_REQUEST_RECIPIENT` is optional and defaults to `freclean7@gmail.com`. `RESEND_API_KEY` must never be added to this repository or exposed to the browser. Resend must have verified the sender domain before production delivery can succeed.
@@ -121,4 +116,4 @@ The validator checks canonical pages, legacy redirects, metadata, landmarks, loc
 - CeloHT payment route: `https://app.celoht.com/`; CeloHT is separate from FreClean
 - The contact API implementation is covered by local mocked-provider tests. Production delivery remains unverified until the Render service is deployed with its Resend environment variables and a real enquiry is received at `freclean7@gmail.com`
 
-The website provides service and contact enquiries, not online booking confirmation. The supported anonymous public contract is `POST /api/public/requests`; `/api/bookings` remains authenticated and is not called by the frontend. Online card checkout is not configured, `CARD_PAYMENTS_ENABLED=false`, and the email-draft fallback, locally arranged cash, direct card arrangement, and separate CeloHT route remain the public boundaries.
+The website provides service and contact enquiries, not online booking confirmation. The supported anonymous public contract is `POST /api/public/requests`; `/api/bookings` remains authenticated and is not called by the frontend. The public site does not initiate or confirm USDT or CeloHT payments; it collects a preferred method with an enquiry only.
