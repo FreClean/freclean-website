@@ -765,7 +765,7 @@
       : null;
     if (reducedMotionQuery && reducedMotionQuery.matches) return;
 
-    var selectors = '.hero-copy > *, .hero-media, .intro-grid > *, .services-intro > *, .service-feature, .service-row, .split-section > *, .business-heading, .business-copy, .entrepreneurship-grid > *, .payments-section > *, .process-grid > div, .journal-grid article, .partnership-cta-inner > *, .final-cta-inner > *';
+    var selectors = '.hero-copy > *, .hero-media, .intro-grid > *, .services-intro > *, .service-feature, .service-row, .split-section > *, .business-heading, .business-copy, .entrepreneurship-grid > *, .payments-section > *, .process-grid > div, .journal-grid article, .partnership-cta-inner > *, .final-cta-inner > *, .affiliate-section .detail-layout > *, .donation-intro__copy, .donation-transparency__item, .donation-giving, .payment-address-card';
     var elements = Array.from(document.querySelectorAll(selectors));
 
     if (!('IntersectionObserver' in window)) {
