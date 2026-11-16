@@ -40,10 +40,10 @@
 
   function setupSocialLinks() {
     var platforms = [
-      { name: 'LinkedIn', href: 'https://www.linkedin.com/company/freclean/', icon: 'linkedin' },
-      { name: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61572058283204', icon: 'facebook' },
-      { name: 'Instagram', href: 'https://www.instagram.com/freclean7?mdxt=Y2RmNDV5NTZvcHRp', icon: 'instagram' },
-      { name: 'TikTok', href: 'https://www.tiktok.com/@freclean1?_r=1&_t=ZP-9BS3mpWikyU', icon: 'tiktok' }
+      { name: 'LinkedIn', ariaLabel: 'FreClean on LinkedIn', href: 'https://www.linkedin.com/company/freclean/', icon: 'linkedin' },
+      { name: 'Facebook', ariaLabel: 'FreClean on Facebook', href: 'https://www.facebook.com/profile.php?id=61572058283204', icon: 'facebook' },
+      { name: 'Instagram', ariaLabel: 'FreClean on Instagram', href: 'https://www.instagram.com/freclean7?mdxt=Y2RmNDV5NTZvcHRp', icon: 'instagram' },
+      { name: 'TikTok', ariaLabel: 'FreClean on TikTok', href: 'https://www.tiktok.com/@freclean1?_r=1&_t=ZP-9BS3mpWikyU', icon: 'tiktok' }
     ];
 
     function createIcon(name) {
@@ -105,7 +105,6 @@
     function createSocialGroup(location) {
       var group = document.createElement('div');
       group.className = 'social-links social-links--' + location;
-      group.dataset.i18nSkip = 'true';
       var title = document.createElement('p');
       title.className = location === 'footer' ? 'footer-title' : 'eyebrow';
       title.textContent = 'Follow FreClean';
@@ -118,7 +117,7 @@
         link.href = platform.href;
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
-        link.setAttribute('aria-label', 'FreClean on ' + platform.name);
+        link.setAttribute('aria-label', platform.ariaLabel);
         link.appendChild(createIcon(platform.icon));
         var label = document.createElement('span');
         label.textContent = platform.name;
@@ -133,12 +132,11 @@
     function createFooterPartnership() {
       var partnership = document.createElement('div');
       partnership.className = 'footer-partner';
-      partnership.dataset.i18nSkip = 'true';
 
       var badge = document.createElement('img');
       badge.className = 'footer-partner__badge';
       badge.src = '/assets/celoht-logo.png';
-      badge.alt = 'CeloHT logo';
+      badge.alt = 'CeloHT official logo';
       badge.width = 48;
       badge.height = 48;
 
