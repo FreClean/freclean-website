@@ -36,25 +36,43 @@
       </div>
     </div>
   </section>
-  <section class="page-content section-wrap" aria-labelledby="donations-title">
-    <div class="detail-layout">
-      <div><p class="eyebrow">Community support</p><h2 id="donations-title">Help families build small businesses.</h2></div>
-      <div>
-        <p>USDT donations support FreClean's work helping families in Haiti build financial independence and reduce hunger through small-business opportunities.</p>
-        <p>The FreClean founder manages donated funds.</p>
-        <p>FreClean will share a Medium story for each supported family only with that family's informed consent; without consent, no identifying details will be published.</p>
+  <section class="page-content section-wrap donation-section" aria-labelledby="donations-title">
+    <div class="donation-section__inner">
+      <div class="donation-intro">
+        <div class="donation-intro__copy">
+          <p class="eyebrow">Community support</p>
+          <h2 id="donations-title">Help families build small businesses.</h2>
+          <p>USDT donations support FreClean's work helping families in Haiti build financial independence and reduce hunger through small-business opportunities.</p>
+        </div>
+        <div class="donation-transparency">
+          <div class="donation-transparency__item">
+            <span aria-hidden="true"></span>
+            <p>The FreClean founder manages donated funds.</p>
+          </div>
+          <div class="donation-transparency__item">
+            <span aria-hidden="true"></span>
+            <p>FreClean will share a Medium story for each supported family only with that family's informed consent; without consent, no identifying details will be published.</p>
+          </div>
+        </div>
+      </div>
+      <div class="donation-giving">
+        <div class="donation-giving__heading">
+          <div>
+            <p class="eyebrow">USDT</p>
+            <h2>Donate with USDT</h2>
+          </div>
+          <p class="donation-warning">USDT only. Choose the exact network shown for the address. Sending another asset or using the wrong network may result in permanent loss.</p>
+        </div>
+        <p class="donation-status" data-payment-status role="status" aria-live="polite">Loading donation addresses...</p>
+        <div class="content-grid payment-address-grid" data-payment-options data-payment-purpose="donation" data-address-config="../payments/payment-addresses.json" aria-busy="true">
+          <article class="content-card payment-address-card" data-payment-network="BEP20"><span class="eyebrow">USDT</span><h3>BNB Smart Chain</h3><p>Network: BEP20</p><p class="payment-address" data-payment-address></p><button class="button button-outline" type="button" data-copy-address disabled>Copy address</button><span class="payment-copy-status" data-copy-status role="status" aria-live="polite"></span></article>
+          <article class="content-card payment-address-card" data-payment-network="TRC20"><span class="eyebrow">USDT</span><h3>TRON</h3><p>Network: TRC20</p><p class="payment-address" data-payment-address></p><button class="button button-outline" type="button" data-copy-address disabled>Copy address</button><span class="payment-copy-status" data-copy-status role="status" aria-live="polite"></span></article>
+          <article class="content-card payment-address-card" data-payment-network="SOLANA"><span class="eyebrow">USDT</span><h3>Solana</h3><p>Network: Solana</p><p class="payment-address" data-payment-address></p><button class="button button-outline" type="button" data-copy-address disabled>Copy address</button><span class="payment-copy-status" data-copy-status role="status" aria-live="polite"></span></article>
+          <article class="content-card payment-address-card" data-payment-network="CELO"><span class="eyebrow">USDT</span><h3>Celo</h3><p>Network: Celo</p><p class="payment-address" data-payment-address></p><button class="button button-outline" type="button" data-copy-address disabled>Copy address</button><span class="payment-copy-status" data-copy-status role="status" aria-live="polite"></span></article>
+        </div>
+        <p class="donation-manual">Donations are handled manually; the website does not automatically verify transfers or issue donation receipts. Keep your transaction reference. Donations are not represented as tax-deductible.</p>
       </div>
     </div>
-    <h2>Donate with USDT</h2>
-    <p>USDT only. Choose the exact network shown for the address. Sending another asset or using the wrong network may result in permanent loss.</p>
-    <p data-payment-status role="status" aria-live="polite">Loading donation addresses...</p>
-    <div class="content-grid payment-address-grid" data-payment-options data-payment-purpose="donation" data-address-config="../payments/payment-addresses.json" aria-busy="true">
-      <article class="content-card payment-address-card" data-payment-network="BEP20"><span class="eyebrow">USDT</span><h3>BNB Smart Chain</h3><p>Network: BEP20</p><p class="payment-address" data-payment-address></p><button class="button button-outline" type="button" data-copy-address disabled>Copy address</button><span class="payment-copy-status" data-copy-status role="status" aria-live="polite"></span></article>
-      <article class="content-card payment-address-card" data-payment-network="TRC20"><span class="eyebrow">USDT</span><h3>TRON</h3><p>Network: TRC20</p><p class="payment-address" data-payment-address></p><button class="button button-outline" type="button" data-copy-address disabled>Copy address</button><span class="payment-copy-status" data-copy-status role="status" aria-live="polite"></span></article>
-      <article class="content-card payment-address-card" data-payment-network="SOLANA"><span class="eyebrow">USDT</span><h3>Solana</h3><p>Network: Solana</p><p class="payment-address" data-payment-address></p><button class="button button-outline" type="button" data-copy-address disabled>Copy address</button><span class="payment-copy-status" data-copy-status role="status" aria-live="polite"></span></article>
-      <article class="content-card payment-address-card" data-payment-network="CELO"><span class="eyebrow">USDT</span><h3>Celo</h3><p>Network: Celo</p><p class="payment-address" data-payment-address></p><button class="button button-outline" type="button" data-copy-address disabled>Copy address</button><span class="payment-copy-status" data-copy-status role="status" aria-live="polite"></span></article>
-    </div>
-    <p>Donations are handled manually; the website does not automatically verify transfers or issue donation receipts. Keep your transaction reference. Donations are not represented as tax-deductible.</p>
   </section>
 </main>
 <footer class="site-footer">
