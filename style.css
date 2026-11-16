@@ -2662,9 +2662,9 @@ em {
   aspect-ratio: 1.04;
   overflow: hidden;
   border: 0;
-  border-radius: 2px;
-  background: #173d35;
-  box-shadow: 0 22px 54px rgba(23, 61, 53, .16);
+  border-radius: 28px;
+  background: linear-gradient(135deg, #102f3d 0%, #12626a 52%, #173d35 100%);
+  box-shadow: 0 28px 64px rgba(16, 47, 61, .22);
   animation: none;
 }
 
@@ -2676,7 +2676,7 @@ em {
   width: auto;
   height: auto;
   border: 1px solid rgba(255, 254, 250, .32);
-  border-radius: 0;
+  border-radius: 18px;
   background: none;
   filter: none;
   content: "";
@@ -2684,21 +2684,26 @@ em {
 }
 
 .hero-scene::after {
-  inset: auto;
   position: absolute;
   z-index: 0;
-  top: -21%;
-  right: -15%;
-  bottom: auto;
-  left: auto;
-  width: 68%;
-  aspect-ratio: 1;
-  border: 1px solid rgba(227, 237, 204, .5);
-  border-radius: 50%;
-  background: none;
-  box-shadow: 0 0 0 22px rgba(227, 237, 204, .08), 0 0 0 48px rgba(227, 237, 204, .05);
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(ellipse at 18% 82%, rgba(86, 219, 207, .25), transparent 40%),
+    radial-gradient(ellipse at 80% 28%, rgba(82, 177, 223, .22), transparent 38%),
+    linear-gradient(112deg, transparent 30%, rgba(160, 247, 233, .15) 48%, transparent 64%),
+    linear-gradient(165deg, transparent 32%, rgba(54, 151, 176, .24) 56%, transparent 76%);
+  background-size: 180% 180%, 180% 180%, 220% 220%, 220% 220%;
+  background-position: 0 45%, 100% 55%, 0 0, 100% 100%;
+  animation: hero-water-flow 18s ease-in-out infinite alternate;
   content: "";
   pointer-events: none;
+}
+
+@keyframes hero-water-flow {
+  0% { background-position: 0 45%, 100% 55%, 0 0, 100% 100%; }
+  50% { background-position: 45% 100%, 55% 0, 100% 35%, 0 65%; }
+  100% { background-position: 100% 55%, 0 45%, 0 100%, 100% 0; }
 }
 
 .hero-scene__frame {
@@ -2994,7 +2999,7 @@ em {
 
   .hero-media.hero-scene {
     aspect-ratio: 1.08;
-    border-radius: 2px;
+    border-radius: 20px;
   }
 
   .hero-scene__frame {
@@ -3038,6 +3043,7 @@ em {
 
   .hero-scene__mark,
   .hero-scene__mark img,
+  .hero-scene::after,
   .logo-link img,
   .service-feature-image img,
   .service-row-image img,
