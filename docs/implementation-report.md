@@ -10,6 +10,7 @@ The live public routes, sitemap, robots file, legal routes, forms, payment hando
 
 - Static FreClean pages, canonical navigation, legal pages, sitemap, robots, responsive frontend, accessible request forms, cookie preference UI, and verified-publication allowlist.
 - Contact API validation, CORS allowlisting, rate limiting, duplicate suppression, payload limits, safe errors, security headers, request correlation, configurable recipient, and outbound timeout.
+- Product order enquiries for the listed 750 mL cleaner and 300 mL room freshener, including quantity and a contact-form route to the FreClean team; this does not create a confirmed sale or take payment.
 - Local API and browser workflow tests.
 
 ## Explicitly not implemented
@@ -25,7 +26,8 @@ Customer accounts, password reset, email verification, cart, checkout, orders, i
 | Contact email delivery | BLOCKED | Render Resend configuration and a controlled receipt are unverified here |
 | Service request intake | CONFIGURED | Enquiry form posts to the public request contract; no appointment is created |
 | Online booking | NOT IMPLEMENTED | No public booking API or database |
-| Ecommerce/cart/orders | NOT IMPLEMENTED | Static catalogue only |
+| Product order enquiries | IMPLEMENTED | Static catalogue with item size and price range; quantity-specific requests route through contact. No cart, inventory reservation, confirmed order or online checkout |
+| Ecommerce/cart/orders | NOT IMPLEMENTED | No shopping cart, order management, stock integration or payment checkout |
 | Website payment checkout | NOT INTEGRATED | Core owns payment initiation and verification; the public website has no authenticated order/payment flow |
 | CeloHT verification | NOT IMPLEMENTED | Public handoff only; no authorized verification service |
 | Accounts/admin/RBAC | NOT IMPLEMENTED | External Core/app repositories are required |

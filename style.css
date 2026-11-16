@@ -2421,3 +2421,45 @@ body {
 .hero .hero-eyebrow { letter-spacing: .08em; }
 .hero .hero-eyebrow-primary { color: #123b35; }
 .hero .hero-eyebrow-secondary { color: #3d7935; }
+
+.order-process-note {
+  max-width: 76ch;
+  margin: 0 0 1.5rem;
+  padding: 1rem 1.15rem;
+  border-left: 4px solid var(--blue);
+  border-radius: 0 10px 10px 0;
+  background: rgba(255, 255, 255, .86);
+  color: var(--ink);
+}
+
+form.product-order-form {
+  grid-template-columns: minmax(0, 9rem) minmax(0, 1fr);
+  align-items: end;
+  gap: .75rem;
+  margin-block: 1rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.product-order-form label {
+  min-width: 0;
+}
+
+.product-order-form input {
+  min-height: 46px;
+}
+
+.product-order-form .button {
+  min-height: 46px;
+  justify-content: center;
+  padding-inline: .85rem;
+  font-size: .82rem;
+}
+
+@media (max-width: 480px) {
+  form.product-order-form {
+    grid-template-columns: 1fr;
+  }
+}

@@ -10,6 +10,12 @@ const script = fs.readFileSync(path.join(__dirname, '..', 'script.js'), 'utf8');
 
 function createForm(name, valid = true) {
   const listeners = {};
+  const messageField = {
+    value: '',
+    addEventListener(event, listener) {
+      listeners['message:' + event] = listener;
+    }
+  };
   const status = {
     dataset: {},
     children: [],
@@ -42,8 +48,10 @@ function createForm(name, valid = true) {
     querySelector(selector) {
       if (selector === '.form-status') return status;
       if (selector === 'button[type="submit"]') return button;
+      if (selector === 'textarea[name="message"]') return messageField;
       return null;
     },
+    messageField,
     addEventListener(event, listener) {
       listeners[event] = listener;
     },
@@ -59,7 +67,7 @@ function createForm(name, valid = true) {
   };
 }
 
-function boot(forms, requestUrl, fetchImplementation) {
+function boot(forms, requestUrl, fetchImplementation, search = '', languageCatalog = null) {
   const cookieButton = { addEventListener() {} };
   const cookieBanner = {
     querySelector() {
@@ -73,6 +81,10 @@ function boot(forms, requestUrl, fetchImplementation) {
   };
   const document = {
     body: {},
+    listeners: {},
+    addEventListener(event, listener) {
+      this.listeners[event] = listener;
+    },
     querySelector(selector) {
       if (selector === '[data-cookie-banner]') return cookieBanner;
       return null;
@@ -89,16 +101,18 @@ function boot(forms, requestUrl, fetchImplementation) {
   };
   const window = {
     FRECLEAN_PUBLIC_REQUEST_URL: requestUrl,
-    location: { pathname: forms[0] && forms[0].name === 'booking' ? '/book/' : '/contact/' },
+    FRECLEAN_I18N: languageCatalog,
+    location: { pathname: forms[0] && forms[0].name === 'booking' ? '/book/' : '/contact/', search },
     localStorage: { getItem: () => '{"necessary":true}', setItem() {} }
   };
   const context = {
     window,
     document,
     URL,
+    URLSearchParams,
     FormData: class {
       constructor(form) {
-        this.fields = form.fields;
+        this.fields = form.fields.map(([key, value]) => [key, key === 'message' && form.messageField.value ? form.messageField.value : value]);
       }
       forEach(callback) {
         this.fields.forEach(([key, value]) => callback(value, key));
@@ -133,11 +147,53 @@ test('booking and contact pages expose required email validation and a live stat
     assert.match(html, /class="form-status"[^>]*aria-live="polite"/);
     if (page === 'contact/index.html') {
       assert.match(html, /Leogane, Ouest, Haiti/);
-      assert.match(html, /mailto:freclean7@gmail\.com/);
+      assert.match(html, /mailto:contact@freclean\.com/);
       assert.match(html, /tel:\+50946128022/);
       assert.match(html, /name="message" required/);
     }
   }
+});
+
+test('product cards show sizes and prices and submit a quantity-specific order enquiry', () => {
+  const root = path.join(__dirname, '..');
+  const products = JSON.parse(fs.readFileSync(path.join(root, 'products.json'), 'utf8')).products;
+  const html = fs.readFileSync(path.join(root, 'products/index.html'), 'utf8');
+
+  assert.deepEqual(products.map(({ id, availableSizes }) => [id, availableSizes[0]]), [
+    ['all-purpose-cleaner-750ml', '750 mL'],
+    ['room-freshener-linen-breeze-300ml', '300 mL']
+  ]);
+  for (const product of products) {
+    assert.ok(fs.existsSync(path.join(root, product.image)));
+    assert.match(html, new RegExp('name="product" value="' + product.id + '"'));
+    assert.match(html, /name="quantity" min="1" max="99" value="1"/);
+  }
+  assert.match(html, /\$6\.99–\$7\.99 US each/);
+});
+
+test('product order enquiry pre-fills the chosen product, size and quantity in the contact form', async () => {
+  const form = createForm('contact');
+  let submittedBody;
+  const localizedText = {
+    'products.index.cleanerName': 'Netwayan tout itilizasyon',
+    'products.index.cleanerSize': '750 mL',
+    'products.index.orderMessage': 'Mwen ta renmen kòmande {product} ({size}). Kantite: {quantity}. Tanpri konfime pri total egzak la, disponiblite, ranmasaj oswa livrezon, ak enstriksyon peman yo pa imèl.'
+  };
+  boot([form], 'https://api.freclean.com/api/public/requests', (url, options) => {
+    submittedBody = JSON.parse(options.body);
+    return Promise.resolve({ ok: true, status: 201, json: () => Promise.resolve({ received: true }) });
+  }, '?product=all-purpose-cleaner-750ml&quantity=4', {
+    ready: () => true,
+    getLanguage: () => 'ht',
+    t: (key) => localizedText[key] || ''
+  });
+
+  assert.match(form.messageField.value, /Netwayan tout itilizasyon \(750 mL\).*Kantite: 4/);
+  submit(form);
+  await waitForRequest();
+
+  assert.equal(submittedBody.type, 'CONTACT');
+  assert.match(submittedBody.message, /750 mL.*Kantite: 4/);
 });
 
 test('blank configuration uses the production public enquiries endpoint', () => {

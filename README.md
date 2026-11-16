@@ -1,6 +1,6 @@
 # FreClean Public Website
 
-The FreClean public website is a static HTML, CSS and JavaScript site for service discovery, product enquiries and customer requests. `freclean.com` is the configured canonical domain and GitHub Pages is the deployment host.
+The FreClean public website is a static HTML, CSS and JavaScript site for service discovery, a product catalogue with quantity-aware order enquiries, and customer requests. `freclean.com` is the configured canonical domain and GitHub Pages is the deployment host.
 
 ## Architecture
 
@@ -48,6 +48,8 @@ The old root `.html` URLs are retained only as redirects to their canonical dire
 
 The website never confirms a booking, price, availability or payment on its own. The backend or authorized FreClean staff remains authoritative.
 
+The product catalogue lists the all-purpose cleaner (750 mL) and Linen Breeze room freshener (300 mL), with the current published price range. Product requests include the selected item and quantity and use the `/contact/` enquiry route. FreClean must confirm the exact price, stock, pickup or delivery and payment instructions; the website does not create a confirmed order, reserve inventory or take payment.
+
 The public website also avoids invented testimonials, impact metrics, product specifications and press claims. New editorial and press sections provide truthful architecture for future verified content rather than placeholder announcements.
 
 ## Legal Center and Consent
@@ -58,7 +60,7 @@ This repository intentionally does not claim to be a full payment processor, dat
 
 ## Payments
 
-The approved payment options are USDT on BNB Smart Chain (BEP20), TRON (TRC20), Solana, and Celo, plus CeloHT DApp as a separate option. The payment page displays the public receiving addresses in `payments/payment-addresses.json` for manual transfers; FreClean confirms quotes and receipts directly. The website does not create orders or automatically verify or confirm payment. See [PAYMENTS.md](PAYMENTS.md) for the current boundary and verification requirements.
+The approved payment options are USDT on BNB Smart Chain (BEP20), TRON (TRC20), Solana, and Celo, plus CeloHT DApp as a separate option. The payment page displays the public receiving addresses in `payments/payment-addresses.json` for manual transfers; FreClean confirms quotes and receipts directly. The website does not create confirmed orders or automatically verify or confirm payment. See [PAYMENTS.md](PAYMENTS.md) for the current boundary and verification requirements.
 
 The entrepreneurship page also uses the same public USDT addresses for voluntary donations to support small-business opportunities for families in Haiti. Donations are manual, not automatically verified or represented as tax-deductible, and beneficiary stories require informed consent.
 
