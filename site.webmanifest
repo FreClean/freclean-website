@@ -7,9 +7,9 @@
   "theme_color": "#102f3d",
   "icons": [
     {
-      "src": "assets/brand-logo-1.jpg",
+      "src": "assets/FreClean-logo.png",
       "sizes": "1536x1536",
-      "type": "image/jpeg",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ]
