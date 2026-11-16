@@ -38,6 +38,109 @@
     return true;
   }
 
+  function setupSocialLinks() {
+    var platforms = [
+      { name: 'LinkedIn', href: 'https://www.linkedin.com/company/freclean/', icon: 'linkedin' },
+      { name: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61572058283204', icon: 'facebook' },
+      { name: 'Instagram', href: 'https://www.instagram.com/freclean7?mdxt=Y2RmNDV5NTZvcHRp', icon: 'instagram' },
+      { name: 'TikTok', href: 'https://www.tiktok.com/@freclean1?_r=1&_t=ZP-9BS3mpWikyU', icon: 'tiktok' }
+    ];
+
+    function createIcon(name) {
+      var namespace = 'http://www.w3.org/2000/svg';
+      var svg = document.createElementNS(namespace, 'svg');
+      svg.setAttribute('class', 'social-links__icon social-links__icon--' + name);
+      svg.setAttribute('viewBox', '0 0 24 24');
+      svg.setAttribute('aria-hidden', 'true');
+      svg.setAttribute('focusable', 'false');
+
+      if (name === 'linkedin') {
+        var linkedInMark = document.createElementNS(namespace, 'path');
+        linkedInMark.setAttribute('fill', 'currentColor');
+        linkedInMark.setAttribute('d', 'M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0Z');
+        svg.appendChild(linkedInMark);
+      } else if (name === 'facebook') {
+        var facebookBackground = document.createElementNS(namespace, 'circle');
+        facebookBackground.setAttribute('cx', '12');
+        facebookBackground.setAttribute('cy', '12');
+        facebookBackground.setAttribute('r', '12');
+        facebookBackground.setAttribute('fill', '#1877F2');
+        var facebookMark = document.createElementNS(namespace, 'path');
+        facebookMark.setAttribute('fill', '#fff');
+        facebookMark.setAttribute('d', 'M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5h1.7V3.9c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H7.3v3h2.8v8h3.4Z');
+        svg.append(facebookBackground, facebookMark);
+      } else if (name === 'instagram') {
+        var instagramFrame = document.createElementNS(namespace, 'rect');
+        instagramFrame.setAttribute('x', '3');
+        instagramFrame.setAttribute('y', '3');
+        instagramFrame.setAttribute('width', '18');
+        instagramFrame.setAttribute('height', '18');
+        instagramFrame.setAttribute('rx', '5');
+        instagramFrame.setAttribute('fill', 'none');
+        instagramFrame.setAttribute('stroke', '#C13584');
+        instagramFrame.setAttribute('stroke-width', '2');
+        var instagramLens = document.createElementNS(namespace, 'circle');
+        instagramLens.setAttribute('cx', '12');
+        instagramLens.setAttribute('cy', '12');
+        instagramLens.setAttribute('r', '4');
+        instagramLens.setAttribute('fill', 'none');
+        instagramLens.setAttribute('stroke', '#C13584');
+        instagramLens.setAttribute('stroke-width', '2');
+        var instagramDot = document.createElementNS(namespace, 'circle');
+        instagramDot.setAttribute('cx', '17.5');
+        instagramDot.setAttribute('cy', '6.5');
+        instagramDot.setAttribute('r', '1.25');
+        instagramDot.setAttribute('fill', '#C13584');
+        svg.append(instagramFrame, instagramLens, instagramDot);
+      } else {
+        var tiktokMark = document.createElementNS(namespace, 'path');
+        tiktokMark.setAttribute('fill', '#111');
+        tiktokMark.setAttribute('d', 'M19.6 7.2a6.7 6.7 0 0 1-4-1.3v8.3a5.7 5.7 0 1 1-5.7-5.7c.4 0 .8 0 1.2.1v3.2a2.5 2.5 0 1 0 1.4 2.3V2h3.2c.2 1.8 1.7 3.3 3.9 3.5v1.7Z');
+        svg.appendChild(tiktokMark);
+      }
+
+      return svg;
+    }
+
+    function createSocialGroup(location) {
+      var group = document.createElement('div');
+      group.className = 'social-links social-links--' + location;
+      group.dataset.i18nSkip = 'true';
+      var title = document.createElement('p');
+      title.className = location === 'footer' ? 'footer-title' : 'eyebrow';
+      title.textContent = 'Follow FreClean';
+      var items = document.createElement('div');
+      items.className = 'social-links__items';
+
+      platforms.forEach(function (platform) {
+        var link = document.createElement('a');
+        link.className = 'social-links__item';
+        link.href = platform.href;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.setAttribute('aria-label', 'FreClean on ' + platform.name);
+        link.appendChild(createIcon(platform.icon));
+        var label = document.createElement('span');
+        label.textContent = platform.name;
+        link.appendChild(label);
+        items.appendChild(link);
+      });
+
+      group.append(title, items);
+      return group;
+    }
+
+    var footer = document.querySelector('.site-footer .footer-main');
+    if (footer && !footer.querySelector('.social-links--footer')) {
+      footer.appendChild(createSocialGroup('footer'));
+    }
+
+    var contactDetails = document.querySelector('.form-layout > div .contact-list');
+    if (contactDetails && !contactDetails.parentElement.querySelector('.social-links--contact')) {
+      contactDetails.insertAdjacentElement('afterend', createSocialGroup('contact'));
+    }
+  }
+
   function setupLanguage() {
     var navigation = document.querySelector('#primary-nav');
     if (!navigation || navigation.querySelector('[data-language-switcher]')) return;
@@ -910,6 +1013,7 @@
 
   setupCookieConsent();
   setupLanguage();
+  setupSocialLinks();
   setupWhatsAppChat();
   setupMenu();
   setupForms();

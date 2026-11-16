@@ -285,6 +285,13 @@ button[aria-busy="true"]::after { width: 1em; height: 1em; border: 2px solid cur
 .footer-title { margin-bottom: 1rem; color: var(--lime) !important; font-size: .75rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
 .footer-bottom { display: flex; justify-content: space-between; gap: 1rem; padding-block: 1.25rem; border-top: 1px solid rgba(255,255,255,.2); color: #b7cecb; font-size: .8rem; }
 .footer-bottom a { display: inline; color: inherit; }
+.social-links { margin-top: 1.75rem; }
+.social-links__items { display: flex; flex-wrap: wrap; gap: .65rem; }
+.site-footer .social-links__item, .social-links--contact .social-links__item { display: inline-flex; align-items: center; gap: .5rem; width: auto; margin: 0; padding: .5rem .7rem; border: 1px solid rgba(255,255,255,.25); border-radius: 999px; color: #f5fbfa; font-size: .82rem; font-weight: 700; }
+.social-links--contact .social-links__item { border-color: var(--line); background: var(--white); color: var(--ink); }
+.social-links__icon { display: block; width: 1.35rem; height: 1.35rem; flex: 0 0 auto; }
+.social-links__icon--linkedin { color: #0A66C2; }
+.social-links__icon--tiktok { padding: .08rem; border-radius: 50%; background: #fff; }
 
 @keyframes rise {
   0% { opacity: 0; transform: translateY(20px); }
