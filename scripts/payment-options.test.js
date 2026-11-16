@@ -145,11 +145,14 @@ test('entrepreneurship page offers donations on every supported USDT network', (
   }
   assert.match(page, /USDT only\. Choose the exact network shown for the address/);
   assert.match(page, /USDT Contributions/);
-  assert.match(page, /Cash Contributions/);
+  assert.doesNotMatch(page, /Cash Contributions|Cash contributions can be coordinated/);
+  assert.match(page, /class="contribution-method-card contribution-method-card--international"/);
+  assert.match(page, /International Money Transfers/);
   assert.match(page, /Western Union/);
   assert.match(page, /MoneyGram/);
+  assert.match(page, /Contact our team to receive the appropriate transfer instructions/);
   assert.match(page, /href="mailto:contact@freclean\.com"/);
-  assert.match(page, /Our team will manually review and confirm contributions/);
+  assert.doesNotMatch(page, /Contribution Confirmation|Our team will manually review and confirm contributions/);
   assert.match(page, /Donor identities and the personal information of supported families will remain private/);
 });
 

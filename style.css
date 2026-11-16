@@ -3584,25 +3584,54 @@ em {
 
 .contribution-methods {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr);
   margin-top: 1.5rem;
 }
 
-.contribution-method-card,
-.contribution-confirmation {
+.contribution-method-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: clamp(1.25rem, 3vw, 2rem);
+  align-items: start;
+  max-width: 860px;
+  margin-inline: auto;
   padding: clamp(1.25rem, 3vw, 2rem);
-  border: 1px solid rgba(79, 132, 57, .2);
-  border-radius: 16px;
-  background: linear-gradient(145deg, #f8fbf1, #e3f0d8);
-  box-shadow: 0 14px 34px rgba(0, 0, 0, .14);
+  overflow: hidden;
+  border: 1px solid rgba(215, 237, 189, .28);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 100% 0, rgba(215, 237, 189, .14), transparent 36%),
+    linear-gradient(135deg, #fff 0%, #f5faef 62%, #e6f1dc 100%);
+  box-shadow: 0 22px 54px rgba(0, 0, 0, .2);
   color: var(--ink);
 }
 
+.contribution-method-card__icon {
+  display: grid;
+  width: 5rem;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, .16);
+  border-radius: 20px;
+  background: linear-gradient(145deg, #176b58, #123b35);
+  color: var(--lime);
+  box-shadow: 0 12px 26px rgba(18, 59, 53, .2);
+}
+
+.contribution-method-card__icon svg {
+  width: 2.8rem;
+  height: 2.8rem;
+}
+
+.contribution-method-card__content .eyebrow {
+  margin-bottom: .6rem;
+}
+
 .contribution-method-card h3 {
-  margin-bottom: .8rem;
+  margin-bottom: .75rem;
   color: var(--ink);
-  font-size: clamp(1.25rem, 2vw, 1.6rem);
+  font-size: clamp(1.6rem, 3vw, 2.15rem);
 }
 
 .contribution-method-card p {
@@ -3612,47 +3641,29 @@ em {
 .contribution-method-card ul {
   display: flex;
   flex-wrap: wrap;
-  gap: .6rem;
-  margin: 0 0 1.25rem;
+  gap: .7rem;
+  margin: .25rem 0 1.25rem;
   padding: 0;
   list-style: none;
 }
 
 .contribution-method-card li {
-  padding: .4rem .7rem;
-  border: 1px solid rgba(18, 59, 53, .14);
+  padding: .55rem .9rem;
+  border: 1px solid rgba(18, 59, 53, .13);
   border-radius: 999px;
-  background: rgba(255, 255, 255, .75);
+  background: rgba(255, 255, 255, .9);
   color: var(--ink);
-  font-size: .85rem;
+  font-size: .9rem;
   font-weight: 800;
+  box-shadow: 0 4px 12px rgba(16, 47, 61, .06);
 }
 
 .contribution-method-card .text-link {
   color: var(--blue-dark);
 }
 
-.contribution-confirmation {
-  margin-top: 1.5rem;
-}
-
-.contribution-confirmation h2 {
-  margin-bottom: 1rem;
-  color: var(--ink);
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
-}
-
-.contribution-email {
-  display: inline-block;
-  margin: 0 0 1rem;
-  color: var(--blue-dark);
-  font-size: clamp(1.1rem, 2vw, 1.35rem);
-  font-weight: 800;
-  overflow-wrap: anywhere;
-}
-
-.contribution-confirmation p:last-child {
-  margin-bottom: 0;
+.contribution-method-card .button {
+  margin-top: .25rem;
 }
 
 .contribution-thanks {
@@ -3674,7 +3685,17 @@ em {
 }
 
 @media (max-width: 760px) {
-  .contribution-methods {
+  .contribution-method-card {
     grid-template-columns: 1fr;
+  }
+
+  .contribution-method-card__icon {
+    width: 4.25rem;
+    border-radius: 16px;
+  }
+
+  .contribution-method-card__icon svg {
+    width: 2.3rem;
+    height: 2.3rem;
   }
 }
