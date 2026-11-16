@@ -36,7 +36,7 @@ The static site never contains private API keys, service-role credentials, payme
 - `/press/` — press information and approved media asset requests
 - `/contact/` — contact enquiry
 - `/book/` — service request form, not a confirmed booking system
-- `/payments/` — approved payment categories and their boundaries; no public checkout
+- `/payments/` — USDT on BEP20, TRC20, Solana or Celo, and the separate CeloHT DApp option
 - `/privacy/`, `/terms/` — public policy pages
 - `/404.html` — recovery page
 
@@ -48,7 +48,7 @@ The old root `.html` URLs are retained only as redirects to their canonical dire
 
 The website never confirms a booking, price, availability or payment on its own. The backend or authorized FreClean staff remains authoritative.
 
-The product catalogue lists the all-purpose cleaner (750 mL) and Linen Breeze room freshener (300 mL). Prices are not published until confirmed by FreClean. Product requests include the selected item and quantity and use the `/contact/` enquiry route. FreClean must confirm the exact price, availability, pickup or delivery and payment instructions; the website does not create a confirmed order, reserve inventory or take payment.
+The product catalogue lists the all-purpose cleaner (750 mL) and Linen Breeze room freshener (300 mL), with the current published price range. Product requests include the selected item and quantity and use the `/contact/` enquiry route. FreClean must confirm the exact price, stock, pickup or delivery and payment instructions; the website does not create a confirmed order, reserve inventory or take payment.
 
 The public website also avoids invented testimonials, impact metrics, product specifications and press claims. New editorial and press sections provide truthful architecture for future verified content rather than placeholder announcements.
 
@@ -60,11 +60,11 @@ This repository intentionally does not claim to be a full payment processor, dat
 
 ## Payments
 
-The approved categories are USDT on networks verified and specifically confirmed for a transaction, the separate CeloHT route, and cash exclusively in person at FreClean-authorized physical points of sale. The website does not enable public USDT checkout, display receiving addresses, accept donations, or process payments. No POS locations are verified or published here. See [PAYMENTS.md](PAYMENTS.md) for the policy and integration boundary.
+The approved payment options are USDT on BNB Smart Chain (BEP20), TRON (TRC20), Solana, and Celo, plus CeloHT DApp as a separate option. The payment page displays the public receiving addresses in `payments/payment-addresses.json` for manual transfers; FreClean confirms quotes and receipts directly. The website does not create confirmed orders or automatically verify or confirm payment. See [PAYMENTS.md](PAYMENTS.md) for the current boundary and verification requirements.
 
-CeloHT is an independent ecosystem and is not owned or operated by FreClean. A link to `https://app.celoht.com/` is an external handoff only and is not evidence of payment or settlement.
+The entrepreneurship page also uses the same public USDT addresses for voluntary donations to support small-business opportunities for families in Haiti. Donations are manual, not automatically verified or represented as tax-deductible, and beneficiary stories require informed consent.
 
-FreClean is currently working with legal counsel in Haiti to process its official business documentation and related legal requirements.
+The CeloHT link is `https://app.celoht.com/`. CeloHT is separate from FreClean; a DApp handoff does not confirm settlement or change payment status.
 
 ## Configuration
 
@@ -73,6 +73,7 @@ Copy `.env.example` into the deployment configuration if the host supports runti
 ```text
 FRECLEAN_PUBLIC_REQUEST_URL=https://api.freclean.com/api/public/requests
 FRECLEAN_PUBLIC_API_BASE_URL=https://api.freclean.com
+FRECLEAN_CELOHT_DAPP_URL=https://app.celoht.com
 ```
 
 The Render service requires `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, and `ALLOWED_ORIGINS` as Render environment variables. `FRECLEAN_REQUEST_RECIPIENT` optionally configures the recipient for service and partnership requests; `/contact/` always targets `contact@freclean.com`. `RESEND_API_KEY` must never be added to this repository or exposed to the browser. Set `RESEND_FROM_EMAIL` to a sender verified by Resend, such as `FreClean <noreply@freclean.com>`, before production delivery can succeed.
@@ -121,7 +122,7 @@ The validator checks canonical pages, legacy redirects, metadata, landmarks, loc
 - Google Fonts referenced by the public pages
 - Public contact details and service/partnership email fallback: `freclean7@gmail.com`
 - `/contact/` enquiry destination and fallback: `contact@freclean.com`
-- CeloHT external handoff: `https://app.celoht.com/`; CeloHT is independent from FreClean and settlement is not verified by this site
-- Both `contact@freclean.com` and `freclean7@gmail.com` are active. The website contact form uses `contact@freclean.com`; the Core API's request-recipient configuration and other email roles must be confirmed by the service owner before production claims.
+- CeloHT payment route: `https://app.celoht.com/`; CeloHT is separate from FreClean
+- The contact API implementation is covered by local mocked-provider tests. Production delivery remains unverified until the Render service is deployed with its Resend environment variables and a real `/contact/` enquiry is received at `contact@freclean.com`.
 
-The website provides service and contact enquiries, not online booking confirmation. The website client posts to `POST /api/public/requests`; this contract is implemented in the Core repository, but production persistence and email delivery are not verified by a local website test. The website does not call payment or booking-confirmation endpoints, display USDT addresses, or claim payment receipt.
+The website provides service and contact enquiries, not online booking confirmation. The supported anonymous public contracts are `POST /api/public/requests` and `GET /api/payments/options`; `/api/bookings` remains authenticated and is not called by the frontend. USDT addresses are displayed for manual transfer, with amount and receipt confirmed directly by FreClean.

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Request a Cleaning Quote | FreClean</title>
-<meta name="description" content="Request a professional cleaning quote for a home, business or hospitality space. FreClean confirms the scope, price and availability directly."><meta name="robots" content="index,follow,max-image-preview:large"><meta name="robots" content="index,follow,max-image-preview:large"><meta property="og:title" content="Request a Service | FreClean"><meta property="og:description" content="Request a FreClean cleaning service for your home, business or hospitality space."><meta property="og:type" content="website"><meta property="og:url" content="https://freclean.com/book/"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Request a Service | FreClean"><meta name="twitter:description" content="Request a FreClean cleaning service for your home, business or hospitality space.">
+<meta name="description" content="Request a professional cleaning quote for a home, business or hospitality space in Léogâne and surrounding areas. FreClean confirms the scope, price and availability directly."><meta name="robots" content="index,follow,max-image-preview:large"><meta name="robots" content="index,follow,max-image-preview:large"><meta property="og:title" content="Request a Service | FreClean"><meta property="og:description" content="Request a FreClean cleaning service for your home, business or hospitality space."><meta property="og:type" content="website"><meta property="og:url" content="https://freclean.com/book/"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Request a Service | FreClean"><meta name="twitter:description" content="Request a FreClean cleaning service for your home, business or hospitality space.">
 <link rel="canonical" href="https://freclean.com/book/">
 <link rel="stylesheet" href="../style.css?v=site-20261116-footer-water">
 </head>
@@ -13,7 +13,7 @@
 <header class="site-header">
   <a class="logo-link" href="../index.html" aria-label="FreClean home"><img src="../assets/FreClean-logo.png" alt="FreClean" width="1536" height="1536"></a>
   <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open navigation menu"><span></span><span></span><span></span><b>Menu</b></button>
-  <nav id="primary-nav" aria-label="Primary navigation"><a href="../index.html">Home</a><a href="../services/">Services</a><a href="../products/">Products</a><a href="../business/">Business</a><a class="nav-cta" href="../entrepreneurship/">Entrepreneurship</a><a class="nav-cta" href="../book/">Request a Service <span aria-hidden="true">&rarr;</span></a><details class="nav-more"><summary>More</summary><div class="nav-more-menu"><a href="../book/">Request a Service</a><a href="../payments/">Payment</a><a href="https://app.celoht.com/" target="_blank" rel="noopener noreferrer">CeloHT DApp</a><a href="../about/">About FreClean</a><a href="../entrepreneurship/">Entrepreneurship</a><a href="../impact/">Impact</a><a href="../resources/">Resources</a></div></details><a href="../contact/">Contact</a></nav>
+  <nav id="primary-nav" aria-label="Primary navigation"><a href="../index.html">Home</a><a href="../services/">Services</a><a href="../products/">Products</a><a href="../business/">Business</a><a class="nav-cta nav-donate" href="../entrepreneurship/#donations-title"><img class="nav-donate__logo" src="../assets/FreClean-logo.png" alt="" width="20" height="20">Donate</a><a class="nav-cta" href="../book/">Request a Service <span aria-hidden="true">&rarr;</span></a><details class="nav-more"><summary>More</summary><div class="nav-more-menu"><a href="../book/">Book an Appointment</a><a href="../payments/">Payment</a><a href="https://app.celoht.com/" target="_blank" rel="noopener noreferrer">CeloHT DApp</a><a href="../about/">About FreClean</a><a href="../entrepreneurship/">Entrepreneurship</a><a href="../impact/">Impact</a><a href="../resources/">Resources</a></div></details><a href="../contact/">Contact</a></nav>
 </header>
 <main id="main-content">
   <section class="page-hero section-wrap booking-hero">
@@ -31,7 +31,8 @@
           <li class="is-active" data-progress-step="1">Service</li>
           <li data-progress-step="2">Schedule</li>
           <li data-progress-step="3">Details</li>
-          <li data-progress-step="4">Review</li>
+          <li data-progress-step="4">Payment</li>
+          <li data-progress-step="5">Review</li>
         </ol>
       </div>
       <form data-request-form data-request-type="SERVICE" data-booking-form>
@@ -57,6 +58,20 @@
           <label for="booking-notes">Additional information<textarea id="booking-notes" name="notes" placeholder="Tell us anything useful about the space or request."></textarea></label>
         </fieldset>
         <fieldset class="booking-step" data-booking-step="4" hidden>
+          <legend>Payment</legend>
+          <p class="step-intro">Choose your preferred payment method. FreClean will confirm your quote and payment amount directly.</p>
+          <div class="payment-choice-list">
+            <label class="payment-choice" for="payment-usdt-bep20"><input id="payment-usdt-bep20" type="radio" name="payment_method" value="USDT BEP20" required><span><strong>USDT — BEP20 / BNB Smart Chain</strong><small>Manual transfer</small></span></label>
+            <label class="payment-choice" for="payment-usdt-trc20"><input id="payment-usdt-trc20" type="radio" name="payment_method" value="USDT TRC20"><span><strong>USDT — TRC20 / TRON</strong><small>Manual transfer</small></span></label>
+            <label class="payment-choice" for="payment-usdt-solana"><input id="payment-usdt-solana" type="radio" name="payment_method" value="USDT Solana"><span><strong>USDT — Solana</strong><small>Manual transfer</small></span></label>
+            <label class="payment-choice" for="payment-usdt-celo"><input id="payment-usdt-celo" type="radio" name="payment_method" value="USDT Celo"><span><strong>USDT — Celo</strong><small>Manual transfer</small></span></label>
+            <label class="payment-choice" for="payment-celoht"><input id="payment-celoht" type="radio" name="payment_method" value="CELOHT_DAPP"><span><strong>CeloHT DApp</strong><small>Separate payment option</small></span></label>
+          </div>
+          <p class="payment-boundary">After sending, share your transaction reference with FreClean through the contact form.</p>
+          <a class="button button-outline" href="../payments/">View payment options <span aria-hidden="true">&rarr;</span></a>
+          <a class="button button-outline celo-handoff" data-celo-link href="https://app.celoht.com/" target="_blank" rel="noopener noreferrer" hidden>Continue to CeloHT DApp <span aria-hidden="true">&rarr;</span></a>
+        </fieldset>
+        <fieldset class="booking-step" data-booking-step="5" hidden>
           <legend>Review</legend>
           <p class="step-intro">Review your request before sending it to FreClean.</p>
           <dl class="booking-review" data-booking-review></dl>
@@ -72,7 +87,7 @@
     </div>
   </section>
 </main>
-<footer class="site-footer"><div class="section-wrap footer-main"><div><p class="footer-title">Explore</p><a href="../services/">Services</a><a href="../products/">Products</a><a href="../business/">Business</a></div><div><p class="footer-title">Company</p><a href="../about/">About</a><a href="../resources/">Resources</a><a href="../contact/">Contact</a></div><div><p class="footer-title">Contact</p><a href="mailto:freclean7@gmail.com">freclean7@gmail.com</a><a href="tel:+50946128022">+50946128022</a></div></div><div class="section-wrap footer-bottom"><span>&copy; 2026 FreClean. All rights reserved.</span><span><a href="../privacy/">Privacy</a> &middot; <a href="../terms/">Terms</a></span></div></footer>
+<footer class="site-footer"><div class="section-wrap footer-main"><div><p class="footer-title">Explore</p><a href="../services/">Services</a><a href="../products/">Products</a><a href="../business/">Business</a></div><div><p class="footer-title">Company</p><a href="../about/">About</a><a href="../resources/">Resources</a><a href="../contact/">Contact</a></div><div><p class="footer-title">Contact</p><p>Leogane, Ouest, Haiti</p><a href="mailto:freclean7@gmail.com">freclean7@gmail.com</a><a href="tel:+50946128022">+50946128022</a></div></div><div class="section-wrap footer-bottom"><span>&copy; 2026 FreClean. All rights reserved.</span><span><a href="../privacy/">Privacy</a> &middot; <a href="../terms/">Terms</a></span></div></footer>
 <script src="../script.js?v=footer-translation-20261116" defer></script>
 </body>
 </html>

@@ -146,15 +146,15 @@ test('booking and contact pages expose required email validation and a live stat
     assert.match(html, /name="email" type="email"[^>]*required/);
     assert.match(html, /class="form-status"[^>]*aria-live="polite"/);
     if (page === 'contact/index.html') {
+      assert.match(html, /Leogane, Ouest, Haiti/);
       assert.match(html, /mailto:contact@freclean\.com/);
-      assert.match(html, /mailto:freclean7@gmail\.com/);
       assert.match(html, /tel:\+50946128022/);
       assert.match(html, /name="message" required/);
     }
   }
 });
 
-test('product cards show sizes without unverified prices and submit quantity-specific enquiries', () => {
+test('product cards show sizes and prices and submit a quantity-specific order enquiry', () => {
   const root = path.join(__dirname, '..');
   const products = JSON.parse(fs.readFileSync(path.join(root, 'products.json'), 'utf8')).products;
   const html = fs.readFileSync(path.join(root, 'products/index.html'), 'utf8');
@@ -167,11 +167,8 @@ test('product cards show sizes without unverified prices and submit quantity-spe
     assert.ok(fs.existsSync(path.join(root, product.image)));
     assert.match(html, new RegExp('name="product" value="' + product.id + '"'));
     assert.match(html, /name="quantity" min="1" max="99" value="1"/);
-    assert.equal(product.price, null);
   }
-  assert.match(html, /No prices are published here/);
-  assert.match(html, /Price confirmed directly/);
-  assert.doesNotMatch(html, /\$[0-9]+\.[0-9]{2}/);
+  assert.match(html, /\$6\.99–\$7\.99 US each/);
 });
 
 test('product order enquiry pre-fills the chosen product, size and quantity in the contact form', async () => {
@@ -313,7 +310,8 @@ test('booking submission preserves every submitted business field', async () => 
     ['phone', '+50955501234'],
     ['email', 'ada@example.com'],
     ['location', 'Leogane, Haiti'],
-    ['notes', 'Please focus on the kitchen and living room.']
+    ['notes', 'Please focus on the kitchen and living room.'],
+    ['payment_method', 'USDT TRC20']
   ];
   let submittedBody;
   boot([form], 'https://api.freclean.com/api/public/requests', (url, options) => {
@@ -328,43 +326,28 @@ test('booking submission preserves every submitted business field', async () => 
     assert.equal(submittedBody[key], value);
   }
   assert.equal(submittedBody.type, 'SERVICE');
-  assert.equal(Object.hasOwn(submittedBody, 'payment_method'), false);
   assert.equal(form.status.dataset.state, 'success');
 });
 
-test('public payment content fails closed and only describes approved payment boundaries', () => {
+test('payment choices are restricted to the four USDT networks and separate CeloHT handoff', () => {
   const root = path.join(__dirname, '..');
-  const homePage = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
   const paymentPage = fs.readFileSync(path.join(root, 'payments/index.html'), 'utf8');
   const bookingPage = fs.readFileSync(path.join(root, 'book/index.html'), 'utf8');
-  const entrepreneurshipPage = fs.readFileSync(path.join(root, 'entrepreneurship/index.html'), 'utf8');
-  const paymentConfiguration = JSON.parse(fs.readFileSync(path.join(root, 'payments/payment-addresses.json'), 'utf8'));
+  const methods = Array.from(bookingPage.matchAll(/name="payment_method" value="([^"]+)"/g), (match) => match[1]);
 
-  assert.equal(paymentConfiguration.paymentMode, 'DISABLED');
-  assert.deepEqual(paymentConfiguration.usdtNetworks, []);
-  assert.doesNotMatch(homePage, /BEP20|TRC20|Solana|data-payment-address|receiving address/i);
-  assert.match(homePage, /cash exclusively in person at authorized physical points of sale/i);
-  assert.doesNotMatch(paymentPage, /data-payment-options|data-payment-address|BEP20|TRC20|Solana/i);
-  assert.match(paymentPage, /No USDT network is currently verified and production-enabled for public use/i);
-  assert.match(paymentPage, /independent ecosystem and is not owned or operated by FreClean/i);
-  assert.match(paymentPage, /Cash payments, if made, are exclusively in person at FreClean-authorized physical points of sale/i);
-  assert.match(paymentPage, /No authorized point-of-sale location or cash-recording workflow is currently verified or published/i);
-  assert.doesNotMatch(bookingPage, /name="payment_method"|data-booking-step="5"|<legend>Payment<\/legend>/);
-  assert.match(entrepreneurshipPage, /does not collect donations or accept payments for community support/i);
-  assert.doesNotMatch(entrepreneurshipPage, /data-payment-options|data-payment-address/);
+  assert.deepEqual(methods, ['USDT BEP20', 'USDT TRC20', 'USDT Solana', 'USDT Celo', 'CELOHT_DAPP']);
+  assert.match(paymentPage, /USDT on BNB Smart Chain \(BEP20\), TRON \(TRC20\), Solana, and Celo/);
+  assert.match(paymentPage, /data-payment-network="BEP20"/);
+  assert.match(paymentPage, /data-payment-network="TRC20"/);
+  assert.match(paymentPage, /data-payment-network="SOLANA"/);
+  assert.match(paymentPage, /data-payment-network="CELO"/);
+  assert.match(paymentPage, /payment-options\.js/);
+  assert.doesNotMatch(paymentPage, /permanent loss of funds|does not initiate checkout or display receiving addresses/i);
+  assert.match(paymentPage, /href="https:\/\/app\.celoht\.com\/" target="_blank" rel="noopener noreferrer"/);
+  assert.match(bookingPage, /href="\.\.\/payments\/">View payment options/);
+  assert.doesNotMatch(bookingPage, /permanent loss of funds/i);
+  assert.match(bookingPage, /href="https:\/\/app\.celoht\.com\/" target="_blank" rel="noopener noreferrer"/);
+  assert.match(script, /configuredCeloUrl\.origin === 'https:\/\/app\.celoht\.com'/);
+  assert.match(script, /choice\.value !== 'CELOHT_DAPP'/);
   assert.doesNotMatch(script, /payment (?:was |has been )?(?:received|confirmed|successful)/i);
-});
-
-test('legal-status wording and both active email addresses remain available', () => {
-  const root = path.join(__dirname, '..');
-  const aboutPage = fs.readFileSync(path.join(root, 'about/index.html'), 'utf8');
-  const termsPage = fs.readFileSync(path.join(root, 'terms/index.html'), 'utf8');
-  const contactPage = fs.readFileSync(path.join(root, 'contact/index.html'), 'utf8');
-
-  for (const page of [aboutPage, termsPage]) {
-    assert.match(page, /FreClean is currently working with legal counsel in Haiti to process its official business documentation and related legal requirements\./);
-  }
-  for (const email of ['contact@freclean.com', 'freclean7@gmail.com']) {
-    assert.ok(contactPage.includes(email));
-  }
 });

@@ -1,27 +1,49 @@
-# Implementation and Readiness Report
+# Implementation Report
 
-Audit scope: website repository and its documented integration boundaries. This report does not certify production operation.
+Audit date: 2026-11-05.
 
-## Implemented in this repository
+## Audited
 
-- The service form is an enquiry workflow; it does not collect a payment preference or create a confirmed booking.
-- Public payment information states that no USDT network or physical POS location is currently verified for public use, describes the separate CeloHT handoff, and restricts any cash payment to an authorized physical POS. No online checkout, public receiving address, or active USDT network is presented.
-- Product pages provide product information and enquiry paths; unverified prices have been removed. An enquiry is not a confirmed order.
-- Public copy preserves both active email addresses and states that FreClean is working with legal counsel in Haiti to process its official business documentation and related legal requirements.
-- Location, service-coverage, partnership, certification, and customer-count claims without supporting verification have been removed.
+The live public routes, sitemap, robots file, legal routes, forms, payment handoff, static catalogue, JavaScript request workflow, Node contact API, Render configuration, tests, deployment documentation, and repository history were inspected. Live HTTPS checks confirmed the public site routes and `/health` are reachable.
 
-## Not implemented or not verified
+## Implemented and tested
 
-| Area | Status | Evidence or blocker |
+- Static FreClean pages, canonical navigation, legal pages, sitemap, robots, responsive frontend, accessible request forms, cookie preference UI, and verified-publication allowlist.
+- Contact API validation, CORS allowlisting, rate limiting, duplicate suppression, payload limits, safe errors, security headers, request correlation, configurable recipient, and outbound timeout.
+- Product order enquiries for the listed 750 mL cleaner and 300 mL room freshener, including quantity and a contact-form route to the FreClean team; this does not create a confirmed sale or take payment.
+- Local API and browser workflow tests.
+
+## Explicitly not implemented
+
+Customer accounts, password reset, email verification, cart, checkout, orders, inventory, delivery zones, invoices, service booking state, staff assignment, admin dashboard, CRM, B2B contracts, affiliate tracking, verified reviews, coupons, global API search, payment verification, SMS/WhatsApp, database persistence, migrations, backups, monitoring, and production CI/CD for those services.
+
+## Status matrix
+
+| Area | Status | Evidence/blocker |
 | --- | --- | --- |
-| Website/API production operation | REQUIRES OWNER CONFIRMATION | Source documents the request contract; no production form submission was made. A health check does not verify request persistence or email delivery. |
-| Service booking | NOT IMPLEMENTED | No availability reservation, confirmed booking state, or payment workflow is provided by this static website. |
-| Product checkout | NOT IMPLEMENTED | No cart, inventory reservation, confirmed order, or online checkout exists here. |
-| USDT payments | NOT PRODUCTION-ENABLED | Backend adapters are code-level only; see the Core repository payment audit for networks and unresolved configuration. |
-| CeloHT settlement verification | NOT IMPLEMENTED | The website exposes only a separate external handoff; the backend has no authoritative settlement verifier. |
-| Cash point-of-sale workflow | NOT IMPLEMENTED | No POS workflow or verified physical location is published by this repository. |
-| Contact email delivery | REQUIRES OWNER CONFIRMATION | Both addresses are retained; production routing, sender identity, and reply-to behavior require confirmation. |
-| Business legal documentation | IN PROGRESS | FreClean is working with legal counsel in Haiti to process its official business documentation and related legal requirements. |
-| Production readiness | BLOCKED | Payment enablement, production email delivery, request persistence, and full staging-to-production verification remain unresolved. |
+| Public website | LIVE | `https://freclean.com/` responds over HTTPS |
+| Contact API code | TESTED | Local Node tests pass |
+| Contact email delivery | BLOCKED | Render Resend configuration and a controlled receipt are unverified here |
+| Service request intake | CONFIGURED | Enquiry form posts to the public request contract; no appointment is created |
+| Online booking | NOT IMPLEMENTED | No public booking API or database |
+| Product order enquiries | IMPLEMENTED | Static catalogue with item size and price range; quantity-specific requests route through contact. No cart, inventory reservation, confirmed order or online checkout |
+| Ecommerce/cart/orders | NOT IMPLEMENTED | No shopping cart, order management, stock integration or payment checkout |
+| Website payment checkout | NOT INTEGRATED | Core owns payment initiation and verification; the public website has no authenticated order/payment flow |
+| CeloHT verification | NOT IMPLEMENTED | Public handoff only; no authorized verification service |
+| Accounts/admin/RBAC | NOT IMPLEMENTED | External Core/app repositories are required |
+| Database/migrations | NOT IMPLEMENTED | No database code or credentials in this workspace |
+| Backups/monitoring | NOT IMPLEMENTED | No production data service is owned here |
+| SEO/accessibility baseline | TESTED | Static validator and request workflow checks pass |
 
-The website's configured request URL is `https://api.freclean.com/api/public/requests`. No production POST, customer email, or payment transaction was performed during this audit. Do not infer production readiness from local tests or read-only health checks.
+## Required external services
+
+Core API, relational database, authentication/RBAC, admin application, Resend production configuration, verified USDT token identifiers and RPC configuration, CeloHT settlement agreement if applicable, monitoring, backup service, and a staging environment.
+
+## Exact public URLs
+
+- Site: `https://freclean.com/`
+- Request API: `https://api.freclean.com/api/public/requests`
+- API health: `https://api.freclean.com/health`
+- CeloHT handoff: `https://app.celoht.com/`
+
+No production API URLs, credentials, migration status, backup status, or payment confirmation beyond these public boundaries can be asserted from this repository.

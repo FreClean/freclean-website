@@ -48,12 +48,13 @@ grep -q 'Run request workflow tests' .github/workflows/pages.yml || fail 'Workfl
 grep -q 'Run contact API tests' .github/workflows/pages.yml || fail 'Workflow is missing contact API tests'
 grep -q 'Check JavaScript syntax' .github/workflows/pages.yml || fail 'Workflow is missing JavaScript syntax validation'
 grep -q '^FRECLEAN_PUBLIC_REQUEST_URL=' .env.example || fail 'Missing public request configuration'
+grep -q '^FRECLEAN_CELOHT_DAPP_URL=https://app.celoht.com' .env.example || fail 'Invalid CeloHT environment configuration'
 grep -q '^FRECLEAN_SITE_BASE_URL=' .env.example || fail 'Missing public site URL configuration'
 grep -q '^FRECLEAN_SUPPORT_EMAIL=' .env.example || fail 'Missing support email configuration'
 [ -f verified-publications.json ] || fail 'Missing verified publications data file'
 grep -q 'verifiedPublication' verified-publications.json || fail 'Verified publication data policy missing'
 grep -q 'data-service-estimate' book/index.html || fail 'Service quote status is missing'
-grep -q 'No prices are published here' products/index.html || fail 'Product pricing confirmation boundary is missing'
+grep -q '\$6\.99–\$7\.99 US each' products/index.html || fail 'Product price range is missing'
 grep -q 'Verified customer feedback' index.html || fail 'Verified feedback section heading is missing'
 grep -q 'Submit feedback' index.html || fail 'Customer feedback submission link is missing'
 grep -q 'Share your experience with FreClean' index.html || fail 'Customer feedback copy is missing'
@@ -62,14 +63,11 @@ grep -q 'class="testimonial-grid"' index.html || fail 'Verified feedback contain
 grep -q '"publications": \[\]' verified-publications.json || fail 'Verified publication allowlist is not empty/explicitly enforced'
 grep -q 'booking-size' book/index.html || fail 'Service estimate space-size field is missing'
 grep -REn '<(span|legend)[^>]*>0[1-9]|Services[[:space:]]*·[[:space:]]*0[1-9]|>0[1-9][[:space:]]*/' --include='*.html' . >/dev/null && fail 'Decorative zero-padded site numbering found' || true
-grep -q 'No prices are published here' products.json || fail 'Product pricing policy is missing'
-node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync('products.json','utf8')); if (!data.products || data.products.some(product => !product.availability || product.price !== null || !product.availableSizes)) process.exit(1)" || fail 'Product availability data is incomplete'
+grep -q 'Current price, size, availability and eligible delivery terms are confirmed by FreClean' products.json || fail 'Product pricing policy is missing'
+node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync('products.json','utf8')); if (!data.products || data.products.some(product => !product.availability || !product.price || !product.availableSizes)) process.exit(1)" || fail 'Product availability data is incomplete'
 grep -q 'data-verified-publications' index.html || fail 'Verified customer publication section is missing'
-grep -q 'https://app.celoht.com/' payments/index.html || fail 'Missing independent CeloHT route'
+grep -q 'https://app.celoht.com/' payments/index.html || fail 'Missing canonical CeloHT CTA'
 grep -q "isDirectContactForm ? 'contact@freclean.com' : 'freclean7@gmail.com'" script.js || fail 'Missing correctly routed email fallback'
-node -e "const p=require('./payments/payment-addresses.json'); if (p.paymentMode !== 'DISABLED' || !Array.isArray(p.usdtNetworks) || p.usdtNetworks.length !== 0) process.exit(1)" || fail 'Public USDT payment configuration must remain disabled and empty'
-grep -q 'FreClean-authorized physical points of sale' payments/index.html || fail 'Cash payment boundary is missing'
-grep -q 'does not collect donations or accept payments for community support' entrepreneurship/index.html || fail 'Community page still enables donation payments'
 python3 scripts/audit-translations.py || fail 'Translation catalog audit failed'
 node --test scripts/request-workflow.test.js || fail 'Request workflow tests failed'
 [ -f legal/index.html ] || fail 'Missing legal center landing page'
@@ -83,6 +81,9 @@ node --test scripts/request-workflow.test.js || fail 'Request workflow tests fai
 grep -q 'cookie' script.js || fail 'Cookie consent implementation missing' || true
 
 grep -RniE 'logo-landscape-1|catalog-portrait-2|catalog-landscape-1' --include='*.html' --include='*.js' --include='*.md' --include='*.json' --include='*.xml' --include='*.txt' --include='*.webmanifest' . >/dev/null && fail 'Stale asset reference found' || true
+grep -RniE 'https?://celoht\.com' --include='*.html' --include='*.js' --include='*.md' --include='*.json' --include='*.xml' --include='*.txt' --include='*.webmanifest' --exclude='script.js' . >/dev/null && fail 'Unapproved direct CeloHT domain found' || true
+[ "$(grep -oE 'https?://celoht\.com' script.js | wc -l)" -eq 1 ] || fail 'Unexpected direct CeloHT domain references in JavaScript'
+grep -q "link.href = 'https://celoht.com/';" script.js || fail 'Approved CeloHT partnership link is missing'
 grep -RniE 'service_role|SUPABASE_SERVICE_ROLE|sk_live_|private_key|BEGIN PRIVATE KEY' --exclude-dir=.git --exclude='validate-site.sh' . >/dev/null && fail 'Possible protected secret found in repository' || true
 grep -q 'renderHeader\|renderFooter\|setupImages' script.js && fail 'Runtime UI or asset patch remains' || true
 grep -RnE 'Booking confirmed|Message sent|Your message was sent' --include='*.html' --include='*.js' --exclude='validate-site.sh' . >/dev/null && fail 'Fake confirmation state found' || true

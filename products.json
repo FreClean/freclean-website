@@ -1,6 +1,6 @@
 {
   "source": "FreClean public website product information",
-  "pricingPolicy": "No prices are published here. FreClean confirms current price, availability and eligible delivery terms directly.",
+  "pricingPolicy": "Current price, size, availability and eligible delivery terms are confirmed by FreClean.",
   "products": [
     {
       "id": "all-purpose-cleaner-750ml",
@@ -8,9 +8,9 @@
       "category": "Cleaning Products",
       "description": "FreClean all-purpose cleaner with fresh scent, shown in a 750 mL bottle.",
       "image": "assets/catalog-portrait-3.png",
-      "status": "price_and_availability_to_confirm",
+      "status": "Current range: $6.99–$7.99 US each",
       "availability": "contact_to_confirm",
-      "price": null,
+      "price": { "kind": "fixedRange", "currency": "USD", "minimum": 6.99, "maximum": 7.99, "confirmedOffer": true, "display": "$6.99–$7.99 US each" },
       "availableSizes": ["750 mL"],
       "intendedUse": "Everyday home and workplace cleaning; confirm product-specific use with FreClean.",
       "safetyInformation": null
@@ -21,9 +21,9 @@
       "category": "Fragrance Products",
       "description": "FreClean Linen Breeze room freshener, shown in a 300 mL bottle.",
       "image": "assets/catalog-portrait-1.png",
-      "status": "price_and_availability_to_confirm",
+      "status": "Current range: $6.99–$7.99 US each",
       "availability": "contact_to_confirm",
-      "price": null,
+      "price": { "kind": "fixedRange", "currency": "USD", "minimum": 6.99, "maximum": 7.99, "confirmedOffer": true, "display": "$6.99–$7.99 US each" },
       "availableSizes": ["300 mL"],
       "intendedUse": "Home and workplace fragrance; confirm product-specific use with FreClean.",
       "safetyInformation": null
