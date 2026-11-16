@@ -857,8 +857,8 @@ main { min-width: 0; }
 .section-wrap { width: min(calc(100% - 3rem), var(--max)); }
 
 .site-header { min-height: 82px; padding-inline: max(1.25rem, calc((100vw - var(--max)) / 2)); background: rgba(251, 252, 248, .94); border-bottom-color: rgba(16, 47, 61, .12); box-shadow: 0 4px 18px rgba(16, 47, 61, .04); }
-.logo-link { width: 144px; }
-.logo-link img { aspect-ratio: 1672 / 941; object-fit: contain; }
+.site-header .logo-link { width: 72px; }
+.site-header .logo-link img { aspect-ratio: 1; object-fit: contain; mix-blend-mode: multiply; }
 .site-header nav { flex-wrap: nowrap; gap: clamp(.5rem, 1vw, 1.05rem); font-size: .75rem; }
 .site-header nav > a, .nav-more > summary { padding: .7rem .15rem; color: var(--ink); font-weight: 800; }
 .site-header nav > a:hover, .site-header nav > a:focus-visible, .nav-more > summary:hover, .nav-more[open] > summary { color: var(--blue); }
