@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: read
   contents: read
   pages: write
   id-token: write
@@ -48,6 +49,22 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
+
+      - name: Wait for Pages artifact metadata
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          for attempt in 1 2 3 4 5 6 7 8 9 10; do
+            if gh api "repos/${GH_REPO}/actions/runs/${RUN_ID}/artifacts" \
+              --jq 'any(.artifacts[]; .name == "github-pages")' | grep -qx true; then
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "::error::GitHub Pages artifact metadata was not available after 20 seconds."
+          exit 1
 
       - name: Deploy to GitHub Pages
         id: deployment
