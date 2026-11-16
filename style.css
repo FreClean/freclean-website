@@ -927,6 +927,7 @@ p { color: var(--ink-soft); }
 .journal-section .section-heading { display: flex; }
 .journal-actions { display: grid; justify-items: start; gap: .75rem; }
 .journal-grid article { min-height: 220px; }
+.journal-grid-medium { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .journal-grid-page { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .journal-grid-page article { min-height: 260px; }
 .journal-filter { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 2rem; }
