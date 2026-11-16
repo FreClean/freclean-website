@@ -42,10 +42,15 @@ function createCard(network) {
   };
 }
 
-function boot(fetchImplementation, clipboard) {
+function boot(fetchImplementation, clipboard, purpose) {
   const cards = networks.map(([network]) => createCard(network));
   const attributes = {};
   const section = {
+    getAttribute(name) {
+      if (name === 'data-payment-purpose') return purpose === 'donation' ? 'donation' : null;
+      if (name === 'data-address-config') return purpose === 'donation' ? '../payments/payment-addresses.json' : null;
+      return null;
+    },
     querySelectorAll(selector) {
       return selector === '[data-payment-network]' ? cards : [];
     },
@@ -103,6 +108,42 @@ test('loads public addresses and enables address copying', async () => {
   await new Promise((resolve) => setImmediate(resolve));
   assert.deepEqual(clipboardWrites, [networks[0][1]]);
   assert.equal(page.cards[0].copyStatus.textContent, 'Address copied.');
+});
+
+test('loads the shared USDT addresses for donations and enables copying', async () => {
+  let requestUrl;
+  const clipboardWrites = [];
+  const page = boot((url) => {
+    requestUrl = url;
+    return response(paymentOptions);
+  }, {
+    writeText: (address) => {
+      clipboardWrites.push(address);
+      return Promise.resolve();
+    }
+  }, 'donation');
+
+  await new Promise((resolve) => setImmediate(resolve));
+
+  assert.equal(requestUrl, '../payments/payment-addresses.json');
+  assert.deepEqual(page.cards.map((card) => card.address.textContent), networks.map(([, address]) => address));
+  assert.ok(page.cards.every((card) => card.button.disabled === false));
+  assert.match(page.status.textContent, /donation addresses are ready/i);
+
+  page.cards[0].listeners.click();
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.deepEqual(clipboardWrites, [networks[0][1]]);
+});
+
+test('entrepreneurship page offers donations on every supported USDT network', () => {
+  const page = fs.readFileSync(path.join(__dirname, '..', 'entrepreneurship/index.html'), 'utf8');
+
+  assert.match(page, /data-payment-purpose="donation"/);
+  assert.match(page, /data-address-config="\.\.\/payments\/payment-addresses\.json"/);
+  for (const [network] of networks) {
+    assert.match(page, new RegExp(`data-payment-network="${network}"`));
+  }
+  assert.match(page, /USDT only\. Choose the exact network shown for the address/);
 });
 
 test('does not show addresses when the configuration is unavailable or incomplete', async () => {

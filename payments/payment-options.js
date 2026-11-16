@@ -6,14 +6,20 @@
 
   var status = document.querySelector('[data-payment-status]');
   var networks = ['BEP20', 'TRC20', 'SOLANA', 'CELO'];
-  var statusKey = 'pages.payments.loadingAddresses';
+  var isDonation = section.getAttribute('data-payment-purpose') === 'donation';
+  var statusKey = isDonation
+    ? 'pages.entrepreneurship.donationLoadingAddresses'
+    : 'pages.payments.loadingAddresses';
   var copyMessages = [];
   var englishMessages = {
     'pages.payments.loadingAddresses': 'Loading payment addresses...',
     'pages.payments.addressReady': 'USDT addresses are ready. FreClean confirms manual transfers directly.',
     'pages.payments.addressUnavailable': 'Payment addresses are currently unavailable. Please contact FreClean.',
     'pages.payments.addressCopied': 'Address copied.',
-    'pages.payments.copyManually': 'Select the address above to copy it.'
+    'pages.payments.copyManually': 'Select the address above to copy it.',
+    'pages.entrepreneurship.donationLoadingAddresses': 'Loading donation addresses...',
+    'pages.entrepreneurship.donationAddressesReady': 'Donation addresses are ready. Send only USDT on the selected network.',
+    'pages.entrepreneurship.donationAddressesUnavailable': 'Donation addresses are currently unavailable. Please contact FreClean before sending.'
   };
   var translate = function (key) {
     var i18n = window.FRECLEAN_I18N;
@@ -38,7 +44,7 @@
     });
   });
 
-  fetch('payment-addresses.json', {
+  fetch(section.getAttribute('data-address-config') || 'payment-addresses.json', {
     method: 'GET',
     mode: 'cors',
     credentials: 'omit',
@@ -87,9 +93,13 @@
     });
 
     section.setAttribute('aria-busy', 'false');
-    setStatus('pages.payments.addressReady');
+    setStatus(isDonation
+      ? 'pages.entrepreneurship.donationAddressesReady'
+      : 'pages.payments.addressReady');
   }).catch(function () {
     section.setAttribute('aria-busy', 'false');
-    setStatus('pages.payments.addressUnavailable');
+    setStatus(isDonation
+      ? 'pages.entrepreneurship.donationAddressesUnavailable'
+      : 'pages.payments.addressUnavailable');
   });
 })();

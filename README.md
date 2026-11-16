@@ -60,6 +60,8 @@ This repository intentionally does not claim to be a full payment processor, dat
 
 The approved payment options are USDT on BNB Smart Chain (BEP20), TRON (TRC20), Solana, and Celo, plus CeloHT DApp as a separate option. The payment page displays the public receiving addresses in `payments/payment-addresses.json` for manual transfers; FreClean confirms quotes and receipts directly. The website does not create orders or automatically verify or confirm payment. See [PAYMENTS.md](PAYMENTS.md) for the current boundary and verification requirements.
 
+The entrepreneurship page also uses the same public USDT addresses for voluntary donations to support small-business opportunities for families in Haiti. Donations are manual, not automatically verified or represented as tax-deductible, and beneficiary stories require informed consent.
+
 The CeloHT link is `https://app.celoht.com/`. CeloHT is separate from FreClean; a DApp handoff does not confirm settlement or change payment status.
 
 ## Configuration

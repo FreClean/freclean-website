@@ -671,7 +671,18 @@
       "supportSales": "Ede kliyan dekouvri epi achte pwodwi nan ekosistèm FreClean an",
       "guidelines": "Swiv gid FreClean sou pwodwi, mak ak lavant",
       "eligibility": "Pale dirèkteman ak FreClean sou kalifikasyon ak detay pwogram nan",
-      "ask": "Mande enfòmasyon sou afilyasyon ↗"
+      "ask": "Mande enfòmasyon sou afilyasyon ↗",
+      "communitySupport": "Sipò kominotè",
+      "donationsTitle": "Ede fanmi yo bati ti biznis.",
+      "donationsIntro": "Don USDT yo ede FreClean soutni travay k ap ede fanmi ann Ayiti vin pi endepandan ekonomikman epi konbat grangou atravè opòtinite ti biznis.",
+      "fundManagement": "Se fondatè FreClean nan ki jere lajan don yo.",
+      "beneficiaryStories": "FreClean ap pataje yon istwa sou chak fanmi ki resevwa sipò sou Medium sèlman avèk konsantman enfòme fanmi an; san konsantman, nou pap pibliye detay ki ka idantifye fanmi an.",
+      "donateWithUsdt": "Fè don ak USDT",
+      "donationNetworkWarning": "USDT sèlman. Chwazi egzakteman rezo ki ekri pou adrès la. Si w voye yon lòt byen dijital oswa itilize move rezo a, ou ka pèdi lajan an nèt.",
+      "donationLoadingAddresses": "Chajman adrès pou don yo...",
+      "donationAddressesReady": "Adrès don yo pare. Voye USDT sèlman sou rezo ou chwazi a.",
+      "donationAddressesUnavailable": "Adrès don yo pa disponib kounye a. Tanpri kontakte FreClean anvan ou voye lajan.",
+      "donationManual": "Don yo fèt manyèlman; sit la pa verifye transfè yo otomatikman ni bay resi don. Kenbe referans tranzaksyon an. Nou pa prezante don yo kòm lajan ki dediktib sou taks."
     },
     "impact": {
       "metaDescription": "Aprann kijan FreClean konekte espas ki pi pwòp, pwodwi itil ak opòtinite lokal ann Ayiti.",

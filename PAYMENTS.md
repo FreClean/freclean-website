@@ -14,6 +14,12 @@ instructions, not wallet credentials. Transfers are manual: FreClean confirms
 the quote and amount directly, and customers share their transaction reference
 through the contact form.
 
+The same four USDT network addresses are displayed for voluntary donations on
+`/entrepreneurship/`. Donations are manual and not automatically verified or
+represented as tax-deductible; donors should send USDT only on the selected
+network and keep their transaction reference. Beneficiary stories are shared
+only with informed consent, without identifying details otherwise.
+
 The Core API is responsible for independently verifying the selected network,
 official USDT token identifier, recipient, amount, transaction success,
 confirmations/finality, and transaction uniqueness. A customer-submitted hash

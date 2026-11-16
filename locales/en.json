@@ -671,7 +671,18 @@
       "supportSales": "Support product discovery and sales within the FreClean ecosystem",
       "guidelines": "Follow FreClean product, brand and sales guidelines",
       "eligibility": "Discuss eligibility and program details directly with FreClean",
-      "ask": "Ask about affiliate opportunities ↗"
+      "ask": "Ask about affiliate opportunities ↗",
+      "communitySupport": "Community support",
+      "donationsTitle": "Help families build small businesses.",
+      "donationsIntro": "USDT donations support FreClean's work helping families in Haiti build financial independence and reduce hunger through small-business opportunities.",
+      "fundManagement": "The FreClean founder manages donated funds.",
+      "beneficiaryStories": "FreClean will share a Medium story for each supported family only with that family's informed consent; without consent, no identifying details will be published.",
+      "donateWithUsdt": "Donate with USDT",
+      "donationNetworkWarning": "USDT only. Choose the exact network shown for the address. Sending another asset or using the wrong network may result in permanent loss.",
+      "donationLoadingAddresses": "Loading donation addresses...",
+      "donationAddressesReady": "Donation addresses are ready. Send only USDT on the selected network.",
+      "donationAddressesUnavailable": "Donation addresses are currently unavailable. Please contact FreClean before sending.",
+      "donationManual": "Donations are handled manually; the website does not automatically verify transfers or issue donation receipts. Keep your transaction reference. Donations are not represented as tax-deductible."
     },
     "impact": {
       "metaDescription": "Learn how FreClean connects cleaner spaces, useful products and local opportunity in Haiti.",
