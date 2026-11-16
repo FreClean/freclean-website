@@ -147,16 +147,15 @@
       label.textContent = 'Official partnership';
       var message = document.createElement('span');
       message.className = 'footer-partner__message';
-      message.append('CeloHT is the official partner of ');
 
       var link = document.createElement('a');
       link.href = 'https://celoht.com/';
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
-      link.setAttribute('aria-label', 'FreClean, visit CeloHT.com');
-      link.textContent = 'FreClean';
+      link.setAttribute('aria-label', 'Visit CeloHT website');
+      link.textContent = 'CeloHT';
       message.appendChild(link);
-      message.append('.');
+      message.append(' is the official partner of FreClean.');
       copy.append(label, message);
       partnership.append(badge, copy);
       return partnership;
