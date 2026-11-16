@@ -80,7 +80,10 @@ node --test scripts/request-workflow.test.js || fail 'Request workflow tests fai
 # Consent banner and legal center requirements are intentionally enforced for production readiness.
 grep -q 'cookie' script.js || fail 'Cookie consent implementation missing' || true
 
-grep -RniE 'https?://celoht\.com|logo-landscape-1|catalog-portrait-2|catalog-landscape-1' --include='*.html' --include='*.js' --include='*.md' --include='*.json' --include='*.xml' --include='*.txt' --include='*.webmanifest' . >/dev/null && fail 'Prohibited direct CeloHT domain or stale asset reference found' || true
+grep -RniE 'logo-landscape-1|catalog-portrait-2|catalog-landscape-1' --include='*.html' --include='*.js' --include='*.md' --include='*.json' --include='*.xml' --include='*.txt' --include='*.webmanifest' . >/dev/null && fail 'Stale asset reference found' || true
+grep -RniE 'https?://celoht\.com' --include='*.html' --include='*.js' --include='*.md' --include='*.json' --include='*.xml' --include='*.txt' --include='*.webmanifest' --exclude='script.js' . >/dev/null && fail 'Unapproved direct CeloHT domain found' || true
+[ "$(grep -oE 'https?://celoht\.com' script.js | wc -l)" -eq 1 ] || fail 'Unexpected direct CeloHT domain references in JavaScript'
+grep -q "link.href = 'https://celoht.com/';" script.js || fail 'Approved CeloHT partnership link is missing'
 grep -RniE 'service_role|SUPABASE_SERVICE_ROLE|sk_live_|private_key|BEGIN PRIVATE KEY' --exclude-dir=.git --exclude='validate-site.sh' . >/dev/null && fail 'Possible protected secret found in repository' || true
 grep -q 'renderHeader\|renderFooter\|setupImages' script.js && fail 'Runtime UI or asset patch remains' || true
 grep -RnE 'Booking confirmed|Message sent|Your message was sent' --include='*.html' --include='*.js' --exclude='validate-site.sh' . >/dev/null && fail 'Fake confirmation state found' || true
