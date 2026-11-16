@@ -1,6 +1,8 @@
 (function () {
   'use strict';
 
+  var supportedLanguages = ['en', 'ht', 'es', 'pt'];
+
   function safeStorageGet() {
     try {
       return JSON.parse(window.localStorage.getItem('freclean_cookie_consent_v1') || 'null');
@@ -20,7 +22,8 @@
 
   function safeLanguageGet() {
     try {
-      return window.localStorage.getItem('freclean_language') === 'ht' ? 'ht' : 'en';
+      var language = window.localStorage.getItem('freclean_language');
+      return supportedLanguages.indexOf(language) !== -1 ? language : 'en';
     } catch (error) {
       return 'en';
     }
@@ -40,8 +43,14 @@
     if (!navigation || navigation.querySelector('[data-language-switcher]')) return;
 
     var language = safeLanguageGet();
-    var dictionaries = { en: {}, ht: {} };
-    var sourceIndexes = { en: Object.create(null), ht: Object.create(null) };
+    var dictionaries = { en: {}, ht: {}, es: {}, pt: {} };
+    var sourceIndexes = { en: Object.create(null), ht: Object.create(null), es: Object.create(null), pt: Object.create(null) };
+    var languageMetadata = {
+      en: { html: 'en', openGraph: 'en_HT' },
+      ht: { html: 'ht', openGraph: 'ht_HT' },
+      es: { html: 'es-419', openGraph: 'es_419' },
+      pt: { html: 'pt-BR', openGraph: 'pt_BR' }
+    };
     var textRecords = new WeakMap();
     var attributeRecords = new WeakMap();
     var validationFields = new Set();
@@ -80,7 +89,7 @@
       var source = normalize(value);
       var localeKey = sourceIndexes[locale][source];
       if (localeKey) return localeKey;
-      return sourceIndexes[locale === 'en' ? 'ht' : 'en'][source] || '';
+      return sourceIndexes.en[source] || '';
     }
 
     function translateTextNode(node) {
@@ -135,6 +144,8 @@
       switcher.querySelectorAll('[data-language]').forEach(function (button) {
         button.setAttribute('aria-pressed', String(button.dataset.language === language));
       });
+      var switcherLabel = t('common.nav.chooseLanguage');
+      if (switcherLabel) switcher.setAttribute('aria-label', switcherLabel);
     }
 
     function translateStructuredData() {
@@ -161,12 +172,12 @@
     }
 
     function activate(nextLanguage) {
-      if (nextLanguage !== 'en' && nextLanguage !== 'ht') return;
+      if (supportedLanguages.indexOf(nextLanguage) === -1) return;
       language = nextLanguage;
       safeLanguageSet(language);
-      document.documentElement.lang = language;
+      document.documentElement.lang = languageMetadata[language].html;
       var socialLocale = document.querySelector('meta[property="og:locale"]');
-      if (socialLocale) socialLocale.content = language === 'ht' ? 'ht_HT' : 'en_HT';
+      if (socialLocale) socialLocale.content = languageMetadata[language].openGraph;
       if (translationsReady) translateStructuredData();
       translateTree(document.documentElement);
       validationFields.forEach(function (field) { field.setCustomValidity(t('common.forms.genericValidation')); });
@@ -179,7 +190,7 @@
     switcher.dataset.languageSwitcher = 'true';
     switcher.setAttribute('role', 'group');
     switcher.setAttribute('aria-label', 'Choose language');
-    switcher.innerHTML = '<button type="button" data-language="en" aria-label="Switch to English">🇺🇸 EN</button><button type="button" data-language="ht" aria-label="Switch to Haitian Creole">🇭🇹 Kreyòl</button>';
+    switcher.innerHTML = '<button type="button" data-language="en" aria-label="English">🇺🇸 EN</button><button type="button" data-language="ht" aria-label="Kreyòl">🇭🇹 Kreyòl</button><button type="button" data-language="es" aria-label="Español">🇪🇸 ES</button><button type="button" data-language="pt" aria-label="Português">🇧🇷 PT</button>';
     navigation.appendChild(switcher);
     switcher.addEventListener('click', function (event) {
       var button = event.target.closest('[data-language]');
@@ -187,17 +198,22 @@
     });
 
     window.FRECLEAN_I18N = { t: t, ready: function () { return translationsReady; }, setLanguage: activate, getLanguage: function () { return language; } };
-    Promise.all([
-      fetch('/locales/en.json').then(function (response) { if (!response.ok) throw new Error('English catalog unavailable'); return response.json(); }),
-      fetch('/locales/ht.json').then(function (response) { if (!response.ok) throw new Error('Haitian Creole catalog unavailable'); return response.json(); })
-    ]).then(function (catalogs) {
-      dictionaries.en = flatten(catalogs[0], '', {});
-      dictionaries.ht = flatten(catalogs[1], '', {});
-      indexDictionary('en');
-      indexDictionary('ht');
-      if (Object.keys(dictionaries.en).length !== Object.keys(dictionaries.ht).length || Object.keys(dictionaries.en).some(function (key) { return !Object.prototype.hasOwnProperty.call(dictionaries.ht, key); })) {
-        console.error('FreClean i18n catalogs have different keys.');
-      }
+    Promise.all(supportedLanguages.map(function (locale) {
+      return fetch('/locales/' + locale + '.json').then(function (response) {
+        if (!response.ok) throw new Error(locale + ' translation catalog unavailable');
+        return response.json();
+      });
+    })).then(function (catalogs) {
+      supportedLanguages.forEach(function (locale, index) {
+        dictionaries[locale] = flatten(catalogs[index], '', {});
+        indexDictionary(locale);
+      });
+      var englishKeys = Object.keys(dictionaries.en);
+      supportedLanguages.slice(1).forEach(function (locale) {
+        if (englishKeys.length !== Object.keys(dictionaries[locale]).length || englishKeys.some(function (key) { return !Object.prototype.hasOwnProperty.call(dictionaries[locale], key); })) {
+          console.error('FreClean i18n catalog has different keys:', locale);
+        }
+      });
       translationsReady = true;
       document.addEventListener('invalid', function (event) {
         var field = event.target;
@@ -226,7 +242,7 @@
       console.error('FreClean language catalogs could not be loaded.', error);
       language = 'en';
       safeLanguageSet(language);
-      document.documentElement.lang = language;
+      document.documentElement.lang = languageMetadata[language].html;
       updateSwitcher();
     });
   }

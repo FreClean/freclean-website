@@ -104,7 +104,7 @@ Do not place any secret value in `.env.example`, GitHub Pages JavaScript, HTML, 
 ### Internationalization
 
 - **Exact dependency:** Translation and locale catalogs if multilingual operation is required.
-- **Why required:** Navigation, forms, validation, and notification consistency for English, Spanish, French, and Haitian Creole.
+- **Why required:** Navigation, forms, validation, and notification consistency for English, Spanish, Brazilian Portuguese, French, and Haitian Creole.
 - **Configure:** Static locale resources in this repository plus server notification locale support in Core.
 - **Credentials:** None.
 - **Verify:** Native-language review by qualified reviewers and browser rendering checks.
@@ -152,7 +152,7 @@ Do not place any secret value in `.env.example`, GitHub Pages JavaScript, HTML, 
 1. Product/SKU/inventory/customer/order schemas and administration.
 2. Booking, delivery, cancellation, refund, and status workflows.
 3. USDT token-identifier verification, all-network provider tests, duplicate transaction protection, and an authenticated website checkout before activation.
-4. English, Spanish, French, and Haitian Creole catalogs and notification templates.
+4. English, Spanish, Brazilian Portuguese, French, and Haitian Creole catalogs and notification templates.
 
 ### P3: Website continuity
 

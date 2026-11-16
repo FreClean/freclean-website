@@ -33,9 +33,7 @@
       "closeMenu": "Close navigation menu",
       "closeNavigation": "Close navigation",
       "primary": "Primary navigation",
-      "chooseLanguage": "Choose language",
-      "switchEnglish": "Switch to English",
-      "switchCreole": "Switch to Haitian Creole"
+      "chooseLanguage": "Choose language"
     },
     "footer": {
       "explore": "Explore",

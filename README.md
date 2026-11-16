@@ -92,9 +92,9 @@ GitHub Pages deploys from `main` through `.github/workflows/pages.yml`. The work
 
 ## Languages
 
-The public site supports English (`en`, default) and Haitian Creole (`ht`). The shared `script.js` adds the language selector to the existing navigation, saves the selection as `freclean_language`, and switches text, accessibility labels and supported SEO metadata without reloading or changing routes. Booking and contact field values remain stable while labels change.
+The public site supports English (`en`, default), Haitian Creole (`ht`), Latin American Spanish (`es`), and Brazilian Portuguese (`pt`). The shared `script.js` adds the language selector to the existing navigation, saves the selection as `freclean_language`, and switches text, accessibility labels and supported SEO metadata without reloading or changing routes. Booking and contact field values remain stable while labels change.
 
-Maintain matching namespaces and keys in `locales/en.json` and `locales/ht.json`. Static HTML copy is indexed against the English catalog; dynamic interface copy uses the shared `window.FRECLEAN_I18N.t(key)` function. Keep English source text in the catalog aligned with the HTML or script string it translates. Run `npm run audit:i18n` after changing copy; the same audit is part of `scripts/validate-site.sh` and therefore blocks an incomplete Pages deployment.
+Maintain matching namespaces and keys across `locales/en.json`, `locales/ht.json`, `locales/es.json`, and `locales/pt.json`. Static HTML copy is indexed against the English catalog; dynamic interface copy uses the shared `window.FRECLEAN_I18N.t(key)` function. Keep English source text in the catalog aligned with the HTML or script string it translates. Run `npm run audit:i18n` after changing copy; the same audit is part of `scripts/validate-site.sh` and therefore blocks an incomplete Pages deployment.
 
 ## Production Integration Documentation
 

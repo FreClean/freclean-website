@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Audit bilingual catalog parity and static HTML coverage."""
+"""Audit translation catalog parity and static HTML coverage."""
 
 import json
 import re
@@ -10,6 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 LOCALES = ROOT / "locales"
+TARGET_LOCALES = {"ht": "Haitian Creole", "es": "Spanish", "pt": "Brazilian Portuguese"}
 SKIP_TAGS = {"script", "style", "noscript"}
 TEXT_ATTRIBUTES = {"alt", "aria-label", "placeholder", "title"}
 META_CONTENT = {
@@ -177,16 +178,28 @@ class CopyParser(HTMLParser):
 def main():
     try:
         english = flatten(json.loads((LOCALES / "en.json").read_text(encoding="utf-8")))
-        creole = flatten(json.loads((LOCALES / "ht.json").read_text(encoding="utf-8")))
+        catalogs = {
+            locale: flatten(json.loads((LOCALES / f"{locale}.json").read_text(encoding="utf-8")))
+            for locale in TARGET_LOCALES
+        }
     except (OSError, json.JSONDecodeError, ValueError) as error:
         print(f"Cannot load translation catalogs: {error}", file=sys.stderr)
         return 2
 
     english_keys = set(english)
-    creole_keys = set(creole)
-    missing_keys = sorted(english_keys - creole_keys)
-    extra_keys = sorted(creole_keys - english_keys)
-    empty_values = sorted(key for key in english_keys & creole_keys if not english[key].strip() or not creole[key].strip())
+    catalog_key_errors = {}
+    empty_values = []
+    for locale, catalog in catalogs.items():
+        catalog_keys = set(catalog)
+        missing_keys = sorted(english_keys - catalog_keys)
+        extra_keys = sorted(catalog_keys - english_keys)
+        if missing_keys or extra_keys:
+            catalog_key_errors[locale] = (missing_keys, extra_keys)
+        empty_values.extend(
+            f"{locale}.{key}"
+            for key in english_keys & catalog_keys
+            if not english[key].strip() or not catalog[key].strip()
+        )
 
     source_copy = set()
     for page in sorted(ROOT.rglob("*.html")):
@@ -197,6 +210,10 @@ def main():
     script_source = (ROOT / "script.js").read_text(encoding="utf-8")
     payment_script_source = (ROOT / "payments" / "payment-options.js").read_text(encoding="utf-8")
     all_script_source = script_source + payment_script_source
+    expected_locales = {"en", *TARGET_LOCALES}
+    language_list = re.search(r"var supportedLanguages = \[([^\]]+)\];", script_source)
+    configured_locales = set(re.findall(r"'([a-z]{2})'", language_list.group(1))) if language_list else set()
+    switcher_locales = set(re.findall(r'data-language="([a-z]{2})"', script_source))
     source_copy.update(DYNAMIC_COPY)
     source_copy.update(value for value in english.values() if value in all_script_source)
     source_copy.update(english[key] for key in DYNAMIC_KEYS if key in english and key in all_script_source)
@@ -205,11 +222,28 @@ def main():
     unused_keys = sorted(key for key, value in english.items() if value not in source_copy)
     missing_dynamic_source = sorted(value for value in DYNAMIC_COPY if value not in all_script_source)
 
-    print(f"Catalog keys: en={len(english_keys)}, ht={len(creole_keys)}")
+    counts = ", ".join(f"{locale}={len(catalog)}" for locale, catalog in {"en": english, **catalogs}.items())
+    print(f"Catalog keys: {counts}")
     print(f"Static/dynamic source strings: {len(source_copy)}")
+    locale_config_valid = configured_locales == expected_locales and switcher_locales == expected_locales
+    if not locale_config_valid:
+        print(
+            "Language selector configuration does not match the catalogs: "
+            f"supported={sorted(configured_locales)}, buttons={sorted(switcher_locales)}, "
+            f"catalogs={sorted(expected_locales)}"
+        )
+    errors = []
+    for locale, (missing_keys, extra_keys) in catalog_key_errors.items():
+        errors.extend((missing_keys, extra_keys))
+        if missing_keys:
+            print(f"Missing {TARGET_LOCALES[locale]} keys ({len(missing_keys)}):")
+            for key in missing_keys:
+                print(f"  {key}")
+        if extra_keys:
+            print(f"Extra {TARGET_LOCALES[locale]} keys ({len(extra_keys)}):")
+            for key in extra_keys:
+                print(f"  {key}")
     for heading, values in (
-        ("Missing Haitian Creole keys", missing_keys),
-        ("Extra Haitian Creole keys", extra_keys),
         ("Empty translations", empty_values),
         ("Uncatalogued HTML or script strings", missing_copy),
         ("Dynamic audit literals absent from script.js", missing_dynamic_source),
@@ -220,7 +254,8 @@ def main():
             for value in values:
                 print(f"  {value}")
 
-    return 1 if missing_keys or extra_keys or empty_values or missing_copy or unused_keys or missing_dynamic_source else 0
+    errors.extend((empty_values, missing_copy, unused_keys, missing_dynamic_source))
+    return 1 if any(errors) or not locale_config_valid else 0
 
 
 if __name__ == "__main__":
