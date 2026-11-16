@@ -344,6 +344,11 @@ test('payment choices are restricted to the four USDT networks and separate Celo
   assert.match(paymentPage, /payment-options\.js/);
   assert.doesNotMatch(paymentPage, /permanent loss of funds|does not initiate checkout or display receiving addresses/i);
   assert.match(paymentPage, /href="https:\/\/app\.celoht\.com\/" target="_blank" rel="noopener noreferrer"/);
+  assert.match(paymentPage, /Cash at physical points of sale/);
+  assert.match(paymentPage, /accepted only in person.*authorized physical points of sale.*not available online or remotely/s);
+  assert.match(paymentPage, /not confirmed bookings, purchases or payments/);
+  assert.match(paymentPage, /class="cash-pos-illustration"[^>]*role="img"[^>]*aria-label="Illustration of a woman selling FreClean products"/);
+  assert.match(paymentPage, /class="button button-primary" href="\.\.\/contact\/">Contact FreClean/);
   assert.match(bookingPage, /href="\.\.\/payments\/">View payment options/);
   assert.doesNotMatch(bookingPage, /permanent loss of funds/i);
   assert.match(bookingPage, /href="https:\/\/app\.celoht\.com\/" target="_blank" rel="noopener noreferrer"/);

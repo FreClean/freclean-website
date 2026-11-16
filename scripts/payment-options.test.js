@@ -144,6 +144,13 @@ test('entrepreneurship page offers donations on every supported USDT network', (
     assert.match(page, new RegExp(`data-payment-network="${network}"`));
   }
   assert.match(page, /USDT only\. Choose the exact network shown for the address/);
+  assert.match(page, /USDT Contributions/);
+  assert.match(page, /Cash Contributions/);
+  assert.match(page, /Western Union/);
+  assert.match(page, /MoneyGram/);
+  assert.match(page, /href="mailto:contact@freclean\.com"/);
+  assert.match(page, /Our team will manually review and confirm contributions/);
+  assert.match(page, /Donor identities and the personal information of supported families will remain private/);
 });
 
 test('does not show addresses when the configuration is unavailable or incomplete', async () => {
