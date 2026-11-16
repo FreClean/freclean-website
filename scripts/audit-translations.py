@@ -63,7 +63,7 @@ DYNAMIC_COPY = (
     "Try services, products or booking",
     "No matching page found. Try a broader search.",
     "Home",
-    "FreClean cleaning services and products in Leogane, Haiti",
+    "FreClean cleaning services and products",
     "Services",
     "Residential, commercial, hospitality and specialized cleaning",
     "Residential cleaning",
@@ -78,7 +78,7 @@ DYNAMIC_COPY = (
     "Cleaning essentials and fragrance products",
     "Business",
     "Cleaning plans for properties and working spaces",
-    "Book a service",
+    "Request a service",
     "Request a service and share your requirements",
     "Contact FreClean",
     "Send an enquiry to the FreClean team",
@@ -96,11 +96,6 @@ DYNAMIC_COPY = (
     "for a",
     ". FreClean will confirm the exact scope, availability and payment terms.",
     "FreClean uses this size range to prepare the requested quote, availability and service details.",
-    "Loading payment addresses...",
-    "USDT addresses are ready. FreClean confirms manual transfers directly.",
-    "Payment addresses are currently unavailable. Please contact FreClean.",
-    "Address copied.",
-    "Select the address above to copy it.",
 )
 DYNAMIC_KEYS = ("common.forms.genericValidation",)
 
@@ -208,8 +203,7 @@ def main():
         source_copy.update(parser.copy)
 
     script_source = (ROOT / "script.js").read_text(encoding="utf-8")
-    payment_script_source = (ROOT / "payments" / "payment-options.js").read_text(encoding="utf-8")
-    all_script_source = script_source + payment_script_source
+    all_script_source = script_source
     expected_locales = {"en", *TARGET_LOCALES}
     language_list = re.search(r"var supportedLanguages = \[([^\]]+)\];", script_source)
     configured_locales = set(re.findall(r"'([a-z]{2})'", language_list.group(1))) if language_list else set()

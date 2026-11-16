@@ -1,6 +1,6 @@
 # Production Enhancement Roadmap
 
-This website now includes accessible site search, mobile-friendly request flows, explicit form loading and confirmation states, reduced-motion support, cache-busted shared assets, lazy image defaults, internal navigation prefetching, Haiti location metadata, and structured service data based only on verified business information.
+This website includes accessible site search, mobile-friendly request flows, explicit form loading and enquiry-receipt states, reduced-motion support, cache-busted shared assets, lazy image defaults, internal navigation prefetching, and structured service data without unverified location or coverage claims.
 
 The following capabilities require the Core/Render/Supabase owner environment and are not represented as active website features:
 

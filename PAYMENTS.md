@@ -1,33 +1,30 @@
 # Payments
 
-FreClean's approved payment options are:
+FreClean's approved payment policy has three categories:
 
-- USDT on BNB Smart Chain (BEP20)
-- USDT on TRON (TRC20)
-- USDT on Solana
-- USDT on Celo
-- CeloHT DApp as a separate payment option
+1. **USDT** only on a network that is independently verified and specifically
+   confirmed by FreClean for a transaction. The website has no public USDT
+   checkout or receiving-address display. `payments/payment-addresses.json`
+   remains explicitly disabled and contains no networks or addresses. No
+   network is available for public self-service payment until Core production
+   configuration, token identifiers, recipient ownership, and verification
+   have been confirmed.
+2. **CeloHT route** as an independent external ecosystem. CeloHT is not owned
+   or operated by FreClean. A link to its DApp is an external handoff only;
+   redirect, customer-provided transaction references, and frontend messages
+   do not verify settlement or confirm an order.
+3. **Cash** exclusively in person at FreClean-authorized physical points of
+   sale. The website does not list a verified point-of-sale location, and cash
+   is not an online or remote payment option.
 
-The payment page loads the public receiving addresses from
-`payments/payment-addresses.json`. These addresses are public payment
-instructions, not wallet credentials. Transfers are manual: FreClean confirms
-the quote and amount directly, and customers share their transaction reference
-through the contact form.
+The website's `/book/` form submits a service enquiry only. It does not collect
+a payment method, create a confirmed booking, process checkout, or change
+payment status. Product enquiries likewise are not confirmed orders. FreClean
+confirms scope, availability, pricing, and approved payment instructions
+directly.
 
-The same four USDT network addresses are displayed for voluntary donations on
-`/entrepreneurship/`. Donations are manual and not automatically verified or
-represented as tax-deductible; donors should send USDT only on the selected
-network and keep their transaction reference. Beneficiary stories are shared
-only with informed consent, without identifying details otherwise.
-
-The Core API is responsible for independently verifying the selected network,
-official USDT token identifier, recipient, amount, transaction success,
-confirmations/finality, and transaction uniqueness. A customer-submitted hash
-never confirms payment by itself. Manual transfers are not automatically
-associated with an order or marked paid. CeloHT remains separate from USDT; a
-DApp handoff does not confirm settlement.
-
-The current website does not provide authenticated checkout, order creation,
-payment submission, or payment status. Automated USDT verification remains
-disabled until production RPC configuration, authoritative token identifiers,
-wallet ownership, and payment notifications have been verified.
+The Core repository contains code-level USDT adapters, but that does not make
+any network production-enabled or publicly available. See the Core
+[`docs/payments.md`](https://github.com/FreClean/FreClean/blob/main/docs/payments.md)
+for adapter-level details and production blockers. No transaction or
+production configuration was changed as part of this audit.

@@ -129,45 +129,10 @@
       return group;
     }
 
-    function createFooterPartnership() {
-      var partnership = document.createElement('div');
-      partnership.className = 'footer-partner';
-
-      var badge = document.createElement('img');
-      badge.className = 'footer-partner__badge';
-      badge.src = '/assets/celoht-logo.png';
-      badge.alt = 'CeloHT official logo';
-      badge.width = 48;
-      badge.height = 48;
-
-      var copy = document.createElement('p');
-      copy.className = 'footer-partner__copy';
-      var label = document.createElement('span');
-      label.className = 'footer-partner__label';
-      label.textContent = 'Official partnership';
-      var message = document.createElement('span');
-      message.className = 'footer-partner__message';
-
-      var link = document.createElement('a');
-      link.href = 'https://celoht.com/';
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-      link.setAttribute('aria-label', 'Visit CeloHT website');
-      link.textContent = 'CeloHT';
-      message.appendChild(link);
-      message.append(' is the official partner of FreClean.');
-      copy.append(label, message);
-      partnership.append(badge, copy);
-      return partnership;
-    }
-
     var footer = document.querySelector('.site-footer .footer-main');
     if (footer) {
       if (!footer.querySelector('.social-links--footer')) {
         footer.appendChild(createSocialGroup('footer'));
-      }
-      if (!footer.querySelector('.footer-partner')) {
-        footer.appendChild(createFooterPartnership());
       }
     }
 
@@ -763,7 +728,7 @@
       : null;
     if (reducedMotionQuery && reducedMotionQuery.matches) return;
 
-    var selectors = '.hero-copy > *, .hero-media, .intro-grid > *, .services-intro > *, .service-feature, .service-row, .split-section > *, .business-heading, .business-copy, .entrepreneurship-grid > *, .payments-section > *, .process-grid > div, .journal-grid article, .partnership-cta-inner > *, .final-cta-inner > *, .affiliate-section .detail-layout > *, .donation-intro__copy, .donation-transparency__item, .donation-giving, .payment-address-card';
+    var selectors = '.hero-copy > *, .hero-media, .intro-grid > *, .services-intro > *, .service-feature, .service-row, .split-section > *, .business-heading, .business-copy, .entrepreneurship-grid > *, .payments-section > *, .process-grid > div, .journal-grid article, .partnership-cta-inner > *, .final-cta-inner > *, .affiliate-section .detail-layout > *';
     var elements = Array.from(document.querySelectorAll(selectors));
 
     if (!('IntersectionObserver' in window)) {
@@ -848,7 +813,7 @@
     if (!navigation || navigation.querySelector('[data-site-search-trigger]')) return;
 
     var pages = [
-      ['common.nav.home', '/', 'common.search.homeDescription', 'Home', 'FreClean cleaning services and products in Leogane, Haiti'],
+      ['common.nav.home', '/', 'common.search.homeDescription', 'Home', 'FreClean cleaning services and products'],
       ['common.nav.services', '/services/', 'common.search.servicesDescription', 'Services', 'Residential, commercial, hospitality and specialized cleaning'],
       ['common.search.residential', '/services/residential/', 'common.search.residentialDescription', 'Residential cleaning', 'Cleaning for homes and apartments'],
       ['common.search.commercial', '/services/commercial/', 'common.search.commercialDescription', 'Commercial cleaning', 'Cleaning for offices, retail and businesses'],
@@ -856,7 +821,7 @@
       ['common.search.specialized', '/services/specialized/', 'common.search.specializedDescription', 'Specialized cleaning', 'Deep cleaning and tailored projects'],
       ['common.nav.products', '/products/', 'common.search.productsDescription', 'Products', 'Cleaning essentials and fragrance products'],
       ['common.nav.business', '/business/', 'common.search.businessDescription', 'Business', 'Cleaning plans for properties and working spaces'],
-      ['common.search.bookService', '/book/', 'common.search.bookDescription', 'Book a service', 'Request a service and share your requirements'],
+      ['common.search.bookService', '/book/', 'common.search.bookDescription', 'Request a service', 'Request a service and share your requirements'],
       ['common.search.contactFreclean', '/contact/', 'common.search.contactDescription', 'Contact FreClean', 'Send an enquiry to the FreClean team'],
       ['common.search.aboutFreclean', '/about/', 'common.search.aboutDescription', 'About FreClean', 'Company information and local roots'],
       ['common.nav.resources', '/resources/', 'common.search.resourcesDescription', 'Resources', 'Practical resources for cleaner spaces'],
@@ -985,7 +950,7 @@
     var renderReview = function () {
       if (!review) return;
       review.textContent = '';
-      [['Service', value('booking-service')], ['Property', value('booking-property')], ['Date', value('booking-date')], ['Time', value('booking-time')], ['Name', value('booking-name')], ['Email', value('booking-email')], ['Location', value('booking-location')], ['Payment', (form.querySelector('input[name="payment_method"]:checked') || {}).value || '']].forEach(function (entry) {
+      [['Service', value('booking-service')], ['Property', value('booking-property')], ['Date', value('booking-date')], ['Time', value('booking-time')], ['Name', value('booking-name')], ['Email', value('booking-email')], ['Location', value('booking-location')]].forEach(function (entry) {
         var term = document.createElement('dt');
         var description = document.createElement('dd');
         description.dataset.i18nSkip = 'true';
@@ -1027,23 +992,6 @@
 
     if (next) next.addEventListener('click', function () { if (valid()) showStep(Math.min(current + 1, steps.length - 1)); });
     if (back) back.addEventListener('click', function () { showStep(Math.max(current - 1, 0)); });
-    form.querySelectorAll('input[name="payment_method"]').forEach(function (choice) {
-      choice.addEventListener('change', function () {
-        var link = form.querySelector('[data-celo-link]');
-        if (!link) return;
-        link.hidden = choice.value !== 'CELOHT_DAPP';
-        var celoUrl = 'https://app.celoht.com/';
-        try {
-          var configuredCeloUrl = new URL(window.FRECLEAN_CELOHT_DAPP_URL || celoUrl);
-          if (configuredCeloUrl.origin === 'https://app.celoht.com' && configuredCeloUrl.pathname === '/' && !configuredCeloUrl.search && !configuredCeloUrl.hash && !configuredCeloUrl.username && !configuredCeloUrl.password) {
-            celoUrl = configuredCeloUrl.href;
-          }
-        } catch (error) {
-          celoUrl = 'https://app.celoht.com/';
-        }
-        link.href = celoUrl;
-      });
-    });
     showStep(0);
   }
 
