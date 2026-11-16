@@ -677,6 +677,22 @@ form,
   }
 }
 
+.nav-donate {
+  gap: .45rem;
+}
+
+.nav-donate__logo {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+#donations-title {
+  scroll-margin-top: calc(var(--header-height) + 1rem);
+}
+
 @media (max-width: 760px) {
   .hero {
     grid-template-columns: 1fr;
