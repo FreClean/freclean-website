@@ -214,6 +214,11 @@ def main():
     language_list = re.search(r"var supportedLanguages = \[([^\]]+)\];", script_source)
     configured_locales = set(re.findall(r"'([a-z]{2})'", language_list.group(1))) if language_list else set()
     switcher_locales = set(re.findall(r'data-language="([a-z]{2})"', script_source))
+    whatsapp_chat_valid = (
+        "https://wa.me/18294474881" in script_source
+        and "data-whatsapp-chat" in script_source
+        and english.get("common.whatsappChat") == "Chat with FreClean on WhatsApp"
+    )
     source_copy.update(DYNAMIC_COPY)
     source_copy.update(value for value in english.values() if value in all_script_source)
     source_copy.update(english[key] for key in DYNAMIC_KEYS if key in english and key in all_script_source)
@@ -232,6 +237,8 @@ def main():
             f"supported={sorted(configured_locales)}, buttons={sorted(switcher_locales)}, "
             f"catalogs={sorted(expected_locales)}"
         )
+    if not whatsapp_chat_valid:
+        print("WhatsApp chat link or translated label is missing.")
     errors = []
     for locale, (missing_keys, extra_keys) in catalog_key_errors.items():
         errors.extend((missing_keys, extra_keys))
@@ -255,7 +262,7 @@ def main():
                 print(f"  {value}")
 
     errors.extend((empty_values, missing_copy, unused_keys, missing_dynamic_source))
-    return 1 if any(errors) or not locale_config_valid else 0
+    return 1 if any(errors) or not locale_config_valid or not whatsapp_chat_valid else 0
 
 
 if __name__ == "__main__":

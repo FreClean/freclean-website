@@ -768,6 +768,11 @@ form,
   box-shadow: 0 26px 60px rgba(16, 47, 61, .22);
 }
 .cookie-banner[hidden] { display: none; }
+.whatsapp-chat { position: fixed; right: max(1.25rem, env(safe-area-inset-right, 0px)); bottom: max(1.25rem, env(safe-area-inset-bottom, 0px)); z-index: 110; display: inline-flex; align-items: center; gap: .65rem; min-height: 56px; padding: .8rem 1.1rem; border: 0; border-radius: 999px; background: #128c7e; box-shadow: 0 12px 28px rgba(16, 47, 61, .22); color: #fff; font-size: .9rem; font-weight: 800; line-height: 1.25; text-decoration: none; transition: background-color .18s ease, box-shadow .18s ease, transform .18s ease; }
+.whatsapp-chat:hover { background: #075e54; box-shadow: 0 15px 32px rgba(16, 47, 61, .28); transform: translateY(-2px); }
+.whatsapp-chat svg { display: block; flex: 0 0 28px; width: 28px; height: 28px; }
+.whatsapp-chat span { white-space: nowrap; }
+body.menu-open .whatsapp-chat { visibility: hidden; }
 .cookie-banner__inner { display: grid; gap: 1rem; padding: 1.25rem; }
 .cookie-banner__title { margin: 0 0 .35rem; color: var(--white); font-weight: 800; letter-spacing: .05em; text-transform: uppercase; font-size: .72rem; }
 .cookie-banner__copy p { margin: 0; color: rgba(255,255,255,.82); }
@@ -793,6 +798,7 @@ form,
 .cookie-banner__meta a { display: inline-flex; color: var(--lime); }
 
 @media (max-width: 480px) {
+  .whatsapp-chat { right: max(.75rem, env(safe-area-inset-right, 0px)); min-height: 52px; padding: .7rem .9rem; font-size: .82rem; }
   .cookie-banner {
     right: .75rem;
     bottom: .75rem;

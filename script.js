@@ -321,6 +321,45 @@
     }
   }
 
+  function setupWhatsAppChat() {
+    if (!document.body || !document.querySelector('#primary-nav') || document.querySelector('[data-whatsapp-chat]')) return;
+
+    var link = document.createElement('a');
+    link.className = 'whatsapp-chat';
+    link.href = 'https://wa.me/18294474881';
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.setAttribute('data-whatsapp-chat', 'true');
+    link.setAttribute('aria-label', 'Chat with FreClean on WhatsApp');
+    link.innerHTML = '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M16 4a11.5 11.5 0 0 0-9.9 17.4L5 27l5.8-1.5A11.5 11.5 0 1 0 16 4Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/><path d="M11 9.5c1-.7 2.2-.2 2.8 1l1 2.1c.4.8.2 1.7-.5 2.2l-.8.6a11.2 11.2 0 0 0 3.2 3.2l.6-.8c.5-.7 1.4-.9 2.2-.5l2.1 1c1.2.6 1.7 1.8 1 2.8l-.6.8c-.8 1.1-2.2 1.6-3.5 1.1-5.8-2.1-9.9-6.2-12-12-.5-1.3 0-2.7 1.1-3.5l.8-.6Z" fill="currentColor"/></svg><span>Chat with FreClean on WhatsApp</span>';
+    document.body.appendChild(link);
+
+    var cookieBanner = document.querySelector('[data-cookie-banner]');
+    if (!cookieBanner) return;
+
+    var updatePosition = function () {
+      if (cookieBanner.hidden) {
+        link.style.bottom = '';
+        return;
+      }
+      var clearBottom = window.innerHeight - cookieBanner.getBoundingClientRect().top + 16;
+      var visibleBottom = Math.max(16, window.innerHeight - link.offsetHeight - 16);
+      link.style.bottom = Math.min(clearBottom, visibleBottom) + 'px';
+    };
+
+    window.addEventListener('resize', updatePosition);
+    if (typeof MutationObserver === 'function') {
+      new MutationObserver(updatePosition).observe(cookieBanner, {
+        attributes: true,
+        attributeFilter: ['hidden'],
+        childList: true,
+        characterData: true,
+        subtree: true
+      });
+    }
+    updatePosition();
+  }
+
   function setupMenu() {
     var toggle = document.querySelector('.menu-toggle');
     var navigation = document.querySelector('#primary-nav');
@@ -871,6 +910,7 @@
 
   setupCookieConsent();
   setupLanguage();
+  setupWhatsAppChat();
   setupMenu();
   setupForms();
   setupSiteSearch();
