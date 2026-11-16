@@ -931,6 +931,7 @@ p { color: var(--ink-soft); }
 .process-grid p, .journal-grid p { font-size: .92rem; }
 .journal-section { display: block; }
 .journal-section .section-heading { display: flex; }
+.journal-actions { display: grid; justify-items: start; gap: .75rem; }
 .journal-grid article { min-height: 220px; }
 .journal-grid-page { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .journal-grid-page article { min-height: 260px; }
