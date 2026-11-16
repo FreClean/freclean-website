@@ -292,6 +292,12 @@ button[aria-busy="true"]::after { width: 1em; height: 1em; border: 2px solid cur
 .social-links__icon { display: block; width: 1.35rem; height: 1.35rem; flex: 0 0 auto; }
 .social-links__icon--linkedin { color: #0A66C2; }
 .social-links__icon--tiktok { padding: .08rem; border-radius: 50%; background: #fff; }
+.footer-partner { grid-column: 1 / -1; display: flex; align-items: center; gap: 1rem; margin-top: .5rem; padding: 1rem 1.2rem; border: 1px solid rgba(255,255,255,.16); border-radius: 1rem; background: linear-gradient(110deg, rgba(255,255,255,.08), rgba(255,255,255,.025)); }
+.footer-partner__badge { display: grid; width: 2.8rem; height: 2.8rem; flex: 0 0 auto; place-items: center; border-radius: .85rem; background: var(--lime); color: var(--ink); font-size: .85rem; font-weight: 800; letter-spacing: .04em; }
+.footer-partner__copy { display: grid; gap: .2rem; margin: 0; }
+.footer-partner__label { color: var(--lime); font-size: .68rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.footer-partner__message { color: #f5fbfa; font-size: .95rem; }
+.footer-partner__message a { display: inline; width: auto; margin: 0; padding: 0; color: var(--lime); font-weight: 800; text-decoration: underline; text-underline-offset: .2em; }
 
 @keyframes rise {
   0% { opacity: 0; transform: translateY(20px); }

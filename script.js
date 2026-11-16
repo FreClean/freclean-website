@@ -130,9 +130,46 @@
       return group;
     }
 
+    function createFooterPartnership() {
+      var partnership = document.createElement('div');
+      partnership.className = 'footer-partner';
+      partnership.dataset.i18nSkip = 'true';
+
+      var badge = document.createElement('span');
+      badge.className = 'footer-partner__badge';
+      badge.setAttribute('aria-hidden', 'true');
+      badge.textContent = 'CH';
+
+      var copy = document.createElement('p');
+      copy.className = 'footer-partner__copy';
+      var label = document.createElement('span');
+      label.className = 'footer-partner__label';
+      label.textContent = 'Official partnership';
+      var message = document.createElement('span');
+      message.className = 'footer-partner__message';
+      message.append('CeloHT is the official partner of ');
+
+      var link = document.createElement('a');
+      link.href = 'https://celoht.com/';
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.setAttribute('aria-label', 'FreClean, visit CeloHT.com');
+      link.textContent = 'FreClean';
+      message.appendChild(link);
+      message.append('.');
+      copy.append(label, message);
+      partnership.append(badge, copy);
+      return partnership;
+    }
+
     var footer = document.querySelector('.site-footer .footer-main');
-    if (footer && !footer.querySelector('.social-links--footer')) {
-      footer.appendChild(createSocialGroup('footer'));
+    if (footer) {
+      if (!footer.querySelector('.social-links--footer')) {
+        footer.appendChild(createSocialGroup('footer'));
+      }
+      if (!footer.querySelector('.footer-partner')) {
+        footer.appendChild(createFooterPartnership());
+      }
     }
 
     var contactDetails = document.querySelector('.form-layout > div .contact-list');
