@@ -913,13 +913,8 @@ p { color: var(--ink-soft); }
 .payments-section { background: #edf4e9; }
 .payments-section h2, .impact-section h2, .process-section h2, .journal-section h2, .partnership-cta h2 { max-width: 12ch; }
 .payments-section > div:last-child, .impact-section > div:last-child { padding-top: .35rem; }
-.celoht-partner-section { padding-block: clamp(4rem, 7vw, 6.5rem); background: var(--paper); }
-.celoht-partner-inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 7vw, 7rem); align-items: center; }
-.celoht-partner-inner h2 { max-width: 12ch; }
-.celoht-partner-inner p:not(.eyebrow) { max-width: 48ch; color: var(--ink-soft); }
-.celoht-partner-logo { display: block; width: min(100%, 184px); justify-self: end; padding: .6rem; border: 1px solid rgba(16, 47, 61, .1); border-radius: 14px; background: var(--white); box-shadow: 0 14px 36px rgba(16, 47, 61, .1); transition: transform .2s ease, box-shadow .2s ease; }
-.celoht-partner-logo:hover, .celoht-payment-logo:hover { transform: translateY(-2px); box-shadow: 0 18px 42px rgba(16, 47, 61, .15); }
-.celoht-partner-logo img, .celoht-payment-logo img { display: block; width: 100%; height: auto; border-radius: 9px; }
+.celoht-payment-logo:hover { transform: translateY(-2px); box-shadow: 0 18px 42px rgba(16, 47, 61, .15); }
+.celoht-payment-logo img { display: block; width: 100%; height: auto; border-radius: 9px; }
 .celoht-payment-logo { display: block; width: min(100%, 128px); margin-block: 1.25rem; padding: .45rem; border: 1px solid rgba(16, 47, 61, .1); border-radius: 12px; background: var(--white); box-shadow: 0 10px 26px rgba(16, 47, 61, .1); transition: transform .2s ease, box-shadow .2s ease; }
 .impact-section { background: var(--paper); }
 .process-section { display: block; }
@@ -1008,7 +1003,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--blue); box-shado
   .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .intro-grid, .split-section, .business-section, .entrepreneurship-grid, .trust-section, .form-layout, .booking-layout { grid-template-columns: 1fr; }
   .services-intro { grid-template-columns: 1fr; }
-  .payments-section, .impact-section, .partnership-cta-inner, .partnership-layout, .celoht-partner-inner { grid-template-columns: 1fr; }
+  .payments-section, .impact-section, .partnership-cta-inner, .partnership-layout { grid-template-columns: 1fr; }
   .process-grid, .journal-grid, .journal-grid-page, .press-grid { grid-template-columns: 1fr; }
   .journal-section .section-heading { display: block; }
   .journal-section .section-heading .text-link { display: inline-flex; margin-top: 1rem; }
@@ -1028,7 +1023,6 @@ input:focus, select:focus, textarea:focus { border-color: var(--blue); box-shado
   .section-wrap { width: min(calc(100% - 1.25rem), var(--max)); }
   .site-header { padding-inline: .75rem; }
   .logo-link { width: 122px; }
-  .celoht-partner-logo { width: min(100%, 152px); justify-self: start; }
   .hero { padding-block: 3.25rem 4rem; }
   .hero h1 { font-size: clamp(2.35rem, 11vw, 3.5rem); }
   .hero-note { position: static; max-width: 100%; margin-top: .9rem; }
@@ -1804,7 +1798,6 @@ a[href^="tel:"]::before {
 .product-item > img,
 .detail-image,
 .image-frame,
-.celoht-partner-logo,
 .celoht-payment-logo {
   isolation: isolate;
   background: #edf4e9;
@@ -1817,7 +1810,6 @@ a[href^="tel:"]::before {
 .product-item > img,
 .detail-image img,
 .image-frame img,
-.celoht-partner-logo img,
 .celoht-payment-logo img {
   backface-visibility: hidden;
   image-rendering: auto;
@@ -1996,7 +1988,6 @@ main > section:not(.business-section):not(.entrepreneurship-section):not(.partne
 .product-section,
 .payments-section,
 .impact-section,
-.celoht-partner-section,
 .process-section,
 .journal-section,
 .verified-publications,

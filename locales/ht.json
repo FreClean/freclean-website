@@ -255,11 +255,6 @@
     "paymentReview": "Sit sa a resevwa demann; li pa trete peman ni konfime transfè USDT otomatikman. Pou peye ak USDT manyèlman, sèvi ak adrès rezo ou chwazi a sou paj peman an apre FreClean konfime pri ak montan an.",
     "paymentReviewTrust": "Sit sa a resevwa demann; li pa trete peman ni konfime transfè USDT otomatikman. Pou peye ak USDT manyèlman, sèvi ak adrès rezo ou chwazi a sou paj peman an apre FreClean konfime pri ak montan an.",
     "paymentInfo": "Gade enfòmasyon sou peman",
-    "digitalPartner": "Patnè nou nan peman dijital",
-    "partner": "Patnè.",
-    "celoDescription": "CeloHT se yon sèvis apa ak yon lòt chemen peman. Sèvi avè l sèlman lè FreClean konfime sa apwopriye; sit sa a pa konfime peman.",
-    "exploreCelo": "Eksplore CeloHT",
-    "celoAria": "Eksplore peman dijital CeloHT (ouvri nan yon lòt onglet)",
     "impactMeasured": "Enpak, mezire avèk onètete",
     "rootedLeogane": "Rasin nou nan Léogâne.",
     "buildingNext": "N ap bati pou lavni.",
@@ -311,7 +306,6 @@
     "homeInterior": "Enteryè kay klere ki byen ranje",
     "hospitalityInterior": "Lojman pou envite ki byen ranje",
     "specialProject": "Preparasyon detaye pou yon pwojè netwayaj espesyal",
-    "celoLogoAlt": "Logo ofisyèl CeloHT",
     "footerContact": "Léogâne, Lwès, Ayiti"
   },
   "pages": {

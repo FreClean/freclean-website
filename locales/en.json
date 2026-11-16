@@ -255,11 +255,6 @@
     "paymentReview": "This site collects enquiries; it does not process payments or confirm USDT transfers automatically. For manual USDT payments, use the address for your chosen network on the payment page after FreClean confirms your quote and amount.",
     "paymentReviewTrust": "This site collects enquiries; it does not process payments or confirm USDT transfers automatically. For manual USDT payments, use the address for your chosen network on the payment page after FreClean confirms your quote and amount.",
     "paymentInfo": "See payment information",
-    "digitalPartner": "Our Digital Payments",
-    "partner": "Partner.",
-    "celoDescription": "CeloHT is a separate service and payment route. Use it only when FreClean confirms it is appropriate; this website does not confirm payment.",
-    "exploreCelo": "Explore CeloHT",
-    "celoAria": "Explore CeloHT digital payments (opens in a new tab)",
     "impactMeasured": "Impact, honestly measured",
     "rootedLeogane": "Rooted in Léogâne.",
     "buildingNext": "Building for what comes next.",
@@ -311,7 +306,6 @@
     "homeInterior": "Bright, carefully arranged home interior",
     "hospitalityInterior": "Polished guest accommodation",
     "specialProject": "Detailed cleaning preparation for a special project",
-    "celoLogoAlt": "CeloHT official logo",
     "footerContact": "Leogane, Ouest, Haiti"
   },
   "pages": {
