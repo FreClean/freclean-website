@@ -44,7 +44,7 @@ The old root `.html` URLs are retained only as redirects to their canonical dire
 
 ## Forms and Requests
 
-`/book/`, `/contact/`, and `/partners/` submit anonymous enquiries to `https://api.freclean.com/api/public/requests`. The client sends only the Core API's supported `SERVICE` or `CONTACT` request types. The Core API owns validation, persistence, recipient routing, and notification delivery; `/contact/` retains `contact@freclean.com` as its email fallback, and uses the visitor's address as Reply-To when supported by Core. The frontend reports success only after an explicit accepted response; failed or ambiguous delivery provides an email draft.
+`/book/`, `/contact/`, and `/partners/` submit anonymous enquiries to `https://api.freclean.com/api/public/requests`. The client uses `SERVICE` for `/book/`, `CONTACT_FORM` for `/contact/`, and `CONTACT` for `/partners/`. The API delivers `/contact/` enquiries to `contact@freclean.com`; the page also retains that address as its email fallback. The frontend reports success only after an explicit accepted response; failed or ambiguous delivery provides an email draft.
 
 The website never confirms a booking, price, availability or payment on its own. The backend or authorized FreClean staff remains authoritative.
 
