@@ -3269,14 +3269,23 @@ em {
 }
 
 .donation-intro__copy {
-  max-width: 760px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: center;
+  max-width: none;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  border: 1px solid rgba(79, 132, 57, .2);
+  border-radius: 18px;
+  background: linear-gradient(145deg, #f8fbf1, #e3f0d8);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, .14);
 }
 
-.donation-intro__copy h2 {
+.donation-intro__heading h2 {
   max-width: 13ch;
-  margin-bottom: 1.25rem;
-  color: #c5e99b;
+  color: #123b35;
   font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1.08;
 }
 
 .donation-intro__copy .eyebrow {
@@ -3284,18 +3293,18 @@ em {
   align-items: center;
   gap: .55rem;
   padding: .42rem .7rem;
-  border: 1px solid rgba(245, 202, 116, .42);
+  border: 1px solid rgba(120, 83, 25, .22);
   border-radius: 999px;
-  background: rgba(245, 202, 116, .08);
-  color: #f5ca74;
+  background: rgba(215, 237, 189, .4);
+  color: #72501a;
 }
 
 .donation-intro__copy .eyebrow::before {
   width: .45rem;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: #f5ca74;
-  box-shadow: 0 0 0 .22rem rgba(245, 202, 116, .14);
+  background: #987028;
+  box-shadow: 0 0 0 .22rem rgba(152, 112, 40, .12);
   content: "";
 }
 
@@ -3306,7 +3315,7 @@ em {
 .donation-intro__copy > p:last-child {
   max-width: 62ch;
   margin-bottom: 0;
-  color: #c1e0d5;
+  color: #294b40;
   font-size: clamp(1.05rem, 1.4vw, 1.2rem);
   line-height: 1.8;
 }
@@ -3478,7 +3487,13 @@ em {
     grid-template-columns: 1fr;
   }
 
-  .donation-intro__copy h2 {
+  .donation-intro__copy {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    padding: 1.5rem;
+  }
+
+  .donation-intro__heading h2 {
     max-width: 15ch;
   }
 }
