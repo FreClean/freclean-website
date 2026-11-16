@@ -135,10 +135,12 @@
       partnership.className = 'footer-partner';
       partnership.dataset.i18nSkip = 'true';
 
-      var badge = document.createElement('span');
+      var badge = document.createElement('img');
       badge.className = 'footer-partner__badge';
-      badge.setAttribute('aria-hidden', 'true');
-      badge.textContent = 'CH';
+      badge.src = '/assets/celoht-logo.png';
+      badge.alt = 'CeloHT logo';
+      badge.width = 48;
+      badge.height = 48;
 
       var copy = document.createElement('p');
       copy.className = 'footer-partner__copy';

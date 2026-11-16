@@ -293,7 +293,7 @@ button[aria-busy="true"]::after { width: 1em; height: 1em; border: 2px solid cur
 .social-links__icon--linkedin { color: #0A66C2; }
 .social-links__icon--tiktok { padding: .08rem; border-radius: 50%; background: #fff; }
 .footer-partner { grid-column: 1 / -1; display: flex; align-items: center; gap: 1rem; margin-top: .5rem; padding: 1rem 1.2rem; border: 1px solid rgba(255,255,255,.16); border-radius: 1rem; background: linear-gradient(110deg, rgba(255,255,255,.08), rgba(255,255,255,.025)); }
-.footer-partner__badge { display: grid; width: 2.8rem; height: 2.8rem; flex: 0 0 auto; place-items: center; border-radius: .85rem; background: var(--lime); color: var(--ink); font-size: .85rem; font-weight: 800; letter-spacing: .04em; }
+.footer-partner__badge { display: block; width: 2.8rem; height: 2.8rem; flex: 0 0 auto; border-radius: .85rem; background: var(--lime); object-fit: cover; }
 .footer-partner__copy { display: grid; gap: .2rem; margin: 0; }
 .footer-partner__label { color: var(--lime); font-size: .68rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .footer-partner__message { color: #f5fbfa; font-size: .95rem; }
