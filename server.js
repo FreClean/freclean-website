@@ -107,7 +107,7 @@ function validateSubmission(payload) {
     ? rawMessage.replace(/\r\n?/g, '\n').replace(/[\u0000-\u0008\u000b-\u001f\u007f]/g, '').trim()
     : '';
   const type = payload.type === undefined ? 'CONTACT' : payload.type;
-  if (!['CONTACT', 'CONTACT_FORM', 'SERVICE'].includes(type)) {
+  if (!['CONTACT', 'SERVICE'].includes(type)) {
     return { error: 'Please provide a valid enquiry type.' };
   }
   if (name.length < 2 || name.length > MAX_NAME_LENGTH || !message || message.length < 10 || message.length > MAX_MESSAGE_LENGTH) {
@@ -225,9 +225,9 @@ async function deliverEmail({ name, email, message, submittedAt, type }) {
       },
       body: JSON.stringify({
         from: process.env.RESEND_FROM_EMAIL,
-        to: [type === 'CONTACT_FORM' ? CONTACT_RECIPIENT : DEFAULT_RECIPIENT],
+        to: [type === 'CONTACT' ? CONTACT_RECIPIENT : DEFAULT_RECIPIENT],
         reply_to: email,
-        subject: type === 'CONTACT_FORM' ? 'New FreClean Contact Enquiry' : 'FreClean enquiry',
+        subject: type === 'CONTACT' ? 'New FreClean Contact Enquiry' : 'FreClean enquiry',
         text: `Name:\n${name}\n\nEmail:\n${email}\n\nMessage:\n${message}\n\nSubmitted:\n${submittedAt}`,
         html: `<p><strong>Name:</strong> ${escapeHtml(name)}</p><p><strong>Email:</strong> ${escapeHtml(email)}</p><p><strong>Message:</strong><br>${escapeHtml(message).replace(/\n/g, '<br>')}</p><p><strong>Submitted:</strong> ${escapeHtml(submittedAt)}</p>`,
       }),

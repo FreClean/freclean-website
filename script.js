@@ -455,9 +455,7 @@
         }
         var values = Object.fromEntries(new FormData(form));
         var dataset = form.dataset || {};
-        var requestType = isDirectContactForm
-          ? 'CONTACT_FORM'
-          : dataset.requestType === 'SERVICE' ? 'SERVICE' : 'CONTACT';
+        var requestType = dataset.requestType === 'SERVICE' ? 'SERVICE' : 'CONTACT';
         var bookingDetails = [values.service, values.property_type, values.date, values.time, values.location, values.notes].filter(Boolean);
         var message = (values.message || values.notes || bookingDetails.join('; ')).trim();
         var name = (values.name || values.fullName || '').trim();

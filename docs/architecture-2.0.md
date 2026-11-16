@@ -26,10 +26,11 @@ catalog endpoint. Therefore this static site must not post a public form to the
 protected booking route or claim that a request was created. The configured
 public request endpoint is the API at
 `https://api.freclean.com/api/public/requests`. The website sends `SERVICE` for
-booking enquiries, `CONTACT` for partnership enquiries, and `CONTACT_FORM` for
-the direct contact form so the API routes it to `contact@freclean.com`. If the
-endpoint is unavailable, the form keeps its details and offers a visitor-sent
-email draft; the contact page fallback is `contact@freclean.com`.
+booking enquiries and `CONTACT` for direct contact and partnership enquiries.
+The Core API routes notifications to `CONTACT_EMAIL`, configured as
+`contact@freclean.com`. If the endpoint is unavailable, the form keeps its
+details and offers a visitor-sent email draft; the contact page fallback is
+`contact@freclean.com`.
 
 When a public request endpoint is released, it should be added as an explicit,
 versioned, approved HTTPS contract and enabled through runtime configuration.

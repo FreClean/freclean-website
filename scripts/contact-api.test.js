@@ -64,7 +64,7 @@ test.after(async () => {
 
 test('valid contact is delivered and includes the required details', async () => {
   const response = await request(server.address().port, {
-    type: 'CONTACT_FORM',
+    type: 'CONTACT',
     name: 'Ada Customer',
     email: 'ada@example.com',
     message: 'Please contact me about home cleaning.',
@@ -82,17 +82,15 @@ test('valid contact is delivered and includes the required details', async () =>
   assert.match(global.provider.lastBody.text, /Submitted:\n\d{4}-\d\d-\d\dT/);
 });
 
-test('service and general contact enquiries keep the configured non-contact recipient', async () => {
-  for (const type of ['CONTACT', 'SERVICE']) {
-    const response = await request(server.address().port, {
-      type,
-      name: 'Ada Customer',
-      email: `ada-${type.toLowerCase()}@example.com`,
-      message: `Please contact me about a ${type.toLowerCase()} enquiry.`,
-    });
-    assert.equal(response.status, 201);
-    assert.deepEqual(global.provider.lastBody.to, [process.env.FRECLEAN_REQUEST_RECIPIENT || 'freclean7@gmail.com']);
-  }
+test('service enquiries use the configured non-contact recipient', async () => {
+  const response = await request(server.address().port, {
+    type: 'SERVICE',
+    name: 'Ada Customer',
+    email: 'ada-service@example.com',
+    message: 'Please contact me about a service enquiry.',
+  });
+  assert.equal(response.status, 201);
+  assert.deepEqual(global.provider.lastBody.to, [process.env.FRECLEAN_REQUEST_RECIPIENT || 'freclean7@gmail.com']);
 });
 
 test('invalid, automated, duplicate and disallowed-origin submissions are rejected', async () => {
@@ -106,16 +104,16 @@ test('invalid, automated, duplicate and disallowed-origin submissions are reject
 
 test('rejects empty fields, malformed or injected email and overlong messages', async () => {
   const beforeDeliveries = global.provider.deliveryCount;
-  assert.equal((await request(server.address().port, { type: 'CONTACT_FORM', name: '', email: 'ada@example.com', message: 'A valid message here' })).status, 400);
-  assert.equal((await request(server.address().port, { type: 'CONTACT_FORM', name: 'Ada', email: 'not-an-email', message: 'A valid message here' })).status, 400);
-  assert.equal((await request(server.address().port, { type: 'CONTACT_FORM', name: 'Ada', email: 'ada@example.com\r\nBcc: other@example.com', message: 'A valid message here' })).status, 400);
-  assert.equal((await request(server.address().port, { type: 'CONTACT_FORM', name: 'Ada', email: 'ada@example.com', message: 'x'.repeat(5001) })).status, 400);
+  assert.equal((await request(server.address().port, { type: 'CONTACT', name: '', email: 'ada@example.com', message: 'A valid message here' })).status, 400);
+  assert.equal((await request(server.address().port, { type: 'CONTACT', name: 'Ada', email: 'not-an-email', message: 'A valid message here' })).status, 400);
+  assert.equal((await request(server.address().port, { type: 'CONTACT', name: 'Ada', email: 'ada@example.com\r\nBcc: other@example.com', message: 'A valid message here' })).status, 400);
+  assert.equal((await request(server.address().port, { type: 'CONTACT', name: 'Ada', email: 'ada@example.com', message: 'x'.repeat(5001) })).status, 400);
   assert.equal(global.provider.deliveryCount, beforeDeliveries);
 });
 
 test('sanitizes message markup before including it in provider HTML', async () => {
   const response = await request(server.address().port, {
-    type: 'CONTACT_FORM',
+    type: 'CONTACT',
     name: 'Ada',
     email: 'ada@example.com',
     message: '<script>alert(1)</script>\nPlease contact me.',
@@ -130,7 +128,7 @@ test('rate limits repeated submissions from one client', async () => {
   const statuses = [];
   for (let index = 0; index < 6; index += 1) {
     const response = await request(server.address().port, {
-      type: 'CONTACT_FORM',
+      type: 'CONTACT',
       name: 'Ada',
       email: `rate-limit-${index}@example.com`,
       message: `Please contact me about request number ${index}.`,
@@ -148,7 +146,7 @@ test('provider failures return a generic error and log a correlated technical ev
   console.error = (message) => logs.push(message);
   try {
     const response = await request(server.address().port, {
-      type: 'CONTACT_FORM',
+      type: 'CONTACT',
       name: 'Ada',
       email: 'ada-failure@example.com',
       message: 'Please contact me about an unavailable service.',

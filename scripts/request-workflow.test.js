@@ -220,7 +220,7 @@ test('HTTP 201 with a received receipt is an explicit successful submission', as
   submit(form);
   await waitForRequest();
 
-  assert.equal(submittedBody.type, 'CONTACT_FORM');
+  assert.equal(submittedBody.type, 'CONTACT');
   assert.equal(form.status.dataset.state, 'success');
   assert.match(form.status.message, /received your contact enquiry/i);
   assert.equal(form.resetCalled, true);
