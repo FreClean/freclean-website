@@ -3265,11 +3265,11 @@ em {
 }
 
 .donation-intro {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, .75fr);
-  gap: clamp(2rem, 7vw, 7rem);
-  align-items: center;
-  margin-bottom: clamp(2.5rem, 6vw, 5rem);
+  margin-bottom: 2rem;
+}
+
+.donation-intro__copy {
+  max-width: 760px;
 }
 
 .donation-intro__copy h2 {
@@ -3304,15 +3304,18 @@ em {
 }
 
 .donation-intro__copy > p:last-child {
-  max-width: 54ch;
+  max-width: 62ch;
   margin-bottom: 0;
   color: #d3e2dd;
-  font-size: 1.05rem;
+  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+  line-height: 1.8;
 }
 
 .donation-transparency {
   display: grid;
-  gap: .85rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: clamp(2.5rem, 6vw, 5rem);
 }
 
 .donation-transparency__item {
@@ -3320,17 +3323,19 @@ em {
   grid-template-columns: 2.5rem minmax(0, 1fr);
   gap: .9rem;
   align-items: start;
-  padding: 1.1rem 1.2rem;
-  border: 1px solid rgba(255, 255, 255, .16);
-  border-radius: 12px;
-  background: rgba(255, 255, 255, .06);
-  transition: border-color .25s ease, background-color .25s ease, transform .25s ease;
+  min-height: 100%;
+  padding: clamp(1.25rem, 2.4vw, 2rem);
+  border: 1px solid rgba(16, 47, 61, .1);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .12);
+  transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
 }
 
 .donation-transparency__item:hover {
-  border-color: rgba(183, 220, 139, .45);
-  background: rgba(255, 255, 255, .09);
-  transform: translateX(4px);
+  border-color: rgba(183, 220, 139, .8);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, .17);
+  transform: translateY(-3px);
 }
 
 .donation-transparency__item > span {
@@ -3339,23 +3344,24 @@ em {
   aspect-ratio: 1;
   place-items: center;
   border-radius: 50%;
-  background: rgba(215, 237, 189, .14);
+  background: #edf5e6;
 }
 
 .donation-transparency__item > span::before {
   width: .55rem;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: #cce8a9;
-  box-shadow: 0 0 0 .3rem rgba(215, 237, 189, .12);
+  background: #4f8439;
+  box-shadow: 0 0 0 .3rem rgba(79, 132, 57, .12);
   content: "";
 }
 
 .donation-transparency__item p {
   margin: 0;
-  color: #edf4f1;
-  font-size: 1rem;
-  line-height: 1.7;
+  color: var(--ink);
+  font-size: clamp(1.05rem, 1.35vw, 1.15rem);
+  font-weight: 600;
+  line-height: 1.8;
 }
 
 .donation-giving {
@@ -3462,10 +3468,13 @@ em {
     padding-inline: 1.25rem;
   }
 
-  .donation-intro,
   .donation-giving__heading {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+  }
+
+  .donation-transparency {
+    grid-template-columns: 1fr;
   }
 
   .donation-intro__copy h2 {
