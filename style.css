@@ -2723,21 +2723,27 @@ em {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  color: rgba(255, 254, 250, .84);
-  font-size: .67rem;
+  color: var(--white);
+  font-size: .7rem;
   font-weight: 700;
-  letter-spacing: .13em;
+  letter-spacing: .1em;
+  line-height: 1.35;
   text-transform: uppercase;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, .28);
+  padding: .8rem 1rem;
+  border: 1px solid rgba(255, 255, 255, .24);
+  border-radius: 999px;
+  background: rgba(7, 34, 43, .48);
+  box-shadow: 0 8px 24px rgba(5, 28, 35, .14);
+  backdrop-filter: blur(12px);
 }
 
 .hero-scene__topline {
-  padding-bottom: .85rem;
-  border-bottom: 1px solid rgba(255, 254, 250, .28);
+  border-bottom: 1px solid rgba(255, 255, 255, .24);
 }
 
 .hero-scene__bottomline {
-  padding-top: .85rem;
-  border-top: 1px solid rgba(255, 254, 250, .28);
+  border-top: 1px solid rgba(255, 255, 255, .24);
 }
 
 .hero-scene__mark {
@@ -2745,8 +2751,14 @@ em {
   top: 50%;
   left: 50%;
   z-index: 2;
-  width: min(88%, 500px);
+  width: min(90%, 540px);
   aspect-ratio: 1672 / 941;
+  padding: clamp(.85rem, 2.4vw, 1.35rem);
+  border: 1px solid rgba(255, 255, 255, .82);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, .94);
+  box-shadow: 0 22px 48px rgba(5, 28, 35, .3);
+  backdrop-filter: blur(12px);
   transform: translate(-50%, -50%) rotate(-2deg);
   transition: transform 450ms cubic-bezier(.2, .75, .2, 1);
   animation: hero-logo-float 6s ease-in-out 900ms infinite;
@@ -2758,7 +2770,7 @@ em {
   height: 100%;
   min-height: 0;
   border-radius: 0;
-  filter: drop-shadow(0 18px 24px rgba(5, 28, 25, .32));
+  filter: drop-shadow(0 4px 8px rgba(5, 28, 25, .12));
   object-fit: contain;
   animation: hero-logo-reveal 900ms cubic-bezier(.2, .75, .2, 1) both;
 }
@@ -3009,7 +3021,10 @@ em {
 
   .hero-scene__topline,
   .hero-scene__bottomline {
-    font-size: .58rem;
+    gap: .55rem;
+    padding: .65rem .75rem;
+    font-size: .62rem;
+    letter-spacing: .07em;
   }
 
   .metric-grid {
