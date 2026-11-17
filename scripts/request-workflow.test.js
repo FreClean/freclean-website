@@ -155,6 +155,8 @@ test('About page includes the verified company profile, distinct programs and ex
   const ids = new Set([...html.matchAll(/\bid="([^"]+)"/g)].map(([, id]) => id));
 
   assert.match(html, /<title>About FreClean \| Cleaning Services, Products &amp; Entrepreneurship<\/title>/);
+  assert.match(html, /<h1 id="about-title">About FreClean<\/h1>/);
+  assert.doesNotMatch(html, /class="about-hero/);
   assert.match(html, /<link rel="canonical" href="https:\/\/freclean\.com\/about\/">/);
   assert.match(html, /"foundingDate": "2025-04-16"/);
   assert.match(html, /"name": "Johnny Dubic"/);

@@ -3863,82 +3863,13 @@ em {
   overflow: clip;
 }
 
-.about-hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(300px, .82fr);
-  gap: clamp(2rem, 6vw, 6rem);
-  align-items: center;
-  padding-block: clamp(4rem, 8vw, 7rem);
+.about-page-title {
+  padding-block: clamp(2rem, 4vw, 3.5rem) 1rem;
 }
 
-.about-hero__copy {
-  max-width: 680px;
-}
-
-.about-hero h1 {
-  max-width: 10ch;
-  margin-bottom: 1.35rem;
-  font-size: clamp(3.2rem, 7vw, 6.4rem);
-}
-
-.about-hero__lead {
-  max-width: 58ch;
-  color: var(--ink);
-  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
-}
-
-.about-hero__support {
-  margin-bottom: 1.6rem;
-  color: var(--blue-dark);
-  font-weight: 800;
-}
-
-.about-hero__actions {
-  gap: .75rem 1rem;
-}
-
-.about-hero__visual {
-  display: grid;
-  gap: 1rem;
-  padding: clamp(1rem, 3vw, 2rem);
-  background: #e8efe7;
-  border: 1px solid rgba(18, 59, 53, .1);
-}
-
-.about-hero__visual img {
-  width: 100%;
-  min-height: 220px;
-  aspect-ratio: 1.78;
-  object-fit: contain;
-  background: #fff;
-}
-
-.about-hero__facts {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: .75rem;
-}
-
-.about-hero__facts span {
-  padding: .8rem;
-  background: rgba(255, 255, 255, .76);
-  color: var(--ink);
-  font-size: .82rem;
-  font-weight: 800;
-}
-
-.about-hero__visual > p {
+.about-page-title h1 {
   margin: 0;
-  color: var(--ink);
-  font-size: .8rem;
-  font-weight: 800;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-}
-
-.about-hero__visual > p span {
-  padding-inline: .35rem;
-  color: var(--green);
+  font-size: clamp(2.25rem, 5vw, 4rem);
 }
 
 .about-toc {
@@ -4745,7 +4676,6 @@ em {
 }
 
 @media (max-width: 900px) {
-  .about-hero,
   .about-introduction,
   .about-mission__inner,
   .about-transparency__grid,
@@ -4778,35 +4708,6 @@ em {
 }
 
 @media (max-width: 600px) {
-  .about-hero {
-    gap: 2rem;
-    padding-block: 3.5rem 2.5rem;
-  }
-
-  .about-hero h1 {
-    font-size: clamp(3rem, 14vw, 4.7rem);
-  }
-
-  .about-hero__actions {
-    align-items: stretch;
-  }
-
-  .about-hero__actions .button {
-    width: 100%;
-  }
-
-  .about-hero__visual {
-    padding: .75rem;
-  }
-
-  .about-hero__visual img {
-    min-height: 150px;
-  }
-
-  .about-hero__facts {
-    grid-template-columns: 1fr;
-  }
-
   .about-work-grid,
   .about-pathway,
   .about-distinction__grid,
