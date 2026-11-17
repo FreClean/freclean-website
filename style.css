@@ -3699,3 +3699,162 @@ em {
     height: 2.3rem;
   }
 }
+
+.accessory-products {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin-top: clamp(3rem, 7vw, 5rem);
+  padding: clamp(1.25rem, 4vw, 3rem);
+  border: 1px solid rgba(224, 193, 128, .48);
+  border-radius: 24px;
+  background:
+    radial-gradient(ellipse at 88% 0%, rgba(86, 145, 86, .3), transparent 42%),
+    linear-gradient(135deg, #102f3d 0%, #174735 55%, #102d2b 100%);
+  box-shadow: 0 28px 72px rgba(16, 47, 61, .2);
+}
+
+.accessory-products::before {
+  position: absolute;
+  top: 0;
+  right: 8%;
+  left: 8%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(237, 215, 164, .85), transparent);
+  content: "";
+}
+
+.accessory-products > h2 {
+  position: relative;
+  margin: 0 0 clamp(1.25rem, 3vw, 2rem);
+  color: #f7f4e9;
+  font-size: clamp(1.8rem, 3.5vw, 2.7rem);
+  letter-spacing: -.035em;
+}
+
+.accessory-products .product-item--accessory {
+  grid-template-columns: minmax(0, 1.04fr) minmax(0, .96fr);
+  align-items: stretch;
+  border: 1px solid rgba(224, 193, 128, .76);
+  border-radius: 18px;
+  background: linear-gradient(145deg, #fffefa, #f7f7f0);
+  box-shadow: 0 22px 54px rgba(4, 20, 19, .28);
+}
+
+.accessory-products .product-item--accessory::before {
+  width: 4px;
+  background: linear-gradient(180deg, #e5ce98, #a9813e);
+}
+
+.accessory-products .product-item--accessory > img {
+  height: clamp(320px, 34vw, 430px);
+  padding: clamp(1rem, 3vw, 2rem);
+  background: #f8f8f3;
+  object-fit: contain;
+}
+
+.accessory-products .product-item--accessory:hover > img,
+.accessory-products .product-item--accessory:focus-within > img {
+  transform: none;
+}
+
+.accessory-products .product-item--accessory .product-item-copy {
+  justify-content: center;
+  padding: clamp(1.5rem, 4vw, 3.25rem);
+}
+
+.accessory-products .product-item--accessory [data-product-field="availability"] {
+  margin-bottom: .85rem;
+  border-color: rgba(57, 138, 80, .3);
+  background: #edf5e8;
+  color: #286341;
+}
+
+.accessory-products .product-item--accessory [data-product-field="category"] {
+  margin-bottom: .8rem;
+  color: #846b3e;
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.accessory-products .product-item--accessory h2 {
+  margin-bottom: .75rem;
+  color: #102f3d;
+  font-size: clamp(2rem, 3.8vw, 3.4rem);
+  letter-spacing: -.045em;
+  line-height: 1.02;
+}
+
+.accessory-products .product-item--accessory p {
+  max-width: 42ch;
+  line-height: 1.7;
+}
+
+.accessory-products .product-item--accessory [data-product-field="size"] {
+  margin-block: .2rem .4rem;
+  color: #49646a;
+  font-size: .9rem;
+  font-weight: 700;
+}
+
+.accessory-products .product-item--accessory [data-product-field="price"] {
+  margin-block: .3rem .6rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #174735;
+  font-size: clamp(1.55rem, 2.8vw, 2rem);
+  font-weight: 900;
+  letter-spacing: -.025em;
+}
+
+.accessory-products .product-item--accessory [data-product-field="brand"],
+.accessory-products .product-item--accessory [data-product-field="type"] {
+  margin-top: .15rem;
+  color: #687976;
+  font-size: .78rem;
+}
+
+.accessory-products .product-item--accessory .product-order-form .button {
+  border: 1px solid #d5bd85;
+  background: linear-gradient(135deg, #174735, #102f3d);
+  color: #fffefa;
+  box-shadow: 0 10px 24px rgba(16, 47, 61, .2);
+}
+
+.accessory-products .product-item--accessory .product-order-form .button:hover {
+  background: linear-gradient(135deg, #225b42, #164258);
+  box-shadow: 0 14px 28px rgba(16, 47, 61, .27);
+}
+
+@media (max-width: 900px) {
+  .accessory-products .product-item--accessory {
+    grid-template-columns: 1fr;
+  }
+
+  .accessory-products .product-item--accessory > img {
+    height: clamp(280px, 52vw, 420px);
+  }
+}
+
+@media (max-width: 480px) {
+  .accessory-products {
+    padding: 1rem;
+    border-radius: 18px;
+  }
+
+  .accessory-products .product-item--accessory {
+    border-radius: 14px;
+  }
+
+  .accessory-products .product-item--accessory > img {
+    height: clamp(245px, 72vw, 330px);
+    padding: .8rem;
+  }
+
+  .accessory-products .product-item--accessory .product-item-copy {
+    padding: 1.25rem;
+  }
+}
