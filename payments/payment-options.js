@@ -75,10 +75,12 @@
       var addressElement = card.querySelector('[data-payment-address]');
       var copyButton = card.querySelector('[data-copy-address]');
       var copyStatus = card.querySelector('[data-copy-status]');
+      var paymentChoice = card.querySelector('[data-payment-select]');
       if (!address || !addressElement || !copyButton) throw new Error('Payment address display is incomplete.');
 
       addressElement.textContent = address;
       copyButton.disabled = false;
+      if (paymentChoice) paymentChoice.disabled = false;
       copyButton.addEventListener('click', function () {
         if (!navigator.clipboard || !navigator.clipboard.writeText) {
           setCopyStatus(copyStatus, 'pages.payments.copyManually');

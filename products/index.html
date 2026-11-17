@@ -11,7 +11,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://freclean.com/products/">
 <link rel="canonical" href="https://freclean.com/products/">
-<link rel="stylesheet" href="../style.css?v=bracelet-premium-20261117">
+<link rel="stylesheet" href="../style.css?v=product-cart-20261117">
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -26,9 +26,10 @@
     <div class="product-catalog-intro"><p class="eyebrow">The product range</p><h2>Useful products for cleaner spaces.</h2><p>Prices are shown on each product. FreClean confirms availability, pickup or delivery and payment instructions directly.</p></div>
     <div class="catalog-highlights"><div class="catalog-highlight"><strong>Everyday care</strong><span>Products for homes and working spaces</span></div><div class="catalog-highlight"><strong>Reliable range</strong><span>Practical essentials with clear availability</span></div><div class="catalog-highlight"><strong>Direct confirmation</strong><span>FreClean confirms the final detail before purchase</span></div></div>
     <p class="order-process-note">Choose a quantity and send your request. FreClean will confirm the exact price, availability, pickup or delivery and payment instructions before you pay.</p>
+    <p data-cart-load-status role="status" aria-live="polite" hidden></p>
     <div class="product-list">
-      <article class="product-item"><img src="../assets/catalog-portrait-3.png" alt="FreClean all-purpose cleaner, 750 mL" loading="lazy" width="1024" height="1536"><div class="product-item-copy"><span class="availability">$6.99–$7.99 US each</span><small class="price-note">Availability: confirmed directly before purchase.</small><h2>All-purpose cleaner</h2><p><span>Fresh scent ·</span> <span>750 mL</span></p><small class="price-note">Final item price and availability confirmed by FreClean.</small><form class="product-order-form" action="../contact/" method="get"><input type="hidden" name="product" value="all-purpose-cleaner-750ml"><label for="cleaner-quantity">Quantity<input id="cleaner-quantity" type="number" name="quantity" min="1" max="99" value="1" required></label><button class="button button-dark" type="submit">Request to order <span aria-hidden="true">↗</span></button></form><a class="text-link" href="./cleaning-essentials/">Product details ↗</a></div></article>
-      <article class="product-item"><img src="../assets/catalog-portrait-1.png" alt="FreClean Linen Breeze room freshener, 300 mL" loading="lazy" width="1024" height="1536"><div class="product-item-copy"><span class="availability">$6.99–$7.99 US each</span><small class="price-note">Availability: confirmed directly before purchase.</small><h2>Room freshener</h2><p><span>Linen Breeze ·</span> <span>300 mL</span></p><small class="price-note">Final item price and availability confirmed by FreClean.</small><form class="product-order-form" action="../contact/" method="get"><input type="hidden" name="product" value="room-freshener-linen-breeze-300ml"><label for="freshener-quantity">Quantity<input id="freshener-quantity" type="number" name="quantity" min="1" max="99" value="1" required></label><button class="button button-dark" type="submit">Request to order <span aria-hidden="true">↗</span></button></form><a class="text-link" href="./fragrance-products/">Product details ↗</a></div></article>
+      <article class="product-item"><img src="../assets/catalog-portrait-3.png" alt="FreClean all-purpose cleaner, 750 mL" loading="lazy" width="1024" height="1536"><div class="product-item-copy"><span class="availability">$6.99–$7.99 US each</span><small class="price-note">Availability: confirmed directly before purchase.</small><h2>All-purpose cleaner</h2><p><span>Fresh scent ·</span> <span>750 mL</span></p><small class="price-note">Final item price and availability confirmed by FreClean.</small><form class="product-order-form" data-cart-add><input type="hidden" name="product" value="all-purpose-cleaner-750ml"><label for="cleaner-quantity">Quantity<input id="cleaner-quantity" type="number" name="quantity" min="1" max="99" value="1" required></label><button class="button button-dark" type="submit" disabled>Add to cart</button></form><a class="text-link" href="./cleaning-essentials/">Product details ↗</a></div></article>
+      <article class="product-item"><img src="../assets/catalog-portrait-1.png" alt="FreClean Linen Breeze room freshener, 300 mL" loading="lazy" width="1024" height="1536"><div class="product-item-copy"><span class="availability">$6.99–$7.99 US each</span><small class="price-note">Availability: confirmed directly before purchase.</small><h2>Room freshener</h2><p><span>Linen Breeze ·</span> <span>300 mL</span></p><small class="price-note">Final item price and availability confirmed by FreClean.</small><form class="product-order-form" data-cart-add><input type="hidden" name="product" value="room-freshener-linen-breeze-300ml"><label for="freshener-quantity">Quantity<input id="freshener-quantity" type="number" name="quantity" min="1" max="99" value="1" required></label><button class="button button-dark" type="submit" disabled>Add to cart</button></form><a class="text-link" href="./fragrance-products/">Product details ↗</a></div></article>
     </div>
     <section class="accessory-products" aria-labelledby="accessories-heading" hidden>
       <h2 id="accessories-heading"></h2>
@@ -46,20 +47,53 @@
           <span class="availability" data-product-field="price"></span>
           <span class="price-note" data-product-field="brand"></span>
           <span class="price-note" data-product-field="type"></span>
-          <form class="product-order-form" action="../contact/" method="get">
+          <form class="product-order-form" data-cart-add>
             <input type="hidden" name="product">
             <input type="hidden" name="product_name">
             <input type="hidden" name="product_size">
             <label>Quantity<input type="number" name="quantity" min="1" max="99" value="1" required></label>
-            <button class="button button-dark" type="submit">Request to order <span aria-hidden="true">↗</span></button>
+            <button class="button button-dark" type="submit" disabled>Add to cart</button>
           </form>
         </div>
       </article>
     </template>
+    <section class="product-cart" aria-labelledby="cart-heading" data-product-cart>
+      <div class="product-cart-heading"><p class="eyebrow">Your order</p><h2 id="cart-heading">Shopping cart</h2><p>Review your items, choose how you plan to pay, and send an order request. No payment is taken on this website.</p></div>
+      <div class="cart-items" data-cart-items aria-live="polite"><p data-cart-empty>Your cart is empty. Add a product to get started.</p></div>
+      <p data-cart-status role="status" aria-live="polite"></p>
+      <p class="cart-total"><strong>Estimated product total:</strong> <span data-cart-total>$0.00 USD</span></p>
+      <p class="price-note">Some products have a listed price range, so this product total is an estimate. FreClean confirms the final product amount, availability and any delivery costs before payment.</p>
+      <form id="product-cart-form" class="product-cart-form" data-request-form data-request-type="CONTACT" data-email-recipient="freclean7@gmail.com" data-email-subject="FreClean Product Order Request">
+        <fieldset class="cart-payment-options">
+          <legend>Choose a payment option</legend>
+          <p>All online payments are arranged manually after FreClean confirms your order.</p>
+          <div class="cart-payment-grid" data-payment-options data-address-config="../payments/payment-addresses.json" aria-busy="true">
+            <article class="content-card payment-address-card" data-payment-network="BEP20"><label class="cart-payment-choice"><input type="radio" name="payment_choice" value="USDT BEP20" data-payment-select disabled required><span><strong>USDT · BNB Smart Chain</strong><small>Network: BEP20</small></span></label><p class="payment-address" data-payment-address></p><button class="button button-outline" type="button" data-copy-address disabled>Copy address</button><span class="payment-copy-status" data-copy-status role="status" aria-live="polite"></span></article>
+            <article class="content-card payment-address-card" data-payment-network="TRC20"><label class="cart-payment-choice"><input type="radio" name="payment_choice" value="USDT TRC20" data-payment-select disabled required><span><strong>USDT · TRON</strong><small>Network: TRC20</small></span></label><p class="payment-address" data-payment-address></p><button class="button button-outline" type="button" data-copy-address disabled>Copy address</button><span class="payment-copy-status" data-copy-status role="status" aria-live="polite"></span></article>
+            <article class="content-card payment-address-card" data-payment-network="SOLANA"><label class="cart-payment-choice"><input type="radio" name="payment_choice" value="USDT Solana" data-payment-select disabled required><span><strong>USDT · Solana</strong><small>Network: Solana</small></span></label><p class="payment-address" data-payment-address></p><button class="button button-outline" type="button" data-copy-address disabled>Copy address</button><span class="payment-copy-status" data-copy-status role="status" aria-live="polite"></span></article>
+            <article class="content-card payment-address-card" data-payment-network="CELO"><label class="cart-payment-choice"><input type="radio" name="payment_choice" value="USDT Celo" data-payment-select disabled required><span><strong>USDT · Celo</strong><small>Network: Celo</small></span></label><p class="payment-address" data-payment-address></p><button class="button button-outline" type="button" data-copy-address disabled>Copy address</button><span class="payment-copy-status" data-copy-status role="status" aria-live="polite"></span></article>
+            <article class="content-card celoht-payment-card"><label class="cart-payment-choice"><input type="radio" name="payment_choice" value="CeloHT DApp" data-payment-select required><span><strong>CeloHT DApp</strong><small>Separate payment option; confirm details with FreClean.</small></span></label><a class="button button-outline" href="https://app.celoht.com/" target="_blank" rel="noopener noreferrer">Open CeloHT DApp <span aria-hidden="true">&rarr;</span></a></article>
+          </div>
+          <p data-payment-status role="status" aria-live="polite">Loading payment addresses...</p>
+        </fieldset>
+        <input type="hidden" name="cart_summary" data-cart-summary>
+        <input type="hidden" name="estimated_total" data-cart-total-field>
+        <input type="hidden" name="payment_address" data-cart-payment-address>
+        <input type="hidden" name="payment_note" data-cart-screenshot-note>
+        <label for="cart-customer-name">Your name<input id="cart-customer-name" name="name" autocomplete="name" required></label>
+        <label for="cart-customer-email">Your email<input id="cart-customer-email" name="email" type="email" autocomplete="email" required></label>
+        <label for="cart-message">Message to FreClean<textarea id="cart-message" name="message" required>Please confirm availability, the final amount, pickup or delivery details, and payment instructions before I pay.</textarea></label>
+        <p class="order-process-note">After you pay manually, attach a screenshot of the payment to your email so FreClean can check it. Selecting a method or sending this request does not complete or confirm payment.</p>
+        <button class="button button-dark" type="submit" disabled>Request &amp; Send <span aria-hidden="true">↗</span></button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
   </section>
 </main>
 <footer class="site-footer"><div class="section-wrap footer-main"><div><p class="footer-title">Explore</p><a href="../services/">Services</a><a href="../products/">Products</a><a href="../business/">Business</a></div><div><p class="footer-title">Company</p><a href="../about/">About</a><a href="../resources/">Resources</a><a href="../contact/">Contact</a></div><div><p class="footer-title">Contact</p><p>Leogane, Ouest, Haiti</p><a href="mailto:freclean7@gmail.com">freclean7@gmail.com</a><a href="tel:+50946128022">+50946128022</a></div></div><div class="section-wrap footer-bottom"><span>&copy; 2026 FreClean. All rights reserved.</span><span><a href="../privacy/">Privacy</a> &middot; <a href="../terms/">Terms</a></span></div></footer>
 <script src="../script.js?v=footer-translation-20261116" defer></script>
 <script src="catalog.js" defer></script>
+<script src="../payments/payment-options.js" defer></script>
+<script src="cart.js?v=product-cart-20261117" defer></script>
 </body>
 </html>

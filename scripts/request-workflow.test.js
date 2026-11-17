@@ -293,7 +293,7 @@ test('partnership enquiry opens an email draft with every provided form detail',
   assert.match(parameters.get('body'), /Message:\nI would like to explore working together\./);
 });
 
-test('product cards show sizes and prices and submit a quantity-specific order enquiry', () => {
+test('product cards show sizes and prices and add the selected quantity to the cart', () => {
   const root = path.join(__dirname, '..');
   const products = JSON.parse(fs.readFileSync(path.join(root, 'products.json'), 'utf8')).products;
   const html = fs.readFileSync(path.join(root, 'products/index.html'), 'utf8');
@@ -307,6 +307,7 @@ test('product cards show sizes and prices and submit a quantity-specific order e
     assert.match(html, new RegExp('name="product" value="' + product.id + '"'));
     assert.match(html, /name="quantity" min="1" max="99" value="1"/);
   }
+  assert.equal((html.match(/data-cart-add/g) || []).length, 3);
   assert.match(html, /\$6\.99–\$7\.99 US each/);
 });
 
@@ -334,7 +335,7 @@ test('bracelet uses the shared catalog card and keeps its fixed price, size and 
   assert.match(html, /<script src="catalog\.js" defer><\/script>/);
   assert.match(catalogScript, /fetch\('\.\.\/products\.json'\)/);
   assert.match(catalogScript, /image\.src = '\.\.\/' \+ product\.image/);
-  assert.match(catalogScript, /Request to order ' \+ product\.name/);
+  assert.match(catalogScript, /textContent = 'Add to cart'/);
   assert.match(fs.readFileSync(path.join(root, 'style.css'), 'utf8'), /\.product-item img \{[^}]*object-fit: contain/s);
 });
 
@@ -370,12 +371,7 @@ test('accessory catalog renders the bracelet image and enquiry from structured p
             'type'
           ].map((field) => [field, {}]));
           const inputs = Object.fromEntries(['product', 'product_name', 'product_size'].map((name) => [name, {}]));
-          const button = {
-            attributes: {},
-            setAttribute(name, value) {
-              this.attributes[name] = value;
-            }
-          };
+          const button = { textContent: '' };
           const form = {
             querySelector(selector) {
               if (selector === 'button') return button;
@@ -426,7 +422,7 @@ test('accessory catalog renders the bracelet image and enquiry from structured p
   assert.equal(card.inputs.product.value, 'freclean-bracelet');
   assert.equal(card.inputs.product_name.value, 'FreClean Bracelet');
   assert.equal(card.inputs.product_size.value, 'Standard size');
-  assert.equal(card.button.attributes['aria-label'], 'Request to order FreClean Bracelet');
+  assert.equal(card.button.textContent, 'Add to cart');
 });
 
 test('bracelet enquiry pre-fills its product and standard size in the contact form', () => {

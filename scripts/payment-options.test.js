@@ -19,6 +19,7 @@ function createCard(network) {
   const listeners = {};
   const address = { textContent: '' };
   const copyStatus = { textContent: '' };
+  const paymentChoice = { disabled: true };
   const button = {
     disabled: true,
     addEventListener(event, listener) {
@@ -29,6 +30,7 @@ function createCard(network) {
     address,
     button,
     copyStatus,
+    paymentChoice,
     listeners,
     getAttribute(name) {
       return name === 'data-payment-network' ? network : null;
@@ -37,6 +39,7 @@ function createCard(network) {
       if (selector === '[data-payment-address]') return address;
       if (selector === '[data-copy-address]') return button;
       if (selector === '[data-copy-status]') return copyStatus;
+      if (selector === '[data-payment-select]') return paymentChoice;
       return null;
     }
   };
@@ -101,6 +104,7 @@ test('loads public addresses and enables address copying', async () => {
   assert.equal(request.options.credentials, 'omit');
   assert.deepEqual(page.cards.map((card) => card.address.textContent), networks.map(([, address]) => address));
   assert.ok(page.cards.every((card) => card.button.disabled === false));
+  assert.ok(page.cards.every((card) => card.paymentChoice.disabled === false));
   assert.equal(page.attributes['aria-busy'], 'false');
   assert.match(page.status.textContent, /addresses are ready/i);
 
@@ -128,6 +132,7 @@ test('loads the shared USDT addresses for donations and enables copying', async 
   assert.equal(requestUrl, '../payments/payment-addresses.json');
   assert.deepEqual(page.cards.map((card) => card.address.textContent), networks.map(([, address]) => address));
   assert.ok(page.cards.every((card) => card.button.disabled === false));
+  assert.ok(page.cards.every((card) => card.paymentChoice.disabled === false));
   assert.match(page.status.textContent, /donation addresses are ready/i);
 
   page.cards[0].listeners.click();
@@ -164,7 +169,7 @@ test('does not show addresses when the configuration is unavailable or incomplet
     const page = boot(fetchImplementation);
     await new Promise((resolve) => setImmediate(resolve));
 
-    assert.ok(page.cards.every((card) => card.address.textContent === '' && card.button.disabled));
+    assert.ok(page.cards.every((card) => card.address.textContent === '' && card.button.disabled && card.paymentChoice.disabled));
     assert.match(page.status.textContent, /currently unavailable/i);
     assert.equal(page.attributes['aria-busy'], 'false');
   }

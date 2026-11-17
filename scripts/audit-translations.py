@@ -215,7 +215,8 @@ def main():
 
     script_source = (ROOT / "script.js").read_text(encoding="utf-8")
     payment_script_source = (ROOT / "payments" / "payment-options.js").read_text(encoding="utf-8")
-    all_script_source = script_source + payment_script_source
+    cart_script_source = (ROOT / "products" / "cart.js").read_text(encoding="utf-8")
+    all_script_source = script_source + payment_script_source + cart_script_source
     expected_locales = {"en", *TARGET_LOCALES}
     language_list = re.search(r"var supportedLanguages = \[([^\]]+)\];", script_source)
     configured_locales = set(re.findall(r"'([a-z]{2})'", language_list.group(1))) if language_list else set()

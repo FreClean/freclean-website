@@ -42,7 +42,7 @@
         form.querySelector('[name="product"]').value = product.id;
         form.querySelector('[name="product_name"]').value = product.name;
         form.querySelector('[name="product_size"]').value = size;
-        form.querySelector('button').setAttribute('aria-label', 'Request to order ' + product.name);
+        form.querySelector('button').textContent = 'Add to cart';
         productList.appendChild(card);
       });
     })
