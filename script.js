@@ -666,17 +666,6 @@
           setStatus('Please check the required fields before sending your enquiry.', 'error');
           return;
         }
-        var requestUrl = window.FRECLEAN_PUBLIC_REQUEST_URL || 'https://api.freclean.com/api/public/requests';
-        try {
-          var parsedRequestUrl = new URL(requestUrl);
-          if (parsedRequestUrl.protocol !== 'https:' || parsedRequestUrl.username || parsedRequestUrl.password || !parsedRequestUrl.hostname || parsedRequestUrl.hostname === 'localhost' || parsedRequestUrl.hostname.endsWith('.localhost') || parsedRequestUrl.hostname.endsWith('.local')) {
-            throw new Error('The public request URL is not an approved HTTPS destination.');
-          }
-          requestUrl = parsedRequestUrl.href;
-        } catch (error) {
-          showEmailFallback('Online submission is unavailable. Your enquiry has not been sent; draft an email with these details and send it to FreClean.');
-          return;
-        }
         var values = Object.fromEntries(new FormData(form));
         var dataset = form.dataset || {};
         var requestType = dataset.requestType === 'SERVICE' ? 'SERVICE' : 'CONTACT';
@@ -688,6 +677,38 @@
         var emailParts = email.split('@');
         if (name.length < 2 || name.length > 120 || email.length > 254 || emailParts.length !== 2 || emailParts[0].length > 64 || !emailPattern.test(email) || message.length < 10 || message.length > 5000) {
           setStatus('Please check your name, email and message. Messages must be between 10 and 5,000 characters.', 'error');
+          return;
+        }
+        if (dataset.emailRecipient) {
+          var languageCatalog = window.FRECLEAN_I18N;
+          var language = languageCatalog && languageCatalog.ready() ? languageCatalog.getLanguage() : 'en';
+          var emailSubject = languageCatalog && languageCatalog.ready()
+            ? languageCatalog.t('common.forms.contactEmailSubject', language)
+            : 'New FreClean Contact Enquiry';
+          var emailBody = ['Name: ' + name, 'Email: ' + email, '', 'Message:', message].join('\n');
+          var emailLink = document.createElement('a');
+          emailLink.className = 'text-link';
+          emailLink.href = 'mailto:' + dataset.emailRecipient + '?subject=' + encodeURIComponent(emailSubject) + '&body=' + encodeURIComponent(emailBody);
+          emailLink.textContent = languageCatalog && languageCatalog.ready()
+            ? languageCatalog.t('common.forms.draftEmail', language)
+            : 'Draft an email to FreClean';
+          var emailStatus = languageCatalog && languageCatalog.ready()
+            ? languageCatalog.t('common.forms.emailDraftOpened', language)
+            : 'Your email app should open with this message addressed to {email}. Review the draft and press Send to send your enquiry.';
+          setStatus(emailStatus.replace('{email}', dataset.emailRecipient), 'email-draft');
+          if (status) status.append(document.createTextNode(' '), emailLink);
+          window.location.href = emailLink.href;
+          return;
+        }
+        var requestUrl = window.FRECLEAN_PUBLIC_REQUEST_URL || 'https://api.freclean.com/api/public/requests';
+        try {
+          var parsedRequestUrl = new URL(requestUrl);
+          if (parsedRequestUrl.protocol !== 'https:' || parsedRequestUrl.username || parsedRequestUrl.password || !parsedRequestUrl.hostname || parsedRequestUrl.hostname === 'localhost' || parsedRequestUrl.hostname.endsWith('.localhost') || parsedRequestUrl.hostname.endsWith('.local')) {
+            throw new Error('The public request URL is not an approved HTTPS destination.');
+          }
+          requestUrl = parsedRequestUrl.href;
+        } catch (error) {
+          showEmailFallback('Online submission is unavailable. Your enquiry has not been sent; draft an email with these details and send it to FreClean.');
           return;
         }
         var payload = Object.assign({}, values, {

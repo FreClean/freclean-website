@@ -51,6 +51,7 @@ grep -q '^FRECLEAN_PUBLIC_REQUEST_URL=' .env.example || fail 'Missing public req
 grep -q '^FRECLEAN_CELOHT_DAPP_URL=https://app.celoht.com' .env.example || fail 'Invalid CeloHT environment configuration'
 grep -q '^FRECLEAN_SITE_BASE_URL=' .env.example || fail 'Missing public site URL configuration'
 grep -q '^FRECLEAN_SUPPORT_EMAIL=' .env.example || fail 'Missing support email configuration'
+grep -q 'data-email-recipient="freclean7@gmail.com"' contact/index.html || fail 'Contact form must open an email draft to FreClean'
 [ -f verified-publications.json ] || fail 'Missing verified publications data file'
 grep -q 'verifiedPublication' verified-publications.json || fail 'Verified publication data policy missing'
 grep -q 'data-service-estimate' book/index.html || fail 'Service quote status is missing'

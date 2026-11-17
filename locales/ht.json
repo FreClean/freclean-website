@@ -124,6 +124,7 @@
       "notConfirmed": "Nou pa t kapab konfime nou resevwa demann ou an. Li poko konfime; prepare yon imèl ak detay sa yo epi voye li bay FreClean.",
       "emailSubject": "Demann sèvis pou FreClean",
       "contactEmailSubject": "Nouvo demann kontak pou FreClean",
+      "emailDraftOpened": "Aplikasyon imèl ou ta dwe louvri ak mesaj sa a adrese bay {email}. Revize bouyon an epi peze Voye pou voye demann ou an.",
       "genericValidation": "Tanpri ranpli chan sa a kòrèkteman."
     },
     "booking": {

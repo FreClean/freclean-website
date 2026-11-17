@@ -124,6 +124,7 @@
       "notConfirmed": "Não foi possível confirmar o recebimento da sua consulta. O recebimento não foi confirmado; escreva um e-mail com estes dados e envie-o à FreClean.",
       "emailSubject": "Consulta sobre serviços da FreClean",
       "contactEmailSubject": "Nova mensagem de contato para a FreClean",
+      "emailDraftOpened": "Seu aplicativo de e-mail deve abrir com esta mensagem endereçada para {email}. Revise o rascunho e pressione Enviar para enviar sua consulta.",
       "genericValidation": "Preencha este campo corretamente."
     },
     "booking": {

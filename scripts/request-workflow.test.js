@@ -105,6 +105,7 @@ function boot(forms, requestUrl, fetchImplementation, search = '', languageCatal
     location: { pathname: forms[0] && forms[0].name === 'booking' ? '/book/' : '/contact/', search },
     localStorage: { getItem: () => '{"necessary":true}', setItem() {} }
   };
+  forms.window = window;
   const context = {
     window,
     document,
@@ -147,11 +148,34 @@ test('booking and contact pages expose required email validation and a live stat
     assert.match(html, /class="form-status"[^>]*aria-live="polite"/);
     if (page === 'contact/index.html') {
       assert.match(html, /Leogane, Ouest, Haiti/);
+      assert.match(html, /data-email-recipient="freclean7@gmail\.com"/);
+      assert.match(html, /script\.js\?v=contact-email-draft-20261117/);
       assert.match(html, /mailto:contact@freclean\.com/);
       assert.match(html, /tel:\+50946128022/);
       assert.match(html, /name="message" required/);
     }
   }
+});
+
+test('contact enquiry opens a prefilled email draft addressed to FreClean', () => {
+  const form = createForm('contact');
+  form.dataset.emailRecipient = 'freclean7@gmail.com';
+  const forms = boot([form], 'https://api.freclean.com/api/public/requests', () => {
+    assert.fail('direct email enquiries must not submit through the API');
+  });
+
+  submit(form);
+
+  const [recipient, query] = forms.window.location.href.split('?');
+  const parameters = new URLSearchParams(query);
+  assert.equal(recipient, 'mailto:freclean7@gmail.com');
+  assert.equal(parameters.get('subject'), 'New FreClean Contact Enquiry');
+  assert.match(parameters.get('body'), /Name: Ada Customer/);
+  assert.match(parameters.get('body'), /Email: ada@example\.com/);
+  assert.match(parameters.get('body'), /Message:\nPlease contact me/);
+  assert.match(form.status.message, /Review the draft and press Send/);
+  assert.equal(form.status.dataset.state, 'email-draft');
+  assert.equal(form.resetCalled, false);
 });
 
 test('product cards show sizes and prices and submit a quantity-specific order enquiry', () => {

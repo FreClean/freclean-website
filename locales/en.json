@@ -124,6 +124,7 @@
       "notConfirmed": "We could not confirm receipt of your enquiry. It has not been confirmed; draft an email with these details and send it to FreClean.",
       "emailSubject": "FreClean service enquiry",
       "contactEmailSubject": "New FreClean Contact Enquiry",
+      "emailDraftOpened": "Your email app should open with this message addressed to {email}. Review the draft and press Send to send your enquiry.",
       "genericValidation": "Please complete this field correctly."
     },
     "booking": {
