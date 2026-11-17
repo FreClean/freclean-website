@@ -465,10 +465,10 @@
     },
     "products": {
       "index": {
-        "metaDescription": "Order FreClean all-purpose cleaner in a 750 mL bottle or Linen Breeze room freshener in a 300 mL bottle.",
-        "openGraphDescription": "Choose a FreClean product and send an order enquiry to the team.",
-        "openGraphTitle": "Cleaning and Fragrance Products | FreClean",
-        "title": "Cleaning and Fragrance Products in Léogâne | FreClean",
+        "metaDescription": "Explore FreClean cleaning, fragrance and accessory products. Send a product enquiry and FreClean will confirm availability and next steps directly.",
+        "openGraphDescription": "Explore FreClean products and send an enquiry to the team.",
+        "openGraphTitle": "FreClean Products | FreClean",
+        "title": "Cleaning, Fragrance and Accessories in Léogâne | FreClean",
         "eyebrow": "The FreClean collection",
         "headlineOne": "Practical products for",
         "headlineTwo": "cleaner spaces.",
@@ -485,7 +485,7 @@
         "cleaningAlt": "FreClean all-purpose cleaner, 750 mL",
         "homeProductAlt": "FreClean Linen Breeze room freshener, 300 mL",
         "quantity": "Quantity",
-        "pricingNote": "Current listed prices are $6.99–$7.99 US per product. The exact price, stock and pickup or delivery details are confirmed by FreClean before payment.",
+        "pricingNote": "Prices are shown on each product. FreClean confirms availability, pickup or delivery and payment instructions directly.",
         "productDetails": "Product details ↗",
         "orderSteps": "Choose a quantity and send your request. FreClean will confirm the exact price, availability, pickup or delivery and payment instructions before you pay.",
         "orderMessage": "I’d like to order {product} ({size}). Quantity: {quantity}. Please confirm the exact total price, availability, pickup or delivery, and payment instructions by email.",

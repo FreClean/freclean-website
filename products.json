@@ -27,6 +27,20 @@
       "availableSizes": ["300 mL"],
       "intendedUse": "Home and workplace fragrance; confirm product-specific use with FreClean.",
       "safetyInformation": null
+    },
+    {
+      "id": "freclean-bracelet",
+      "name": "FreClean Bracelet",
+      "brand": "FreClean",
+      "type": "Branded accessory",
+      "category": "Accessories",
+      "description": "A simple FreClean-branded bracelet designed for everyday wear and brand supporters.",
+      "image": "assets/freclean-bracelet.png",
+      "imageAlt": "FreClean branded bracelet",
+      "status": "Available",
+      "availability": "available",
+      "price": { "kind": "fixed", "currency": "USD", "amount": 2, "display": "$2.00 USD" },
+      "availableSizes": ["Standard size"]
     }
   ]
 }

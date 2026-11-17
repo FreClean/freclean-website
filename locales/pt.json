@@ -465,10 +465,10 @@
     },
     "products": {
       "index": {
-        "metaDescription": "Peça o limpador multiuso da FreClean em uma embalagem de 750 mL ou o aromatizador de ambientes Linen Breeze em uma embalagem de 300 mL.",
-        "openGraphDescription": "Escolha um produto da FreClean e envie uma consulta de pedido à equipe.",
-        "openGraphTitle": "Produtos de limpeza e aromatizantes | FreClean",
-        "title": "Produtos de limpeza e aromatizantes em Léogâne | FreClean",
+        "metaDescription": "Explore os produtos de limpeza, fragrâncias e acessórios da FreClean. Envie uma consulta e a FreClean confirmará diretamente a disponibilidade e os próximos passos.",
+        "openGraphDescription": "Explore os produtos FreClean e envie uma consulta à equipe.",
+        "openGraphTitle": "Produtos FreClean | FreClean",
+        "title": "Produtos de limpeza, fragrâncias e acessórios em Léogâne | FreClean",
         "eyebrow": "A coleção FreClean",
         "headlineOne": "Produtos práticos para",
         "headlineTwo": "espaços mais limpos.",
@@ -485,7 +485,7 @@
         "cleaningAlt": "Limpador multiuso FreClean, 750 mL",
         "homeProductAlt": "Aromatizador de ambientes FreClean Linen Breeze, 300 mL",
         "quantity": "Quantidade",
-        "pricingNote": "Os preços atualmente informados são de $6.99–$7.99 em dólares americanos por produto. A FreClean confirma o preço exato, o estoque e os detalhes de retirada ou entrega antes do pagamento.",
+        "pricingNote": "Os preços aparecem em cada produto. A FreClean confirma diretamente a disponibilidade, a retirada ou entrega e as instruções de pagamento.",
         "productDetails": "Detalhes do produto ↗",
         "orderSteps": "Escolha a quantidade e envie sua solicitação. A FreClean confirmará o preço exato, a disponibilidade, a retirada ou entrega e as instruções de pagamento antes de você pagar.",
         "orderMessage": "Gostaria de pedir {product} ({size}). Quantidade: {quantity}. Por favor, confirme por e-mail o preço total exato, a disponibilidade, a retirada ou entrega e as instruções de pagamento.",

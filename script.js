@@ -599,13 +599,17 @@
       var submit = form.querySelector('button[type="submit"]');
       var isSubmitting = false;
       var isDirectContactForm = window.location.pathname.replace(/\/+$/, '') === '/contact';
-      var productOrder = isDirectContactForm ? {
+      var orderQuery = new URLSearchParams(window.location.search || '');
+      var productId = orderQuery.get('product');
+      var productOrder = isDirectContactForm ? ({
         'all-purpose-cleaner-750ml': { nameKey: 'products.index.cleanerName', sizeKey: 'products.index.cleanerSize' },
         'room-freshener-linen-breeze-300ml': { nameKey: 'products.index.freshenerName', sizeKey: 'products.index.freshenerSize' }
-      }[new URLSearchParams(window.location.search || '').get('product')] : null;
+      }[productId] || (productId === 'freclean-bracelet' && orderQuery.get('product_name') && orderQuery.get('product_size') ? {
+        name: orderQuery.get('product_name'),
+        size: orderQuery.get('product_size')
+      } : null)) : null;
       var orderMessage = form.querySelector('textarea[name="message"]');
       if (productOrder && orderMessage && !orderMessage.value) {
-        var orderQuery = new URLSearchParams(window.location.search || '');
         var requestedQuantity = Number(orderQuery.get('quantity'));
         if (!Number.isInteger(requestedQuantity) || requestedQuantity < 1 || requestedQuantity > 99) requestedQuantity = 1;
         var messageEdited = false;
@@ -614,8 +618,8 @@
           var languageCatalog = window.FRECLEAN_I18N;
           if (messageEdited || !languageCatalog || !languageCatalog.ready()) return;
           var language = languageCatalog.getLanguage();
-          var productName = languageCatalog.t(productOrder.nameKey, language);
-          var productSize = languageCatalog.t(productOrder.sizeKey, language);
+          var productName = productOrder.nameKey ? languageCatalog.t(productOrder.nameKey, language) : productOrder.name;
+          var productSize = productOrder.sizeKey ? languageCatalog.t(productOrder.sizeKey, language) : productOrder.size;
           var messageTemplate = languageCatalog.t('products.index.orderMessage', language) || 'I’d like to order {product} ({size}). Quantity: {quantity}. Please confirm the exact total price, availability, pickup or delivery, and payment instructions by email.';
           orderMessage.value = messageTemplate
             .replace('{product}', productName)

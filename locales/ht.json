@@ -465,10 +465,10 @@
     },
     "products": {
       "index": {
-        "metaDescription": "Kòmande netwayan tout itilizasyon FreClean nan boutèy 750 mL oswa pwodui Linen Breeze pou rafrechi chanm nan boutèy 300 mL.",
-        "openGraphDescription": "Chwazi yon pwodwi FreClean epi voye yon demann pou kòmande bay ekip la.",
-        "openGraphTitle": "Pwodwi netwayaj ak bon sant | FreClean",
-        "title": "Pwodwi netwayaj ak bon sant nan Léogâne | FreClean",
+        "metaDescription": "Gade pwodwi netwayaj, bon sant ak akseswa FreClean yo. Voye yon demann sou pwodwi a; FreClean ap konfime disponiblite ak pwochen etap yo dirèkteman.",
+        "openGraphDescription": "Gade pwodwi FreClean yo epi voye yon demann bay ekip la.",
+        "openGraphTitle": "Pwodwi FreClean | FreClean",
+        "title": "Pwodwi netwayaj, bon sant ak akseswa nan Léogâne | FreClean",
         "eyebrow": "Koleksyon FreClean",
         "headlineOne": "Pwodwi pratik pou",
         "headlineTwo": "espas ki pi pwòp.",
@@ -485,7 +485,7 @@
         "cleaningAlt": "Netwayan tout itilizasyon FreClean, 750 mL",
         "homeProductAlt": "Pwodui FreClean Linen Breeze pou rafrechi chanm, 300 mL",
         "quantity": "Kantite",
-        "pricingNote": "Pri ki parèt kounye a se $6.99–$7.99 ameriken pou chak pwodwi. FreClean ap konfime pri egzak la, disponiblite, ranmasaj oswa livrezon anvan peman.",
+        "pricingNote": "Pri yo parèt sou chak pwodwi. FreClean ap konfime disponiblite, ranmasaj oswa livrezon, ak enstriksyon peman yo dirèkteman.",
         "productDetails": "Detay pwodwi yo ↗",
         "orderSteps": "Chwazi kantite a epi voye demann ou an. FreClean ap konfime pri egzak la, disponiblite, ranmasaj oswa livrezon, ansanm ak enstriksyon peman yo anvan ou peye.",
         "orderMessage": "Mwen ta renmen kòmande {product} ({size}). Kantite: {quantity}. Tanpri konfime pri total egzak la, disponiblite, ranmasaj oswa livrezon, ak enstriksyon peman yo pa imèl.",

@@ -159,16 +159,146 @@ test('product cards show sizes and prices and submit a quantity-specific order e
   const products = JSON.parse(fs.readFileSync(path.join(root, 'products.json'), 'utf8')).products;
   const html = fs.readFileSync(path.join(root, 'products/index.html'), 'utf8');
 
-  assert.deepEqual(products.map(({ id, availableSizes }) => [id, availableSizes[0]]), [
+  assert.deepEqual(products.slice(0, 2).map(({ id, availableSizes }) => [id, availableSizes[0]]), [
     ['all-purpose-cleaner-750ml', '750 mL'],
     ['room-freshener-linen-breeze-300ml', '300 mL']
   ]);
-  for (const product of products) {
+  for (const product of products.slice(0, 2)) {
     assert.ok(fs.existsSync(path.join(root, product.image)));
     assert.match(html, new RegExp('name="product" value="' + product.id + '"'));
     assert.match(html, /name="quantity" min="1" max="99" value="1"/);
   }
   assert.match(html, /\$6\.99–\$7\.99 US each/);
+});
+
+test('bracelet uses the shared catalog card and keeps its fixed price, size and category', () => {
+  const root = path.join(__dirname, '..');
+  const { products } = JSON.parse(fs.readFileSync(path.join(root, 'products.json'), 'utf8'));
+  const bracelet = products.find(({ id }) => id === 'freclean-bracelet');
+  const html = fs.readFileSync(path.join(root, 'products/index.html'), 'utf8');
+  const catalogScript = fs.readFileSync(path.join(root, 'products/catalog.js'), 'utf8');
+
+  assert.ok(bracelet);
+  assert.equal(bracelet.name, 'FreClean Bracelet');
+  assert.equal(bracelet.category, 'Accessories');
+  assert.equal(bracelet.brand, 'FreClean');
+  assert.equal(bracelet.type, 'Branded accessory');
+  assert.equal(bracelet.price.display, '$2.00 USD');
+  assert.deepEqual(bracelet.availableSizes, ['Standard size']);
+  assert.equal(bracelet.status, 'Available');
+  assert.equal(bracelet.image, 'assets/freclean-bracelet.png');
+  assert.equal(bracelet.imageAlt, 'FreClean branded bracelet');
+  assert.equal(bracelet.description, 'A simple FreClean-branded bracelet designed for everyday wear and brand supporters.');
+  assert.ok(fs.existsSync(path.join(root, bracelet.image)));
+  assert.match(html, /data-product-list="Accessories"/);
+  assert.match(html, /<template id="product-card-template">/);
+  assert.match(html, /<script src="catalog\.js" defer><\/script>/);
+  assert.match(catalogScript, /fetch\('\.\.\/products\.json'\)/);
+  assert.match(catalogScript, /image\.src = '\.\.\/' \+ product\.image/);
+  assert.match(catalogScript, /Request to order ' \+ product\.name/);
+  assert.match(fs.readFileSync(path.join(root, 'style.css'), 'utf8'), /\.product-item img \{[^}]*object-fit: contain/s);
+});
+
+test('accessory catalog renders the bracelet image and enquiry from structured product data', async () => {
+  const root = path.join(__dirname, '..');
+  const { products } = JSON.parse(fs.readFileSync(path.join(root, 'products.json'), 'utf8'));
+  const bracelet = products.find(({ id }) => id === 'freclean-bracelet');
+  const productList = {
+    parentElement: {
+      attributes: { hidden: '' },
+      removeAttribute(name) {
+        delete this.attributes[name];
+      }
+    },
+    children: [],
+    appendChild(card) {
+      this.children.push(card);
+    }
+  };
+  const template = {
+    content: {
+      firstElementChild: {
+        cloneNode() {
+          const image = {};
+          const fields = Object.fromEntries([
+            'availability',
+            'category',
+            'name',
+            'description',
+            'size',
+            'price',
+            'brand',
+            'type'
+          ].map((field) => [field, {}]));
+          const inputs = Object.fromEntries(['product', 'product_name', 'product_size'].map((name) => [name, {}]));
+          const button = {
+            attributes: {},
+            setAttribute(name, value) {
+              this.attributes[name] = value;
+            }
+          };
+          const form = {
+            querySelector(selector) {
+              if (selector === 'button') return button;
+              return inputs[selector.match(/name="([^"]+)"/)[1]];
+            }
+          };
+          return {
+            image,
+            fields,
+            inputs,
+            button,
+            querySelector(selector) {
+              if (selector === 'img') return image;
+              if (selector === 'form') return form;
+              return fields[selector.match(/data-product-field="([^"]+)"/)[1]];
+            }
+          };
+        }
+      }
+    }
+  };
+  const heading = {};
+  const document = {
+    querySelector: () => productList,
+    getElementById: (id) => id === 'product-card-template' ? template : heading
+  };
+  const fetch = () => Promise.resolve({
+    ok: true,
+    json: () => Promise.resolve({ products })
+  });
+
+  vm.runInNewContext(fs.readFileSync(path.join(root, 'products/catalog.js'), 'utf8'), { document, fetch });
+  await waitForRequest();
+
+  assert.equal(productList.children.length, 1);
+  assert.equal(heading.textContent, 'Accessories');
+  assert.equal(productList.parentElement.attributes.hidden, undefined);
+  const [card] = productList.children;
+  assert.equal(card.image.src, '../assets/freclean-bracelet.png');
+  assert.equal(card.image.alt, 'FreClean branded bracelet');
+  assert.equal(card.fields.name.textContent, 'FreClean Bracelet');
+  assert.equal(card.fields.category.textContent, 'Accessories');
+  assert.equal(card.fields.price.textContent, '$2.00 USD');
+  assert.equal(card.fields.size.textContent, 'Standard size');
+  assert.equal(card.fields.availability.textContent, 'Available');
+  assert.equal(card.fields.brand.textContent, 'FreClean');
+  assert.equal(card.fields.type.textContent, 'Branded accessory');
+  assert.equal(card.inputs.product.value, 'freclean-bracelet');
+  assert.equal(card.inputs.product_name.value, 'FreClean Bracelet');
+  assert.equal(card.inputs.product_size.value, 'Standard size');
+  assert.equal(card.button.attributes['aria-label'], 'Request to order FreClean Bracelet');
+});
+
+test('bracelet enquiry pre-fills its product and standard size in the contact form', () => {
+  const form = createForm('contact');
+  boot([form], 'https://api.freclean.com/api/public/requests', () => assert.fail('prefill must not submit'), '?product=freclean-bracelet&product_name=FreClean+Bracelet&product_size=Standard+size&quantity=2', {
+    ready: () => true,
+    getLanguage: () => 'en',
+    t: () => ''
+  });
+
+  assert.match(form.messageField.value, /FreClean Bracelet \(Standard size\).*Quantity: 2/);
 });
 
 test('product order enquiry pre-fills the chosen product, size and quantity in the contact form', async () => {

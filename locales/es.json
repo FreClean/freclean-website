@@ -465,10 +465,10 @@
     },
     "products": {
       "index": {
-        "metaDescription": "Pida el limpiador multiuso FreClean en una botella de 750 mL o el aromatizante ambiental Linen Breeze en una botella de 300 mL.",
-        "openGraphDescription": "Elija un producto FreClean y envíe una consulta de pedido al equipo.",
-        "openGraphTitle": "Productos de limpieza y fragancias | FreClean",
-        "title": "Productos de limpieza y fragancias en Léogâne | FreClean",
+        "metaDescription": "Explore los productos de limpieza, fragancias y accesorios de FreClean. Envíe una consulta y FreClean confirmará la disponibilidad y los próximos pasos directamente.",
+        "openGraphDescription": "Explore los productos FreClean y envíe una consulta al equipo.",
+        "openGraphTitle": "Productos FreClean | FreClean",
+        "title": "Productos de limpieza, fragancias y accesorios en Léogâne | FreClean",
         "eyebrow": "La colección FreClean",
         "headlineOne": "Productos prácticos para",
         "headlineTwo": "espacios más limpios.",
@@ -485,7 +485,7 @@
         "cleaningAlt": "Limpiador multiuso FreClean, 750 mL",
         "homeProductAlt": "Aromatizante ambiental Linen Breeze de FreClean, 300 mL",
         "quantity": "Cantidad",
-        "pricingNote": "Los precios actuales publicados son de $6.99 a $7.99 USD por producto. FreClean confirma el precio exacto, la disponibilidad y los detalles de recogida o entrega antes del pago.",
+        "pricingNote": "Los precios aparecen en cada producto. FreClean confirma directamente la disponibilidad, la recogida o entrega y las instrucciones de pago.",
         "productDetails": "Detalles del producto ↗",
         "orderSteps": "Elija una cantidad y envíe su solicitud. FreClean confirmará el precio exacto, la disponibilidad, la recogida o entrega y las instrucciones de pago antes de pagar.",
         "orderMessage": "Me gustaría pedir {product} ({size}). Cantidad: {quantity}. Confirme el precio total exacto, la disponibilidad, la recogida o entrega y las instrucciones de pago por correo electrónico.",
