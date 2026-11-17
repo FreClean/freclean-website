@@ -298,6 +298,10 @@ test('product cards show sizes and prices and add the selected quantity to the c
   const products = JSON.parse(fs.readFileSync(path.join(root, 'products.json'), 'utf8')).products;
   const html = fs.readFileSync(path.join(root, 'products/index.html'), 'utf8');
 
+  const cleaner = products.find(({ id }) => id === 'all-purpose-cleaner-750ml');
+  assert.equal(cleaner.price.kind, 'fixed');
+  assert.equal(cleaner.price.amount, 7.99);
+  assert.equal(cleaner.price.display, '$7.99 USD');
   assert.deepEqual(products.slice(0, 2).map(({ id, availableSizes }) => [id, availableSizes[0]]), [
     ['all-purpose-cleaner-750ml', '750 mL'],
     ['room-freshener-linen-breeze-300ml', '300 mL']

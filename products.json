@@ -8,9 +8,9 @@
       "category": "Cleaning Products",
       "description": "FreClean all-purpose cleaner with fresh scent, shown in a 750 mL bottle.",
       "image": "assets/catalog-portrait-3.png",
-      "status": "Current range: $6.99–$7.99 US each",
+      "status": "Current price: $7.99 USD",
       "availability": "contact_to_confirm",
-      "price": { "kind": "fixedRange", "currency": "USD", "minimum": 6.99, "maximum": 7.99, "confirmedOffer": true, "display": "$6.99–$7.99 US each" },
+      "price": { "kind": "fixed", "currency": "USD", "amount": 7.99, "confirmedOffer": true, "display": "$7.99 USD" },
       "availableSizes": ["750 mL"],
       "intendedUse": "Everyday home and workplace cleaning; confirm product-specific use with FreClean.",
       "safetyInformation": null

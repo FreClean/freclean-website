@@ -9,14 +9,17 @@ const root = path.join(__dirname, '..');
 const { calculateTotals } = require('../products/cart.js');
 const { products } = JSON.parse(fs.readFileSync(path.join(root, 'products.json'), 'utf8'));
 
-test('cart totals preserve price ranges and include fixed-price accessories', () => {
+test('cart totals combine fixed prices and product price ranges', () => {
   const productMap = new Map(products.map((product) => [product.id, product]));
   const quantities = new Map([
-    ['all-purpose-cleaner-750ml', 2],
+    ['all-purpose-cleaner-750ml', 1],
+    ['room-freshener-linen-breeze-300ml', 2],
     ['freclean-bracelet', 1]
   ]);
 
-  assert.deepEqual(calculateTotals(productMap, quantities), { minimum: 2897, maximum: 3097 });
+  assert.deepEqual(calculateTotals(productMap, quantities), { minimum: 3696, maximum: 3896 });
+  assert.equal(productMap.get('all-purpose-cleaner-750ml').price.amount, 7.99);
+  assert.equal(productMap.get('room-freshener-linen-breeze-300ml').price.kind, 'fixedRange');
 });
 
 test('cart rejects prices in unsupported currencies or malformed ranges', () => {
