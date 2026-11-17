@@ -588,7 +588,7 @@
       "viewPaymentOptions": "Ver opções de pagamento",
       "continueCeloht": "Continuar para o DApp da CeloHT",
       "reviewPrompt": "Revise sua solicitação antes de enviá-la à FreClean.",
-      "reviewBoundary": "Esta é uma consulta, não um agendamento. Se o envio on-line não estiver disponível, você pode escrever um e-mail para a FreClean com os detalhes. A FreClean confirmará diretamente a disponibilidade, o preço e os próximos passos para o pagamento.",
+      "reviewBoundary": "Esta é uma consulta, não um agendamento. Ao enviar sua solicitação, seu aplicativo de e-mail será aberto com os detalhes endereçados à FreClean. Revise o e-mail e pressione Enviar. A FreClean confirmará diretamente a disponibilidade, o preço e os próximos passos para o pagamento.",
       "back": "Voltar",
       "continue": "Continuar",
       "sendRequest": "Enviar solicitação"

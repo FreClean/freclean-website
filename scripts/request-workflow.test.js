@@ -519,7 +519,7 @@ test('booking request opens a prefilled email draft with all booking details', (
   const html = fs.readFileSync(path.join(root, 'book/index.html'), 'utf8');
   assert.match(html, /data-email-recipient="freclean7@gmail\.com"/);
   assert.match(html, /data-email-subject="New FreClean Booking Enquiry"/);
-  assert.match(html, /email app will open with this request addressed to FreClean/);
+  assert.match(html, /email app will open with the details addressed to FreClean/);
   const booking = createForm('booking');
   booking.dataset.emailRecipient = 'freclean7@gmail.com';
   booking.dataset.emailSubject = 'New FreClean Booking Enquiry';

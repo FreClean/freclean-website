@@ -588,7 +588,7 @@
       "viewPaymentOptions": "View payment options",
       "continueCeloht": "Continue to CeloHT DApp",
       "reviewPrompt": "Review your request before sending it to FreClean.",
-      "reviewBoundary": "This is an enquiry, not an appointment. If online request submission is unavailable, you can draft an email to FreClean with the details. FreClean will confirm availability, pricing and payment next steps directly.",
+      "reviewBoundary": "This is an enquiry, not an appointment. When you send your request, your email app will open with the details addressed to FreClean. Review the email and press Send. FreClean will confirm availability, pricing and payment next steps directly.",
       "back": "Back",
       "continue": "Continue",
       "sendRequest": "Send request"
