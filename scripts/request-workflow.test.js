@@ -8,6 +8,13 @@ const vm = require('node:vm');
 
 const script = fs.readFileSync(path.join(__dirname, '..', 'script.js'), 'utf8');
 
+test('products page loads fresh language catalogs instead of cached translations', () => {
+  const productPage = fs.readFileSync(path.join(__dirname, '..', 'products/index.html'), 'utf8');
+
+  assert.ok(productPage.includes('script.js?v=products-i18n-20261117'));
+  assert.ok(script.includes("fetch('/locales/' + locale + '.json?v=products-i18n-20261117')"));
+});
+
 function createForm(name, valid = true) {
   const listeners = {};
   const messageField = {

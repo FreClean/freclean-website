@@ -338,7 +338,7 @@
 
     window.FRECLEAN_I18N = { t: t, ready: function () { return translationsReady; }, setLanguage: activate, getLanguage: function () { return language; } };
     Promise.all(supportedLanguages.map(function (locale) {
-      return fetch('/locales/' + locale + '.json').then(function (response) {
+      return fetch('/locales/' + locale + '.json?v=products-i18n-20261117').then(function (response) {
         if (!response.ok) throw new Error(locale + ' translation catalog unavailable');
         return response.json();
       });
