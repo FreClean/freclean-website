@@ -704,7 +704,7 @@
             : 'Your email app should open with this message addressed to {email}. Review the draft and press Send to send your enquiry.';
           setStatus(emailStatus.replace('{email}', dataset.emailRecipient), 'email-draft');
           if (status) status.append(document.createTextNode(' '), emailLink);
-          window.location.href = emailLink.href;
+          emailLink.click();
           return;
         }
         var requestUrl = window.FRECLEAN_PUBLIC_REQUEST_URL || 'https://api.freclean.com/api/public/requests';

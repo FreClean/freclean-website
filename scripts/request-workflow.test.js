@@ -93,7 +93,15 @@ function boot(forms, requestUrl, fetchImplementation, search = '', languageCatal
       return selector === '[data-request-form]' ? forms : [];
     },
     createElement() {
-      return { className: '', href: '', textContent: '' };
+      return {
+        className: '',
+        href: '',
+        textContent: '',
+        click() {
+          this.clicked = true;
+          forms.window.location.href = this.href;
+        }
+      };
     },
     createTextNode(text) {
       return { text };
@@ -170,6 +178,7 @@ test('contact enquiry opens a prefilled email draft addressed to FreClean', () =
   const parameters = new URLSearchParams(query);
   assert.equal(recipient, 'mailto:freclean7@gmail.com');
   assert.equal(parameters.get('subject'), 'New FreClean Contact Enquiry');
+  assert.equal(emailDraft(form.status).clicked, true);
   assert.match(parameters.get('body'), /Name: Ada Customer/);
   assert.match(parameters.get('body'), /Email: ada@example\.com/);
   assert.match(parameters.get('body'), /Message:\nPlease contact me/);
@@ -202,6 +211,7 @@ test('partnership enquiry opens an email draft with every provided form detail',
   const parameters = new URLSearchParams(query);
   assert.equal(recipient, 'mailto:freclean7@gmail.com');
   assert.equal(parameters.get('subject'), 'New FreClean Partnership Enquiry');
+  assert.equal(emailDraft(form.status).clicked, true);
   assert.match(parameters.get('body'), /Name: Ada Partner/);
   assert.match(parameters.get('body'), /Organization: Example Organization/);
   assert.match(parameters.get('body'), /Email: ada@example\.com/);
@@ -547,6 +557,7 @@ test('booking request opens a prefilled email draft with all booking details', (
   const body = parameters.get('body');
   assert.equal(recipient, 'mailto:freclean7@gmail.com');
   assert.equal(parameters.get('subject'), 'New FreClean Booking Enquiry');
+  assert.equal(emailDraft(booking.status).clicked, true);
   for (const [label, value] of [
     ['Service', 'Residential'],
     ['Property Type', 'Home or apartment'],
