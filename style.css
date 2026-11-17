@@ -4571,63 +4571,6 @@ em {
   font-weight: 700;
 }
 
-.about-assets-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: .75rem;
-}
-
-.about-assets-grid article {
-  min-width: 0;
-  padding: 1.25rem;
-  background: var(--white);
-  border: 1px solid var(--line);
-}
-
-.about-assets-grid h3 {
-  margin-bottom: .8rem;
-  font-size: 1.1rem;
-}
-
-.about-assets-grid ul {
-  display: grid;
-  gap: .65rem;
-  margin: 0;
-  padding-left: 1.1rem;
-  color: var(--ink-soft);
-  font-size: .82rem;
-}
-
-.about-asset-status,
-.about-coming-soon {
-  display: inline-block;
-  margin-left: .2rem;
-  color: var(--blue-dark);
-  font-size: .68rem;
-  font-weight: 800;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-}
-
-.about-coming-soon {
-  color: #795722;
-}
-
-.about-assets-grid article > p {
-  margin: .85rem 0 0;
-  font-size: .82rem;
-}
-
-.about-assets-contact {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.about-assets-contact .button {
-  margin-top: auto;
-}
-
 .about-final-cta {
   padding-block: clamp(4rem, 8vw, 7rem);
   background: #123b35;
@@ -4687,8 +4630,7 @@ em {
 
   .about-work-grid,
   .about-partnership-grid,
-  .about-serve-grid,
-  .about-assets-grid {
+  .about-serve-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -4718,8 +4660,7 @@ em {
   .about-status-grid,
   .about-model-grid,
   .about-facts dl,
-  .about-press-copy,
-  .about-assets-grid {
+  .about-press-copy {
     grid-template-columns: 1fr;
   }
 

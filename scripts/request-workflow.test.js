@@ -178,8 +178,7 @@ test('About page includes the verified company profile, distinct programs and ex
     'who-we-serve',
     'business-model',
     'payments',
-    'press-kit',
-    'brand-assets'
+    'press-kit'
   ]) {
     assert.match(html, new RegExp('id="' + section + '"'));
   }
@@ -192,7 +191,7 @@ test('About page includes the verified company profile, distinct programs and ex
   assert.match(html, /wrong network may result in permanent loss/i);
   assert.match(html, /Support should never require a person to give up their dignity or privacy/);
   assert.match(html, /"@type": "LocalBusiness"/);
-  assert.match(html, /<span class="about-coming-soon">Coming soon<\/span>/);
+  assert.doesNotMatch(html, /Press &amp; Brand Assets|brand-assets|about-coming-soon|Coming soon/i);
   assert.doesNotMatch(html, /cUSD|USDm|Lorem ipsum|guaranteed income|guaranteed profits/i);
   for (const [, target] of html.matchAll(/href="#([^"]+)"/g)) {
     assert.ok(ids.has(target), `About page anchor #${target} has a matching section`);
