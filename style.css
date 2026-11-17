@@ -4292,6 +4292,12 @@ em {
   font-size: .9rem;
 }
 
+.about-caution--community {
+  border-left-color: var(--color-secondary);
+  background: rgba(215, 237, 189, .4);
+  color: var(--color-secondary);
+}
+
 .about-caution strong {
   display: block;
   margin-bottom: .25rem;
