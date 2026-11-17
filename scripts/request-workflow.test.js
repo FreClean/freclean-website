@@ -207,7 +207,7 @@ test('bracelet uses the shared catalog card and keeps its fixed price, size and 
   assert.equal(bracelet.category, 'Accessories');
   assert.equal(bracelet.brand, 'FreClean');
   assert.equal(bracelet.type, 'Branded accessory');
-  assert.equal(bracelet.price.display, '$2.00 USD');
+  assert.equal(bracelet.price.display, '$4.99 USD');
   assert.deepEqual(bracelet.availableSizes, ['Standard size']);
   assert.equal(bracelet.status, 'Available');
   assert.equal(bracelet.image, 'assets/freclean-bracelet.png');
@@ -303,7 +303,7 @@ test('accessory catalog renders the bracelet image and enquiry from structured p
   assert.equal(card.image.alt, 'FreClean branded bracelet');
   assert.equal(card.fields.name.textContent, 'FreClean Bracelet');
   assert.equal(card.fields.category.textContent, 'Accessories');
-  assert.equal(card.fields.price.textContent, '$2.00 USD');
+  assert.equal(card.fields.price.textContent, '$4.99 USD');
   assert.equal(card.fields.size.textContent, 'Standard size');
   assert.equal(card.fields.availability.textContent, 'Available');
   assert.equal(card.fields.brand.textContent, 'FreClean');

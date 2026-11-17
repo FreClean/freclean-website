@@ -39,7 +39,7 @@
       "imageAlt": "FreClean branded bracelet",
       "status": "Available",
       "availability": "available",
-      "price": { "kind": "fixed", "currency": "USD", "amount": 2, "display": "$2.00 USD" },
+      "price": { "kind": "fixed", "currency": "USD", "amount": 4.99, "display": "$4.99 USD" },
       "availableSizes": ["Standard size"]
     }
   ]
