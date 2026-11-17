@@ -191,6 +191,7 @@ test('About page includes the verified company profile, distinct programs and ex
   assert.match(html, /wrong network may result in permanent loss/i);
   assert.match(html, /Support should never require a person to give up their dignity or privacy/);
   assert.match(html, /"@type": "LocalBusiness"/);
+  assert.doesNotMatch(html, /Downloadable press materials|expanded transparency resources|about-status--planned/);
   assert.doesNotMatch(html, /Press &amp; Brand Assets|brand-assets|about-coming-soon|Coming soon/i);
   assert.doesNotMatch(html, /cUSD|USDm|Lorem ipsum|guaranteed income|guaranteed profits/i);
   for (const [, target] of html.matchAll(/href="#([^"]+)"/g)) {

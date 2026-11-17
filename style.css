@@ -4344,7 +4344,7 @@ em {
 
 .about-status-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: .75rem;
   margin-bottom: 1.25rem;
 }
@@ -4373,7 +4373,6 @@ em {
 
 .about-status--available { background: #d7edbd; }
 .about-status--development { background: #d9e8f2; }
-.about-status--planned { background: #f7e8c9; }
 .about-status--aspirational { background: #e9e1ef; }
 
 .about-footnote {
