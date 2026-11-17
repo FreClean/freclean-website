@@ -178,6 +178,37 @@ test('contact enquiry opens a prefilled email draft addressed to FreClean', () =
   assert.equal(form.resetCalled, false);
 });
 
+test('partnership enquiry opens an email draft with every provided form detail', () => {
+  const html = fs.readFileSync(path.join(__dirname, '..', 'partners/index.html'), 'utf8');
+  assert.match(html, /data-email-recipient="freclean7@gmail\.com"/);
+  assert.match(html, /data-email-subject="New FreClean Partnership Enquiry"/);
+  const form = createForm('partners');
+  form.dataset.emailRecipient = 'freclean7@gmail.com';
+  form.dataset.emailSubject = 'New FreClean Partnership Enquiry';
+  form.fields = [
+    ['name', 'Ada Partner'],
+    ['organization', 'Example Organization'],
+    ['email', 'ada@example.com'],
+    ['partnership_type', 'Product distribution'],
+    ['message', 'I would like to explore working together.']
+  ];
+  const forms = boot([form], 'https://api.freclean.com/api/public/requests', () => {
+    assert.fail('partnership enquiries must open an email draft without submitting through the API');
+  });
+
+  submit(form);
+
+  const [recipient, query] = forms.window.location.href.split('?');
+  const parameters = new URLSearchParams(query);
+  assert.equal(recipient, 'mailto:freclean7@gmail.com');
+  assert.equal(parameters.get('subject'), 'New FreClean Partnership Enquiry');
+  assert.match(parameters.get('body'), /Name: Ada Partner/);
+  assert.match(parameters.get('body'), /Organization: Example Organization/);
+  assert.match(parameters.get('body'), /Email: ada@example\.com/);
+  assert.match(parameters.get('body'), /Partnership Type: Product distribution/);
+  assert.match(parameters.get('body'), /Message:\nI would like to explore working together\./);
+});
+
 test('product cards show sizes and prices and submit a quantity-specific order enquiry', () => {
   const root = path.join(__dirname, '..');
   const products = JSON.parse(fs.readFileSync(path.join(root, 'products.json'), 'utf8')).products;

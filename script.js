@@ -682,10 +682,17 @@
         if (dataset.emailRecipient) {
           var languageCatalog = window.FRECLEAN_I18N;
           var language = languageCatalog && languageCatalog.ready() ? languageCatalog.getLanguage() : 'en';
-          var emailSubject = languageCatalog && languageCatalog.ready()
+          var emailSubject = dataset.emailSubject || (languageCatalog && languageCatalog.ready()
             ? languageCatalog.t('common.forms.contactEmailSubject', language)
-            : 'New FreClean Contact Enquiry';
-          var emailBody = ['Name: ' + name, 'Email: ' + email, '', 'Message:', message].join('\n');
+            : 'New FreClean Contact Enquiry');
+          var emailBodyLines = ['Name: ' + name, 'Email: ' + email];
+          Object.keys(values).forEach(function (key) {
+            if (['name', 'fullName', 'email', 'message'].indexOf(key) !== -1 || !values[key]) return;
+            var label = key.replace(/_/g, ' ').replace(/\b\w/g, function (character) { return character.toUpperCase(); });
+            emailBodyLines.push(label + ': ' + values[key]);
+          });
+          emailBodyLines.push('', 'Message:', message);
+          var emailBody = emailBodyLines.join('\n');
           var emailLink = document.createElement('a');
           emailLink.className = 'text-link';
           emailLink.href = 'mailto:' + dataset.emailRecipient + '?subject=' + encodeURIComponent(emailSubject) + '&body=' + encodeURIComponent(emailBody);
