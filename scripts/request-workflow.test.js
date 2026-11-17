@@ -312,7 +312,10 @@ test('product cards show sizes and prices and add the selected quantity to the c
     assert.match(html, /name="quantity" min="1" max="99" value="1"/);
   }
   assert.equal((html.match(/data-cart-add/g) || []).length, 3);
-  assert.match(html, /\$6\.99–\$7\.99 US each/);
+  assert.match(html, /\$7\.99 USD/);
+  assert.match(html, /\$9\.99 USD/);
+  assert.equal(products[1].price.kind, 'fixed');
+  assert.equal(products[1].price.amount, 9.99);
 });
 
 test('bracelet uses the shared catalog card and keeps its fixed price, size and category', () => {
