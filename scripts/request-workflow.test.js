@@ -514,6 +514,56 @@ test('booking submission preserves every submitted business field', async () => 
   assert.equal(form.status.dataset.state, 'success');
 });
 
+test('booking request opens a prefilled email draft with all booking details', () => {
+  const root = path.join(__dirname, '..');
+  const html = fs.readFileSync(path.join(root, 'book/index.html'), 'utf8');
+  assert.match(html, /data-email-recipient="freclean7@gmail\.com"/);
+  assert.match(html, /data-email-subject="New FreClean Booking Enquiry"/);
+  assert.match(html, /email app will open with this request addressed to FreClean/);
+  const booking = createForm('booking');
+  booking.dataset.emailRecipient = 'freclean7@gmail.com';
+  booking.dataset.emailSubject = 'New FreClean Booking Enquiry';
+  booking.fields = [
+    ['service', 'Residential'],
+    ['property_type', 'Home or apartment'],
+    ['space_size', '501 to 1,000 sq ft'],
+    ['date', '2026-12-15'],
+    ['time', '09:30'],
+    ['name', 'Ada Customer'],
+    ['phone', '+50955501234'],
+    ['email', 'ada@example.com'],
+    ['location', 'Leogane, Haiti'],
+    ['notes', 'Please focus on the kitchen.'],
+    ['payment_method', 'USDT TRC20']
+  ];
+  const forms = boot([booking], 'https://api.freclean.com/api/public/requests', () => {
+    assert.fail('booking requests must open an email draft without submitting through the API');
+  });
+
+  submit(booking);
+
+  const [recipient, query] = forms.window.location.href.split('?');
+  const parameters = new URLSearchParams(query);
+  const body = parameters.get('body');
+  assert.equal(recipient, 'mailto:freclean7@gmail.com');
+  assert.equal(parameters.get('subject'), 'New FreClean Booking Enquiry');
+  for (const [label, value] of [
+    ['Service', 'Residential'],
+    ['Property Type', 'Home or apartment'],
+    ['Space Size', '501 to 1,000 sq ft'],
+    ['Date', '2026-12-15'],
+    ['Time', '09:30'],
+    ['Name', 'Ada Customer'],
+    ['Phone', '+50955501234'],
+    ['Email', 'ada@example.com'],
+    ['Location', 'Leogane, Haiti'],
+    ['Notes', 'Please focus on the kitchen.'],
+    ['Payment Method', 'USDT TRC20']
+  ]) {
+    assert.ok(body.includes(label + ': ' + value), 'email draft should include ' + label);
+  }
+});
+
 test('payment choices are restricted to the four USDT networks and separate CeloHT handoff', () => {
   const root = path.join(__dirname, '..');
   const paymentPage = fs.readFileSync(path.join(root, 'payments/index.html'), 'utf8');
