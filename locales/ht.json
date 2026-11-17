@@ -299,16 +299,22 @@
   },
   "pages": {
     "about": {
-      "metaDescription": "Rankontre FreClean, yon konpayi ayisyen ki ofri sèvis netwayaj pwofesyonèl, pwodwi devlope lokalman ak opòtinite biznis pratik nan Léogâne, Ayiti.",
-      "openGraphDescription": "Dekouvri konpayi ayisyen ki mete netwayaj pwofesyonèl, pwodwi itil ak opòtinite pratik ansanm nan Léogâne, Ayiti.",
-      "title": "Sou FreClean | Sèvis netwayaj ak pwodwi ann Ayiti",
-      "builtInHaiti": "Bati ann Ayiti.",
-      "designedForCare": "Fèt pou bay pi bon swen.",
-      "intro": "FreClean mete netwayaj pwofesyonèl, pwodwi itil ak opòtinite pratik ansanm pou kay, biznis ak kominote nan Léogâne ak lòt kote.",
-      "approach": "Apwòch nou",
-      "attention": "Bon travay kòmanse lè nou pran tan pou byen gade.",
-      "servicesProducts": "FreClean ofri sèvis netwayaj ak bon jan pwodwi netwayaj pou kay, espas travay, lojman ospitalite ak biznis. Nou pran swen espas kote moun rete, travay epi resevwa lòt moun.",
-      "outlook": "N ap bati yon konpayi lokal serye ki gen yon vizyon entènasyonal: sèvis byen reflechi, kominikasyon klè ak estanda pwofesyonèl nan chak echanj."
+      "metaDescription": "Aprann konnen FreClean, yon biznis ayisyen ki ofri sèvis netwayaj ak pwodwi pou konsomatè, epi ki konsantre sou netwayaj pwofesyonèl, pwodwi netwayaj ak parfen, antreprenarya, sipò kominotè ak kwasans responsab.",
+      "openGraphDescription": "Aprann konnen FreClean, yon biznis ayisyen ki ofri sèvis netwayaj ak pwodwi pou konsomatè, epi ki konsantre sou netwayaj pwofesyonèl, pwodwi netwayaj ak parfen, antreprenarya, sipò kominotè ak kwasans responsab.",
+      "title": "Sou FreClean | Sèvis netwayaj, pwodwi ak antreprenarya",
+      "builtInHaiti": "Netwaye pi byen.",
+      "designedForCare": "Viv pi byen.",
+      "intro": "FreClean se yon biznis ann Ayiti ki ofri sèvis netwayaj ak pwodwi pou konsomatè. Li ap devlope solisyon netwayaj pratik, sèvis pwofesyonèl, pwodwi parfen, opòtinite antreprenarya ak inisyativ pou kominote a.",
+      "supportingStatement": "N ap bati espas ki pi pwòp. N ap kreye pi bon opòtinite.",
+      "servicesCta": "Dekouvri sèvis nou yo",
+      "productsCta": "Dekouvri pwodwi nou yo",
+      "supportCta": "Sipòte FreClean",
+      "missionLink": "Li misyon nou",
+      "detailedProfileNotice": "Enfòmasyon detaye sou konpayi an ak dosye pou laprès ki anba a disponib an anglè kounye a.",
+      "approach": "Kiyès Nou Ye",
+      "attention": "Yon biznis ayisyen ki gen yon objektif pratik.",
+      "servicesProducts": "FreClean te fonde ann Ayiti nan dat 16 avril 2025, epi li anrasinen nan Léogâne, Lwès. Li mete sèvis netwayaj pwofesyonèl ak pwodwi pou konsomatè ansanm ak yon inisyativ antreprenarya ak sipò pou kominote a.",
+      "outlook": "FreClean kòmanse ak swen pratik pou espas kote moun viv, travay epi resevwa lòt moun. Biznis la ap devlope pwodwi ki mache ak objektif sa a, relasyon komèsyal ak opòtinite patisipasyon, san li pa egzajere gwosè oswa zòn li kouvri jodi a."
     },
     "business": {
       "metaDescription": "FreClean ofri netwayaj komèsyal ak ospitalite ki byen òganize pou otèl, pwopriyete Airbnb, biwo, ekip pwopriyete ak òganizasyon nan Léogâne, Ayiti.",
@@ -781,13 +787,13 @@
       "intro": "Sèvi ak enfòmasyon ofisyèl sa yo pou repòtaj egzak, demann patenarya ak demann medya ki apwouve.",
       "companyDescription": "Deskripsyon konpayi an",
       "companyHeadline": "Netwayaj modèn, pwodwi ak opòtinite.",
-      "companyDetails": "FreClean se yon konpayi ayisyen sèvis ak pwodwi pou konsomatè. Li ap devlope solisyon netwayaj pwofesyonèl, pwodwi netwayaj lokal, opòtinite antreprenarya ak komès dijital aksesib.",
+      "companyDetails": "FreClean se yon biznis ann Ayiti ki ofri sèvis netwayaj ak pwodwi pou konsomatè. Johnny Dubic te fonde l nan dat 16 avril 2025, epi li anrasinen nan Léogâne, Lwès. Li konsantre sou netwayaj pwofesyonèl, pwodwi netwayaj ak pwodwi pou swen kay, pwodwi parfen, antreprenarya, sipò kominotè ak patenarya. Yo konfime dimansyon sèvis yo ak disponiblite pwodwi yo dirèkteman.",
       "founder": "Fondatè",
       "founderName": "Johnny Dubic",
-      "founderBio": "Johnny Dubic se fondatè FreClean. N ap pibliye yon biyografi pwofesyonèl verifye ak pòtrè apwouve lè materyèl pou laprès yo pare.",
+      "founderBio": "Johnny Dubic te fonde FreClean epi li responsab devlopman estratejik biznis la nan etap aktyèl li. Nou pa bay lòt detay sou lavi pèsonèl oswa pwofesyonèl li.",
       "brandAssets": "Resous mak la",
       "logoImages": "Logo ak imaj",
-      "assetsDetails": "Sit piblik la prezante logo ofisyèl FreClean ak imaj konpayi an. Kontakte FreClean pou itilizasyon ki apwouve ak fichye gwo rezolisyon.",
+      "assetsDetails": "Sit piblik la prezante logo prensipal FreClean ak yon logo orizontal. Lòt resous pou laprès make kòm byento; kontakte FreClean pou konnen ki itilizasyon ki apwouve.",
       "requestAssets": "Mande resous medya",
       "pressContact": "Kontak pou laprès",
       "speak": "Pale ak FreClean",
@@ -795,9 +801,10 @@
       "introduction": "Yon prezantasyon klè",
       "toFreclean": "sou FreClean.",
       "officialInformation": "Enfòmasyon ofisyèl pou jounalis, patnè ak òganizasyon, ak kontak dirèk pou demann medya ki apwouve.",
-      "interviewBio": "Johnny Dubic se fondatè FreClean. Kontakte ekip la dirèkteman pou biyografi verifye ak demann entèvyou.",
+      "interviewBio": "Johnny Dubic te fonde FreClean epi li responsab devlopman estratejik biznis la nan etap aktyèl li. Nou pa bay lòt detay sou lavi pèsonèl oswa pwofesyonèl li.",
       "contactTeam": "Kontakte ekip la",
-      "publicAssets": "Sit piblik la prezante logo ofisyèl FreClean ak imaj konpayi an. Kontakte FreClean pou itilizasyon ki apwouve ak fichye gwo rezolisyon."
+      "publicAssets": "Sit piblik la prezante logo prensipal FreClean ak yon logo orizontal. Lòt resous pou laprès make kòm byento; kontakte FreClean pou konnen ki itilizasyon ki apwouve.",
+      "fullPressKit": "Li tout dosye pou laprès la"
     },
     "legal": {
       "center": {

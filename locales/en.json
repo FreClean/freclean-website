@@ -299,16 +299,22 @@
   },
   "pages": {
     "about": {
-      "metaDescription": "Meet FreClean, a Haitian company providing professional cleaning services, locally developed products and practical business opportunities from Léogâne, Haiti.",
-      "openGraphDescription": "Meet the Haitian company connecting professional cleaning, useful products and practical opportunity from Léogâne, Haiti.",
-      "title": "About FreClean | Cleaning Services and Products in Haiti",
-      "builtInHaiti": "Built in Haiti.",
-      "designedForCare": "Designed for better care.",
-      "intro": "FreClean combines professional cleaning, useful products and practical opportunity for homes, businesses and communities in Léogâne and beyond.",
-      "approach": "Our approach",
-      "attention": "Good work starts with paying attention.",
-      "servicesProducts": "FreClean provides cleaning services and quality cleaning products for homes, workplaces, hospitality properties and businesses. Our work is grounded in care for the spaces people live, work and welcome others into.",
-      "outlook": "We are building a serious local company with an international outlook: thoughtful service, clear communication and a professional standard in every interaction."
+      "metaDescription": "Learn about FreClean, a Haiti-based cleaning services and consumer-products business focused on professional cleaning, cleaning and fragrance products, entrepreneurship, community support, and responsible growth.",
+      "openGraphDescription": "Learn about FreClean, a Haiti-based cleaning services and consumer-products business focused on professional cleaning, cleaning and fragrance products, entrepreneurship, community support, and responsible growth.",
+      "title": "About FreClean | Cleaning Services, Products & Entrepreneurship",
+      "builtInHaiti": "Clean Better.",
+      "designedForCare": "Live Better.",
+      "intro": "FreClean is a Haiti-based cleaning services and consumer-products business building practical cleaning solutions, professional services, fragrance products, entrepreneurship opportunities, and community-oriented initiatives.",
+      "supportingStatement": "Building Cleaner Spaces. Creating Better Opportunities.",
+      "servicesCta": "Explore Our Services",
+      "productsCta": "Explore Our Products",
+      "supportCta": "Support FreClean",
+      "missionLink": "Read our mission",
+      "detailedProfileNotice": "The detailed profile and press-kit information below are currently provided in English.",
+      "approach": "Who We Are",
+      "attention": "A Haitian business with a practical purpose.",
+      "servicesProducts": "FreClean was founded in Haiti on April 16, 2025, and is rooted in Léogâne, Ouest. It brings professional cleaning services and consumer products together with an entrepreneurship initiative and community-oriented support.",
+      "outlook": "FreClean's starting point is practical care for the spaces where people live, work, and welcome others. The business is developing related products, commercial relationships, and participation opportunities from that foundation, without overstating its current scale or reach."
     },
     "business": {
       "metaDescription": "FreClean provides organized commercial and hospitality cleaning for hotels, Airbnb properties, offices, property teams and organizations in Léogâne, Haiti.",
@@ -781,13 +787,13 @@
       "intro": "Use this official press information for accurate reporting, partnership enquiries and approved media requests.",
       "companyDescription": "Company description",
       "companyHeadline": "Modern cleaning, products and opportunity.",
-      "companyDetails": "FreClean is a Haitian service and consumer-products company building professional cleaning solutions, locally developed cleaning products, entrepreneurship opportunities and accessible digital commerce.",
+      "companyDetails": "FreClean is a Haiti-based cleaning services and consumer-products business founded by Johnny Dubic on April 16, 2025, and rooted in Léogâne, Ouest. Its focus includes professional cleaning, cleaning and household-care products, fragrance products, entrepreneurship, community support, and partnerships. Service scope and product availability are confirmed directly.",
       "founder": "Founder",
       "founderName": "Johnny Dubic",
-      "founderBio": "Johnny Dubic is the founder of FreClean. A verified professional biography and approved portrait will be published here when the press materials are ready.",
+      "founderBio": "Johnny Dubic founded FreClean and is responsible for its strategic development during the current stage. No additional personal or professional biography is asserted.",
       "brandAssets": "Brand assets",
       "logoImages": "Logo and images",
-      "assetsDetails": "The public site currently provides the official FreClean logo and company imagery. Contact FreClean for approved use and high-resolution files.",
+      "assetsDetails": "The public site provides a primary FreClean logo and horizontal logo artwork. Other press assets are marked as coming soon; contact FreClean for approved use.",
       "requestAssets": "Request media assets",
       "pressContact": "Press contact",
       "speak": "Speak with FreClean",
@@ -795,9 +801,10 @@
       "introduction": "A clear introduction",
       "toFreclean": "to FreClean.",
       "officialInformation": "Official company information for journalists, partners and organizations, with direct contact for approved media requests.",
-      "interviewBio": "Johnny Dubic is the founder of FreClean. Contact the team directly for verified biography details and interview requests.",
+      "interviewBio": "Johnny Dubic founded FreClean and is responsible for its strategic development during the current stage. No additional personal or professional biography is asserted.",
       "contactTeam": "Contact the team",
-      "publicAssets": "The public site provides the official FreClean logo and company imagery. Contact FreClean for approved use and high-resolution files."
+      "publicAssets": "The public site provides a primary FreClean logo and horizontal logo artwork. Other press assets are marked as coming soon; contact FreClean for approved use.",
+      "fullPressKit": "Read the full press kit"
     },
     "legal": {
       "center": {

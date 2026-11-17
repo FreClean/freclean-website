@@ -148,6 +148,66 @@ function waitForRequest() {
   return new Promise((resolve) => setImmediate(resolve));
 }
 
+test('About page includes the verified company profile, distinct programs and exact press-kit lengths', () => {
+  const root = path.join(__dirname, '..');
+  const html = fs.readFileSync(path.join(root, 'about/index.html'), 'utf8');
+  const press = fs.readFileSync(path.join(root, 'press/index.html'), 'utf8');
+  const ids = new Set([...html.matchAll(/\bid="([^"]+)"/g)].map(([, id]) => id));
+
+  assert.match(html, /<title>About FreClean \| Cleaning Services, Products &amp; Entrepreneurship<\/title>/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/freclean\.com\/about\/">/);
+  assert.match(html, /"foundingDate": "2025-04-16"/);
+  assert.match(html, /"name": "Johnny Dubic"/);
+  for (const section of [
+    'who-we-are',
+    'our-mission',
+    'what-we-do',
+    'entrepreneurship',
+    'community-support',
+    'contribution-transparency',
+    'privacy',
+    'impact',
+    'partnerships',
+    'vision',
+    'values',
+    'trust',
+    'our-story',
+    'founder',
+    'who-we-serve',
+    'business-model',
+    'payments',
+    'press-kit',
+    'brand-assets'
+  ]) {
+    assert.match(html, new RegExp('id="' + section + '"'));
+  }
+  for (const label of ['50-word description', '100-word description']) {
+    const match = html.match(new RegExp('<p class="eyebrow">' + label + '</p><p>([\\s\\S]*?)</p>'));
+    assert.ok(match, label + ' should be present');
+    const words = match[1].replace(/<[^>]+>/g, '').trim().split(/\s+/);
+    assert.equal(words.length, label.startsWith('50-') ? 50 : 100);
+  }
+  assert.match(html, /wrong network may result in permanent loss/i);
+  assert.match(html, /Support should never require a person to give up their dignity or privacy/);
+  assert.match(html, /"@type": "LocalBusiness"/);
+  assert.match(html, /<span class="about-coming-soon">Coming soon<\/span>/);
+  assert.doesNotMatch(html, /cUSD|USDm|Lorem ipsum|guaranteed income|guaranteed profits/i);
+  for (const [, target] of html.matchAll(/href="#([^"]+)"/g)) {
+    assert.ok(ids.has(target), `About page anchor #${target} has a matching section`);
+  }
+  for (const [, href] of html.matchAll(/href="([^"]+)"/g)) {
+    if (/^(?:[a-z]+:|\/\/|#)/i.test(href)) continue;
+    const target = href.split(/[?#]/, 1)[0];
+    let targetPath = path.resolve(root, 'about', target);
+    if (fs.existsSync(targetPath) && fs.statSync(targetPath).isDirectory()) {
+      targetPath = path.join(targetPath, 'index.html');
+    }
+    assert.ok(fs.existsSync(targetPath), `About page link ${href} resolves to a local page`);
+  }
+  assert.match(press, /href="\.\.\/about\/#press-kit"/);
+  assert.doesNotMatch(press, /accessible digital commerce|locally developed cleaning products/i);
+});
+
 test('booking and contact pages expose required email validation and a live status region', () => {
   for (const page of ['book/index.html', 'contact/index.html']) {
     const html = fs.readFileSync(path.join(__dirname, '..', page), 'utf8');

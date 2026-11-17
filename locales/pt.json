@@ -299,16 +299,22 @@
   },
   "pages": {
     "about": {
-      "metaDescription": "Conheça a FreClean, uma empresa haitiana que oferece serviços profissionais de limpeza, produtos desenvolvidos localmente e oportunidades práticas de negócios em Léogâne, Haiti.",
-      "openGraphDescription": "Conheça a empresa haitiana que conecta serviços profissionais de limpeza, produtos úteis e oportunidades práticas em Léogâne, Haiti.",
-      "title": "Sobre a FreClean | Serviços e produtos de limpeza no Haiti",
-      "builtInHaiti": "Criada no Haiti.",
-      "designedForCare": "Feita para cuidar melhor.",
-      "intro": "A FreClean reúne serviços profissionais de limpeza, produtos úteis e oportunidades práticas para residências, empresas e comunidades em Léogâne e além.",
-      "approach": "Nossa abordagem",
-      "attention": "Um bom trabalho começa com atenção.",
-      "servicesProducts": "A FreClean oferece serviços de limpeza e produtos de qualidade para residências, locais de trabalho, estabelecimentos de hospedagem e empresas. Nosso trabalho é pautado pelo cuidado com os espaços onde as pessoas vivem, trabalham e recebem outras pessoas.",
-      "outlook": "Estamos construindo uma empresa local sólida, com visão internacional: atendimento atencioso, comunicação clara e padrão profissional em cada interação."
+      "metaDescription": "Conheça a FreClean, uma empresa haitiana de serviços de limpeza e produtos de consumo focada em limpeza profissional, produtos de limpeza e fragrâncias, empreendedorismo, apoio comunitário e crescimento responsável.",
+      "openGraphDescription": "Conheça a FreClean, uma empresa haitiana de serviços de limpeza e produtos de consumo focada em limpeza profissional, produtos de limpeza e fragrâncias, empreendedorismo, apoio comunitário e crescimento responsável.",
+      "title": "Sobre a FreClean | Serviços, produtos de limpeza e empreendedorismo",
+      "builtInHaiti": "Limpe melhor.",
+      "designedForCare": "Viva melhor.",
+      "intro": "A FreClean é uma empresa haitiana de serviços de limpeza e produtos de consumo que desenvolve soluções práticas de limpeza, serviços profissionais, produtos de fragrância, oportunidades de empreendedorismo e iniciativas comunitárias.",
+      "supportingStatement": "Construindo espaços mais limpos. Criando melhores oportunidades.",
+      "servicesCta": "Conheça nossos serviços",
+      "productsCta": "Conheça nossos produtos",
+      "supportCta": "Apoie a FreClean",
+      "missionLink": "Leia nossa missão",
+      "detailedProfileNotice": "O perfil detalhado e as informações para a imprensa abaixo estão disponíveis atualmente em inglês.",
+      "approach": "Quem Somos",
+      "attention": "Uma empresa haitiana com um propósito prático.",
+      "servicesProducts": "A FreClean foi fundada no Haiti em 16 de abril de 2025 e tem suas raízes em Léogâne, Ouest. Ela reúne serviços profissionais de limpeza e produtos de consumo com uma iniciativa de empreendedorismo e apoio comunitário.",
+      "outlook": "O ponto de partida da FreClean é o cuidado prático com os espaços onde as pessoas vivem, trabalham e recebem outras pessoas. A empresa desenvolve produtos relacionados, relações comerciais e oportunidades de participação a partir dessa base, sem exagerar seu alcance atual."
     },
     "business": {
       "metaDescription": "A FreClean oferece serviços organizados de limpeza comercial e para hospedagem em hotéis, imóveis no Airbnb, escritórios, equipes de gestão imobiliária e organizações em Léogâne, Haiti.",
@@ -781,13 +787,13 @@
       "intro": "Use estas informações oficiais para reportagens precisas, consultas sobre parcerias e solicitações de mídia autorizadas.",
       "companyDescription": "Descrição da empresa",
       "companyHeadline": "Limpeza moderna, produtos e oportunidades.",
-      "companyDetails": "A FreClean é uma empresa haitiana de serviços e produtos de consumo que desenvolve soluções profissionais de limpeza, produtos de limpeza locais, oportunidades de empreendedorismo e comércio digital acessível.",
+      "companyDetails": "A FreClean é uma empresa haitiana de serviços de limpeza e produtos de consumo, fundada por Johnny Dubic em 16 de abril de 2025 e enraizada em Léogâne, Ouest. Seu foco inclui limpeza profissional, produtos de limpeza e cuidados domésticos, fragrâncias, empreendedorismo, apoio comunitário e parcerias. O escopo do serviço e a disponibilidade dos produtos são confirmados diretamente.",
       "founder": "Fundador",
       "founderName": "Johnny Dubic",
-      "founderBio": "Johnny Dubic é o fundador da FreClean. Uma biografia profissional verificada e um retrato autorizado serão publicados aqui quando os materiais de imprensa estiverem prontos.",
+      "founderBio": "Johnny Dubic fundou a FreClean e é responsável pelo desenvolvimento estratégico da empresa na etapa atual. Nenhuma outra informação biográfica pessoal ou profissional é afirmada.",
       "brandAssets": "Materiais da marca",
       "logoImages": "Logotipo e imagens",
-      "assetsDetails": "O site público disponibiliza atualmente o logotipo oficial da FreClean e imagens da empresa. Entre em contato com a FreClean para obter autorização de uso e arquivos em alta resolução.",
+      "assetsDetails": "O site público disponibiliza o logotipo principal da FreClean e uma arte horizontal da marca. Os demais materiais de imprensa estão indicados como em breve; entre em contato para confirmar o uso autorizado.",
       "requestAssets": "Solicitar materiais de imprensa",
       "pressContact": "Contato para a imprensa",
       "speak": "Fale com a FreClean",
@@ -795,9 +801,10 @@
       "introduction": "Uma apresentação clara",
       "toFreclean": "da FreClean.",
       "officialInformation": "Informações oficiais da empresa para jornalistas, parceiros e organizações, com contato direto para solicitações de mídia autorizadas.",
-      "interviewBio": "Johnny Dubic é o fundador da FreClean. Entre em contato diretamente com a equipe para obter informações biográficas verificadas e solicitar entrevistas.",
+      "interviewBio": "Johnny Dubic fundou a FreClean e é responsável pelo desenvolvimento estratégico da empresa na etapa atual. Nenhuma outra informação biográfica pessoal ou profissional é afirmada.",
       "contactTeam": "Fale com a equipe",
-      "publicAssets": "O site público disponibiliza o logotipo oficial da FreClean e imagens da empresa. Entre em contato com a FreClean para obter autorização de uso e arquivos em alta resolução."
+      "publicAssets": "O site público disponibiliza o logotipo principal da FreClean e uma arte horizontal da marca. Os demais materiais de imprensa estão indicados como em breve; entre em contato para confirmar o uso autorizado.",
+      "fullPressKit": "Leia o kit de imprensa completo"
     },
     "legal": {
       "center": {

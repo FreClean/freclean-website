@@ -121,18 +121,21 @@ def flatten(value, prefix=""):
 class CopyParser(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
-        self.skipped = []
+        self.skip_depth = 0
+        self.tag_stack = []
         self.copy = set()
         self.jsonld = None
 
     def handle_starttag(self, tag, attributes):
         attrs = dict(attributes)
+        skip = tag in SKIP_TAGS or attrs.get("data-i18n-skip") is not None
+        self.tag_stack.append((tag, skip))
+        if skip:
+            self.skip_depth += 1
         if tag == "script" and attrs.get("type") == "application/ld+json":
             self.jsonld = ""
-        if tag in SKIP_TAGS:
-            self.skipped.append(tag)
-        if attrs.get("data-i18n-skip") is not None:
-            self.skipped.append("data-i18n-skip")
+        if self.skip_depth:
+            return
         for name, value in attributes:
             if not value:
                 continue
@@ -148,14 +151,17 @@ class CopyParser(HTMLParser):
             except json.JSONDecodeError:
                 pass
             self.jsonld = None
-        if tag in self.skipped:
-            self.skipped.remove(tag)
+        for index in range(len(self.tag_stack) - 1, -1, -1):
+            if self.tag_stack[index][0] == tag:
+                self.skip_depth -= sum(1 for _, skip in self.tag_stack[index:] if skip)
+                del self.tag_stack[index:]
+                break
 
     def handle_data(self, data):
         if self.jsonld is not None:
             self.jsonld += data
             return
-        if not self.skipped:
+        if not self.skip_depth:
             self.add(data)
 
     def add_structured_copy(self, value):
