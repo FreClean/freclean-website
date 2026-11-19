@@ -52,3 +52,28 @@ test('product page offers a manual-payment cart request addressed to FreClean', 
   assert.match(html, /value="CeloHT DApp"/);
   assert.match(html, /Request &amp; Send/);
 });
+
+test('product detail pages provide practical ordering and safety information', () => {
+  const cleaner = fs.readFileSync(
+    path.join(root, 'products/cleaning-essentials/index.html'),
+    'utf8'
+  );
+  const freshener = fs.readFileSync(
+    path.join(root, 'products/fragrance-products/index.html'),
+    'utf8'
+  );
+
+  for (const html of [cleaner, freshener]) {
+    assert.match(html, /Product overview/);
+    assert.match(html, /How to order/);
+    assert.match(html, /Use safely/);
+    assert.match(html, /Storage/);
+    assert.match(html, /FreClean will confirm/);
+  }
+
+  assert.match(cleaner, /\$7\.99 USD/);
+  assert.match(cleaner, /750 mL bottle/);
+  assert.match(freshener, /\$9\.99 USD/);
+  assert.match(freshener, /Jasmine Breeze/);
+  assert.match(freshener, /300 mL bottle/);
+});

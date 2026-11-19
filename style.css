@@ -1787,6 +1787,33 @@ body {
   gap: clamp(2rem, 7vw, 7rem);
 }
 
+.product-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: clamp(3rem, 7vw, 5rem);
+}
+
+.product-detail-grid .content-card {
+  min-height: 280px;
+}
+
+.product-detail-grid .content-card span {
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 900px) {
+  .product-detail-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .product-detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .detail-image,
 .image-frame {
   background: linear-gradient(145deg, #f8fbf7, #eaf3e3);

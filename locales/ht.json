@@ -542,6 +542,26 @@
         "request": "Mande pou kòmande",
         "imageAlt": "Netwayan tout itilizasyon FreClean, 750 mL"
       },
+      "cleaningEssentialsDetails": {
+        "overview": "Apèsi sou pwodwi a",
+        "overviewTitle": "Netwayaj pratik chak jou.",
+        "overviewText": "Yo prezante netwayan tout itilizasyon FreClean 750 mL sa a pou antretyen regilye kay ak espas travay. Li gen bon sant fre epi li fèt pou swen pratik chak jou.",
+        "package": "Anbalaj",
+        "packageTitle": "Boutèy 750 mL.",
+        "packageText": "Yon boutèy disponib pou $7.99 USD. Paj piblik la pa konfime stock oswa livrezon otomatikman; FreClean ap konfime detay yo dirèkteman anvan acha.",
+        "surface": "Kote ou ka itilize li",
+        "surfaceTitle": "Tcheke sifas ki apwopriye a.",
+        "surfaceText": "Mande FreClean pou direksyon etikèt ak gidans sou sifas yo anvan ou itilize li. Fè yon tès sou yon ti zòn ki pa aparan sou sifas delika oswa ki fini, epi pa itilize li sou sifas ki antre an kontak ak manje sof si etikèt pwodwi a pèmèt li klèman.",
+        "order": "Kijan pou kòmande",
+        "orderTitle": "Mande, epi konfime.",
+        "orderText": "Chwazi kantite a epi voye demann kòmann lan. FreClean ap konfime montan final la, stock, ranmasaj oswa livrezon, ak enstriksyon peman apwouve yo. Sit wèb sa a pa pran peman.",
+        "safety": "Itlize avèk sekirite",
+        "safetyTitle": "Swiv etikèt boutèy la.",
+        "safetyText": "Kenbe netwayan an lwen timoun ak bèt kay yo. Pa melanje li ak klowòks oswa lòt pwodui chimik, evite kontak ak je oswa po, epi lave men apre itilize. Sispann itilize epi mande èd apwopriye si gen iritasyon oswa ekspozisyon aksidan.",
+        "storage": "Depozisyon",
+        "storageTitle": "Kenbe l fèmen epi fre.",
+        "storageText": "Kenbe boutèy la kanpe nan veso orijinal li, fèmen bouchon an byen, epi pwoteje li kont chalè ekstrèm oswa limyè solèy dirèk. Swiv etikèt boutèy la pou dilysyon, vantilasyon ak eliminasyon ki pi resan yo."
+      },
       "fragrance": {
         "metaDescription": "Kòmande pwodui FreClean Jasmine Breeze pou rafrechi chanm nan boutèy 300 mL pou $9.99 USD chak. Konfime disponiblite a dirèkteman.",
         "openGraphDescription": "Voye yon demann pou kòmande pwodui FreClean Jasmine Breeze pou rafrechi chanm.",
@@ -558,6 +578,26 @@
         "prompt": "Chwazi kantite a epi voye yon demann pou kòmande. FreClean ap konfime pri final la, disponiblite ak enstriksyon peman yo dirèkteman.",
         "request": "Mande pou kòmande",
         "imageAlt": "Pwodui FreClean Jasmine Breeze pou rafrechi chanm, 300 mL"
+      },
+      "fragranceDetails": {
+        "overview": "Apèsi sou pwodwi a",
+        "overviewTitle": "Bon sant ki enspire pa jasmin.",
+        "overviewText": "Yo prezante pwodui FreClean pou rafrechi chanm 300 mL sa a pou ajoute yon bon sant nan espas lavi ak espas travay ki apwopriye. Yo nonmen li Jasmine Breeze epi li dwe itilize selon etikèt boutèy la.",
+        "package": "Anbalaj",
+        "packageTitle": "Boutèy 300 mL.",
+        "packageText": "Yon boutèy disponib pou $9.99 USD. Stock, disponiblite bon sant lan ak aranjman livrezon an FreClean konfime sa anvan acha olye paj sit wèb la pa garanti yo.",
+        "fragranceUse": "Itilizasyon bon sant",
+        "fragranceUseTitle": "Fè chanm an santi pi fre.",
+        "fragranceUseText": "Sèvi ak li nan yon kote ki gen vantilasyon epi dirije vapè a nan lè a oswa selon etikèt pwodwi a. Evite vaporize dirèkteman sou moun, bèt kay, manje, mèb fini, twal oswa sifas delika sof si etikèt la pèmèt li.",
+        "order": "Kijan pou kòmande",
+        "orderTitle": "Mande, epi konfime.",
+        "orderText": "Chwazi kantite a epi voye demann kòmann lan. FreClean ap konfime montan final la, stock, ranmasaj oswa livrezon, ak enstriksyon peman apwouve yo. Sit wèb sa a pa pran peman.",
+        "safety": "Itlize avèk sekirite",
+        "safetyTitle": "Evite ekspozisyon dirèk.",
+        "safetyText": "Kenbe l lwen timoun ak bèt kay yo. Pa respire vapè konsantre a epi pa vaporize tou pre flanm. Sispann itilize li si bon sant lan irite je oswa po oswa lakòz soufèt; chèche èd apwopriye lè sa nesesè.",
+        "storage": "Depozisyon",
+        "storageTitle": "Pwoteje boutèy la.",
+        "storageText": "Kenbe bouchon an byen fèmen epi sere li kanpe nan yon kote fre ak sèk, lwen chalè, flanm ak limyè solèy dirèk. Swiv tout avètisman, enstriksyon premye itilizasyon ak dispozisyon eliminasyon ki enprime sou boutèy la."
       }
     },
     "booking": {

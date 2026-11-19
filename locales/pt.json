@@ -542,6 +542,26 @@
         "request": "Solicitar pedido",
         "imageAlt": "Limpador multiuso FreClean, 750 mL"
       },
+      "cleaningEssentialsDetails": {
+        "overview": "Visão geral do produto",
+        "overviewTitle": "Limpeza prática para o dia a dia.",
+        "overviewText": "Este limpador multiuso FreClean de 750 mL foi apresentado para cuidados rotineiros em casas e ambientes de trabalho. Tem aroma fresco e foi pensado para facilitar os cuidados cotidianos.",
+        "package": "Embalagem",
+        "packageTitle": "Frasco de 750 mL.",
+        "packageText": "Um frasco está disponível por $7.99 USD. Esta página não confirma automaticamente estoque ou entrega; a FreClean confirmará esses detalhes diretamente antes da compra.",
+        "surface": "Onde pode ser usado",
+        "surfaceTitle": "Verifique primeiro a superfície.",
+        "surfaceText": "Peça à FreClean as instruções atuais do rótulo e orientações sobre superfícies antes do uso. Teste uma área discreta em superfícies delicadas ou tratadas e evite superfícies de contato com alimentos, salvo se o rótulo permitir expressamente.",
+        "order": "Como encomendar",
+        "orderTitle": "Consulte e confirme.",
+        "orderText": "Selecione uma quantidade e envie a consulta do pedido. A FreClean confirmará o valor final, o estoque, a retirada ou entrega e as instruções de pagamento aprovadas. Este site não recebe pagamentos.",
+        "safety": "Uso seguro",
+        "safetyTitle": "Siga o rótulo do frasco.",
+        "safetyText": "Mantenha o limpador fora do alcance de crianças e animais. Não misture com água sanitária ou outros produtos químicos, evite contato com olhos ou pele e lave as mãos após o uso. Suspenda o uso e procure ajuda adequada em caso de irritação ou exposição acidental.",
+        "storage": "Armazenamento",
+        "storageTitle": "Mantenha fechado e fresco.",
+        "storageText": "Armazene o frasco em pé em seu recipiente original, mantenha a tampa fechada e proteja-o do calor extremo ou da luz solar direta. Siga o rótulo para obter instruções atuais de diluição, ventilação e descarte."
+      },
       "fragrance": {
         "metaDescription": "Peça o aromatizador de ambientes FreClean Jasmine Breeze em uma embalagem de 300 mL por $9.99 USD cada. Confirme diretamente a disponibilidade.",
         "openGraphDescription": "Envie uma consulta de pedido do aromatizador de ambientes FreClean Jasmine Breeze.",
@@ -558,6 +578,26 @@
         "prompt": "Escolha a quantidade e envie uma consulta de pedido. A FreClean confirmará diretamente o preço final, a disponibilidade e as instruções de pagamento.",
         "request": "Solicitar pedido",
         "imageAlt": "Aromatizador de ambientes FreClean Jasmine Breeze, 300 mL"
+      },
+      "fragranceDetails": {
+        "overview": "Visão geral do produto",
+        "overviewTitle": "Fragrância inspirada no jasmim.",
+        "overviewText": "Este aromatizador de ambientes FreClean de 300 mL foi apresentado para trazer uma fragrância agradável a áreas de estar e espaços de trabalho adequados. É identificado como Jasmine Breeze e deve ser usado conforme o rótulo do frasco.",
+        "package": "Embalagem",
+        "packageTitle": "Frasco de 300 mL.",
+        "packageText": "Um frasco está disponível por $9.99 USD. Estoque, disponibilidade da fragrância e entrega são confirmados pela FreClean antes da compra, não garantidos pela página do site.",
+        "fragranceUse": "Uso da fragrância",
+        "fragranceUseTitle": "Renove o ambiente.",
+        "fragranceUseText": "Use em área ventilada e direcione o spray para o ar ou conforme indicado no rótulo. Evite pulverizar diretamente sobre pessoas, animais, alimentos, móveis acabados, tecidos ou superfícies delicadas, salvo se o rótulo permitir.",
+        "order": "Como encomendar",
+        "orderTitle": "Consulte e confirme.",
+        "orderText": "Selecione uma quantidade e envie a consulta do pedido. A FreClean confirmará o valor final, o estoque, a retirada ou entrega e as instruções de pagamento aprovadas. Este site não recebe pagamentos.",
+        "safety": "Uso seguro",
+        "safetyTitle": "Evite exposição direta.",
+        "safetyText": "Mantenha fora do alcance de crianças e animais. Não inhale névoa concentrada nem pulverize perto de chamas abertas. Suspenda o uso se a fragrância irritar os olhos ou a pele ou causar desconforto respiratório e procure ajuda adequada quando necessário.",
+        "storage": "Armazenamento",
+        "storageTitle": "Proteja o frasco.",
+        "storageText": "Mantenha a tampa fechada e o frasco em pé em local fresco e seco, longe de calor, chamas abertas e luz solar direta. Siga todas as advertências e instruções impressas no frasco."
       }
     },
     "booking": {

@@ -542,6 +542,26 @@
         "request": "Request to order",
         "imageAlt": "FreClean all-purpose cleaner, 750 mL"
       },
+      "cleaningEssentialsDetails": {
+        "overview": "Product overview",
+        "overviewTitle": "Practical everyday cleaning.",
+        "overviewText": "This 750 mL FreClean all-purpose cleaner is presented for routine household and workspace care. It is shown with a fresh scent and is intended as a convenient everyday-care product.",
+        "package": "Package",
+        "packageTitle": "750 mL bottle.",
+        "packageText": "One bottle is available for $7.99 USD. The public listing does not confirm stock or delivery availability automatically; FreClean will confirm those details directly before purchase.",
+        "surface": "Where it may be used",
+        "surfaceTitle": "Suitable surfaces first.",
+        "surfaceText": "Ask FreClean for the current label directions and surface guidance before use. Test an inconspicuous area on delicate or finished surfaces, and avoid use on food-contact surfaces unless the product label specifically permits it.",
+        "order": "How to order",
+        "orderTitle": "Enquire, then confirm.",
+        "orderText": "Select a quantity and send the order enquiry. FreClean will confirm the final amount, stock, pickup or delivery, and approved payment instructions. Payment is not taken on this website.",
+        "safety": "Use safely",
+        "safetyTitle": "Follow the bottle label.",
+        "safetyText": "Keep the cleaner out of reach of children and pets. Do not mix it with bleach or other chemicals, avoid eye or skin contact, and wash hands after use. Stop use and seek appropriate help if irritation or accidental exposure occurs.",
+        "storage": "Storage",
+        "storageTitle": "Keep sealed and cool.",
+        "storageText": "Store the bottle upright in its original container, keep the closure secure, and protect it from extreme heat or direct sunlight. Follow the bottle label for the latest dilution, ventilation, and disposal instructions."
+      },
       "fragrance": {
         "metaDescription": "Order FreClean Jasmine Breeze room freshener in a 300 mL bottle for $9.99 USD each. Confirm availability directly.",
         "openGraphDescription": "Send an order enquiry for FreClean Jasmine Breeze room freshener.",
@@ -558,6 +578,26 @@
         "prompt": "Choose a quantity and send an order enquiry. FreClean confirms the final price, availability and payment instructions directly.",
         "request": "Request to order",
         "imageAlt": "FreClean Jasmine Breeze room freshener, 300 mL"
+      },
+      "fragranceDetails": {
+        "overview": "Product overview",
+        "overviewTitle": "Jasmine-inspired fragrance.",
+        "overviewText": "This 300 mL FreClean room freshener is presented for adding a pleasant scent to living areas and suitable working spaces. It is identified as Jasmine Breeze and should be used according to the bottle label.",
+        "package": "Package",
+        "packageTitle": "300 mL bottle.",
+        "packageText": "One bottle is available for $9.99 USD. Stock, fragrance availability and delivery arrangements are confirmed with FreClean before purchase rather than guaranteed by the website listing.",
+        "fragranceUse": "Fragrance use",
+        "fragranceUseTitle": "Refresh the room.",
+        "fragranceUseText": "Use in a ventilated area and keep the spray directed toward the air or as specified by the product label. Avoid spraying directly onto people, pets, food, finished furniture, fabrics or delicate surfaces unless the label permits it.",
+        "order": "How to order",
+        "orderTitle": "Enquire, then confirm.",
+        "orderText": "Select a quantity and send the order enquiry. FreClean will confirm the final amount, stock, pickup or delivery, and approved payment instructions. Payment is not taken on this website.",
+        "safety": "Use safely",
+        "safetyTitle": "Avoid direct exposure.",
+        "safetyText": "Keep out of reach of children and pets. Do not inhale concentrated mist or spray near open flame. Stop use if fragrance irritates the eyes or skin or triggers breathing discomfort, and seek appropriate help when needed.",
+        "storage": "Storage",
+        "storageTitle": "Protect the bottle.",
+        "storageText": "Keep the closure secure and store upright in a cool, dry place away from heat, open flame and direct sunlight. Follow all warnings, first-use instructions and disposal directions printed on the bottle."
       }
     },
     "booking": {
