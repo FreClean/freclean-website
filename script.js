@@ -603,7 +603,7 @@
       var productId = orderQuery.get('product');
       var productOrder = isDirectContactForm ? ({
         'all-purpose-cleaner-750ml': { nameKey: 'products.index.cleanerName', sizeKey: 'products.index.cleanerSize' },
-        'room-freshener-linen-breeze-300ml': { nameKey: 'products.index.freshenerName', sizeKey: 'products.index.freshenerSize' }
+        'room-freshener-jasmine-breeze-300ml': { nameKey: 'products.index.freshenerName', sizeKey: 'products.index.freshenerSize' }
       }[productId] || (productId === 'freclean-bracelet' && orderQuery.get('product_name') && orderQuery.get('product_size') ? {
         name: orderQuery.get('product_name'),
         size: orderQuery.get('product_size')

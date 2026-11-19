@@ -13,13 +13,13 @@ test('cart totals combine the fixed cleaner, freshener, and accessory prices', (
   const productMap = new Map(products.map((product) => [product.id, product]));
   const quantities = new Map([
     ['all-purpose-cleaner-750ml', 1],
-    ['room-freshener-linen-breeze-300ml', 2],
+    ['room-freshener-jasmine-breeze-300ml', 2],
     ['freclean-bracelet', 1]
   ]);
 
   assert.deepEqual(calculateTotals(productMap, quantities), { minimum: 4296, maximum: 4296 });
   assert.equal(productMap.get('all-purpose-cleaner-750ml').price.amount, 7.99);
-  assert.equal(productMap.get('room-freshener-linen-breeze-300ml').price.amount, 9.99);
+  assert.equal(productMap.get('room-freshener-jasmine-breeze-300ml').price.amount, 9.99);
 });
 
 test('cart rejects prices in unsupported currencies or malformed ranges', () => {

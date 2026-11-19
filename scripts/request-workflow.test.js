@@ -311,7 +311,7 @@ test('product cards show sizes and prices and add the selected quantity to the c
   assert.equal(cleaner.price.display, '$7.99 USD');
   assert.deepEqual(products.slice(0, 2).map(({ id, availableSizes }) => [id, availableSizes[0]]), [
     ['all-purpose-cleaner-750ml', '750 mL'],
-    ['room-freshener-linen-breeze-300ml', '300 mL']
+    ['room-freshener-jasmine-breeze-300ml', '300 mL']
   ]);
   for (const product of products.slice(0, 2)) {
     assert.ok(fs.existsSync(path.join(root, product.image)));
