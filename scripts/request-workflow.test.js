@@ -220,11 +220,11 @@ test('About page includes the verified company profile, distinct programs and ex
   assert.match(press, /src="\.\.\/assets\/FreClean-logo\.png"/);
   assert.match(press, /src="\.\.\/assets\/logo-landscape-2\.png"/);
   assert.match(press, /src="\.\.\/assets\/catalog-portrait-3\.png"/);
-  assert.match(press, /src="\.\.\/assets\/catalog-portrait-1\.png"/);
+  assert.match(press, /src="\.\.\/assets\/catalog-portrait-5\.png"/);
   assert.match(press, /href="mailto:freclean7@gmail\.com\?subject=FreClean%20media%20assets%20request"/);
   assert.doesNotMatch(press, /coming soon|about\/#brand-assets/i);
   assert.doesNotMatch(press, /accessible digital commerce|locally developed cleaning products/i);
-  for (const asset of ['FreClean-logo.png', 'logo-landscape-2.png', 'catalog-portrait-3.png', 'catalog-portrait-1.png']) {
+  for (const asset of ['FreClean-logo.png', 'logo-landscape-2.png', 'catalog-portrait-3.png', 'catalog-portrait-5.png']) {
     assert.ok(fs.existsSync(path.join(root, 'assets', asset)), `Press image ${asset} exists`);
   }
 });
