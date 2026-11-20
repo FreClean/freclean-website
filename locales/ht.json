@@ -842,9 +842,9 @@
       "start": "Kòmanse yon konvèsasyon"
     },
     "press": {
-      "metaDescription": "Enfòmasyon ofisyèl FreClean pou laprès, deskripsyon mak la, kontak fondatè a ak detay sou resous medya ki apwouve.",
-      "openGraphDescription": "Enfòmasyon ofisyèl FreClean pou laprès.",
-      "title": "Dosye pou laprès | FreClean",
+      "metaDescription": "Enfòmasyon ofisyèl pou laprès ak resous medya pou FreClean ak fondatè Johnny Dubic, ansanm ak dat fondasyon an, kote li ye ak domèn konpayi an konsantre sou yo.",
+      "openGraphDescription": "Enfòmasyon ofisyèl pou laprès ak resous medya apwouve pou Johnny Dubic, fondatè FreClean.",
+      "title": "Dosye pou laprès | Johnny Dubic, fondatè FreClean",
       "heading": "Dosye pou laprès FreClean",
       "atGlance": "FreClean an kèk mo",
       "subtitle": "pou medya ak patnè.",
@@ -854,10 +854,16 @@
       "companyDetails": "FreClean se yon biznis sèvis netwayaj ak pwodwi pou konsomatè ki baze Leyogàn, Ayiti. Johnny Dubic te fonde l nan dat 16 avril 2025. Biznis la resevwa demann pou sèvis netwayaj pwofesyonèl, li ofri pwodui pou swen kay ak bon sant, epi l ap devlope aktivite antreprenarya ak sipò kominotè.",
       "founder": "Fondatè",
       "founderName": "Johnny Dubic",
-      "founderBio": "Johnny Dubic te fonde FreClean nan Léogâne, Ayiti, nan dat 16 avril 2025, epi li dirije devlopman estratejik li. FreClean konsantre sou netwayaj pwofesyonèl, pwodwi pou swen kay ak pwodwi parfen, antreprenarya, sipò kominotè ak patenarya.",
-      "brandAssets": "Resous mak la",
-      "logoImages": "Logo ofisyèl ak imaj",
-      "assetsDetails": "Logo ofisyèl FreClean, logo orizontal la ak kèk imaj pwodwi parèt anba a. Kontakte FreClean pou konfime ki itilizasyon ki apwouve.",
+      "founderBio": "Johnny Dubic te fonde FreClean nan Léogâne, Ayiti, nan dat 16 avril 2025, epi li dirije devlopman estratejik li.",
+      "brandAssets": "Resous medya ofisyèl",
+      "logoImages": "Imaj FreClean ak fondatè li",
+      "assetsDetails": "Telechaje epi itilize sèlman resous ki apwouve anba a pou bay enfòmasyon egzak sou FreClean. Foto fondatè a se foto ofisyèl Johnny Dubic pou laprès.",
+      "officialPressPhotoAlt": "Foto ofisyèl Johnny Dubic pou laprès, fondatè FreClean",
+      "officialPressPhotoTitle": "Johnny Dubic - Foto ofisyèl FreClean pou laprès",
+      "founderPhotoCaption": "Johnny Dubic - Foto ofisyèl pou laprès (960 x 1280)",
+      "founderPhotoDownload": "Telechaje foto ofisyèl fondatè a",
+      "founderRoleLabel": "Wòl",
+      "founderFocus": "Netwayaj pwofesyonèl, pwodwi pou swen kay ak bon sant, antreprenarya, sipò kominotè, ak patenarya",
       "officialLogoAlt": "Logo ofisyèl FreClean",
       "horizontalLogoAlt": "Travay logo orizontal FreClean",
       "cleanerImageAlt": "Imaj pwodwi netwayan pou plizyè itilizasyon FreClean",
@@ -1363,7 +1369,6 @@
     "c261": "Louvri meni navigasyon",
     "c262": "Navigasyon prensipal",
     "c263": "Nan paj sa a",
-    "c264": "Ekosistèm biznis FreClean gen entansyon",
-    "c265": "Johnny Dubic, fondatè FreClean"
+    "c264": "Ekosistèm biznis FreClean gen entansyon"
   }
 }

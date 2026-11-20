@@ -842,9 +842,9 @@
       "start": "Vamos conversar"
     },
     "press": {
-      "metaDescription": "Informações oficiais para a imprensa sobre a FreClean, descrição da marca, contato do fundador e detalhes de recursos de mídia autorizados.",
-      "openGraphDescription": "Informações oficiais para a imprensa sobre a FreClean.",
-      "title": "Kit de imprensa | FreClean",
+      "metaDescription": "Informações oficiais para a imprensa e materiais de mídia da FreClean e de seu fundador, Johnny Dubic, incluindo a data de fundação, a localização e o foco da empresa.",
+      "openGraphDescription": "Informações oficiais para a imprensa e materiais de mídia aprovados de Johnny Dubic, fundador da FreClean.",
+      "title": "Kit de imprensa | Johnny Dubic, fundador da FreClean",
       "heading": "Kit de imprensa da FreClean",
       "atGlance": "FreClean em resumo",
       "subtitle": "para a imprensa e parceiros.",
@@ -854,10 +854,16 @@
       "companyDetails": "A FreClean é uma empresa de serviços de limpeza e produtos de consumo sediada em Léogâne, Haiti. Foi fundada por Johnny Dubic em 16 de abril de 2025. Oferece consultas sobre limpeza profissional e produtos para o lar e fragrâncias, além de desenvolver iniciativas de empreendedorismo e apoio comunitário.",
       "founder": "Fundador",
       "founderName": "Johnny Dubic",
-      "founderBio": "Johnny Dubic fundou a FreClean em Léogâne, Haiti, em 16 de abril de 2025, e orienta seu desenvolvimento estratégico. A FreClean tem foco em limpeza profissional, produtos para cuidados domésticos e fragrâncias, empreendedorismo, apoio comunitário e parcerias.",
-      "brandAssets": "Materiais da marca",
-      "logoImages": "Logotipo oficial e imagens",
-      "assetsDetails": "O logotipo oficial da FreClean, a arte horizontal e algumas imagens de produtos estão exibidos abaixo. Entre em contato para confirmar os usos autorizados.",
+      "founderBio": "Johnny Dubic fundou a FreClean em Léogâne, Haiti, em 16 de abril de 2025, e orienta seu desenvolvimento estratégico.",
+      "brandAssets": "Materiais oficiais para a imprensa",
+      "logoImages": "Imagens da FreClean e de seu fundador",
+      "assetsDetails": "Baixe e utilize apenas os materiais aprovados abaixo para informar corretamente sobre a FreClean. A foto do fundador é a foto oficial de imprensa de Johnny Dubic.",
+      "officialPressPhotoAlt": "Foto oficial de imprensa de Johnny Dubic, fundador da FreClean",
+      "officialPressPhotoTitle": "Johnny Dubic - Foto oficial de imprensa da FreClean",
+      "founderPhotoCaption": "Johnny Dubic - Foto oficial de imprensa (960 x 1280)",
+      "founderPhotoDownload": "Baixar foto oficial do fundador",
+      "founderRoleLabel": "Cargo",
+      "founderFocus": "Limpeza profissional, produtos para cuidados domésticos e fragrâncias, empreendedorismo, apoio comunitário e parcerias",
       "officialLogoAlt": "Logotipo oficial da FreClean",
       "horizontalLogoAlt": "Arte horizontal do logotipo da FreClean",
       "cleanerImageAlt": "Imagem do limpador multiuso da FreClean",
@@ -1363,7 +1369,6 @@
     "c261": "Abrir menu de navegação",
     "c262": "Navegação primária",
     "c263": "Nesta página",
-    "c264": "O ecossistema de negócios pretendido pela FreClean",
-    "c265": "Johnny Dubic, fundador da FreClean"
+    "c264": "O ecossistema de negócios pretendido pela FreClean"
   }
 }
