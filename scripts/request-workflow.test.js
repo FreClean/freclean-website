@@ -11,8 +11,8 @@ const script = fs.readFileSync(path.join(__dirname, '..', 'script.js'), 'utf8');
 test('products page loads fresh language catalogs instead of cached translations', () => {
   const productPage = fs.readFileSync(path.join(__dirname, '..', 'products/index.html'), 'utf8');
 
-  assert.ok(productPage.includes('script.js?v=products-i18n-20261117'));
-  assert.ok(script.includes("fetch('/locales/' + locale + '.json?v=products-i18n-20261117')"));
+  assert.ok(productPage.includes('script.js?v=site-copy-20261120'));
+  assert.ok(script.includes("fetch('/locales/' + locale + '.json?v=site-copy-20261120')"));
 });
 
 function createForm(name, valid = true) {
@@ -238,7 +238,7 @@ test('booking and contact pages expose required email validation and a live stat
     if (page === 'contact/index.html') {
       assert.match(html, /Leogane, Ouest, Haiti/);
       assert.match(html, /data-email-recipient="freclean7@gmail\.com"/);
-      assert.match(html, /script\.js\?v=contact-email-draft-20261117/);
+      assert.match(html, /script\.js\?v=site-copy-20261120/);
       assert.match(html, /mailto:contact@freclean\.com/);
       assert.match(html, /tel:\+50946128022/);
       assert.match(html, /name="message" required/);
@@ -675,8 +675,10 @@ test('payment choices are restricted to the four USDT networks and separate Celo
   assert.doesNotMatch(paymentPage, /permanent loss of funds|does not initiate checkout or display receiving addresses/i);
   assert.match(paymentPage, /href="https:\/\/app\.celoht\.com\/" target="_blank" rel="noopener noreferrer"/);
   assert.match(paymentPage, /Cash at physical points of sale/);
-  assert.match(paymentPage, /accepted only in person.*authorized physical points of sale.*not available online or remotely/s);
-  assert.match(paymentPage, /not confirmed bookings, purchases or payments/);
+  assert.match(paymentPage, /Cash is accepted in person at FreClean's authorized sales locations only/);
+  assert.match(paymentPage, /Contact us first to check where and when it is available/);
+  assert.match(paymentPage, /A message to FreClean does not book a service or complete a purchase/);
+  assert.match(paymentPage, /We will confirm the price, availability and payment method with you first/);
   assert.match(paymentPage, /class="cash-pos-illustration"[^>]*role="img"[^>]*aria-label="Illustration of a woman selling FreClean products"/);
   assert.match(paymentPage, /class="button button-primary" href="\.\.\/contact\/">Contact FreClean/);
   assert.match(bookingPage, /href="\.\.\/payments\/">View payment options/);
