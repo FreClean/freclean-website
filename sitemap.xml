@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url><loc>https://freclean.com/</loc></url>
   <url><loc>https://freclean.com/services/</loc></url>
   <url><loc>https://freclean.com/services/residential/</loc></url>
@@ -15,7 +15,7 @@
   <url><loc>https://freclean.com/business/</loc></url>
   <url><loc>https://freclean.com/entrepreneurship/</loc></url>
   <url><loc>https://freclean.com/impact/</loc></url>
-  <url><loc>https://freclean.com/about/</loc></url>
+  <url><loc>https://freclean.com/about/</loc><image:image><image:loc>https://freclean.com/assets/johnny-dubic-official-press-photo-01.jpg</image:loc><image:title>Johnny Dubic - Official FreClean Press Photo</image:title><image:caption>Official press photo of Johnny Dubic, founder of FreClean</image:caption></image:image></url>
   <url><loc>https://freclean.com/resources/</loc></url>
   <url><loc>https://freclean.com/contact/</loc></url>
   <url><loc>https://freclean.com/book/</loc></url>
@@ -31,5 +31,5 @@
   <url><loc>https://freclean.com/legal/accessibility-statement/</loc></url>
   <url><loc>https://freclean.com/partners/</loc></url>
   <url><loc>https://freclean.com/journal/</loc></url>
-  <url><loc>https://freclean.com/press/</loc></url>
+  <url><loc>https://freclean.com/press/</loc><image:image><image:loc>https://freclean.com/assets/johnny-dubic-official-press-photo-01.jpg</image:loc><image:title>Johnny Dubic - Official FreClean Press Photo</image:title><image:caption>Official press photo of Johnny Dubic, founder of FreClean</image:caption></image:image></url>
 </urlset>

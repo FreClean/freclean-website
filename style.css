@@ -1008,7 +1008,7 @@ p { color: var(--ink-soft); }
 }
 .press-assets-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: .75rem;
   margin: .25rem 0 1.25rem;
 }
