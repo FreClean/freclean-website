@@ -4449,14 +4449,6 @@ em {
   background: #123b35;
 }
 
-.about-impact__grid article > span {
-  display: block;
-  margin-bottom: 2rem;
-  color: #d7edbd;
-  font-size: .75rem;
-  font-weight: 800;
-}
-
 .about-impact__grid h3 {
   margin-bottom: .7rem;
   font-size: 1.6rem;
@@ -4713,14 +4705,6 @@ em {
 .about-model-grid article {
   padding: 1.15rem;
   background: #123b35;
-}
-
-.about-model-grid article > span {
-  display: block;
-  margin-bottom: 1.5rem;
-  color: #d7edbd;
-  font-size: .72rem;
-  font-weight: 800;
 }
 
 .about-model-grid h3 {
