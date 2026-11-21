@@ -167,6 +167,7 @@ test('About page includes the verified company profile, distinct programs and ex
   assert.match(html, /<link rel="canonical" href="https:\/\/freclean\.com\/about\/">/);
   assert.match(html, /"foundingDate": "2025-04-16"/);
   assert.match(html, /"name": "Johnny Dubic"/);
+  assert.match(html, /<a class="button button-outline" href="\.\.\/press\/">FreClean Press Kit <span aria-hidden="true">&rarr;<\/span><\/a>/);
   assert.match(html, /CeloHT is currently an official FreClean partner for payment services/);
   assert.match(html, /FreClean's current official payment partnership is with CeloHT/);
   for (const section of [
