@@ -707,10 +707,14 @@ form,
 }
 
 .nav-donate__logo {
-  width: 20px;
-  height: 20px;
-  flex: 0 0 20px;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  padding: 3px;
+  border: 1px solid rgba(255, 255, 255, .75);
   border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, .2);
   object-fit: cover;
 }
 
