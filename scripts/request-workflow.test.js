@@ -11,7 +11,7 @@ const script = fs.readFileSync(path.join(__dirname, '..', 'script.js'), 'utf8');
 test('products page loads fresh language catalogs instead of cached translations', () => {
   const productPage = fs.readFileSync(path.join(__dirname, '..', 'products/index.html'), 'utf8');
 
-  assert.ok(productPage.includes('script.js?v=site-copy-20261120'));
+  assert.ok(productPage.includes('script.js?v=ui-polish-20261121'));
   assert.ok(script.includes("fetch('/locales/' + locale + '.json?v=site-copy-20261120')"));
 });
 
@@ -241,7 +241,7 @@ test('booking and contact pages expose required email validation and a live stat
     if (page === 'contact/index.html') {
       assert.match(html, /Leogane, Ouest, Haiti/);
       assert.match(html, /data-email-recipient="freclean7@gmail\.com"/);
-      assert.match(html, /script\.js\?v=site-copy-20261120/);
+      assert.match(html, /script\.js\?v=ui-polish-20261121/);
       assert.match(html, /mailto:contact@freclean\.com/);
       assert.match(html, /tel:\+50946128022/);
       assert.match(html, /name="message" required/);
