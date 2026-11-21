@@ -216,6 +216,8 @@ test('About page includes the verified company profile, distinct programs and ex
     assert.ok(fs.existsSync(targetPath), `About page link ${href} resolves to a local page`);
   }
   assert.doesNotMatch(press, /class="press-secondary"/);
+  assert.match(press, /<a href="\.\.\/assets\/johnny-dubic-official-press-photo-01\.jpg" download="johnny-dubic-official-press-photo-01\.jpg"[^>]*><img class="press-founder-photo"/);
+  assert.match(press, /property="og:image" content="https:\/\/freclean\.com\/assets\/johnny-dubic-official-press-photo-01\.jpg"/);
   assert.match(press, /alt="Official FreClean logo"/);
   assert.match(press, /src="\.\.\/assets\/FreClean-logo\.png"/);
   assert.match(press, /src="\.\.\/assets\/logo-landscape-2\.png"/);
