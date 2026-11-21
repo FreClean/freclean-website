@@ -5542,3 +5542,32 @@ button:disabled,
     box-shadow: none;
   }
 }
+
+:is(.hero-media, .service-feature-image, .service-row-image, .product-image, .detail-image, .image-frame, .press-assets-grid figure, .celoht-payment-logo) {
+  border-radius: 18px;
+}
+
+.hero-media img,
+.hero-media .hero-video {
+  border-radius: inherit;
+}
+
+.product-item {
+  border-radius: 18px;
+}
+
+.product-item > img {
+  border-radius: 18px 18px 0 0;
+}
+
+.press-founder-photo {
+  border-radius: 18px;
+}
+
+.press-assets-grid img {
+  border-radius: 10px;
+}
+
+.celoht-payment-logo img {
+  border-radius: 14px;
+}
