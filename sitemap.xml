@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <url><loc>https://freclean.com/</loc></url>
+  <url><loc>https://freclean.com/</loc><image:image><image:loc>https://freclean.com/assets/FreClean-logo.png</image:loc><image:title>Official FreClean logo</image:title></image:image><image:image><image:loc>https://freclean.com/assets/logo-landscape-2.png</image:loc><image:title>FreClean horizontal logo artwork</image:title></image:image><image:image><image:loc>https://freclean.com/assets/catalog-landscape-2.png</image:loc><image:title>FreClean cleaner and Jasmine Breeze room freshener product images</image:title></image:image><image:image><image:loc>https://freclean.com/assets/catalog-portrait-3.png</image:loc><image:title>FreClean all-purpose cleaner product image</image:title></image:image><image:image><image:loc>https://freclean.com/assets/catalog-portrait-5.png</image:loc><image:title>FreClean Jasmine Breeze room freshener product image</image:title></image:image></url>
   <url><loc>https://freclean.com/services/</loc></url>
-  <url><loc>https://freclean.com/services/residential/</loc></url>
-  <url><loc>https://freclean.com/services/hospitality/</loc></url>
-  <url><loc>https://freclean.com/services/airbnb/</loc></url>
-  <url><loc>https://freclean.com/services/hotel/</loc></url>
-  <url><loc>https://freclean.com/services/office/</loc></url>
-  <url><loc>https://freclean.com/services/commercial/</loc></url>
-  <url><loc>https://freclean.com/services/specialized/</loc></url>
-  <url><loc>https://freclean.com/products/</loc></url>
-  <url><loc>https://freclean.com/products/cleaning-essentials/</loc></url>
-  <url><loc>https://freclean.com/products/fragrance-products/</loc></url>
+  <url><loc>https://freclean.com/services/residential/</loc><image:image><image:loc>https://freclean.com/assets/catalog-portrait-3.png</image:loc><image:title>FreClean all-purpose cleaner product image</image:title></image:image></url>
+  <url><loc>https://freclean.com/services/hospitality/</loc><image:image><image:loc>https://freclean.com/assets/catalog-landscape-2.png</image:loc><image:title>FreClean cleaner and Jasmine Breeze room freshener product images</image:title></image:image></url>
+  <url><loc>https://freclean.com/services/airbnb/</loc><image:image><image:loc>https://freclean.com/assets/catalog-portrait-3.png</image:loc><image:title>FreClean all-purpose cleaner product image</image:title></image:image></url>
+  <url><loc>https://freclean.com/services/hotel/</loc><image:image><image:loc>https://freclean.com/assets/catalog-landscape-2.png</image:loc><image:title>FreClean cleaner and Jasmine Breeze room freshener product images</image:title></image:image></url>
+  <url><loc>https://freclean.com/services/office/</loc><image:image><image:loc>https://freclean.com/assets/catalog-landscape-2.png</image:loc><image:title>FreClean cleaner and Jasmine Breeze room freshener product images</image:title></image:image></url>
+  <url><loc>https://freclean.com/services/commercial/</loc><image:image><image:loc>https://freclean.com/assets/catalog-landscape-2.png</image:loc><image:title>FreClean cleaner and Jasmine Breeze room freshener product images</image:title></image:image></url>
+  <url><loc>https://freclean.com/services/specialized/</loc><image:image><image:loc>https://freclean.com/assets/catalog-portrait-3.png</image:loc><image:title>FreClean all-purpose cleaner product image</image:title></image:image></url>
+  <url><loc>https://freclean.com/products/</loc><image:image><image:loc>https://freclean.com/assets/freclean-shop-woman.svg</image:loc><image:title>FreClean shop owner illustration</image:title></image:image><image:image><image:loc>https://freclean.com/assets/catalog-portrait-3.png</image:loc><image:title>FreClean all-purpose cleaner product image</image:title></image:image><image:image><image:loc>https://freclean.com/assets/catalog-portrait-5.png</image:loc><image:title>FreClean Jasmine Breeze room freshener product image</image:title></image:image><image:image><image:loc>https://freclean.com/assets/freclean-bracelet.png</image:loc><image:title>FreClean branded bracelet</image:title></image:image></url>
+  <url><loc>https://freclean.com/products/cleaning-essentials/</loc><image:image><image:loc>https://freclean.com/assets/catalog-portrait-3.png</image:loc><image:title>FreClean all-purpose cleaner product image</image:title></image:image></url>
+  <url><loc>https://freclean.com/products/fragrance-products/</loc><image:image><image:loc>https://freclean.com/assets/catalog-portrait-5.png</image:loc><image:title>FreClean Jasmine Breeze room freshener product image</image:title></image:image></url>
   <url><loc>https://freclean.com/business/</loc></url>
   <url><loc>https://freclean.com/entrepreneurship/</loc></url>
   <url><loc>https://freclean.com/impact/</loc></url>
@@ -19,7 +19,7 @@
   <url><loc>https://freclean.com/resources/</loc></url>
   <url><loc>https://freclean.com/contact/</loc></url>
   <url><loc>https://freclean.com/book/</loc></url>
-  <url><loc>https://freclean.com/payments/</loc></url>
+  <url><loc>https://freclean.com/payments/</loc><image:image><image:loc>https://freclean.com/assets/celoht-logo.png</image:loc><image:title>CeloHT logo</image:title></image:image></url>
   <url><loc>https://freclean.com/privacy/</loc></url>
   <url><loc>https://freclean.com/terms/</loc></url>
   <url><loc>https://freclean.com/legal/</loc></url>
@@ -31,5 +31,5 @@
   <url><loc>https://freclean.com/legal/accessibility-statement/</loc></url>
   <url><loc>https://freclean.com/partners/</loc></url>
   <url><loc>https://freclean.com/journal/</loc></url>
-  <url><loc>https://freclean.com/press/</loc><image:image><image:loc>https://freclean.com/assets/johnny-dubic-official-press-photo-01.jpg</image:loc><image:title>Johnny Dubic - Official FreClean Press Photo</image:title><image:caption>Official press photo of Johnny Dubic, founder of FreClean</image:caption></image:image></url>
+  <url><loc>https://freclean.com/press/</loc><image:image><image:loc>https://freclean.com/assets/johnny-dubic-official-press-photo-01.jpg</image:loc><image:title>Johnny Dubic - Official FreClean Press Photo</image:title><image:caption>Official press photo of Johnny Dubic, founder of FreClean</image:caption></image:image><image:image><image:loc>https://freclean.com/assets/FreClean-logo.png</image:loc><image:title>Official FreClean logo</image:title></image:image><image:image><image:loc>https://freclean.com/assets/logo-landscape-2.png</image:loc><image:title>FreClean horizontal logo artwork</image:title></image:image><image:image><image:loc>https://freclean.com/assets/catalog-portrait-3.png</image:loc><image:title>FreClean all-purpose cleaner product image</image:title></image:image><image:image><image:loc>https://freclean.com/assets/catalog-portrait-5.png</image:loc><image:title>FreClean Jasmine Breeze room freshener product image</image:title></image:image></url>
 </urlset>
