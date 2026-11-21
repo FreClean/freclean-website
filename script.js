@@ -795,7 +795,7 @@
       : null;
     if (reducedMotionQuery && reducedMotionQuery.matches) return;
 
-    var selectors = '.hero-copy > *, .hero-media, .intro-grid > *, .services-intro > *, .service-feature, .service-row, .split-section > *, .business-heading, .business-copy, .entrepreneurship-grid > *, .payments-section > *, .process-grid > div, .journal-grid article, .partnership-cta-inner > *, .final-cta-inner > *, .affiliate-section .detail-layout > *, .donation-intro__copy, .donation-transparency__item, .donation-giving, .payment-address-card';
+    var selectors = '.hero-copy > *, .hero-media, .intro-grid > *, .services-intro > *, .service-feature, .service-row, .content-card, .service-card, .product-item, .proof-card, .testimonial-card, .about-card, .cash-pos-card, .contribution-method-card, .payment-choice, .catalog-highlight, .press-assets-grid figure, .metric-grid > div, .split-section > *, .business-heading, .business-copy, .entrepreneurship-grid > *, .payments-section > *, .process-grid > div, .journal-grid article, .partnership-cta-inner > *, .final-cta-inner > *, .affiliate-section .detail-layout > *, .donation-intro__copy, .donation-transparency__item, .donation-giving, .payment-address-card';
     var elements = Array.from(document.querySelectorAll(selectors));
 
     if (!('IntersectionObserver' in window)) {

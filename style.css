@@ -5429,3 +5429,112 @@ em {
     transform: none;
   }
 }
+
+.button,
+.nav-cta,
+.nav-search,
+.menu-toggle,
+button {
+  transition: transform 220ms cubic-bezier(.2, .7, .2, 1), box-shadow 220ms ease, background-color 220ms ease, border-color 220ms ease, color 220ms ease;
+}
+
+.button:focus-visible,
+.nav-cta:focus-visible,
+.nav-search:focus-visible,
+.menu-toggle:focus-visible,
+button:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(16, 47, 61, .16);
+}
+
+button:active:not(:disabled),
+.button:active:not(:disabled),
+.nav-cta:active {
+  transform: translateY(0) scale(.98);
+}
+
+button:disabled,
+.button:disabled,
+.button[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
+:is(.content-card, .service-card, .service-feature, .service-row, .product-item, .proof-card, .testimonial-card, .about-card, .cash-pos-card, .contribution-method-card, .payment-choice, .catalog-highlight, .press-assets-grid figure, .metric-grid > div, .process-grid > div, .journal-grid article) {
+  min-width: 0;
+  transition: transform 280ms cubic-bezier(.2, .7, .2, 1), box-shadow 280ms ease, border-color 280ms ease, opacity 700ms cubic-bezier(.2, .7, .2, 1);
+}
+
+.text-link {
+  transition: color 180ms ease;
+}
+
+.text-link > span[aria-hidden="true"],
+.text-link > svg {
+  transition: transform 220ms cubic-bezier(.2, .7, .2, 1);
+}
+
+.text-link:hover > span[aria-hidden="true"],
+.text-link:focus-visible > span[aria-hidden="true"],
+.text-link:hover > svg,
+.text-link:focus-visible > svg {
+  transform: translateX(3px);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button:hover:not(:disabled),
+  .nav-cta:hover,
+  .nav-search:hover,
+  .menu-toggle:hover,
+  button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(16, 47, 61, .16);
+  }
+
+  :is(.content-card, .service-card, .service-feature, .service-row, .product-item, .proof-card, .testimonial-card, .about-card, .cash-pos-card, .contribution-method-card, .payment-choice, .catalog-highlight, .press-assets-grid figure, .metric-grid > div, .process-grid > div, .journal-grid article):hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow);
+    border-color: rgba(8, 121, 185, .24);
+  }
+}
+
+:is(.content-card, .service-card, .service-feature, .service-row, .product-item, .proof-card, .testimonial-card, .about-card, .cash-pos-card, .contribution-method-card, .payment-choice, .catalog-highlight, .press-assets-grid figure, .metric-grid > div, .process-grid > div, .journal-grid article):focus-within {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+  border-color: rgba(8, 121, 185, .24);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .nav-cta,
+  .nav-search,
+  .menu-toggle,
+  button,
+  .text-link > span[aria-hidden="true"],
+  .text-link > svg,
+  :is(.content-card, .service-card, .service-feature, .service-row, .product-item, .proof-card, .testimonial-card, .about-card, .cash-pos-card, .contribution-method-card, .payment-choice, .catalog-highlight, .press-assets-grid figure, .metric-grid > div, .process-grid > div, .journal-grid article) {
+    animation: none;
+    transition: none;
+  }
+
+  .button:hover,
+  .button:focus-visible,
+  .nav-cta:hover,
+  .nav-cta:focus-visible,
+  .nav-search:hover,
+  .nav-search:focus-visible,
+  .menu-toggle:hover,
+  .menu-toggle:focus-visible,
+  button:hover,
+  button:focus-visible,
+  button:active,
+  .button:active,
+  .text-link:hover > span[aria-hidden="true"],
+  .text-link:focus-visible > span[aria-hidden="true"],
+  .text-link:hover > svg,
+  .text-link:focus-visible > svg,
+  :is(.content-card, .service-card, .service-feature, .service-row, .product-item, .proof-card, .testimonial-card, .about-card, .cash-pos-card, .contribution-method-card, .payment-choice, .catalog-highlight, .press-assets-grid figure, .metric-grid > div, .process-grid > div, .journal-grid article):hover,
+  :is(.content-card, .service-card, .service-feature, .service-row, .product-item, .proof-card, .testimonial-card, .about-card, .cash-pos-card, .contribution-method-card, .payment-choice, .catalog-highlight, .press-assets-grid figure, .metric-grid > div, .process-grid > div, .journal-grid article):focus-within {
+    transform: none;
+    box-shadow: none;
+  }
+}
