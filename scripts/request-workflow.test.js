@@ -164,6 +164,7 @@ test('About page includes the verified company profile, distinct programs and ex
   assert.match(html, /<title>About FreClean \| Cleaning Services, Products &amp; Entrepreneurship<\/title>/);
   assert.match(html, /<h1 id="about-title">About FreClean<\/h1>/);
   assert.doesNotMatch(html, /class="about-hero/);
+  assert.doesNotMatch(html, /class="[^"]*\babout-founder\b[^"]*"/);
   assert.match(html, /<link rel="canonical" href="https:\/\/freclean\.com\/about\/">/);
   assert.match(html, /"foundingDate": "2025-04-16"/);
   assert.match(html, /"name": "Johnny Dubic"/);
@@ -184,7 +185,6 @@ test('About page includes the verified company profile, distinct programs and ex
     'values',
     'trust',
     'our-story',
-    'founder',
     'who-we-serve',
     'business-model',
     'payments',
